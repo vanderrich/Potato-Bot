@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@quick.eco/sqlite": "^1.0.4",
     "discord.js": "^13.6.0",
     "quick.db": "^7.1.3",
     "quick.eco": "^6.0.0"

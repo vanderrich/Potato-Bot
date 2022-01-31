@@ -5,6 +5,7 @@ const jobEmbed = new MessageEmbed()
   .addFields(jobs)
 module.exports = {
   name: "work",
+  aliases: [],
   usage: "work",
   cooldown: 3600,
   async execute(message, args, cmd, client){
@@ -32,7 +33,7 @@ module.exports = {
     let job = client.job.get(`job_${message.author.id}`)
     let amount = Math.floor(Math.random() * job.salary.max) + job.salary.min;
     let work = client.eco.work(message.author.id, message.guildId, amount, {});
-    if (work.cooldown) return message.reply(`You are tired rn you fat potato. Come back after ${work.time.minutes} minutes & ${work.time.seconds} seconds to work again.`);
+    if (work.cooldown) return message.reply(`You are tired rn. Come back after ${work.time.minutes} minutes & ${work.time.seconds} seconds to work again.`);
     else return message.reply(`You worked as **${job}** and earned **${amount}** 💸.`);
   }
 }

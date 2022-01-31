@@ -1,13 +1,13 @@
   //initialize variables
-const keepAlive = require('./server.js')
-keepAlive()
 const Eco = require("quick.eco");
 const db = require('quick.db')
 const fs = require('fs')
 const Discord = require('discord.js');
 const { prefix, shop, gameSettings, token } = require('./config.json');
 
-const client = new Discord.Client();  
+const client = new Discord.Client({
+	intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES]
+});  
 client.eco = new Eco.EconomyManager({
   adapter: "sqlite"
 }); // quick.eco
@@ -25,8 +25,9 @@ for (const folder of commandFolders) {
   //loops through all folders of commandFolders
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles) {
-    //loops through all the commandFiles and add them to the client commands collection
+    	//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./commands/${folder}/${file}`);
+		console.log(command)
 		client.commands.set(command.name, command);
 	}
 }
