@@ -1,8 +1,9 @@
 const {MessageEmbed} = require("discord.js")
-const {jobs} = require("../../config.json")
+const { jobs, jobsPure } = require("../../config.json")
 const jobEmbed = new MessageEmbed()
   .setTitle("Jobs")
   .addFields(jobs)
+
 module.exports = {
   name: "work",
   aliases: [],
@@ -13,6 +14,7 @@ module.exports = {
     if(args[1]){
       inputedJob += " " + args[1]
     }
+
     if(!client.job.get(`job_${message.author.id}`)){
       for(let i = 0; i<jobsPure.length; i++){
         if (jobsPure[i].name === inputedJob){
