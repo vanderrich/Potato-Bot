@@ -24,7 +24,7 @@ const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
   //loops through all folders of commandFolders
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
+	for (const file of commandFiles) {4
     	//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./commands/${folder}/${file}`);
 		console.log(command)
