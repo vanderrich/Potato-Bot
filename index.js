@@ -2,6 +2,8 @@
 const Eco = require("quick.eco");
 const db = require('quick.db')
 const fs = require('fs')
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 const Discord = require('discord.js');
 const { prefix, shop, gameSettings, token } = require('./config.json');
 
@@ -18,6 +20,9 @@ client.job = new db.table('job')
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 const commandFolders = fs.readdirSync('./commands');
+const clientId = '894060283373449317';
+const rest = new REST({ version: '9' }).setToken(token);
+const commands = []
 
 
 //initialize commands
@@ -28,6 +33,7 @@ for (const folder of commandFolders) {
     	//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./commands/${folder}/${file}`);
 		client.commands.set(command.name, command);
+		commands.push(command.data.toJSON());
 	}
 }
 
@@ -43,6 +49,22 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args,client, client.commands));
 	}
 }
+
+//slash commands
+(async () => {
+	try {
+		console.log('Started refreshing application (/) commands.');
+
+		await rest.put(
+			Routes.applicationCommands(clientId),
+			{ body: commands },
+		);
+
+		console.log('Successfully reloaded application (/) commands.');
+	} catch (error) {
+		console.error(error);
+	}
+})();
 
 //login
 client.login(token);
