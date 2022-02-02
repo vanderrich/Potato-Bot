@@ -1,12 +1,11 @@
 const prefix = require('../../config.json');
 const Discord = require('discord.js');
-const client = new Discord.Client();
 module.exports = {
   name: 'mute',
   description: 'mute someone',
   permissions: 'MANAGE_MESSAGES',
   guildOnly: true,
-  execute(message, args){
+  execute(message, args, cmd, client) {
     //initialize
     var muteRole = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));
     var muteChannel = message.guild.channels.cache.find(channel => channel.name.includes("modlogs"));

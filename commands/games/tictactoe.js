@@ -1,12 +1,11 @@
-  const Discord = require('discord.js')
-const client = new Discord.Client
+const Discord = require('discord.js')
 module.exports = {
     name: 'tictactoe',
     description: 'play tictactoe!',
     expectedArgs: '<opponent>',
     minArgs: 1,
     aliases: ['ttt', 'tic-tac-toe'],
-    async execute(message){
+    async execute(message, args, cmd, client) {
         //initialize
         var tictactoemap = ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']
         var opponent = message.mentions.users.first();

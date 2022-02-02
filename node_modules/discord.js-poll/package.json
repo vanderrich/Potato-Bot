@@ -1,0 +1,32 @@
+{
+  "name": "discord.js-poll",
+  "version": "1.0.4",
+  "description": "A poll command for discord.js bots",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolasmf/discord.js-poll.git"
+  },
+  "keywords": [
+    "discord.js",
+    "bot",
+    "poll",
+    "command"
+  ],
+  "author": "nicolasmf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolasmf/discord.js-poll/issues"
+  },
+  "homepage": "https://github.com/nicolasmf/discord.js-poll#readme",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
