@@ -27,7 +27,6 @@ for (const folder of commandFolders) {
 	for (const file of commandFiles) {4
     	//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./commands/${folder}/${file}`);
-		console.log(command)
 		client.commands.set(command.name, command);
 	}
 }
