@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@discordjs/rest": "^0.3.0",
     "@quick.eco/sqlite": "^1.0.4",
+    "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
     "discord.js-poll": "^1.0.4",
     "quick.db": "^7.1.3",
