@@ -9,18 +9,16 @@ module.exports = {
     if (!user) return message.channel.send("Please specify a user!");
     let amount = parseInt(args[1]);
     if (!amount || isNaN(amount)) return message.reply("Please specify a valid amount.");
-    let data = await client.eco.addMoney(user.id, message.guildId, amount); 
+    let data = await client.eco.addMoney(user.id, [], amount);
+    console.log(data)
     
     const embed = new Discord.MessageEmbed()
-        .setTitle(`Money Added!`)
-        .addField(`User`, `<@${user.id}>`)
-        .addField(`Balance Given`, `${amount} 💸`)
-        .addField(`Total Amount`, data)
-        .setColor("RANDOM")
-        .setThumbnail(user.displayAvatarURL)
-        .setTimestamp();
-    console.log(data.user, data.amount, data.after)
-    console.log(data)
-    return message.channel.send(embed);
+      .setTitle(`Money Added!`)
+      .addField(`User: <@${user.id}>`)
+      .addField(`Balance Given: ${amount} 💸`)
+      .addField(`Total Amount: ${data}`)
+      .setColor("RANDOM")
+    return message.channel.send({ embeds: [embed] })
+
   }
 }

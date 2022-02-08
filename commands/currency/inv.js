@@ -16,7 +16,6 @@ module.exports = {
     }, {});
     const result = Object.keys(arrayToObject).map(k => embed.addField(`Name: ${k}`,`Quantity: **${arrayToObject[k]}**`, false));
     
-  
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] })
   }
 }

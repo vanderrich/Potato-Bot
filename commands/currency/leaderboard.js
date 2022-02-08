@@ -13,6 +13,6 @@ module.exports = {
     leaderboard.forEach(u => {
       embed.addField(`${u.position}. ${client.users.cache.get(u.user) ? client.users.cache.get(u.user).tag : "Unknown#0000"}`, `${u.money} 💸`);
     });
-    return message.channel.send(embed);
+    return message.channel.send({ embeds: [embed] })
   }
 }

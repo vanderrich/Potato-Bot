@@ -10,12 +10,12 @@ module.exports = {
     if (!amount || isNaN(amount)) return message.reply("Please specify a valid amount.");
     let data = client.eco.setMoney(user.id, message.guildId, amount);
     const embed = new Discord.MessageEmbed()
-        .setTitle(`Money Updated!`)
-        .addField(`User`, `<@${user.id}>`)
-        .addField(`Total Amount`, amount)
-        .setColor("RANDOM")
-        .setThumbnail(user.displayAvatarURL)
-        .setTimestamp();
-    return message.channel.send(embed);
+      .setTitle(`Money Updated!`)
+      .addField(`User`, `<@${user.id}>`)
+      .addField(`Total Amount`, amount)
+      .setColor("RANDOM")
+      .setThumbnail(user.displayAvatarURL)
+      .setTimestamp();
+    return message.channel.send({ embeds: [embed] })
   }
 }
