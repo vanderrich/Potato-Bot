@@ -4,10 +4,11 @@ module.exports = {
   usage: "search",
   async execute(message, args, cmd, client, Discord){
     let users = [
-        "Pocket",
-        "T-Shirt",
-        "Zero's Databse",
-        "Street"
+      "Potato Pocket",
+      "Potato T-Shirt",
+      "Potato Peelers",
+      "Potato Street",
+      "Potato Town"
     ];
     let amount = Math.floor(Math.random() * 200) + 50;
     let beg = await client.eco.beg(message.author.id, message.guildId, amount, { canLose: true, cooldown: 300000, customName: "search" });
