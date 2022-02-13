@@ -1,7 +1,7 @@
 module.exports = {
     name: 'stop',
     aliases: ['st'],
-    execute(client, message) {
+    execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 
         if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
