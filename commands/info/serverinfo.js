@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 
 const filterLevels = {
     DISABLED: 'Off',
@@ -37,7 +36,7 @@ module.exports = {
     cooldown: 5,
     guildOnly: true,
     args: false,
-    execute(message){
+    execute(message, args, client, cmd, Discord) {
         //variables
         const roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         const members = message.guild.members.cache;
@@ -45,7 +44,7 @@ module.exports = {
         const emojis = message.guild.emojis.cache;
         
         //embed
-        const embed = new MessageEmbed()
+        const embed = new Discord.MessageEmbed()
             .setDescription(`**Server Info**`)
             .setColor('BLACK')
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
@@ -80,7 +79,7 @@ module.exports = {
             .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
     
             .setTimestamp();
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 
 }

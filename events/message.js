@@ -1,8 +1,11 @@
 const {prefix} = require('./../config.json')
 const Discord = require('discord.js') 
+const queue = new Map()
 module.exports = {
     name: 'message',
-    execute(message, client, clientCommands){
+    execute(message, client, clientCommands) {
+        const serverQueue = queue.get(message.guild.id);
+
         client.commands = clientCommands
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
@@ -54,7 +57,7 @@ module.exports = {
             setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
             try {
-            command.execute(message, args, commandName, client, Discord);
+                command.execute(message, args, commandName, client, Discord);
             } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
