@@ -23,7 +23,7 @@ module.exports = {
             return message.channel.send(`${message.author}, I can't join audio channel. ❌`);
         }
 
-        await message.channel.send(`Your ${res.playlist ? 'Your Playlist' : 'Your Track'} Loading... 🎧`);
+        await message.channel.send(`Your ${res.playlist ? 'Playlist' : 'Track'} Loading... 🎧`);
 
         res.playlist ? queue.addTracks(res.tracks) : queue.addTrack(res.tracks[0]);
 
