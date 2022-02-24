@@ -1,10 +1,9 @@
-const {MessageEmbed} = require('discord.js')
 module.exports = {
 	name: 'slots',
 	description: 'play some games',
-	execute(message, args) {
+  execute(message, args, cmd, bot, Discord) {
     var messages = [];
-    var bot = message.client
+    const { MessageEmbed } = Discord
     //initializes the emojis and the embed
     const diamond = bot.emojis.cache.get("894921495665573898")
     const emerald = bot.emojis.cache.get("894921477080625223")
