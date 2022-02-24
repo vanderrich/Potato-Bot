@@ -14,9 +14,7 @@ module.exports = {
     
     const embed = new Discord.MessageEmbed()
       .setTitle(`Money Added!`)
-      .addField(`User: <@${user.id}>`)
-      .addField(`Balance Given: ${amount} 💸`)
-      .addField(`Total Amount: ${data}`)
+      .setDescription(`User: <@${user.id}>\nBalance Given: ${amount} 💸\nTotal Amount: ${data}`)
       .setColor("RANDOM")
     return message.channel.send({ embeds: [embed] })
 

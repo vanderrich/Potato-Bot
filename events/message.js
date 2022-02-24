@@ -13,6 +13,7 @@ module.exports = {
             || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
         if (!command) return;
+        if (message.author.id == client.id) return;
 
         if (command.guildOnly && message.channel.type === 'dm') {
             return message.reply('I can\'t execute that command inside DMs!');

@@ -16,8 +16,8 @@ module.exports = {
       .setTitle("Store")
       .setDescription(content)
       .setColor("BLURPLE")
-      .setFooter("Do :?buy <item> to purchase the item.")
-      return message.channel.send(embed);
+        .setFooter("Do potat buy <item> to purchase the item.")
+      return message.channel.send({ embeds: [embed] });
     }
     let userBalance = await client.eco.fetchMoney(message.author.id, message.guildId);
     if (userBalance.amount < 1) return message.channel.send("Looks like you are so poor lol.");

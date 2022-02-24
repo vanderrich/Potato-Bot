@@ -1,4 +1,5 @@
 //initialize variables
+const Service = require('node-windows').Service;
 const { Player } = require('discord-player');
 const Eco = require("quick.eco");
 const db = require('quick.db')
@@ -27,6 +28,13 @@ client.player = new Player(client, client.config.opt.discordPlayer);
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 
+// Run the bot as a service
+var svc = new Service({
+	name: 'Potato bot',
+	description: 'potatoes',
+	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot\\index.js'
+});
+
 
 //initialize commands
 for (const folder of commandFolders) {
@@ -52,6 +60,7 @@ for (const file of eventFiles) {
 	}
 }
 
+//other random thingys
 player.on('error', (queue, error) => {
 	console.log(`There was a problem with the song queue => ${error.message}`);
 });
@@ -81,7 +90,15 @@ player.on('queueEnd', (queue) => {
 	queue.metadata.send('All play queue finished, I think you can listen to some more music. ✅');
 });
 
+svc.on('install', function () {
+	svc.start();
+});
+
+svc.on('start', function () {
+	console.log(svc.name + ' started!\nVisit http://127.0.0.1:3000 to see it in action.');
+});
 
 
-//login
+//Run
 client.login(token);
+svc.install();

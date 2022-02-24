@@ -12,12 +12,12 @@ module.exports = {
       .setDescription('To participate, react on ✅')
       .addField('Goal: Be the fastest to write the words indicated.', 'you can exit the game by typing \`stop\` in the chat')
       .setFooter('to stop the game for everyone, type \`stopgame\`')
-    var message = await msg.channel.send(embed)
+    var message = await msg.channel.send({ embeds: [embed] })
     message.react('✅')
     var joinedUsers = []
     
     //filter
-    const filter = (reaction, user) => reaction.emoji.name === '✅' || reaction.emoji.name === '👎' && user.id === message.author.id;
+    const filter = (reaction, user) => reaction.emoji.name === '✅' || user.id === message.author.id;
     
     //creates a reaction collector and if someone reacts, add the user to the joined Users array
     const collector = await message.createReactionCollector(filter, {maxUsers: 100, time: 15000 });

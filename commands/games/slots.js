@@ -15,7 +15,7 @@ module.exports = {
       .setDescription('⬛⬛⬛')
     
     //sends the embed message and reacts to it
-    message.channel.send(embed).then((msg)=>{
+    message.channel.send({ embeds: [embed] }).then((msg) => {
       var frameCount = Math.floor(Math.random()*5)+5
       for (let i = 0; i < frameCount; i++){
         var slotdisplay = []
