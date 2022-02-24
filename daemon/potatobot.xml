@@ -1,0 +1,31 @@
+<service>
+	<id>potatobot.exe</id>
+	<name>Potato bot</name>
+	<description>potatoes</description>
+	<executable>D:\Program Files\nodejs\node.exe</executable>
+	<argument>--harmony</argument>
+	<argument>d:\programing\programming\GitHub\Potato-Bot\node_modules\node-windows\lib\wrapper.js</argument>
+	<argument>--file</argument>
+	<argument>D:\programing\programming\GitHub\Potato-Bot\index.js</argument>
+	<argument>--scriptoptions=</argument>
+	<argument>--log</argument>
+	<argument>Potato bot wrapper</argument>
+	<argument>--grow</argument>
+	<argument>0.25</argument>
+	<argument>--wait</argument>
+	<argument>1</argument>
+	<argument>--maxrestarts</argument>
+	<argument>3</argument>
+	<argument>--abortonerror</argument>
+	<argument>n</argument>
+	<argument>--stopparentfirst</argument>
+	<argument>undefined</argument>
+	<logmode>rotate</logmode>
+	<stoptimeout>30sec</stoptimeout>
+	<serviceaccount>
+		<domain>VANDER</domain>
+		<user>LocalSystem</user>
+		<password></password>
+	</serviceaccount>
+	<workingdirectory>d:\programing\programming\GitHub\Potato-Bot</workingdirectory>
+</service>
