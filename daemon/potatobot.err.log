@@ -1,0 +1,209 @@
+(node:5664) DeprecationWarning: Passing strings for MessageEmbed#setFooter is deprecated. Pass a sole object instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:5664) DeprecationWarning: The message event is deprecated. Use messageCreate instead
+D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350
+      throw new DiscordAPIError(data, res.status, request);
+            ^
+
+DiscordAPIError: Cannot send an empty message
+    at RequestHandler.execute (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async RequestHandler.push (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+    at async TextChannel.send (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\structures\interfaces\TextBasedChannel.js:175:15) {
+  method: 'post',
+  path: '/channels/895131542177861692/messages',
+  code: 50006,
+  httpStatus: 400,
+  requestData: {
+    json: {
+      content: undefined,
+      tts: false,
+      nonce: undefined,
+      embeds: undefined,
+      components: undefined,
+      username: undefined,
+      avatar_url: undefined,
+      allowed_mentions: undefined,
+      flags: undefined,
+      message_reference: undefined,
+      attachments: undefined,
+      sticker_ids: undefined
+    },
+    files: []
+  }
+}
+(node:9668) DeprecationWarning: The message event is deprecated. Use messageCreate instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ReferenceError: MessageEmbed is not defined
+    at Object.execute (D:\programing\programming\GitHub\Potato-Bot\commands\info\help.js:15:26)
+    at Object.execute (D:\programing\programming\GitHub\Potato-Bot\events\message.js:61:25)
+    at Client.<anonymous> (D:\programing\programming\GitHub\Potato-Bot\index.js:59:44)
+    at Client.emit (node:events:390:28)
+    at MessageCreateAction.handle (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\actions\MessageCreate.js:34:18)
+    at Object.module.exports [as MESSAGE_CREATE] (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\handlers\MESSAGE_CREATE.js:4:32)
+    at WebSocketManager.handlePacket (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketManager.js:351:31)
+    at WebSocketShard.onPacket (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketShard.js:444:22)
+    at WebSocketShard.onMessage (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketShard.js:301:10)
+    at WebSocket.onMessage (D:\programing\programming\GitHub\Potato-Bot\node_modules\ws\lib\event-target.js:199:18)
+D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350
+      throw new DiscordAPIError(data, res.status, request);
+            ^
+
+DiscordAPIError: Cannot send an empty message
+    at RequestHandler.execute (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async RequestHandler.push (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+    at async TextChannel.send (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\structures\interfaces\TextBasedChannel.js:175:15) {
+  method: 'post',
+  path: '/channels/895484415445184522/messages',
+  code: 50006,
+  httpStatus: 400,
+  requestData: {
+    json: {
+      content: undefined,
+      tts: false,
+      nonce: undefined,
+      embeds: undefined,
+      components: undefined,
+      username: undefined,
+      avatar_url: undefined,
+      allowed_mentions: undefined,
+      flags: undefined,
+      message_reference: undefined,
+      attachments: undefined,
+      sticker_ids: undefined
+    },
+    files: []
+  }
+}
+(node:20100) DeprecationWarning: The message event is deprecated. Use messageCreate instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:20100) DeprecationWarning: Passing strings for MessageEmbed#setFooter is deprecated. Pass a sole object instead.
+ReferenceError: MessageEmbed is not defined
+    at Object.execute (D:\programing\programming\GitHub\Potato-Bot\commands\info\help.js:15:26)
+    at Object.execute (D:\programing\programming\GitHub\Potato-Bot\events\message.js:61:25)
+    at Client.<anonymous> (D:\programing\programming\GitHub\Potato-Bot\index.js:59:44)
+    at Client.emit (node:events:390:28)
+    at MessageCreateAction.handle (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\actions\MessageCreate.js:34:18)
+    at Object.module.exports [as MESSAGE_CREATE] (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\handlers\MESSAGE_CREATE.js:4:32)
+    at WebSocketManager.handlePacket (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketManager.js:351:31)
+    at WebSocketShard.onPacket (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketShard.js:444:22)
+    at WebSocketShard.onMessage (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketShard.js:301:10)
+    at WebSocket.onMessage (D:\programing\programming\GitHub\Potato-Bot\node_modules\ws\lib\event-target.js:199:18)
+ReferenceError: MessageEmbed is not defined
+    at Object.execute (D:\programing\programming\GitHub\Potato-Bot\commands\info\help.js:15:26)
+    at Object.execute (D:\programing\programming\GitHub\Potato-Bot\events\message.js:61:25)
+    at Client.<anonymous> (D:\programing\programming\GitHub\Potato-Bot\index.js:59:44)
+    at Client.emit (node:events:390:28)
+    at MessageCreateAction.handle (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\actions\MessageCreate.js:34:18)
+    at Object.module.exports [as MESSAGE_CREATE] (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\handlers\MESSAGE_CREATE.js:4:32)
+    at WebSocketManager.handlePacket (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketManager.js:351:31)
+    at WebSocketShard.onPacket (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketShard.js:444:22)
+    at WebSocketShard.onMessage (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\client\websocket\WebSocketShard.js:301:10)
+    at WebSocket.onMessage (D:\programing\programming\GitHub\Potato-Bot\node_modules\ws\lib\event-target.js:199:18)
+D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350
+      throw new DiscordAPIError(data, res.status, request);
+            ^
+
+DiscordAPIError: Cannot send an empty message
+    at RequestHandler.execute (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async RequestHandler.push (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+    at async TextChannel.send (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\structures\interfaces\TextBasedChannel.js:175:15) {
+  method: 'post',
+  path: '/channels/894764535892819988/messages',
+  code: 50006,
+  httpStatus: 400,
+  requestData: {
+    json: {
+      content: undefined,
+      tts: false,
+      nonce: undefined,
+      embeds: undefined,
+      components: undefined,
+      username: undefined,
+      avatar_url: undefined,
+      allowed_mentions: undefined,
+      flags: undefined,
+      message_reference: undefined,
+      attachments: undefined,
+      sticker_ids: undefined
+    },
+    files: []
+  }
+}
+(node:13804) DeprecationWarning: The message event is deprecated. Use messageCreate instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:13804) DeprecationWarning: Passing strings for MessageEmbed#setFooter is deprecated. Pass a sole object instead.
+D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350
+      throw new DiscordAPIError(data, res.status, request);
+            ^
+
+DiscordAPIError: Cannot send an empty message
+    at RequestHandler.execute (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async RequestHandler.push (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+    at async TextChannel.send (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\structures\interfaces\TextBasedChannel.js:175:15) {
+  method: 'post',
+  path: '/channels/894764535892819988/messages',
+  code: 50006,
+  httpStatus: 400,
+  requestData: {
+    json: {
+      content: undefined,
+      tts: false,
+      nonce: undefined,
+      embeds: undefined,
+      components: undefined,
+      username: undefined,
+      avatar_url: undefined,
+      allowed_mentions: undefined,
+      flags: undefined,
+      message_reference: undefined,
+      attachments: undefined,
+      sticker_ids: undefined
+    },
+    files: []
+  }
+}
+(node:18744) DeprecationWarning: Passing strings for MessageEmbed#setFooter is deprecated. Pass a sole object instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:18744) DeprecationWarning: The message event is deprecated. Use messageCreate instead
+D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350
+      throw new DiscordAPIError(data, res.status, request);
+            ^
+
+DiscordAPIError: Cannot send an empty message
+    at RequestHandler.execute (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:350:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async RequestHandler.push (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\rest\RequestHandler.js:51:14)
+    at async TextChannel.send (D:\programing\programming\GitHub\Potato-Bot\node_modules\discord.js\src\structures\interfaces\TextBasedChannel.js:175:15)
+    at async Object.execute (D:\programing\programming\GitHub\Potato-Bot\commands\games\fast type.js:15:19) {
+  method: 'post',
+  path: '/channels/894764535892819988/messages',
+  code: 50006,
+  httpStatus: 400,
+  requestData: {
+    json: {
+      content: undefined,
+      tts: false,
+      nonce: undefined,
+      embeds: undefined,
+      components: undefined,
+      username: undefined,
+      avatar_url: undefined,
+      allowed_mentions: undefined,
+      flags: undefined,
+      message_reference: undefined,
+      attachments: undefined,
+      sticker_ids: undefined
+    },
+    files: []
+  }
+}
+(node:3556) DeprecationWarning: The message event is deprecated. Use messageCreate instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:3556) DeprecationWarning: Passing strings for MessageEmbed#setFooter is deprecated. Pass a sole object instead.
