@@ -5,7 +5,7 @@ module.exports = {
     aliases: ['vol'],
     utilisation: `volume [1-${maxVol}]`,
     voiceChannel: true,
-
+    category: "Music",
     execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 

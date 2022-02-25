@@ -2,7 +2,8 @@ const {devQuiz} = require('../../config.json')
 module.exports = {
 	name: 'dev',
 	description: 'be a dev by completing a form!',
-	async execute(message, args, cmd, client, Discord) {
+  category: "Info",
+  async execute(message, args, cmd, client, Discord) {
     var embed = new Discord.MessageEmbed()
       .setTitle("Be a dev!")
     const user = client.users.cache.get(message.author.id);

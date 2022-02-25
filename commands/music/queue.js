@@ -3,7 +3,7 @@ module.exports = {
     aliases: ['q'],
     utilisation: '{prefix}queue',
     voiceChannel: true,
-
+    category: "Music",
     execute(message, args, cmd, client, Discord) {
         const queue = client.player.getQueue(message.guild.id);
 

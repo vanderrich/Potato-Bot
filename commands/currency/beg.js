@@ -2,7 +2,8 @@ module.exports = {
   name: "beg",
   aliases: [],
   usage: "beg",
-  async execute(message, args, cmd, client, Discord){
+  category: "Currency",
+  async execute(message, args, cmd, client, Discord) {
     let users = [
         "Potato Moon",
         "Mumbo potato",

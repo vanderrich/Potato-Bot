@@ -3,7 +3,8 @@ module.exports = {
   description: 'give someone a role',
   permission: 'MANAGE_MEMBERS',
   guildOnly: true,
-  execute(message, args){
+  category: "Moderation",
+  execute(message, args) {
     //variables
     const targetuser = message.mentions.users.first()
     args.shift()

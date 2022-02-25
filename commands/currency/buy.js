@@ -2,7 +2,8 @@ module.exports = {
   name: "buy",
   aliases: [],
   usage: "buy <item>",
-  async execute(message, args, cmd, client, Discord){
+  category: "Currency",
+  async execute(message, args, cmd, client, Discord) {
     let item = args[0];
     if (!item) {
       let items = Object.keys(client.shop);

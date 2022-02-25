@@ -4,7 +4,7 @@ module.exports = {
     name: 'search',
     aliases: [],
     utilisation: 'search [song name]',
-
+    category: "Music",
     async execute(message, args, cmd, client, Discord) {
 
         if (!args[0]) return message.channel.send(`${message.author}, Please enter a valid song name. ❌`);

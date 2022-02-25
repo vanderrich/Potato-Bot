@@ -9,6 +9,7 @@ module.exports = {
   aliases: [],
   usage: "work",
   cooldown: 3600,
+  category: "Currency",
   execute(message, args, cmd, client) {
     var inputedJob = args[0]
     if (args[1]) {

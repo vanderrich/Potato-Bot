@@ -1,6 +1,7 @@
 module.exports = {
     name: "nowplaying",
     aliases: ['np'],
+    category: "Music",
     execute(message, args, cmd, client, Discord) {
         const queue = client.player.getQueue(message.guild.id);
 

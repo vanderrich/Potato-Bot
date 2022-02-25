@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'ping',
 	description: 'Ping!',
+	category: "Info",
 	execute(message, args, cmd, client, Discord) {
 		const embed = new Discord.MessageEmbed()
 		const ping = Date.now() - message.createdTimestamp

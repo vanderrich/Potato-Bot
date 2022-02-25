@@ -2,6 +2,7 @@ module.exports= {
   name: 'sayembed',
   description: 'say something embed',
   usage: '<title, description>',
+  category: "Fun",
   execute(message, args, cmd, client, Discord) {
     if(args[0] == null){
       message.channel.send('you didnt input any arguments!')

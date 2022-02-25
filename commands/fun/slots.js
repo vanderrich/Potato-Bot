@@ -1,6 +1,7 @@
 module.exports = {
-	name: 'slots',
-	description: 'play some games',
+  name: 'slots',
+  description: 'play some games',
+  category: "Fun",
   execute(message, args, cmd, bot, Discord) {
     var messages = [];
     const { MessageEmbed } = Discord
@@ -12,14 +13,14 @@ module.exports = {
     var embed = new MessageEmbed()
       .setTitle('Slots')
       .setDescription('⬛⬛⬛')
-    
+
     //sends the embed message and reacts to it
     message.channel.send({ embeds: [embed] }).then((msg) => {
-      var frameCount = Math.floor(Math.random()*5)+5
-      for (let i = 0; i < frameCount; i++){
+      var frameCount = Math.floor(Math.random() * 5) + 5
+      for (let i = 0; i < frameCount; i++) {
         var slotdisplay = []
-        for (let x = 0; x < 3; x++){
-          switch(Math.floor(Math.random()*5)) {
+        for (let x = 0; x < 3; x++) {
+          switch (Math.floor(Math.random() * 5)) {
             case 1:
               slotdisplay[x] = diamond
               break;
@@ -42,22 +43,22 @@ module.exports = {
           .setDescription(slotdisplay.join('')))
 
         //check if the player won
-        if (slotdisplay.every( (val, i, arr) => val === arr[0] ) &&  i+1 == frameCount){
+        if (slotdisplay.every((val, i, arr) => val === arr[0]) && i + 1 == frameCount) {
           win = true
-        }else if (i+1 == frameCount){
+        } else if (i + 1 == frameCount) {
           win = false
         }
       }
       //sends the frames
-      for(let i = 0; i < messages.length; i++){
+      for (let i = 0; i < messages.length; i++) {
         msg.edit(messages[i])
       }
 
       //sends the result
-      if (win){
-        setTimeout(function(){message.channel.send(`${message.author} won!`)}, messages.length * 1000)
-      }else{
-        setTimeout(function(){message.channel.send(`You lost`)}, messages.length * 1000)
+      if (win) {
+        setTimeout(function () { message.channel.send(`${message.author} won!`) }, messages.length * 1000)
+      } else {
+        setTimeout(function () { message.channel.send(`You lost`) }, messages.length * 1000)
       }
     })
   }

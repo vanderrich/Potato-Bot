@@ -2,7 +2,8 @@ module.exports = {
   name: 'say',  
   aliases: ['speak'],
   description: 'make the bot repeat what you said',
-  execute(message, args){
+  category: "Fun",
+  execute(message, args) {
     var argument = '';
     for (i = 0; i < args.length; i++) {
       argument += args[i] + ' ';

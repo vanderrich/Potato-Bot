@@ -2,7 +2,8 @@ module.exports = {
   name: "inventory",
   aliases: ["inv"],
   usage: "inv",
-  async execute(message, args, cmd, client, Discord){
+  category: "Currency",
+  async execute(message, args, cmd, client, Discord) {
     const embed = new Discord.MessageEmbed()
       .setAuthor(`Inventory of ${message.author.tag}`, message.guild.iconURL)
       .setColor("RANDOM")

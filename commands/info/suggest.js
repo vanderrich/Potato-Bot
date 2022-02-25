@@ -3,7 +3,8 @@ module.exports = {
   name: 'suggest',
   description: 'suggest',
   usage: '<suggestion>',
-  execute(message, args){
+  category: "Info",
+  execute(message, args) {
     if(args == []){
       message.reply("you didn\'t provide any args");
       return;

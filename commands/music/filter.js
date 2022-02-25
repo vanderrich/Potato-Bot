@@ -2,7 +2,7 @@ module.exports = {
     name: 'filter',
     aliases: [],
     usage: 'filter [filter name]',
-
+    category: "Music",
     async execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 

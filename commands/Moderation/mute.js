@@ -5,6 +5,7 @@ module.exports = {
   description: 'mute someone',
   permissions: 'MANAGE_MESSAGES',
   guildOnly: true,
+  category: "Moderation",
   execute(message, args, cmd, client) {
     //initialize
     var muteRole = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));

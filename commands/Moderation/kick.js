@@ -3,7 +3,8 @@ module.exports = {
   name: "kick",
   permissions: "KICK_MEMBERS",
   description: "this command kicks a member",
-  execute(message, args){
+  category: "Moderation",
+  execute(message, args) {
     //initialize
     var muteChannel = message.guild.channels.cache.find(channel => channel.name.includes("modlogs"));
     var muteUser = message.mentions.members.first();

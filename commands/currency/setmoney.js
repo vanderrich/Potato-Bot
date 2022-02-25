@@ -2,7 +2,8 @@ const {admins} = require("../../config.json")
 module.exports = {
   name: "setmoney",
   usage: "setmoney @user <amount>",
-  async execute(message, args, cmd, client, Discord){
+  category: "Currency",
+  async execute(message, args, cmd, client, Discord) {
     if (!admins.includes(message.author.id)) return;
     let user = message.mentions.users.first();
     if (!user) return message.channel.send("Please specify a user!");

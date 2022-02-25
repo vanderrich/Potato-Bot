@@ -1,7 +1,8 @@
 module.exports = {
   name: 'removerole',
   description: 'remove someone\'s role',
-  execute(message, args){
+  category: "Moderation",
+  execute(message, args) {
     const targetuser = message.mentions.users.first()
     args.shift()  
     const rolename = args.join(' ')

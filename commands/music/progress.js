@@ -3,7 +3,7 @@ module.exports = {
     aliases: ["time"],
     utilisation: 'progress',
     voiceChannel: true,
-
+    category: "Music",
     async execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 

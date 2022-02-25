@@ -8,6 +8,7 @@ const Tenor = require("tenorjs").client({
 module.exports = {
     name: "train",
     description: "random thing idk",
+    category: "Fun",
     execute(message, args, cmd, client, Discord) {
         message.channel.send("train weee")
         Tenor.Search.Query("train", "50").then(Results => {

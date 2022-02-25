@@ -2,6 +2,7 @@ module.exports = {
   name: "lb",
   aliases: ["leaderboard", "ranks"],
   usage: "leaderboard",
+  category: "Currency",
   async execute(message, args, cmd, client, Discord) {
     let leaderboard = await client.eco.leaderboard(message.guildId, 15);
     if (!leaderboard || leaderboard.length < 1) return message.channel.send("❌ | Empty Leaderboard!");

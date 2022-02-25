@@ -36,6 +36,7 @@ module.exports = {
     cooldown: 5,
     guildOnly: true,
     args: false,
+    category: "Info",
     execute(message, args, client, cmd, Discord) {
         //variables
         const roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());

@@ -3,7 +3,8 @@ module.exports = {
     name: 'ban',
     description: "This command bans a member!",
     permissions: 'BAN_MEMBERS',
-    execute(message, args){
+    category: "Moderation",
+    execute(message, args) {
       //variables
       const user = message.mentions.users.first();
       var reason = args.shift()

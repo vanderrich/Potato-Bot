@@ -1,8 +1,7 @@
 module.exports = {
-  name: "search",
-  aliases: ["find"],
-  usage: "search",
-  async execute(message, args, cmd, client, Discord){
+  name: "find",
+  category: "Currency",
+  async execute(message, args, cmd, client, Discord) {
     let users = [
       "Potato Pocket",
       "Potato T-Shirt",
