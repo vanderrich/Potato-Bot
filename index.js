@@ -29,7 +29,7 @@ const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 
 // Run the bot as a service
-var svc = new Service({
+var svc = new Service({	
 	name: 'Potato bot',
 	description: 'potatoes',
 	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot\\index.js'
@@ -57,11 +57,10 @@ for (const file of eventFiles) {
 		client.once(event.name, (...args) => event.execute(...args, client));
 	} else {
 		client.on(event.name, (...args) => event.execute(...args, client, client.commands));
-	}
+	} 
 }
-
 //other random thingys
-player.on('error', (queue, error) => {
+player.on('error', (queue, error) => {	
 	console.log(`There was a problem with the song queue => ${error.message}`);
 });
 

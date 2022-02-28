@@ -7,6 +7,10 @@ module.exports = {
         const serverQueue = queue.get(message.guild.id);
 
         client.commands = clientCommands
+
+        if (message.content.substring(0, prefix.length) !== prefix) {
+            return
+        }
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
         const command = client.commands.get(commandName)
