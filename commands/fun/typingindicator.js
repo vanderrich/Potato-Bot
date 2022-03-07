@@ -2,7 +2,7 @@ module.exports = {
     name: "typingindicator",
     description: "Make the bot type",
     category: "Info",
-    execute(message) {
+    execute(message, args) {
         message.channel.sendTyping();
     }
 }
