@@ -1,7 +1,7 @@
 const { QueryType } = require('discord-player');
 module.exports = {
-    name: "play",
-    aliases: ["p"],
+    name: "insert",
+    aliases: ["i"],
     category: "Music",
     async execute(message, args, cmd, client, Discord) {
         if (!args[0]) return message.channel.send(`${message.author}, Write the name of the music you want to search. ❌`);

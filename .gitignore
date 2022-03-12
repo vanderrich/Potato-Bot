@@ -1,2 +1,5 @@
 botConfig.js
 config.json
+eco.sqlite
+json.sqlite
+daemon/

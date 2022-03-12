@@ -25,6 +25,7 @@ client.job = new db.table('job')
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.player = new Player(client, client.config.opt.discordPlayer);
+client.form = new Map();
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 
@@ -59,7 +60,7 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args, client, client.commands));
 	} 
 }
-//other random thingys
+//other random thingy
 player.on('error', (queue, error) => {	
 	console.log(`There was a problem with the song queue => ${error.message}`);
 });

@@ -18,25 +18,23 @@ module.exports = {
     var joinedUsers = []
 
     //filter
-    const filter = (reaction, user) => reaction.emoji.name === '✅' || user.id === message.author.id;
+    const filter = (reaction, user) => reaction.emoji.name === '✅' || user.id == message.author.id
 
     //creates a reaction collector and if someone reacts, add the user to the joined Users array
-    const collector = await message.createReactionCollector(filter, { maxUsers: 100, time: 15000 });
+    const collector = message.createReactionCollector({ filter, time: 15000 });
     collector.on('collect', (reaction, user) => {
-      if (user.id == message.author.id) return;
-
-      message.channel.send(`${user} joined the game!`);
+      message.channel.send(`${user.tag} joined the game!`);
       joinedUsers[joinedUsers.length] = { userId: user.id, points: 0 }
       console.log(joinedUsers)
     });
 
     collector.on('end', collected => {
       if (collected.size == 0) {
-        message.channel.send('no one joined the game')
+        message.channel.send('No one joined the game')
         return
       }
       message.channel.send(`${collected.size} players joined the game!`)
-      message.channel.send('starting game...')
+      message.channel.send('Starting game...')
       play(joinedUsers)
     });
 
@@ -52,7 +50,7 @@ module.exports = {
         var collector1;
         //sends the message and wait for messages
         await message.channel.send(randomQuestion).then(async () => {
-          collector1 = await message.channel.createMessageCollector(filter1, { max: 3, time: 5000, errors: ['time'] })
+          collector1 = await message.channel.createMessageCollector(filter1, { max: 3, time: 7500, errors: ['time'] })
         })
         const collector = collector1
         //if the user was first, find the user in the player file, add the points, add it to the user array and react it
@@ -111,6 +109,7 @@ module.exports = {
         } else if (user.points > third.points) {
           third = user;
         }
+        client.eco.addMoney(userId, [], user.points)
       })
       if (!first.userId == '') {
         message.channel.send(`<@${first.userId}>🥇: ${first.points}`)

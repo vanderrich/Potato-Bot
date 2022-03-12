@@ -7,7 +7,7 @@ module.exports = {
   category: "Currency",
   async execute(message, args, cmd, client) {
     let user = message.mentions.users.first() || message.author;
-    let userBalance = await client.eco.fetchMoney(user.id, message.guildId);
+    let userBalance = await client.eco.fetchMoney(user.id);
     const embed = new MessageEmbed()
       .setTitle(`Balance`)
       .addField(`User`, `${user}`)

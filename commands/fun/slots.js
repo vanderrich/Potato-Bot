@@ -8,8 +8,6 @@ module.exports = {
     //initializes the emojis and the embed
     const diamond = bot.emojis.cache.get("894921495665573898")
     const emerald = bot.emojis.cache.get("894921477080625223")
-    const potat = bot.emojis.cache.get("894921699173208074")
-    const goldenRing = bot.emojis.cache.get("854883219399639040")
     var embed = new MessageEmbed()
       .setTitle('Slots')
       .setDescription('⬛⬛⬛')
@@ -20,22 +18,16 @@ module.exports = {
       for (let i = 0; i < frameCount; i++) {
         var slotdisplay = []
         for (let x = 0; x < 3; x++) {
-          switch (Math.floor(Math.random() * 5)) {
+          switch (Math.floor(Math.random() * 3)) {
             case 1:
               slotdisplay[x] = diamond
               break;
             case 2:
               slotdisplay[x] = '\:seven:'
               break;
-            case 3:
-              slotdisplay[x] = emerald
-              break
-            case 4:
-              slotdisplay[x] = potat
-              break
             default:
-              slotdisplay[x] = goldenRing
-              break
+              slotdisplay[x] = emerald
+              break;
           }
         }
         messages.unshift(new MessageEmbed()
@@ -51,14 +43,20 @@ module.exports = {
       }
       //sends the frames
       for (let i = 0; i < messages.length; i++) {
-        msg.edit(messages[i])
+        msg.edit({ embeds: [messages[i]] })
       }
 
       //sends the result
       if (win) {
-        setTimeout(function () { message.channel.send(`${message.author} won!`) }, messages.length * 1000)
+        setTimeout(async function () {
+          message.channel.send(`${message.author} won 50 💸!`);
+          console.log(await bot.eco.addMoney(message.author.id, message.guild.id, 50))
+        }, messages.length * 1000)
       } else {
-        setTimeout(function () { message.channel.send(`You lost`) }, messages.length * 1000)
+        setTimeout(async function () {
+          message.channel.send(`You lost 50 💸`)
+          console.log(await bot.eco.subtractMoney(message.author.id, message.guild.id, 50))
+        }, messages.length * 1000)
       }
     })
   }

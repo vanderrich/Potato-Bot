@@ -20,7 +20,7 @@ module.exports = {
         .setFooter("Do potat buy <item> to purchase the item.")
       return message.channel.send({ embeds: [embed] });
     }
-    let userBalance = await client.eco.fetchMoney(message.author.id, message.guildId);
+    let userBalance = await client.eco.fetchMoney(message.author.id);
     if (userBalance.amount < 1) return message.channel.send("Looks like you are so poor lol.");
     
     let amount = args[1]
@@ -31,7 +31,7 @@ module.exports = {
     if (!hasItem || hasItem == undefined) return message.reply("That item doesnt exists lol");
     let isBalanceEnough = (userBalance >= hasItem.cost);
     if (!isBalanceEnough) return message.reply("Your balance is insufficient. You need :dollar: "+hasItem.cost+" to buy this item.");
-    let buy = client.eco.subtractMoney(message.author.id, message.guildId, hasItem.cost);
+    let buy = client.eco.subtractMoney(message.author.id, [], hasItem.cost);
     
     let itemStruct = {
       name: item.toLowerCase(),

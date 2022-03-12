@@ -9,7 +9,7 @@ module.exports = {
     if (!user) return message.channel.send("Please specify a user!");
     let amount = parseInt(args[1]);
     if (!amount || isNaN(amount)) return message.reply("Please specify a valid amount.");
-    let data = client.eco.setMoney(user.id, message.guildId, amount);
+    let data = client.eco.setMoney(user.id, [], amount);
     const embed = new Discord.MessageEmbed()
       .setTitle(`Money Updated!`)
       .addField(`User`, `<@${user.id}>`)

@@ -5,7 +5,6 @@ module.exports = {
     category: "Music",
     async execute(message, args, cmd, client, Discord) {
         if (!args[0]) return message.channel.send(`${message.author}, Write the name of the music you want to search. ❌`);
-        console.log(client)
         const res = await client.player.search(args.join(' '), {
             requestedBy: message.member,
             searchEngine: QueryType.AUTO
