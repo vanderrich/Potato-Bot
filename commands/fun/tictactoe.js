@@ -9,64 +9,66 @@ module.exports = {
         //initialize
         var tictactoemap = ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']
         var opponent = message.mentions.users.first();
-        if (opponent == null) {
+        if (opponent == null || opponent.id === client.user.id) {
             message.reply('Please tag a user to play with!')
             return
         }
         const filter = response => {
             return response.author.id == message.author.id || response.author.id == opponent.id
         }
-        play(a)
-        var a = message.author.id
+        var turnUser = message.author.id
         var turn;
-        var aaaaa = false;
+        var gameEnd = false;
+        play(turnUser)
 
         //collector
-        const collector = await message.channel.createMessageCollector(filter, { max: 100, time: 300000, errors: ['time'] })
+        const collector = await message.channel.createMessageCollector({ filter, time: 300000, idle: 5000 })
         collector.on('collect', (m) => {
             //checks if the content is stop and if so exit the game
             if (m.content == 'stop') {
                 message.channel.send('exiting game...')
-                aaaaa = true
+                gameEnd = true
             }
             //check if game has not ended
-            if (aaaaa) return
+            if (gameEnd) return
             //check if collected user is not a bot and if its the one who started the message(? idk what i did)
-            if (m.author.id == client.id || m.author.id !== a) return
+            if (m.author.id == client.id || m.author.id !== turnUser) return
 
             var user = m.author
-            //checks whos turn is it
-            if (user.id == message.author.id) {
-                a = opponent.id;
-                turn = '⭕'
-            } else a == message.author.id; turn = '❌'
-
+            //checks who's turn is it
+            if (user.id === message.author.id) {
+                turnUser = opponent.id;
+                turn = '🔵'
+            } else if (user.id === opponent.id) {
+                turnUser = message.author.id; turn = '❌'
+            }
             //checks the coordinate that the user give
-            var x = parseInt(m.content.slice(0, 2))
-            var y = parseInt(m.content.slice(2))
+            var x = parseInt(m.content.slice(2))
+            var y = parseInt(m.content.slice(0, 2))
             if (!Number.isInteger(x) || !Number.isInteger(y)) {
                 m.reply('not a valid coordinate')
-                if (user.id == message.author.id) {
-                    a = opponent.id;
-                    turn = '⭕'
-                } else user.id == message.author.id; turn = '❌'
-                play(a)
+                play(turnUser)
+                if (user.id === message.author.id) {
+                    turnUser = message.author.id;
+                    turn = '🔵'
+                } else if (user.id === opponent.id) {
+                    turnUser = opponent.id; turn = '❌'
+                }
                 return
             }
             var coord = (3 * (y - 1)) + (x - 1)
-            if (tictactoemap[coord] == turn) {
-                m.reply('that space is allready taken!')
+            if (tictactoemap[coord] == '🔵' || tictactoemap[coord] == '❌') {
+                m.reply('That space is already taken!')
             } else {
                 tictactoemap[coord] = turn
             }
-
             //plays the game
-            play(a)
+            play(turnUser)
         });
         collector.on('end', collected => {
             message.channel.send('timeout')
         })
-        function play(a) {
+        function play(turnUser) {
             //processes the results
             var indices1 = [0, 1, 2]
             var indices2 = [3, 4, 5]
@@ -78,8 +80,13 @@ module.exports = {
 
             //check if player has won
             if (playerHasWon(result, turn)) {
-                message.channel.send(`${a} won!`)
-                aaaaa = true
+                if (turnUser.id === message.author.id) {
+                    winner = opponent.id;
+                } else if (turnUser.id === opponent.id) {
+                    winner = message.author.id;
+                }
+                message.channel.send(`<@${winner}> won!`)
+                gameEnd = true
             }
 
             //sends the current state
@@ -90,10 +97,10 @@ module.exports = {
                 .addFields(
                     { name: 'game', value: tictactoe }
                 )
-            if (aaaaa) {
-                message.channel.send(`<@${a}>\'s turn`)
+            if (!gameEnd) {
+                message.channel.send(`<@${turnUser}>\'s turn`)
             }
-            message.channel.send(exampleEmbed)
+            message.channel.send({ embeds: [exampleEmbed] })
         }
         function playerHasWon(gameBoard, player) {
             //diagonal
