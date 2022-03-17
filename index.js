@@ -30,11 +30,12 @@ const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 
 // Run the bot as a service
-var svc = new Service({	
+client.svc = new Service({	
 	name: 'Potato bot',
 	description: 'potatoes',
 	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot\\index.js'
 });
+const svc = client.svc
 
 
 //initialize commands
@@ -98,6 +99,10 @@ svc.on('start', function () {
 	console.log(svc.name + ' started!\nVisit http://127.0.0.1:3000 to see it in action.');
 });
 
+svc.on('uninstall', function () {
+	console.log('Uninstall complete.');
+	console.log('The service exists: ', svc.exists);
+});
 
 //Run
 client.login(token);

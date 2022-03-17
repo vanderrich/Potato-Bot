@@ -109,7 +109,7 @@ module.exports = {
         } else if (user.points > third.points) {
           third = user;
         }
-        client.eco.addMoney(userId, [], user.points)
+        client.eco.addMoney(userId, false, user.points)
       })
       if (!first.userId == '') {
         message.channel.send(`<@${first.userId}>🥇: ${first.points}`)

@@ -10,7 +10,7 @@ module.exports = {
     let amount = parseInt(args[1])
     if (!amount || isNaN(amount) || amount < 0) return message.channel.send('Please enter a valid amount to transfer') 
     if(authordata.amount < amount) return message.channel.send('Looks like you don\'t have that much money') 
-    await client.eco.subtractMoney(message.author.id, [], amount).then(client.eco.addMoney(member.id, [], amount)) 
+    await client.eco.subtractMoney(message.author.id, false, amount).then(client.eco.addMoney(member.id, false, amount)) 
     return message.channel.send(`You have successfully transferred 💸**${amount}** to ** ${member.user.tag}**.`)
   }
 }

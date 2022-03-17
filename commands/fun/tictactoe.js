@@ -22,12 +22,14 @@ module.exports = {
         play(turnUser)
 
         //collector
-        const collector = await message.channel.createMessageCollector({ filter, time: 300000, idle: 5000 })
+        const collector = await message.channel.createMessageCollector({ filter, time: 300000, idle: 60000 })
         collector.on('collect', (m) => {
             //checks if the content is stop and if so exit the game
             if (m.content == 'stop') {
-                message.channel.send('exiting game...')
+                message.channel.send('Stopped Game')
                 gameEnd = true
+                collector.stop("Game End")
+                return
             }
             //check if game has not ended
             if (gameEnd) return
@@ -65,7 +67,8 @@ module.exports = {
             //plays the game
             play(turnUser)
         });
-        collector.on('end', collected => {
+        collector.on('end', (collected, reason) => {
+            if (reason == "Game End") return
             message.channel.send('timeout')
         })
         function play(turnUser) {
@@ -79,14 +82,12 @@ module.exports = {
             indices3.forEach(i => result[2].push(tictactoemap[i]));
 
             //check if player has won
+            let winner;
             if (playerHasWon(result, turn)) {
-                if (turnUser.id === message.author.id) {
-                    winner = opponent.id;
-                } else if (turnUser.id === opponent.id) {
-                    winner = message.author.id;
-                }
-                message.channel.send(`<@${winner}> won!`)
+                message.channel.send(`<@${(turn == '🔵') ? message.author.id : opponent.id}> won!`)
                 gameEnd = true
+                collector.stop('Game End')
+                return
             }
 
             //sends the current state

@@ -4,7 +4,7 @@ module.exports = {
   usage: "leaderboard",
   category: "Currency",
   async execute(message, args, cmd, client, Discord) {
-    let leaderboard = await client.eco.leaderboard([], 15);
+    let leaderboard = await client.eco.leaderboard(false, 15);
     if (!leaderboard || leaderboard.length < 1) return message.channel.send("❌ | Empty Leaderboard!");
     const embed = new Discord.MessageEmbed()
       .setAuthor(`Leaderboard`, message.guild.iconURL)

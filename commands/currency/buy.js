@@ -1,11 +1,11 @@
 module.exports = {
   name: "buy",
-  aliases: [],
-  usage: "buy <item>",
+  aliases: ["shop"],
+  usage: "buy <item> [amount]",
   category: "Currency",
   async execute(message, args, cmd, client, Discord) {
-    let item = args[0];
-    if (!item) {
+    let item = args.join(" ");
+    if (item == []) {
       let items = Object.keys(client.shop);
       let content = "";
       
@@ -22,22 +22,26 @@ module.exports = {
     }
     let userBalance = await client.eco.fetchMoney(message.author.id);
     if (userBalance.amount < 1) return message.channel.send("Looks like you are so poor lol.");
-    
-    let amount = args[1]
-    if (!amount){
-      amount = 1;
-    }
     let hasItem = client.shop[item.toLowerCase()];
-    if (!hasItem || hasItem == undefined) return message.reply("That item doesnt exists lol");
-    let isBalanceEnough = (userBalance >= hasItem.cost);
+    if (!hasItem || hasItem == undefined) {
+      item = args.slice(0, -1).join(' ');
+      hasItem = client.shop[item.toLowerCase()];
+      if (!hasItem || hasItem == undefined)
+        return message.reply("That item doesn't exist");
+      else
+        amount = args[args.length - 1]; console.log(amount)
+    }
+    else
+      amount = 1
+    let isBalanceEnough = (userBalance >= hasItem.cost * amount);
     if (!isBalanceEnough) return message.reply("Your balance is insufficient. You need :dollar: "+hasItem.cost+" to buy this item.");
-    let buy = client.eco.subtractMoney(message.author.id, [], hasItem.cost);
+    let buy = client.eco.subtractMoney(message.author.id, false, hasItem.cost * amount);
     
     let itemStruct = {
       name: item.toLowerCase(),
-      prize: hasItem.cost
+      price: hasItem.cost
     };
-    
+    if (amount >= 5000) message.channel.send('Purchasing items, this might take a while') 
     for(let i = 0; i < amount; i++){
       client.db.push(`items_${message.author.id}`, itemStruct);
     }
