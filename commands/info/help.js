@@ -12,7 +12,6 @@ module.exports = {
 		const { commands } = client;
 		if (args.length > 0) {
 			let category = args[0].charAt(0).toUpperCase() + args[0].slice(1)
-			console.log(category)
 			if (!(categories.includes(category))) {
 				return message.channel.send("No category with that name")
 			}
@@ -20,7 +19,6 @@ module.exports = {
 			commands.forEach(command => {
 				if (command.category == category) {
 					commandsInCategory.push(command)
-					console.log(command)
 				}
 			})
 			const messageEmbed = new Discord.MessageEmbed()
@@ -28,9 +26,7 @@ module.exports = {
 				.setTitle(category)
 			for (command in commandsInCategory) {
 				command = commandsInCategory[command]
-				console.log(command.name)
 				description = command.description ? (command.usage ? (command.description + '\n' + command.usage) : command.description) : (command.usage ? command.usage : "No Description Available")
-				console.log(description)
 				messageEmbed.addField(command.name, description)
 			}
 			return message.channel.send({ embeds: [messageEmbed] })
@@ -47,7 +43,6 @@ module.exports = {
 			if (categories[category] == "Work in Progress") continue
 			a.push({ name: categories[category], value: `${value} commands in that category` })
 		}
-		console.log(a)
 		const messageEmbed = new Discord.MessageEmbed()
 			.setColor('#0099ff')
 			.setTitle('Commands')
