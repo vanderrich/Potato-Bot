@@ -35,7 +35,7 @@ module.exports = {
       amount = 1
     let isBalanceEnough = (userBalance >= hasItem.cost * amount);
     if (!isBalanceEnough) return message.reply("Your balance is insufficient. You need :dollar: "+hasItem.cost+" to buy this item.");
-    let buy = client.eco.subtractMoney(message.author.id, false, hasItem.cost * amount);
+    client.eco.subtractMoney(message.author.id, false, hasItem.cost * amount);
     
     let itemStruct = {
       name: item.toLowerCase(),

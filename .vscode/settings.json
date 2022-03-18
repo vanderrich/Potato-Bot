@@ -16,8 +16,8 @@
         "**/.settings": true,
         "**/.factorypath": true,
         "dev.js": true,
-        "**/daemon": true,
-        "daemon": true
+        "**/daemon": false,
+        "daemon": false
     },
     "explorerExclude.backup": null
 }

@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Reloads a command',
 	args: true,
   category: "Moderation",
-  execute(message, args) {
+  async execute(message, args) {
     //variables
 		const commandName = args[0].toLowerCase();
 		const command = message.client.commands.get(commandName)
