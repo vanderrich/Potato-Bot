@@ -48,7 +48,6 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setDescription(`**Server Info**`)
             .setColor('BLACK')
-            .setThumbnail(message.guild.iconURL({ dynamic: true }))
             .addField('General', [
                 `**Name:** ${message.guild.name}`,
                 `**ID:** ${message.guild.id}`,
@@ -78,8 +77,6 @@ module.exports = {
                 '\u200b'
             ])
             .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
-    
-            .setTimestamp();
         message.channel.send({ embeds: [embed] });
     }
 

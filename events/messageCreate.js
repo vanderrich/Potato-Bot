@@ -2,7 +2,7 @@ const {prefix} = require('./../config.json')
 const Discord = require('discord.js') 
 const queue = new Map()
 module.exports = {
-    name: 'message',
+    name: 'messageCreate',
     execute(message, client, clientCommands) {
         const serverQueue = queue.get(message.guild.id);
 
