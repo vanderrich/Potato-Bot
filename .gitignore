@@ -3,7 +3,6 @@ config.json
 eco.sqlite
 json.sqlite
 Procfile
-package.json
 package-lock.json
 node_modules/
 .vscode/
