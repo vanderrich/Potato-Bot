@@ -6,6 +6,7 @@ const db = require('quick.db')
 const fs = require('fs')
 const Discord = require('discord.js');
 const { prefix, shop, gameSettings, token } = require('./config.json');
+const ReactionRoleManager = require("discord-reaction-role");
 
 const client = new Discord.Client({
 	intents: [
@@ -28,6 +29,14 @@ client.player = new Player(client, client.config.opt.discordPlayer);
 client.form = new Map();
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
+const manager = new ReactionRoleManager(client, {
+	storage: "./reaction-roles.json"
+});
+client.reactionRoleManager = manager;
+console.log(client.reactionRoleManager)
+client.reactionRoleManager.on('reactionRoleAdded', (reactionRole, member, role, reaction) => {
+	console.log(`${member.user.username} added his reaction \`${reaction}\` and won the role : ${role.name}`);
+})
 
 // Run the bot as a service
 client.svc = new Service({	
