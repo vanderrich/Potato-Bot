@@ -9,7 +9,7 @@ module.exports = {
 		embed.setTitle("Ping")
 		embed.setDescription(`**Ping is ${ping}ms. API Latency is ${Math.round(client.ws.ping)}ms**`);
 		embed.addField("In words", `${fieldMessage}`, true)
-		embed.setFooter("Pong")
+		embed.setFooter({ text: "Pong" })
 		message.channel.send({ embeds: [embed] });
 	},
 };
