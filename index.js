@@ -1,45 +1,48 @@
 //initialize variables
-const Service = require('node-windows').Service;
+let Service
+try {
+	Service = require('node-windows').Service;
+} catch (error) {
+	Service = require('node-linux').Service;
+}
 const { Player } = require('discord-player');
 const Eco = require("quick.eco");
 const db = require('quick.db')
 const fs = require('fs')
 const Discord = require('discord.js');
-const { prefix, shop, gameSettings, token } = require('./config.json');
-const ReactionRoleManager = require("discord-reaction-role");
+const { prefix, shop, settings, token } = require('./config.json');
+//const reactionrolesjson = require('./reaction-roles.json')
 
 const client = new Discord.Client({
-	intents: [
-		Discord.Intents.FLAGS.GUILDS,
-		Discord.Intents.FLAGS.GUILD_MESSAGES,
-		Discord.Intents.FLAGS.GUILD_VOICE_STATES,
-		Discord.Intents.FLAGS.GUILD_MEMBERS
-	]
-});  
+	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
+	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"]
+});
 client.eco = new Eco.EconomyManager({
 	adapter: "sqlite"
 }); // quick.eco
 client.db = new db.table('inv'); // quick.db
-client.config = require("./botConfig");	
+client.config = require("./botConfig");
 client.shop = shop;
 client.job = new db.table('job')
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.player = new Player(client, client.config.opt.discordPlayer);
 client.form = new Map();
+client.settings = settings;
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
-const manager = new ReactionRoleManager(client, {
-	storage: "./reaction-roles.json"
-});
-client.reactionRoleManager = manager;
-console.log(client.reactionRoleManager)
-client.reactionRoleManager.on('reactionRoleAdded', (reactionRole, member, role, reaction) => {
-	console.log(`${member.user.username} added his reaction \`${reaction}\` and won the role : ${role.name}`);
-})
+// let reactionroles = [{}, {}, {}];
+// for (const i in reactionrolesjson) {
+// 	reactionroles[i].guild = client.guilds.cache.get(reactionrolesjson[i].guildId)
+// 	console.log(reactionroles[i])
+// 	console.log(reactionrolesjson[i].guildId)
+// 	reactionroles[i].channel = reactionroles[i].guild.channels.cache.get(reactionrolesjson[i].channelId)
+// 	reactionroles[i].message = reactionroles[i].channel.messages.cache.get(reactionrolesjson[i].messageId)
+// }
+client.rr = new db.table('reactionroles');
 
 // Run the bot as a service
-client.svc = new Service({	
+client.svc = new Service({
 	name: 'Potato bot',
 	description: 'potatoes',
 	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot\\index.js'
@@ -49,10 +52,10 @@ const svc = client.svc
 
 //initialize commands
 for (const folder of commandFolders) {
-  //loops through all folders of commandFolders
+	//loops through all folders of commandFolders
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {4
-    	//loops through all the commandFiles and add them to the client commands collection
+	for (const file of commandFiles) {
+		//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./commands/${folder}/${file}`);
 		client.commands.set(command.name, command);
 	}
@@ -62,16 +65,16 @@ for (const folder of commandFolders) {
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-  //loops through all files in eventFiles and process them
+	//loops through all files in eventFiles and process them
 	const event = require(`./events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args, client));
 	} else {
 		client.on(event.name, (...args) => event.execute(...args, client, client.commands));
-	} 
+	}
 }
 //other random thingy
-player.on('error', (queue, error) => {	
+player.on('error', (queue, error) => {
 	console.log(`There was a problem with the song queue => ${error.message}`);
 });
 

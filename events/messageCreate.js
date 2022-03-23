@@ -1,9 +1,21 @@
-const {prefix} = require('./../config.json')
+const { prefix } = require('./../config.json')
 const Discord = require('discord.js') 
 const queue = new Map()
 module.exports = {
     name: 'messageCreate',
-    execute(message, client, clientCommands) {
+    async execute(message, client, clientCommands) {
+        for (let i = 0; i < client.settings.default.bad_words.length; i++) {
+            let badword
+            try {
+                badword = message.content.includes(client.settings.default.bad_words[i]) || message.content.includes(client.settings[message.guild.id].bad_words[i])
+            } catch { }
+            if (badword) {
+                const m = await message.reply('Message contains a word in bad words list')
+                message.delete()
+                setTimeout(function () { m.delete() }, 5000)
+                return
+            }
+        }
         const serverQueue = queue.get(message.guild.id);
 
         client.commands = clientCommands
