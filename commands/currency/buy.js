@@ -34,7 +34,7 @@ module.exports = {
     else
       amount = 1
     let isBalanceEnough = (userBalance >= hasItem.cost * amount);
-    if (!isBalanceEnough) return message.reply("Your balance is insufficient. You need :dollar: "+hasItem.cost+" to buy this item.");
+    if (!isBalanceEnough) return message.reply("Your balance is insufficient. You need :dollar: " + hasItem.cost * amount + " to buy this item.");
     client.eco.subtractMoney(message.author.id, false, hasItem.cost * amount);
     
     let itemStruct = {
@@ -45,6 +45,6 @@ module.exports = {
     for(let i = 0; i < amount; i++){
       client.db.push(`items_${message.author.id}`, itemStruct);
     }
-    return message.channel.send(`You purchased **${amount} ${item}** for **:dollar: ${hasItem.cost}**.`);
+    return message.channel.send(`You purchased **${amount} ${item}** for **:dollar: ${hasItem.cost * amount}**.`);
   }
 }
