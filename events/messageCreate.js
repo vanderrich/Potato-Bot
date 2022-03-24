@@ -4,7 +4,7 @@ const queue = new Map()
 module.exports = {
     name: 'messageCreate',
     async execute(message, client, clientCommands) {
-        for (let i = 0; i < client.settings.default.bad_words.length; i++) {
+        for (let i = 0; i < client.settings?.default?.bad_words?.length; i++) {
             let badword
             try {
                 badword = message.content.includes(client.settings.default.bad_words[i]) || message.content.includes(client.settings[message.guild.id].bad_words[i])

@@ -1,12 +1,10 @@
-const Discord = require('discord.js');
-const prefix = require('../../config.json')
 module.exports = {
   name: 'games',
   description: 'play some games',
   category: "Fun",
-  execute(message, args) {
+  execute(message, args, cmd, client, Discord) {
     const exampleEmbed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor('RANDOM')
       .setTitle('Games')
       .addFields(
         { name: 'fast type', value: 'type the provided word as fast as possible' },
@@ -15,7 +13,7 @@ module.exports = {
         { name: '\u200B', value: '\u200B' }
       )
       .setTimestamp()
-      .setFooter(`to play those games do ${prefix} <game>`)
-    message.channel.send(exampleEmbed);
+      .setFooter({ text: 'Use potat games <game> to play a game!' });
+    message.channel.send({ embeds: [exampleEmbed] });
   }
 }

@@ -4,9 +4,9 @@ module.exports = {
   description: 'suggest',
   usage: '<suggestion>',
   category: "Info",
-  execute(message, args) {
+  async execute(message, args) {
     if(args == []){
-      message.reply("you didn\'t provide any args");
+      message.reply("you didn\'t provide any arguments");
       return;
     }
 
@@ -14,6 +14,25 @@ module.exports = {
       .setColor('#0099ff')
       .setTitle(`New Suggestion`)
       .setDescription(args.join(' '))
-    message.guild.channels.cache.find(channel => channel.name.includes("suggest")).send(embed);
+    let channel = message.guild.channels.cache.find(channel => channel.name.includes("suggest"))
+    if (!channel) {
+      message.reply("there is no channel named suggest")
+      channel = await message.channel.guild.channels.create('suggest', {
+        type: 'text',
+        permissionOverwrites: [
+          {
+            id: message.guild.id,
+            deny: ['VIEW_CHANNEL'],
+          },
+          {
+            id: message.guild
+              .roles.cache.find(role => role.name.toLowerCase() === 'suggest')
+              .id,
+            allow: ['VIEW_CHANNEL'],
+          },
+        ],
+      })
+    }
+    channel.send({ embeds: [embed] });
   }
 }

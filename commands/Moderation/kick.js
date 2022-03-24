@@ -1,28 +1,46 @@
-const Discord = require('discord.js')
 module.exports = {
   name: "kick",
   permissions: "KICK_MEMBERS",
   description: "this command kicks a member",
+  guildOnly: true,
   category: "Moderation",
-  execute(message, args) {
+  async execute(message, args, cmd, client, Discord) {
     //initialize
-    var muteChannel = message.guild.channels.cache.find(channel => channel.name.includes("modlogs"));
-    var muteUser = message.mentions.members.first();
-    var muteReason = args[0];
+    var channel = message.guild.channels.cache.find(channel => channel.name.includes("mod"));
+    var user = message.mentions.members.first();
+    var reason = args[args.length - 1];
     
     //conditions
-    if (!muteUser) return message.channel.send("You have to mention a valid member");
-    if (!muteChannel) return message.channel.send("There's no channel called modlogs");
-    if (muteReason == muteUser){muteReason = "No reason given";}
+    if (!user) return message.channel.send("You have to mention a valid member");
+    if (!channel) {
+      message.channel.send("There's no channel that includes `mod` in their name, creating the channel");
+      //create channel
+      channel = await message.guild.channels.create("modlogs", {
+        type: "text",
+        permissionOverwrites: [
+          {
+            id: message.guild.id,
+            deny: ["VIEW_CHANNEL"],
+          },
+          {
+            id: message.guild.roles.cache.find(
+              (role) => role.name.toLowerCase().includes("mod")
+            ),
+            allow: ["VIEW_CHANNEL"],
+          },
+        ],
+      });
+    }
+    if (reason == user || !reason) { reason = "No reason given"; }
 
     //kick
     var kickEmbed = new Discord.MessageEmbed() 
       .setTitle("Kick")
-      .addField("Kicked user", muteUser)
-      .addField("Reason", muteReason)
-      .setFooter(`Kicked by ${message.author.tag}`)
+      .addField("Kicked user", `${user}`)
+      .addField("Reason", `${reason}`)
+      .setFooter({ text: `Kicked by ${message.author.tag}` })
       .setTimestamp();
-    muteUser.kick();
-    message.guild.channels.cache.find(channel => channel.name.includes("modlogs")).send(kickEmbed);
+    user.kick();
+    channel.send({ embeds: [kickEmbed] });
   }
 }

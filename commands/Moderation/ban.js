@@ -1,31 +1,46 @@
-const Discord = require("discord.js")
 module.exports = {
     name: 'ban',
     description: "This command bans a member!",
     permissions: 'BAN_MEMBERS',
+    guildOnly: true,
     category: "Moderation",
-    execute(message, args) {
-      //variables
-      const user = message.mentions.users.first();
-      var reason = args.shift()
+    async execute(message, args, cmd, client, Discord) {
+        //initialize
+        var channel = message.guild.channels.cache.find(channel => channel.name.includes("mod"));
+        var user = message.mentions.members.first();
+        var reason = args[args.length - 1];
 
-      //conditions
-      if (args.length == 1){
-        reason = "No Reason Given"
-      }
-      if (!user) {
-        message.channel.send("You didn't mention the user to ban!");
-      }
+        //conditions
+        if (!user) return message.channel.send("You have to mention a valid member");
+        if (!channel) {
+            message.channel.send("There's no channel that includes `mod` in their name, creating the channel");
+            //create channel
+            channel = await message.guild.channels.create("modlogs", {
+                type: "text",
+                permissionOverwrites: [
+                    {
+                        id: message.guild.id,
+                        deny: ["VIEW_CHANNEL"],
+                    },
+                    {
+                        id: message.guild.roles.cache.find(
+                            (role) => role.name.toLowerCase().includes("mod")
+                        ),
+                        allow: ["VIEW_CHANNEL"],
+                    },
+                ],
+            });
+        }
+        if (reason == user || !reason) { reason = "No reason given"; }
 
-      //ban
-      user
-        .ban({reason: reason,})
-        .then(() => {
-          message.channel.send(`Successfully banned ${user.tag}`);
-        })
-        .catch(err => {
-          message.channel.send('I was unable to ban the member');
-          console.error(err);
-        });
+        //kick
+        var banEmbed = new Discord.MessageEmbed()
+            .setTitle("Ban")
+            .addField("Banned user", `${user}`)
+            .addField("Reason", `${reason}`)
+            .setFooter({ text: `Banned by ${message.author.tag}` })
+            .setTimestamp();
+        user.ban();
+        channel.send({ embeds: [banEmbed] });
     }
 }

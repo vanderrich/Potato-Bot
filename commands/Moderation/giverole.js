@@ -3,16 +3,17 @@ module.exports = {
   description: 'give someone a role',
   permission: 'MANAGE_MEMBERS',
   guildOnly: true,
-  category: "Moderation",
-  execute(message, args) {
+  category: "Moderation", 
+  async execute(message, args, cmd, client, Discord) {
     //variables
     const targetuser = message.mentions.users.first()
     args.shift()
     const rolename = args.join(' ')
     const { guild } = message
-    const role = guild.roles.cache.find((role) => {
+    const role = message.mentions.users.first() || guild.roles.cache.find((role) => {
       return role.name === rolename
     })
+    var channel = message.guild.channels.cache.find(channel => channel.name.includes("mod"));
 
     //conditions
     if(!targetuser){
@@ -22,10 +23,33 @@ module.exports = {
     if (!role){
       message.reply(`There is no role named "${rolename}"`)
     }
+    if (!channel) {
+      message.channel.send("There's no channel that includes `mod` in their name, creating the channel");
+      //create channel
+      channel = await message.guild.channels.create("modlogs", {
+        type: "text",
+        permissionOverwrites: [
+          {
+            id: message.guild.id,
+            deny: ["VIEW_CHANNEL"],
+          },
+          {
+            id: message.guild.roles.cache.find(
+              (role) => role.name.toLowerCase().includes("mod")
+            ),
+            allow: ["VIEW_CHANNEL"],
+          },
+        ],
+      });
+    }
+
 
     //role
+    const roleEmbed = new Discord.MessageEmbed()
+      .setTitle('Give Role')
+      .addField('Role', `${role}`)
     const member = guild.members.cache.get(targetuser.id)
-    member.roles.add(role)
-    message.reply(`That user now has the ${rolename} role!`)
+    member.roles.add(role.id)
+    channel.send({ embeds: [roleEmbed] })
   }
 }
