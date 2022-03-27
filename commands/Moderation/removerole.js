@@ -2,7 +2,7 @@ module.exports = {
   name: 'removerole',
   description: 'remove someone\'s role',
   category: "Moderation",
-  execute(message, args) {
+  async execute(message, args) {
     const targetuser = message.mentions.users.first()
     args.shift()  
     const rolename = args.join(' ')
@@ -19,14 +19,32 @@ module.exports = {
     if (!role){
       message.reply(`there is no role named "${rolename}"`)
     }
-    const member = guild.members.cache.get(targetuser.id)
+    if (!channel) {
+      message.channel.send("There's no channel that includes `mod` in their name, creating the channel");
+      //create channel
+      channel = await message.guild.channels.create("modlogs", {
+        type: "text",
+        permissionOverwrites: [
+          {
+            id: message.guild.id,
+            deny: ["VIEW_CHANNEL"],
+          },
+          {
+            id: message.guild.roles.cache.find(
+              (role) => role.name.toLowerCase().includes("mod")
+            ),
+            allow: ["VIEW_CHANNEL"],
+          },
+        ],
+      });
+    }
 
     //remove role
-    if (member.roles.cache.get(role.id)){
-      member.roles.remove(role)
-      message.reply(`that user no longer has the ${rolename} role!`)
-    }else {
-      message.reply(`that user doesn't have the role named ${rolename}`)
-    }
+    const roleEmbed = new Discord.MessageEmbed()
+      .setTitle('Remove Role')
+      .addField('Role', `${role}`)
+    const member = guild.members.cache.get(targetuser.id)
+    member.roles.remove(role.id)
+    channel.send({ embeds: [roleEmbed] })
   }
 }

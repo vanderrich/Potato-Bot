@@ -1,7 +1,7 @@
 module.exports =  {
     name: 'poll',
     description: 'Makes a poll',
-    usage: 'Title + Description + Option 1 + Option 2 + Option 3 + etc',
+    usage: '<Title>, [Description], [Option 1], [Option 2], [Option 3]...',
     category: "Info",
     execute(msg, args, cmd, client, Discord) {
         async function poll(message, args, separator, embedColor) {
@@ -39,6 +39,7 @@ module.exports =  {
                         break
                     }
                 }
+                description = options.shift()[0]
 
                 for (let i = 0; i < args.length; i++) {
                     if (args[i] === separator) {
@@ -48,7 +49,6 @@ module.exports =  {
                         i = 0;
                     }
                 }
-                description = options.shift()[0]
                 j--
 
                 const alphabet = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱',
@@ -83,6 +83,6 @@ module.exports =  {
                 })
             }
         }
-        poll(msg, args, '|', 'RANDOM')
+        poll(msg, args, ',', 'RANDOM')
     }
 } 

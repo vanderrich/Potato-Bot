@@ -14,10 +14,10 @@ module.exports = {
       }
       
       let embed = new Discord.MessageEmbed()
-      .setTitle("Store")
-      .setDescription(content)
-      .setColor("BLURPLE")
-        .setFooter("Do potat buy <item> to purchase the item.")
+        .setTitle("Store")
+        .setDescription(content)
+        .setColor("BLURPLE")
+        .setFooter({ text: "Use potat buy <item> [amount] to buy an item!" })
       return message.channel.send({ embeds: [embed] });
     }
     let userBalance = await client.eco.fetchMoney(message.author.id);
