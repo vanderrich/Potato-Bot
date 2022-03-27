@@ -25,7 +25,7 @@ module.exports = {
             .addField("Client Tag", userinfo.tag, true)
             .addField("Username", userinfo.uname, true)
             .setColor('RANDOM')
-            .setFooter('footer')
+            .setFooter({ text: 'insert epic footer here' })
             .setTitle("About this user...")
             .setThumbnail(userinfo.avatar)
 

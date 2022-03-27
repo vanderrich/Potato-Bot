@@ -13,5 +13,11 @@ module.exports = {
       
 
     welcomeChannel.send({ embeds: [embed] })
+    if (client.settings[newMember.guild.id]?.welcomeRole) {
+      const role = newMember.guild.roles.cache.find(role => role.name === client.settings[newMember.guild.id].welcomeRole)
+      if (role == undefined) return;
+
+      newMember.roles.add(role)
+    }
   }
 }

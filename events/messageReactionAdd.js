@@ -1,4 +1,3 @@
-const { ReactionRole } = require("discord-collector")
 const Discord = require("discord.js")
 module.exports = {
     name: 'messageReactionAdd',
