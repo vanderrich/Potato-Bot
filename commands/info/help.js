@@ -8,7 +8,7 @@ module.exports = {
 	usage: '[command name]',
 	cooldown: 5,
 	category: "Info",
-	execute(message, args, cmd, client, Discord) {
+	execute(message, args, cmd, client, Discord, footers) {
 		const { commands } = client;
 		if (args.length > 0) {
 			let category = args[0].charAt(0).toUpperCase() + args[0].slice(1)
@@ -24,6 +24,7 @@ module.exports = {
 			const messageEmbed = new Discord.MessageEmbed()
 				.setColor("RANDOM")
 				.setTitle(category)
+				.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 			for (command in commandsInCategory) {
 				command = commandsInCategory[command]
 				description = command.description ? (command.usage ? (command.description + '\n' + command.usage) : command.description) : (command.usage ? command.usage : "No Description Available")
@@ -48,6 +49,7 @@ module.exports = {
 			.setTitle('Commands')
 			.setDescription(`Write ${prefix}help <category> to see the commands in the category`)
 			.addFields(...a)
+			.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 		message.channel.send({ embeds: [messageEmbed] })
 	},
 };

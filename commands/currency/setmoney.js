@@ -3,7 +3,7 @@ module.exports = {
   name: "setmoney",
   usage: "setmoney @user <amount>",
   category: "Currency",
-  async execute(message, args, cmd, client, Discord) {
+  async execute(message, args, cmd, client, Discord, footers) {
     if (!admins.includes(message.author.id)) return; // return if author isn't bot owner
     let user = message.mentions.users.first();
     if (!user) return message.channel.send("Please specify a user!");
@@ -14,6 +14,7 @@ module.exports = {
       .setTitle(`Money Added!`)
       .setDescription(`User: <@${user.id}>\nTotal Amount: ${data}`)
       .setColor("RANDOM")
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
     return message.channel.send({ embeds: [embed] })
   }
 }

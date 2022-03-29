@@ -37,7 +37,7 @@ module.exports = {
     guildOnly: true,
     args: false,
     category: "Info",
-    execute(message, args, client, cmd, Discord) {
+    execute(message, args, client, cmd, Discord, footers) {
         //variables
         const roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         const members = message.guild.members.cache;
@@ -77,6 +77,7 @@ module.exports = {
                 \u200b
             `)
             .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         message.channel.send({ embeds: [embed] });
     }
 

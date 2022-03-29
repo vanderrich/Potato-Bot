@@ -1,9 +1,9 @@
 //initialize variables
 let Service
 try {
-	Service = require('node-windows').Service;
+	Service = require('node-windows')?.Service;
 } catch (error) {
-	Service = require('node-linux').Service;
+	Service = require('node-linux')?.Service;
 }
 const { Player } = require('discord-player');
 const Eco = require("quick.eco");
@@ -11,7 +11,6 @@ const db = require('quick.db')
 const fs = require('fs')
 const Discord = require('discord.js');
 const { prefix, shop, settings, token } = require('./config.json');
-//const reactionrolesjson = require('./reaction-roles.json')
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],

@@ -1,7 +1,7 @@
 module.exports = {
     name: 'userinfo',
     category: "Info",
-    execute(message, args, cmd, client, Discord) {
+    execute(message, args, cmd, client, Discord, footers) {
 
         const userMention = message.mentions.users.first() || message.author;
 
@@ -17,7 +17,7 @@ module.exports = {
         console.log(userinfo)
 
         var myInfo = new Discord.MessageEmbed()
-            .setAuthor(userinfo.uname, userinfo.avatar)
+            .setAuthor({ name: userinfo.uname, iconURL: userinfo.avatar })
             .addField("Bot?", userinfo.bot.toString(), true)
             .addField("Created At", userinfo.createdate.toString(), true)
             .addField("Discriminator", userinfo.discrim, true)
@@ -25,7 +25,7 @@ module.exports = {
             .addField("Client Tag", userinfo.tag, true)
             .addField("Username", userinfo.uname, true)
             .setColor('RANDOM')
-            .setFooter({ text: 'insert epic footer here' })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             .setTitle("About this user...")
             .setThumbnail(userinfo.avatar)
 

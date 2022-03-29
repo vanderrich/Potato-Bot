@@ -3,7 +3,7 @@ module.exports = {
     description: "Reaction roles",
     permissions: 'ADMINISTRATOR',
     category: "Moderation",
-    async execute(message, args, cmd, client, Discord) {
+    async execute(message, args, cmd, client, Discord, footers) {
         const filter = (m) => {
             return m.author.id === message.author.id;
         }
@@ -58,6 +58,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
                 .setDescription(description)
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             for (const i in reactions) {
                 embed.addField(reactions[i], String(reactionRoles[i]));
             }

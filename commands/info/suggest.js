@@ -1,10 +1,9 @@
-const Discord = require('discord.js')
 module.exports = {
   name: 'suggest',
   description: 'suggest',
   usage: '<suggestion>',
   category: "Info",
-  async execute(message, args) {
+  async execute(message, args, cmd, client, Discord, footers) {
     if(args == []){
       message.reply("you didn\'t provide any arguments");
       return;
@@ -14,6 +13,7 @@ module.exports = {
       .setColor('#0099ff')
       .setTitle(`New Suggestion`)
       .setDescription(args.join(' '))
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
     let channel = message.guild.channels.cache.find(channel => channel.name.includes("suggest"))
     if (!channel) {
       message.reply("there is no channel named suggest")
