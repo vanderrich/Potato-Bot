@@ -43,7 +43,7 @@ client.rr = new db.table('reactionroles');
 
 // Run the bot as a service
 client.svc = new Service({
-	name: 'Potato bot',
+	name: 'Potato bot stable',
 	description: 'potatoes',
 	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot\\index.js'
 });
