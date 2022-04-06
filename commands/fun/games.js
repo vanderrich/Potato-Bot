@@ -2,7 +2,7 @@ module.exports = {
   name: 'games',
   description: 'play some games',
   category: "Fun",
-  execute(message, args, cmd, client, Discord) {
+  execute(message, args, cmd, client, Discord, footers) {
     const exampleEmbed = new Discord.MessageEmbed()
       .setColor('RANDOM')
       .setTitle('Games')

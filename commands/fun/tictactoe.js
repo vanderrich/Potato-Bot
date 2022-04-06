@@ -5,7 +5,7 @@ module.exports = {
     minArgs: 1,
     category: "Fun",
     aliases: ['ttt', 'tic-tac-toe'],
-    async execute(message, args, cmd, client, Discord) {
+    async execute(message, args, cmd, client, Discord, footers) {
         //initialize
         var tictactoemap = ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']
         var opponent = message.mentions.users.first();
@@ -95,9 +95,8 @@ module.exports = {
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('tictactoe')
-                .addFields(
-                    { name: 'game', value: tictactoe }
-                )
+                .addField('game', tictactoe)
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             if (!gameEnd) {
                 message.channel.send(`<@${turnUser}>\'s turn`)
             }

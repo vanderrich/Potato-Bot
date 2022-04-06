@@ -3,7 +3,7 @@ module.exports= {
   description: 'say something embed',
   usage: '<title, description>',
   category: "Fun",
-  execute(message, args, cmd, client, Discord) {
+  execute(message, args, cmd, client, Discord, footers) {
     if(args[0] == null){
       message.channel.send('you didnt input any arguments!')
       return;
@@ -17,6 +17,7 @@ module.exports= {
       .setColor('#0099ff')
       .setTitle(title)
       .setDescription(description)
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
     message.channel.send({ embeds: [embed] })
     message.delete()
   }

@@ -1,15 +1,16 @@
 const { MessageEmbed } = require("discord.js")
-const { jobsEmbed, jobsPure } = require("../../config.json")
+const { jobsEmbed, jobsPure, footers } = require("../../config.json")
 const jobEmbed = new MessageEmbed()
   .setTitle("Jobs")
   .addFields(jobsEmbed)
+  .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
 module.exports = {
   name: "work",
   aliases: [],
   usage: "work",
   category: "Currency",
-  execute(message, args, cmd, client) {
+  execute(message, args, cmd, client, Discord) {
     var inputedJob = args[0]
     if (args[1]) {
       inputedJob += " " + args[1]

@@ -3,7 +3,7 @@ module.exports = {
     name: "deleteuser",
     usage: `deleteuser @user <amount>`,
     category: "Currency",
-    async execute(message, args, cmd, client, Discord) {
+    async execute(message, args, cmd, client, Discord, footers) {
         if (!admins.includes(message.author.id)) return; // return if author isn't bot owner
         let user = args.join()
         if (!user) return message.channel.send("Please specify a user!");
@@ -13,6 +13,7 @@ module.exports = {
             .setTitle(`User Deleted`)
             .setDescription(`User: ${user}\n`)
             .setColor("RANDOM")
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         return message.channel.send({ embeds: [embed] })
 
     }

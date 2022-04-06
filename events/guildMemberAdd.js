@@ -10,7 +10,7 @@ module.exports = {
       .setTitle('New Member!')
       .setDescription(`${newMember.user}`)
       .setThumbnail(newMember.user.avatarURL())
-      
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
     welcomeChannel.send({ embeds: [embed] })
     if (client.settings[newMember.guild.id]?.welcomeRole) {

@@ -1,4 +1,4 @@
-const { prefix } = require('./../config.json')
+const { prefix, footers } = require('./../config.json')
 const Discord = require('discord.js')
 const queue = new Map()
 module.exports = {
@@ -72,7 +72,7 @@ module.exports = {
         setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
         try {
-            command.execute(message, args, commandName, client, Discord);
+            command.execute(message, args, commandName, client, Discord, footers);
         } catch (error) {
             console.error(error);
             message.reply('there was an error trying to execute that command!');
