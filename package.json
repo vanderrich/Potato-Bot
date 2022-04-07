@@ -5,9 +5,9 @@
         "@discordjs/rest": "^0.3.0",
         "@discordjs/voice": "^0.8.0",
         "@quick.eco/sqlite": "^1.0.4",
+        "@author.io/arg": "",
         "better-sqlite3": "^7.5.0",
         "discord-api-types": "^0.26.1",
-        "discord-buttons": "^4.0.0-deprecated",
         "discord-collector": "^1.11.15",
         "discord-player": "^5.2.2",
         "discord.js": "^13.6.0",
@@ -24,7 +24,7 @@
         "ytdl-core": "^4.10.1"
     },
     "optionalDependencies": {
-        "node-linux": "^0.1.12",
+        "node-linux": "^0.1.7",
         "node-windows": "^1.0.0-beta.6"
     }
 }
