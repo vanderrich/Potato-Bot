@@ -45,9 +45,9 @@ client.rr = new db.table('reactionroles');
 
 // Run the bot as a service
 client.svc = new Service({
-	name: 'Potato bot',
+	name: 'Potato bot stable',
 	description: 'potatoes',
-	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot\\index.js'
+	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot-Stable\\Potato-Bot\\index.js'
 });
 const svc = client.svc
 
@@ -116,6 +116,11 @@ svc.on('start', function () {
 svc.on('uninstall', function () {
 	console.log('Uninstall complete.');
 	console.log('The service exists: ', svc.exists);
+});
+
+svc.on('error', function (error) {
+	console.log(svc.name + ' failed to start.\n' + error);
+	svc.stop();
 });
 
 //Run

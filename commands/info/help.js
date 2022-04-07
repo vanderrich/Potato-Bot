@@ -1,4 +1,4 @@
-const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Work in Progress"]
+const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Work in Progress", "BotAdminOnly"]
 const { prefix } = require('../../config.json');
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
 					value++
 				}
 			});
-			if (categories[category] == "Work in Progress") continue
+			if (categories[category] == "Work in Progress" || categories[category] == "BotAdminOnly") continue
 			a.push({ name: categories[category], value: `${value} commands in that category` })
 		}
 		const messageEmbed = new Discord.MessageEmbed()
