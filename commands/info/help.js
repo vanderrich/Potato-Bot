@@ -1,4 +1,4 @@
-const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Work in Progress", "BotAdminOnly"]
+const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Work in Progress", "Bot Admin Only"]
 const { prefix } = require('../../config.json');
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 	execute(message, args, cmd, client, Discord, footers) {
 		const { commands } = client;
 		if (args.length > 0) {
-			let category = args[0].charAt(0).toUpperCase() + args[0].slice(1)
+			let category = args.join(' ').charAt(0).toUpperCase() + args[0].slice(1)
 			if (!(categories.includes(category))) {
 				return message.channel.send("No category with that name")
 			}
@@ -41,7 +41,7 @@ module.exports = {
 					value++
 				}
 			});
-			if (categories[category] == "Work in Progress" || categories[category] == "BotAdminOnly") continue
+			if (categories[category] == "Work in Progress" || categories[category] == "Bot Admin Only") continue
 			a.push({ name: categories[category], value: `${value} commands in that category` })
 		}
 		const messageEmbed = new Discord.MessageEmbed()

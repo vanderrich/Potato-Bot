@@ -2,7 +2,7 @@ const { admins } = require("../../config.json")
 module.exports = {
   name: "setmoney",
   usage: "setmoney @user <amount>",
-  category: "BotAdminOnly",
+  category: "Bot Admin Only",
   async execute(message, args, cmd, client, Discord, footers) {
     if (!admins.includes(message.author.id)) return; // return if author isn't bot owner
     let user = message.mentions.users.first();

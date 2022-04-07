@@ -1,4 +1,4 @@
-const { prefix, footers } = require('./../config.json')
+const { prefix, footers, admins } = require('./../config.json')
 const Discord = require('discord.js')
 const queue = new Map()
 module.exports = {
@@ -40,6 +40,10 @@ module.exports = {
             }
         }
 
+        if (command.category == "Bot Admin Only" && !admins.includes(message.author.id)) {
+            return message.reply('You have no permission to run that command! only the bot admins can run this command\nBot Admins ID: ' + admins.join(', '));
+        }
+
         if (command.args && !args.length) {
             let reply = `You didn't provide any arguments, ${message.author}!`;
 
@@ -55,6 +59,8 @@ module.exports = {
         if (!cooldowns.has(command.name)) {
             cooldowns.set(command.name, new Discord.Collection());
         }
+
+        if (message.author.bot) return;
 
         const now = Date.now();
         const timestamps = cooldowns.get(command.name);

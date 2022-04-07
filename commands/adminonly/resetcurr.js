@@ -2,7 +2,7 @@ const { admins } = require("../../config.json")
 module.exports = {
     name: "resetcurr",
     aliases: ["reset_currency", "resetcurrency"],
-    category: "BotAdminOnly",
+    category: "Bot Admin Only",
     async execute(message, args, cmd, client, Discord) {
         if (!admins.includes(message.author.id)) return; // return if author isn't bot owner
         message.reply("Are you sure you want to reset the database? Enter `potato-bot` to continue")

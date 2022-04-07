@@ -3,7 +3,7 @@ module.exports = {
   name: "addmoney",
   aliases: ["addbal"],
   usage: `addmoney @user <amount>`,
-  category: "BotAdminOnly",
+  category: "Bot Admin Only",
   async execute(message, args, cmd, client, Discord, footers) {
     if (!admins.includes(message.author.id)) return; // return if author isn't bot owner
     let user = message.mentions.users.first();

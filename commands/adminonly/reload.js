@@ -4,7 +4,7 @@ module.exports = {
   name: 'reload',
   description: 'Reloads a command',
   args: true,
-  category: "BotAdminOnly",
+  category: "Bot Admin Only",
   async execute(message, args) {
     if (!admins.includes(message.author.id)) return;
     //variables

@@ -2,7 +2,7 @@ const { admins } = require("../../config.json")
 module.exports = {
     name: "deleteuser",
     usage: `deleteuser @user <amount>`,
-    category: "BotAdminOnly",
+    category: "Bot Admin Only",
     async execute(message, args, cmd, client, Discord, footers) {
         if (!admins.includes(message.author.id)) return; // return if author isn't bot owner
         let user = args.join()
