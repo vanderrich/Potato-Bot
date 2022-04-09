@@ -11,10 +11,11 @@ const db = require("quick.db");
 const fs = require('fs')
 const Discord = require('discord.js');
 const { prefix, shop, settings, token } = require('./config.json');
+const deploy = require('./deploy-commands.js');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
-	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"]
+	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"],
 });
 client.eco = new EconomyManager({
 	adapter: "sqlite",
@@ -27,6 +28,7 @@ client.config = require("./botConfig");
 client.shop = shop;
 client.job = new db.table('job')
 client.commands = new Discord.Collection();
+client.slashCommands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.player = new Player(client, client.config.opt.discordPlayer);
 client.form = new Map();
@@ -35,7 +37,7 @@ const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 // let reactionroles = [{}, {}, {}];
 // for (const i in reactionrolesjson) {
-// 	reactionroles[i].guild = client.guilds.cache.get(reactionrolesjson[i].guildId)
+	// 	reactionroles[i].guild = client.guilds.cache.get(reactionrolesjson[i].guildId)
 // 	console.log(reactionroles[i])
 // 	console.log(reactionrolesjson[i].guildId)
 // 	reactionroles[i].channel = reactionroles[i].guild.channels.cache.get(reactionrolesjson[i].channelId)
@@ -60,6 +62,18 @@ for (const folder of commandFolders) {
 		//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./commands/${folder}/${file}`);
 		client.commands.set(command.name, command);
+	}
+}
+
+// initialize slash commands
+const slashCommandFolders = fs.readdirSync('./slashCommands');
+for (const folder of slashCommandFolders) {
+	//loops through all folders of commandFolders
+	const commandFiles = fs.readdirSync(`./slashCommands/${folder}`).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles) {
+		//loops through all the commandFiles and add them to the client commands collection
+		const command = require(`./slashCommands/${folder}/${file}`);
+		client.slashCommands.set(command.data.name, command);
 	}
 }
 
@@ -123,6 +137,8 @@ svc.on('error', function (error) {
 	svc.stop();
 });
 
+
 //Run
 client.login(token);
 svc.install();
+deploy()

@@ -11,7 +11,6 @@ module.exports = {
     let amount = parseInt(args[1]);
     if (!amount || isNaN(amount)) return message.reply("Please specify a valid amount.");
     let data = await client.eco.addMoney(user.id, false, amount);
-    console.log(data)
 
     const embed = new Discord.MessageEmbed()
       .setTitle(`Money Added!`)

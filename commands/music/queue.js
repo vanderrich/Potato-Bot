@@ -7,7 +7,6 @@ module.exports = {
     execute(message, args, cmd, client, Discord) {
         const queue = client.player.getQueue(message.guild.id);
 
-
         if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
 
         if (!queue.tracks[0]) return message.channel.send(`${message.author}, No music in queue after current. ❌`);
@@ -29,6 +28,21 @@ module.exports = {
         embed.setTimestamp();
         embed.setFooter('Music Code by Umut Bayraktar aka 1umutda', message.author.avatarURL({ dynamic: true }));
 
-        message.channel.send({ embeds: [embed] });
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('first')
+                    .setLabel('⏮')
+                    .setStyle('PRIMARY'),
+                new MessageButton()
+                    .setCustomId('back')
+                    .setLabel('◀')
+                    .setStyle('PRIMARY'),
+                new MessageButton()
+
+            );
+
+        message.channel.send({ embeds: [embed], components: [row] });
+
     },
 };

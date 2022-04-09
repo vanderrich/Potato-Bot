@@ -17,7 +17,6 @@ module.exports = {
     }
     if (typeof (settings[args[0]]) == "boolean" && !!args[1]) {
       settings[args[0]] = !!args[1]
-      console.log(settings[args[0]])
     }
     else if (typeof (settings[args[0]]) == "string") {
       settings[args[0]] = args[1]

@@ -6,12 +6,9 @@ module.exports = {
 
         if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
 
-        let pos;
-        try {
-            pos = parseInt(args[0])
-        } catch (error) {
-            return message.channel.send("Position given is not a number")
-        }
+        let pos = parseInt(args[0]);
+
+        if (pos === NaN) return message.channel.send(`${message.author}, Please provide a valid number! ❌`);
 
         const success = queue.seek(pos);
 

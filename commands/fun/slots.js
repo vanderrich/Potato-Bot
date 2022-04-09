@@ -53,7 +53,7 @@ module.exports = {
       if (win) {
         setTimeout(async function () {
           message.channel.send(`${message.author} won 50 💸!`);
-          console.log(await bot.eco.addMoney(message.author.id, false, 50))
+          await bot.eco.addMoney(message.author.id, false, 50)
         }, messages.length * 1000)
       } else {
         setTimeout(async function () {

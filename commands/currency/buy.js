@@ -29,7 +29,7 @@ module.exports = {
       if (!hasItem || hasItem == undefined)
         return message.reply("That item doesn't exist");
       else
-        amount = args[args.length - 1]; console.log(amount)
+        amount = args[args.length - 1];
     }
     else
       amount = 1
