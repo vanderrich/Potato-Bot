@@ -2,7 +2,6 @@ module.exports = {
     name: 'userinfo',
     category: "Info",
     execute(message, args, cmd, client, Discord, footers) {
-
         const userMention = message.mentions.users.first() || message.author;
 
         let userinfo = {};
@@ -14,7 +13,6 @@ module.exports = {
         userinfo.uname = userMention.username;
 
         userinfo.avatar = userMention.avatarURL();
-        console.log(userinfo)
 
         var myInfo = new Discord.MessageEmbed()
             .setAuthor({ name: userinfo.uname, iconURL: userinfo.avatar })
@@ -30,7 +28,6 @@ module.exports = {
             .setThumbnail(userinfo.avatar)
 
 
-        message.channel.send({ embeds: [myInfo] });
-
+        message.reply({ embeds: [myInfo] });
     },
 };

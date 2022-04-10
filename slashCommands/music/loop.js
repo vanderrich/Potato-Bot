@@ -1,0 +1,38 @@
+const { SlashCommandSubcommandBuilder } = require("@discordjs/builders")
+module.exports = {
+    data: new SlashCommandSubcommandBuilder()
+        .setName("loop")
+        .setDescription("Loop the track or queue")
+        .addStringOption(option =>
+            option
+                .setName("loop")
+                .setDescription("The object to loop")
+                .setRequired(true)
+                .addChoice("off", "No loop")
+                .addChoice("track", "Loop the current track")
+                .addChoice("queue", "Loop the entire queue")
+                .addChoice("autoplay", "idk tbh")
+        ),
+    execute(interaction, client) {
+        const queue = client.player.getQueue(interaction.guild.id);
+        console.log(interaction.options.getString("loop"))
+        switch (interaction.options.getString("loop")) {
+            case "off":
+                queue.setRepeatMode(0)
+                interaction.reply("🔁 Loop off")
+                break;
+            case "track":
+                queue.setRepeatMode(1)
+                interaction.reply("🔁 Looping track")
+                break;
+            case "queue":
+                queue.setRepeatMode(2)
+                interaction.reply("🔁 Looping queue")
+                break;
+            case "autoplay":
+                queue.setRepeatMode(3)
+                interaction.reply("🔁 Autoplaying")
+                break;
+        }
+    }
+}

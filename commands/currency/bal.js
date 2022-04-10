@@ -16,6 +16,6 @@ module.exports = {
       .setThumbnail(user.displayAvatarURL)
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
       .setTimestamp()
-    return message.channel.send({ embeds: [embed] })
+    return message.reply({ embeds: [embed] })
   }
 }

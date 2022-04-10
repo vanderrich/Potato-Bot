@@ -5,8 +5,8 @@ module.exports = {
     category: "Bot Admin Only",
     execute(message, args, cmd, client) {
         if (!admins.includes(message.author.id)) return;
-        message.channel.send('uninstalling the service...')
+        message.reply('uninstalling the service...')
         client.svc.uninstall();
-        message.channel.send('service uninstalled')
+        message.reply('service uninstalled')
     }
 }

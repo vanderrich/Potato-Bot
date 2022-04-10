@@ -78,7 +78,7 @@ module.exports = {
             `)
             .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-        message.channel.send({ embeds: [embed] });
+        message.reply({ embeds: [embed] });
     }
 
 }

@@ -3,6 +3,6 @@ module.exports = {
     description: "Make the bot type",
     category: "Info",
     execute(message, args) {
-        message.channel.sendTyping();
+        message.replyTyping();
     }
 }

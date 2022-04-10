@@ -26,7 +26,7 @@ module.exports = {
         collector.on('collect', (m) => {
             //checks if the content is stop and if so exit the game
             if (m.content == 'stop') {
-                message.channel.send('Stopped Game')
+                message.reply('Stopped Game')
                 gameEnd = true
                 collector.stop("Game End")
                 return
@@ -45,8 +45,8 @@ module.exports = {
                 turnUser = message.author.id; turn = '❌'
             }
             //checks the coordinate that the user give
-            var x = parseInt(m.content.slice(2))
-            var y = parseInt(m.content.slice(0, 2))
+            var x = parseInt(m.content.slice(0, 2))
+            var y = parseInt(m.content.slice(2))
             if (!Number.isInteger(x) || !Number.isInteger(y)) {
                 m.reply('not a valid coordinate')
                 if (user.id === message.author.id) {
@@ -61,6 +61,14 @@ module.exports = {
             var coord = (3 * (y - 1)) + (x - 1)
             if (tictactoemap[coord] == '🔵' || tictactoemap[coord] == '❌') {
                 m.reply('That space is already taken!')
+                if (user.id === message.author.id) {
+                    turnUser = message.author.id;
+                    turn = '🔵'
+                } else if (user.id === opponent.id) {
+                    turnUser = opponent.id; turn = '❌'
+                }
+                play(turnUser)
+                return
             } else {
                 tictactoemap[coord] = turn
             }
@@ -125,6 +133,14 @@ module.exports = {
                     return true;
                 }
             }
+            //tie
+            if (gameBoard.filter(x => x == '🔵' || x == '❌').length == 9) {
+                message.reply('Tie!')
+                gameEnd = true
+                collector.stop('Game End')
+                return
+            }
+
             return false;
         }
     }

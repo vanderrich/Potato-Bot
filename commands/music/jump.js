@@ -5,17 +5,17 @@ module.exports = {
     execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 
-        if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return message.reply(`${message.author}, There is no music currently playing!. ❌`);
 
         let index;
         try {
             index = parseInt(args[0]) - 1
         } catch (error) {
-            return message.channel.send("Index given is not a number")
+            return message.reply("Index given is not a number")
         }
 
         queue.jump(index);
 
-        return message.channel.send(`Jumped to ${index} ✅`);
+        return message.reply(`Jumped to ${index} ✅`);
     },
 };

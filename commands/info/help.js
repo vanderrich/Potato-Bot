@@ -13,7 +13,7 @@ module.exports = {
 		if (args.length > 0) {
 			let category = args.join(' ').charAt(0).toUpperCase() + args[0].slice(1)
 			if (!(categories.includes(category))) {
-				return message.channel.send("No category with that name")
+				return message.reply("No category with that name")
 			}
 			commandsInCategory = []
 			commands.forEach(command => {
@@ -30,7 +30,7 @@ module.exports = {
 				description = command.description ? (command.usage ? (command.description + '\n' + command.usage) : command.description) : (command.usage ? command.usage : "No Description Available")
 				messageEmbed.addField(command.name, description)
 			}
-			return message.channel.send({ embeds: [messageEmbed] })
+			return message.reply({ embeds: [messageEmbed] })
 
 		}
 		let a = []
@@ -50,6 +50,6 @@ module.exports = {
 			.setDescription(`Write ${prefix}help <category> to see the commands in the category`)
 			.addFields(...a)
 			.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-		message.channel.send({ embeds: [messageEmbed] })
+		message.reply({ embeds: [messageEmbed] })
 	},
 };

@@ -9,8 +9,8 @@ module.exports = {
             index = parseInt(args[0]) - 1
             queue.remove(index)
         } catch {
-            return message.channel.send(`No music found at ${index + 1}`)
+            return message.reply(`No music found at ${index + 1}`)
         }
-        message.channel.send(`Removed the music at ${index + 1} from the queue... ✅`);
+        message.reply(`Removed the music at ${index + 1} from the queue... ✅`);
     },
 };

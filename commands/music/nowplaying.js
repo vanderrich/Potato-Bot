@@ -5,7 +5,7 @@ module.exports = {
     execute(message, args, cmd, client, Discord) {
         const queue = client.player.getQueue(message.guild.id);
 
-        if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return message.reply(`${message.author}, There is no music currently playing!. ❌`);
 
         const track = queue.current;
 
@@ -33,6 +33,6 @@ module.exports = {
 
         const row = new Discord.MessageActionRow().addComponents(saveButton);
 
-        message.channel.send({ embeds: [embed], components: [row] });
+        message.reply({ embeds: [embed], components: [row] });
     }
 }

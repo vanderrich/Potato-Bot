@@ -18,10 +18,10 @@ module.exports = {
         .setDescription(content)
         .setColor("BLURPLE")
         .setFooter({ text: "Use potat buy <item> [amount] to buy an item!" })
-      return message.channel.send({ embeds: [embed] });
+      return message.reply({ embeds: [embed] });
     }
     let userBalance = await client.eco.fetchMoney(message.author.id);
-    if (userBalance.amount < 1) return message.channel.send("Looks like you are so poor lol.");
+    if (userBalance.amount < 1) return message.reply("Looks like you are so poor lol.");
     let hasItem = client.shop[item.toLowerCase()];
     if (!hasItem || hasItem == undefined) {
       item = args.slice(0, -1).join(' ');
@@ -29,7 +29,7 @@ module.exports = {
       if (!hasItem || hasItem == undefined)
         return message.reply("That item doesn't exist");
       else
-        amount = args[args.length - 1]; console.log(amount)
+        amount = args[args.length - 1];
     }
     else
       amount = 1
@@ -41,10 +41,10 @@ module.exports = {
       name: item.toLowerCase(),
       price: hasItem.cost
     };
-    if (amount >= 5000) message.channel.send('Purchasing items, this might take a while') 
+    if (amount >= 5000) message.reply('Purchasing items, this might take a while') 
     for(let i = 0; i < amount; i++){
       client.db.push(`items_${message.author.id}`, itemStruct);
     }
-    return message.channel.send(`You purchased **${amount} ${item}** for **:dollar: ${hasItem.cost * amount}**.`);
+    return message.reply(`You purchased **${amount} ${item}** for **:dollar: ${hasItem.cost * amount}**.`);
   }
 }

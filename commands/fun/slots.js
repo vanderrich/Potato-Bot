@@ -17,7 +17,7 @@ module.exports = {
       .setFooter({ text: footer })
 
     //sends the embed message and reacts to it
-    message.channel.send({ embeds: [embed] }).then((msg) => {
+    message.reply({ embeds: [embed] }).then((msg) => {
       var frameCount = Math.floor(Math.random() * 5) + 5
       for (let i = 0; i < frameCount; i++) {
         let slotdisplay = []
@@ -52,12 +52,12 @@ module.exports = {
       //sends the result
       if (win) {
         setTimeout(async function () {
-          message.channel.send(`${message.author} won 50 💸!`);
-          console.log(await bot.eco.addMoney(message.author.id, false, 50))
+          message.reply(`${message.author} won 50 💸!`);
+          await bot.eco.addMoney(message.author.id, false, 50)
         }, messages.length * 1000)
       } else {
         setTimeout(async function () {
-          message.channel.send(`You lost, try again next time`)
+          message.reply(`You lost, try again next time`)
         }, messages.length * 1000)
       }
     })

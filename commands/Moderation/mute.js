@@ -11,9 +11,9 @@ module.exports = {
     var reason = args[args.length - 1];
 
     //conditions
-    if (!user) return message.channel.send("You have to mention a valid member");
+    if (!user) return message.reply("You have to mention a valid member");
     if (!channel) {
-      message.channel.send("There's no channel with the name `moderators`");
+      message.reply("There's no channel with the name `moderators`");
       //create channel
       channel = await message.guild.channels.create("modlogs", {
         type: "text",

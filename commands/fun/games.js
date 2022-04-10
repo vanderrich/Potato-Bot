@@ -14,6 +14,6 @@ module.exports = {
       )
       .setTimestamp()
       .setFooter({ text: 'Use potat games <game> to play a game!' });
-    message.channel.send({ embeds: [exampleEmbed] });
+    message.reply({ embeds: [exampleEmbed] });
   }
 }

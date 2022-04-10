@@ -24,7 +24,7 @@ module.exports = {
       message.reply(`There is no role named "${rolename}"`)
     }
     if (!channel) {
-      message.channel.send("There's no channel that includes `mod` in their name, creating the channel");
+      message.reply("There's no channel that includes `mod` in their name, creating the channel");
       //create channel
       channel = await message.guild.channels.create("modlogs", {
         type: "text",

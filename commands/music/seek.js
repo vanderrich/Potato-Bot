@@ -4,17 +4,14 @@ module.exports = {
     execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 
-        if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return message.reply(`${message.author}, There is no music currently playing!. ❌`);
 
-        let pos;
-        try {
-            pos = parseInt(args[0])
-        } catch (error) {
-            return message.channel.send("Position given is not a number")
-        }
+        let pos = parseInt(args[0]);
+
+        if (pos === NaN) return message.reply(`${message.author}, Please provide a valid number! ❌`);
 
         const success = queue.seek(pos);
 
-        return message.channel.send(success ? `Seeked to ${pos} ✅` : `${message.author}, Something went wrong ❌`);
+        return message.reply(success ? `Seeked to ${pos} ✅` : `${message.author}, Something went wrong ❌`);
     },
 };

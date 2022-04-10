@@ -1,6 +1,5 @@
 const { prefix, footers, admins } = require('./../config.json')
 const Discord = require('discord.js')
-const queue = new Map()
 module.exports = {
     name: 'messageCreate',
     async execute(message, client, clientCommands) {
@@ -16,7 +15,6 @@ module.exports = {
                 return
             }
         }
-        const serverQueue = queue.get(message.guild.id);
 
         client.commands = clientCommands
 
@@ -51,7 +49,7 @@ module.exports = {
                 reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
             }
 
-            return message.channel.send(reply);
+            return message.reply(reply);
         }
 
         const { cooldowns } = client;

@@ -7,8 +7,8 @@ module.exports = {
         const filter = (m) => {
             return m.author.id === message.author.id;
         }
-        message.channel.send('Reaction Roles')
-        message.channel.send('Enter the title of the reaction role')
+        message.reply('Reaction Roles')
+        message.reply('Enter the title of the reaction role')
         let i = 0;
         let reactions = [];
         let reactionRoles = [];
@@ -20,33 +20,33 @@ module.exports = {
             switch (i) {
                 case 0:
                     title = m.content;
-                    message.channel.send("Enter description")
+                    message.reply("Enter description")
                     break;
                 case 1:
                     description = m.content;
-                    message.channel.send("Enter channel to send the message")
+                    message.reply("Enter channel to send the message")
                     break;
                 case 2:
                     channel = m.mentions.channels.first();
-                    message.channel.send("Enter the reaction (wait 30 seconds to leave)")
+                    message.reply("Enter the reaction (wait 30 seconds to leave)")
                     break;
                 default:
                     if (i % 2 == 1) {
                         if (m.content.match(/<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu) != null) {
                             reactions.push(m.content)
-                            message.channel.send("Enter the reaction role (wait 30 seconds to leave)")
+                            message.reply("Enter the reaction role (wait 30 seconds to leave)")
                         } else {
-                            message.channel.send("Not a valid reaction, try again (e.g 👍)")
+                            message.reply("Not a valid reaction, try again (e.g 👍)")
                             i--
                         }
                     }
                     else {
                         if (!m.mentions.roles.first()) {
-                            message.channel.send("Not a valid role, try again")
+                            message.reply("Not a valid role, try again")
                             i--
                         } else {
                             reactionRoles.push(m.mentions.roles.first())
-                            message.channel.send("Enter the reaction (wait 30 seconds to leave)")
+                            message.reply("Enter the reaction (wait 30 seconds to leave)")
                         }
                     }
                     break;
@@ -62,7 +62,7 @@ module.exports = {
             for (const i in reactions) {
                 embed.addField(reactions[i], String(reactionRoles[i]));
             }
-            channel.send({ embeds: [embed] }).then(m => {
+            reply({ embeds: [embed] }).then(m => {
                 for (const i in reactions) {
                     m.react(reactions[i])
                     //client.rr.push({ messageId: m.id, channelId: channel.id, guildId: message.guild.id, emoji: reactions[i], roleId: reactionRoles[i].id })
@@ -77,8 +77,8 @@ module.exports = {
 // const filter = (m) => {
 //     return m.author.id === message.author.id;
 // }
-// message.channel.send('Reaction Roles')
-// message.channel.send('Enter the title of the reaction role')
+// message.reply('Reaction Roles')
+// message.reply('Enter the title of the reaction role')
 // let i = 0;
 // let reactions = [];
 // let reactionRoles = [];
@@ -90,33 +90,33 @@ module.exports = {
 //     switch (i) {
 //         case 0:
 //             title = m.content;
-//             message.channel.send("Enter description")
+//             message.reply("Enter description")
 //             break;
 //         case 1:
 //             description = m.content;
-//             message.channel.send("Enter channel to send the message")
+//             message.reply("Enter channel to send the message")
 //             break;
 //         case 2:
 //             channel = m.mentions.channels.first();
-//             message.channel.send("Enter the reaction (wait 30 seconds to leave)")
+//             message.reply("Enter the reaction (wait 30 seconds to leave)")
 //             break;
 //         default:
 //             if (i % 2 == 1) {
 //                 if (m.content.match(/<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu) != null) {
 //                     reactions.push(m.content)
-//                     message.channel.send("Enter the reaction role (wait 30 seconds to leave)")
+//                     message.reply("Enter the reaction role (wait 30 seconds to leave)")
 //                 } else {
-//                     message.channel.send("Not a valid reaction, try again (e.g 👍)")
+//                     message.reply("Not a valid reaction, try again (e.g 👍)")
 //                     i--
 //                 }
 //             }
 //             else {
 //                 if (!m.mentions.roles.first()) {
-//                     message.channel.send("Not a valid role, try again")
+//                     message.reply("Not a valid role, try again")
 //                     i--
 //                 } else {
 //                     reactionRoles.push(m.mentions.roles.first())
-//                     message.channel.send("Enter the reaction (wait 30 seconds to leave)")
+//                     message.reply("Enter the reaction (wait 30 seconds to leave)")
 //                 }
 //             }
 //             break;
@@ -130,14 +130,14 @@ module.exports = {
 //     for (const i in reactions) {
 //         embed.addField(reactions[i], String(reactionRoles[i]));
 //     }
-//     channel.send({ embeds: [embed] }).then(m => {
+//     reply({ embeds: [embed] }).then(m => {
 //         for (const i in reactions) {
 //             m.react(reactions[i])
 //         }
 //         const filter1 = (reaction, user) => reaction.emoji in reactions && user.id !== client.user.id;
 //         const collector = m.createReactionCollector({ filter1, time: Infinity, max: Infinity });
 //         collector.on('collect', (reaction, user) => {
-//             message.channel.send(`<@${user.id}> reacted with ${reaction.emoji}`)
+//             message.reply(`<@${user.id}> reacted with ${reaction.emoji}`)
 //             const reactionIndex = reactions.findIndex(reaction)
 //             const member = guild.members.cache.get(user.id)
 //             member.roles.add(reactionRoles[reactionIndex])

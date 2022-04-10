@@ -5,7 +5,7 @@ module.exports = {
   category: "Currency",
   async execute(message, args, cmd, client, Discord, footers) {
     let leaderboard = await client.eco.leaderboard();
-    if (!leaderboard || leaderboard.length < 1) return message.channel.send("❌ | Empty Leaderboard!");
+    if (!leaderboard || leaderboard.length < 1) return message.reply("❌ | Empty Leaderboard!");
     const embed = new Discord.MessageEmbed()
       .setAuthor({ name: `Leaderboard`, iconURL: message.guild.iconURL })
       .setColor("RANDOM")
@@ -21,6 +21,6 @@ module.exports = {
         client.eco.delete(u.user)
       }
     });
-    return message.channel.send({ embeds: [embed] })
+    return message.reply({ embeds: [embed] })
   }
 }
