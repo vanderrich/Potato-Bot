@@ -49,13 +49,13 @@ module.exports = {
             var y = parseInt(m.content.slice(0, 2))
             if (!Number.isInteger(x) || !Number.isInteger(y)) {
                 m.reply('not a valid coordinate')
-                play(turnUser)
                 if (user.id === message.author.id) {
                     turnUser = message.author.id;
                     turn = '🔵'
                 } else if (user.id === opponent.id) {
                     turnUser = opponent.id; turn = '❌'
                 }
+                play(turnUser)
                 return
             }
             var coord = (3 * (y - 1)) + (x - 1)

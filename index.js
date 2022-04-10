@@ -63,6 +63,7 @@ for (const folder of commandFolders) {
 	}
 }
 
+
 //initialize events
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
