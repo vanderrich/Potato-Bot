@@ -10,9 +10,9 @@ module.exports = {
     description: "random thing idk",
     category: "Fun",
     execute(message, args, cmd, client, Discord) {
-        message.channel.send("train weee")
+        message.reply("train weee")
         Tenor.Search.Query("train", "50").then(Results => {
-            message.channel.send(Results[Math.floor(Math.random() * 50)].url)
+            message.reply(Results[Math.floor(Math.random() * 50)].url)
         }).catch(console.error);
     }
 }

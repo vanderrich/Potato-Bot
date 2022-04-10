@@ -28,6 +28,6 @@ module.exports = {
             .setThumbnail(userinfo.avatar)
 
 
-        message.channel.send({ embeds: [myInfo] });
+        message.reply({ embeds: [myInfo] });
     },
 };

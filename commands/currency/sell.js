@@ -33,6 +33,6 @@ module.exports = {
                 }
             }
         }
-        return message.channel.send(`You sold **${amount} ${item}** for **:dollar: ${price}**.`);
+        return message.reply(`You sold **${amount} ${item}** for **:dollar: ${price}**.`);
     }
 }

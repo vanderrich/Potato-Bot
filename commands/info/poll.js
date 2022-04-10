@@ -10,7 +10,7 @@ module.exports = {
 
             const question = args.join(' ');
             if (!question) {
-                return message.channel.send('Please enter a question');
+                return message.reply('Please enter a question');
             }
 
             message.delete();
@@ -20,7 +20,7 @@ module.exports = {
                 .setColor('RANDOM')
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
-            await message.channel.send({ embeds: [embed] }).then(msg => {
+            await message.reply({ embeds: [embed] }).then(msg => {
                 msg.react('👍');
                 msg.react('👎');
             });
@@ -60,7 +60,7 @@ module.exports = {
             options[j] = args;
 
             if (options.length > alphabet.length) {
-                return await message.channel.send('Please don\'t input more than 26 options.').then(sent => {
+                return await message.reply('Please don\'t input more than 26 options.').then(sent => {
                     setTimeout(() => {
                         sent.delete();
                     }, 2000);
@@ -79,7 +79,7 @@ module.exports = {
                 .setColor('RANDOM')
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
-            await message.channel.send({ embeds: [embed] }).then(msg => {
+            await message.reply({ embeds: [embed] }).then(msg => {
                 for (let i = 0; i < options.length; i++) {
                     msg.react(alphabet[i]);
                 }

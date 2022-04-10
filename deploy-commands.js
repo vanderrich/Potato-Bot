@@ -3,8 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { token } = require('./config.json');
 
-function deploy() {
-
+async function deploy() {
     const commands = [];
     const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -15,14 +14,26 @@ function deploy() {
         for (const file of commandFiles) {
             //loops through all the commandFiles and add them to the client commands collection
             const command = require(`./slashCommands/${folder}/${file}`);
+            if (!command.data) continue;
             commands.push(command.data.toJSON());
         }
     }
 
+    console.log(commands)
+
     const rest = new REST({ version: '9' }).setToken(token);
 
-    rest.put(Routes.applicationCommands('954584325809123348'), { body: commands })
-        .then(() => console.log('Successfully registered application commands.'))
-        .catch(console.error);
+    try {
+        console.log('Started refreshing application (/) commands.');
+
+        await rest.put(
+            Routes.applicationGuildCommands('954584325809123348', '954193160932847646'),
+            { body: commands },
+        );
+
+        console.log('Successfully reloaded application (/) commands.');
+    } catch (error) {
+        console.error(error);
+    }
 }
 module.exports = deploy;

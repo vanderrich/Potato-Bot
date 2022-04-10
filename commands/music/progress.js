@@ -7,13 +7,28 @@ module.exports = {
     async execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
 
-        if (!queue || !queue.playing) return message.channel.send(`${message.author}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return message.channel.send({ content: `${message.user}, There is no music currently playing!. ❌` });
 
         const progress = queue.createProgressBar();
         const timestamp = queue.getPlayerTimestamp();
 
-        if (timestamp.progress == 'Infinity') return message.channel.send(`This song is live streaming, no duration data to display. 🎧`);
+        if (timestamp.progress == 'Infinity') return message.channel.send({ content: `This song is live streaming, no duration data to display. 🎧` });
 
-        message.channel.send(`${progress} (**${timestamp.progress}**%)`);
+        const saveButton = new MessageButton();
+
+        saveButton.setLabel('Update');
+        saveButton.setCustomId('time');
+        saveButton.setStyle('SUCCESS');
+
+        const row = new MessageActionRow().addComponents(saveButton);
+
+        const embed = new MessageEmbed()
+            .setColor('BLUE')
+            .setTitle(queue.current.title)
+            .setThumbnail(client.user.displayAvatarURL())
+            .setTimestamp()
+            .setDescription(`${progress} (**${timestamp.progress}**%)`)
+            .setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda', iconURL: message.user.displayAvatarURL({ dynamic: true }) });
+        message.channel.send({ embeds: [embed], components: [row] });
     },
 };

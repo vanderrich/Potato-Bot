@@ -10,6 +10,6 @@ module.exports = {
 		embed.setDescription(`**Ping is ${ping}ms. API Latency is ${Math.round(client.ws.ping)}ms**`);
 		embed.addField("In words", `${fieldMessage}`, true)
 		embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-		message.channel.send({ embeds: [embed] });
+		message.reply({ embeds: [embed] });
 	},
 };

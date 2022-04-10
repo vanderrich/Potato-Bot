@@ -5,7 +5,7 @@ module.exports= {
   category: "Fun",
   execute(message, args, cmd, client, Discord, footers) {
     if(args[0] == null){
-      message.channel.send('you didnt input any arguments!')
+      message.reply('you didnt input any arguments!')
       return;
     }
     args = args.join(' ')
@@ -18,7 +18,7 @@ module.exports= {
       .setTitle(title)
       .setDescription(description)
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-    message.channel.send({ embeds: [embed] })
+    message.reply({ embeds: [embed] })
     message.delete()
   }
 }

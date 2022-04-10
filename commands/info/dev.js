@@ -6,8 +6,8 @@ module.exports = {
   async execute(message, args, cmd, client, Discord) {
     // if (!client.form.has(message.guild.id)) {
     //   if (message.channel.permissionsFor(message.author).has('ADMINISTRATOR')) {
-    //     message.channel.send("Form Creator")
-    //     await message.channel.send("Enter a title for the Form").then({
+    //     message.reply("Form Creator")
+    //     await message.reply("Enter a title for the Form").then({
 
     //     })
     //   }

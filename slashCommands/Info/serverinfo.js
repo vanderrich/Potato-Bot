@@ -35,7 +35,6 @@ module.exports = {
         .setName('serverinfo')
         .setDescription('Information about the server'),
     async execute(interaction, client, Discord, footers) {
-
         //variables
         const roles = interaction.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         const members = interaction.guild.members.cache;

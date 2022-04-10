@@ -9,23 +9,23 @@ module.exports = {
         switch (args[0]) {
             case "off":
                 queue.setRepeatMode(0)
-                message.channel.send("🔁 Loop off")
+                message.reply("🔁 Loop off")
                 break;
             case "song":
                 queue.setRepeatMode(1)
-                message.channel.send("🔁 Looping song")
+                message.reply("🔁 Looping song")
                 break;
             case "queue":
                 queue.setRepeatMode(0)
-                message.channel.send("🔁 Looping queue")
+                message.reply("🔁 Looping queue")
                 break;
             case "autoplay":
                 queue.setRepeatMode(0)
-                message.channel.send("🔁 Autoplaying")
+                message.reply("🔁 Autoplaying")
                 break;
 
             default:
-                message.channel.send("Not a valid option, either off song queue or autoplay")
+                message.reply("Not a valid option, either off song queue or autoplay")
                 break;
         }
     }

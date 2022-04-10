@@ -9,11 +9,11 @@ module.exports = {
         const filter = m => m.content == 'potato-bot'
         await message.channel.awaitMessages({ filter, max: 1, time: 30_000, errors: ['time'] })
             .then(async () => {
-                message.channel.send("Resetting database...")
+                message.reply("Resetting database...")
                 let result = await client.eco.reset();
-                message.channel.send(result ? 'Reset successful' : 'Unable to reset database')
+                message.reply(result ? 'Reset successful' : 'Unable to reset database')
             }).catch(() => {
-                message.channel.send("Reset canceled")
+                message.reply("Reset canceled")
             })
 
     }

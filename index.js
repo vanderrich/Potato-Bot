@@ -73,6 +73,7 @@ for (const folder of slashCommandFolders) {
 	for (const file of commandFiles) {
 		//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./slashCommands/${folder}/${file}`);
+		if (!command.data) continue;
 		client.slashCommands.set(command.data.name, command);
 	}
 }
@@ -91,11 +92,11 @@ for (const file of eventFiles) {
 }
 //other random thingy
 player.on('error', (queue, error) => {
-	console.log(`There was a problem with the song queue => ${error.message}`);
+	queue.metadata.send(`There was a problem with the song queue => ${error.message}`);
 });
 
 player.on('connectionError', (queue, error) => {
-	console.log(`I'm having trouble connecting => ${error.message}`);
+	queue.metadata.send(`I'm having trouble connecting => ${error.message}`);
 });
 
 player.on('trackStart', (queue, track) => {
@@ -104,7 +105,7 @@ player.on('trackStart', (queue, track) => {
 });
 
 player.on('trackAdd', (queue, track) => {
-	queue.metadata.send(`**${track.title}** added to playlist. ✅`);
+	queue.metadata.send(`**${track.title}** added to queue. ✅`);
 });
 
 player.on('botDisconnect', (queue) => {
@@ -139,6 +140,6 @@ svc.on('error', function (error) {
 
 
 //Run
+deploy()
 client.login(token);
 svc.install();
-deploy()

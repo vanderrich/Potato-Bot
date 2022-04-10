@@ -14,7 +14,20 @@ module.exports = {
                 reactionRole = rr;
             }
         });
-        reaction.message.guild.members.cache.get(user.id).roles.remove(reactionRole.roleId)
-        //reaction.message.channel.send(`${user} reacted with ${reaction.emoji} and removed the role <@&${reactionRole.roleId}>`)
+
+        try {
+            reaction.message.guild.members.cache.get(user.id).roles.remove(reactionRole.roleId)
+        }
+        catch (err) {
+            switch (err.code) {
+                case 50013:
+                    reaction.message.channel.send(`${user} I don't have permission to add this role!`)
+                    break;
+                default:
+                    console.log(err)
+                    break;
+            }
+        }
+        //reaction.message.reply(`${user} reacted with ${reaction.emoji} and removed the role <@&${reactionRole.roleId}>`)
     }
 }

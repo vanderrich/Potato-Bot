@@ -9,10 +9,10 @@ module.exports = {
       argument += args[i] + ' ';
     }
     if (args.join().length > 1000 && !message.member.hasPermission('ADMINSTRATOR')){
-      message.channel.send('eyo your message too long dont even try to do that again!')
+      message.reply('eyo your message too long dont even try to do that again!')
       return
     }
-    message.channel.send(argument)
+    message.reply(argument)
     message.delete()
   }
 } 
