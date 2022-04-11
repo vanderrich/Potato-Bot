@@ -1,10 +1,4 @@
 //initialize variables
-let Service
-try {
-	Service = require('node-windows')?.Service;
-} catch (error) {
-	Service = require('node-linux')?.Service;
-}
 const { Player } = require('discord-player');
 const { EconomyManager } = require("quick.eco");
 const db = require("quick.db");
@@ -44,15 +38,6 @@ const commandFolders = fs.readdirSync('./commands');
 // 	reactionroles[i].message = reactionroles[i].channel.messages.cache.get(reactionrolesjson[i].messageId)
 // }
 client.rr = new db.table('reactionroles');
-
-// Run the bot as a service
-client.svc = new Service({
-	name: 'Potato bot stable',
-	description: 'potatoes',
-	script: 'D:\\programing\\programming\\GitHub\\Potato-Bot-Stable\\Potato-Bot\\index.js'
-});
-const svc = client.svc
-
 
 //initialize commands
 for (const folder of commandFolders) {
@@ -120,26 +105,6 @@ player.on('queueEnd', (queue) => {
 	queue.metadata.send('All play queue finished, I think you can listen to some more music. ✅');
 });
 
-svc.on('install', function () {
-	svc.start();
-});
-
-svc.on('start', function () {
-	console.log(svc.name + ' started!\nVisit http://127.0.0.1:3000 to see it in action.');
-});
-
-svc.on('uninstall', function () {
-	console.log('Uninstall complete.');
-	console.log('The service exists: ', svc.exists);
-});
-
-svc.on('error', function (error) {
-	console.log(svc.name + ' failed to start.\n' + error);
-	svc.stop();
-});
-
-
 //Run
 deploy()
 client.login(token);
-svc.install();

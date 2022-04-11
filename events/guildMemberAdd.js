@@ -1,4 +1,4 @@
-const {welcomeMessages} = require('../config.json')
+const { welcomeMessages, footers } = require('../config.json')
 const Discord = require("discord.js")
 module.exports = {
   name: 'guildMemberAdd',

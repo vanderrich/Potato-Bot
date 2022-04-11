@@ -19,15 +19,13 @@ async function deploy() {
         }
     }
 
-    console.log(commands)
-
     const rest = new REST({ version: '9' }).setToken(token);
 
     try {
         console.log('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationGuildCommands('954584325809123348', '954193160932847646'),
+            Routes.applicationCommands('894060283373449317'),
             { body: commands },
         );
 
