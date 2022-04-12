@@ -28,21 +28,7 @@ module.exports = {
         embed.setTimestamp();
         embed.setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda' }, message.author.avatarURL({ dynamic: true }));
 
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setCustomId('first')
-                    .setLabel('⏮')
-                    .setStyle('PRIMARY'),
-                new MessageButton()
-                    .setCustomId('back')
-                    .setLabel('◀')
-                    .setStyle('PRIMARY'),
-                new MessageButton()
-
-            );
-
-        message.reply({ embeds: [embed], components: [row] });
+        message.reply({ embeds: [embed] });
 
     },
 };
