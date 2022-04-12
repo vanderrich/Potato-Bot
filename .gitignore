@@ -7,3 +7,4 @@ package-lock.json
 node_modules/
 .vscode/
 daemon/
+deploy-commands.js
