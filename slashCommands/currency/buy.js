@@ -8,7 +8,6 @@ module.exports = {
             option
                 .setName("item")
                 .setDescription("The item to buy.")
-                .setRequired(true)
         )
         .addIntegerOption(option =>
             option

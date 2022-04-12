@@ -10,7 +10,7 @@ module.exports = {
             if (!command) return;
 
             if (command.permissions) {
-                if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) && !interaction.member.permissions.has(command.permissions)) return interaction.reply("You don't have permission to use this command!");
+                if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.member.permissions.has(command.permissions)) return interaction.reply("You don't have permission to use this command!");
             }
 
             try {

@@ -12,7 +12,7 @@ module.exports = {
       .setTimestamp()
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
     const x = client.db.get(`items_${interaction.user.id}`);
-    if (!x) { return message.reply(`No Items Found To Display`); }
+    if (!x) { return interaction.reply(`No Items Found To Display`); }
     const arrayToObject = x.reduce((itemsobj, x) => {
       itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
       return itemsobj;
