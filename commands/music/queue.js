@@ -20,29 +20,11 @@ module.exports = {
 
         const tracks = queue.tracks.map((track, i) => `**${i + 1}** - ${track.title} | ${track.author} (Started by <@${track.requestedBy.id}>)`);
 
-        const songs = queue.tracks.length;
-        const nextSongs = songs > 5 ? `And **${songs - 5}** Other Song...` : `There are **${songs}** Songs in the List.`;
-
-        embed.setDescription(`Currently Playing: \`${queue.current.title}\`\n\n${tracks.slice(0, 5).join('\n')}\n\n${nextSongs}`);
+        embed.setDescription(`Currently Playing: \`${queue.current.title}\`\n\n${tracks.join('\n')}`);
 
         embed.setTimestamp();
         embed.setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda' }, message.author.avatarURL({ dynamic: true }));
 
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setCustomId('first')
-                    .setLabel('⏮')
-                    .setStyle('PRIMARY'),
-                new MessageButton()
-                    .setCustomId('back')
-                    .setLabel('◀')
-                    .setStyle('PRIMARY'),
-                new MessageButton()
-
-            );
-
-        message.reply({ embeds: [embed], components: [row] });
-
+        message.reply({ embeds: [embed] });
     },
 };

@@ -11,7 +11,7 @@ module.exports = {
       "tat man",
       "super potato"
     ];
-    let amount = Math.floor(Math.random() * 50) + 10;
+    let amount = Math.floor(Math.random() * 5) + 1;
     let beg = await client.eco.beg(interaction.user.id, false, amount, { canLose: true });
     if (beg.cooldown) return interaction.reply(`Begon Thot! Come back after ${beg.time.seconds} seconds.`);
     if (beg.lost) return interaction.reply(`**${users[Math.floor(Math.random() * users.length)]}:** Begon Thot! Try again later.`);
