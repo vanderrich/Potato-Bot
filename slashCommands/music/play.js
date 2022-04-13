@@ -1,6 +1,6 @@
 const { SlashCommandSubcommandBuilder } = require('@discordjs/builders');
 const { QueryType } = require('discord-player');
-const playdl = require('playdl');
+const playdl = require('play-dl');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
