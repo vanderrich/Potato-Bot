@@ -22,7 +22,12 @@ module.exports = {
                         }
                         catch (err) {
                             console.log(err)
-                            await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                            try {
+                                await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                            }
+                            catch (err) {
+                                await interaction.editReply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                            }
                         }
                     }
                 }
@@ -31,7 +36,12 @@ module.exports = {
                 }
             } catch (error) {
                 console.error(error);
-                await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                try {
+                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                }
+                catch (err) {
+                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                }
             }
         }
         else if (interaction.isButton()) {
