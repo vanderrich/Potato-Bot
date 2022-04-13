@@ -13,17 +13,17 @@ module.exports = {
       .setTimestamp()
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
     const invPure = client.db.get(`items_${interaction.user.id}`);
-    const arrayToObject = invPure.reduce((itemsobj, x) => {
-      itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
-      return itemsobj;
-    }, {});
-    let inv = [];
-    Object.keys(arrayToObject).map(k => inv.push({ name: k, quantity: arrayToObject[k] }))
     if (!invPure) {
       embed.setDescription(`No items in the inventory.`);
       return interaction.reply({ embeds: [embed] })
     }
     else {
+      const arrayToObject = invPure.reduce((itemsobj, x) => {
+        itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
+        return itemsobj;
+      }, {});
+      let inv = [];
+      Object.keys(arrayToObject).map(k => inv.push({ name: k, quantity: arrayToObject[k] }))
       const pages = [];
       let page = 1, emptypage = false;
       do {
@@ -39,8 +39,8 @@ module.exports = {
             ? `\n... ${inv.length - pageEnd} more item(s)`
             : ''
             } `);
-          if (page % 2 === 0) embed.setColor('#b84e44');
-          else embed.setColor('#44b868');
+          if (page % 2 === 0) embed.setColor('RANDOM');
+          else embed.setColor('RANDOM');
           pages.push(embed);
           page++;
         }
