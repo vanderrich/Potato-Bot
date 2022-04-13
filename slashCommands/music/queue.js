@@ -1,55 +1,64 @@
 const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+const generatePages = require('../../pagination.js');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("queue")
         .setDescription("See the current queue"),
     execute(interaction, client, Discord) {
-        const queue = client.player.getQueue(interaction.guild.id);
+        const _fromButton = false
+        const queue = client.player.getQueue(interaction.guild);
+        if (!queue || !queue.current) {
+            if (_fromButton) return;
+            const embed = new Discord.MessageEmbed();
+            embed.setTitle('Server Queue');
+            embed.setColor('#b84e44');
+            embed.setDescription(`No songs in the queue.`);
+            return interaction.reply({ embeds: [embed] });
+        }
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        const pages = [];
+        let page = 1, emptypage = false, usedby = _fromButton ? `[${interaction.member}]\n` : "";
+        do {
+            const pageStart = 10 * (page - 1);
+            const pageEnd = pageStart + 10;
+            const tracks = queue.tracks.slice(pageStart, pageEnd).map((m, i) => {
+                const title = ['spotify-custom', 'soundcloud-custom'].includes(m.source) ?
+                    `${m.author} - ${m.title}` : `${m.title}`;
+                return `**${i + pageStart + 1}**. [${title}](${m.url}) ${m.duration} - ${m.requestedBy}`;
+            });
+            if (tracks.length) {
+                const embed = new Discord.MessageEmbed();
+                embed.setDescription(`${usedby}${tracks.join('\n')}${queue.tracks.length > pageEnd
+                    ? `\n... ${queue.tracks.length - pageEnd} more track(s)`
+                    : ''
+                    }`);
+                if (page % 2 === 0) embed.setColor('#b84e44');
+                else embed.setColor('#44b868');
+                const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
+                    `${queue.current.author} - ${queue.current.title}` : `${queue.current.title}`;
+                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}`, iconURL: null, url: `${queue.current.url}` });
+                pages.push(embed);
+                page++;
+            }
+            else {
+                emptypage = true;
+                if (page === 1) {
+                    const embed = new Discord.MessageEmbed();
+                    embed.setColor('#44b868');
+                    embed.setDescription(`${usedby}No more songs in the queue.`);
+                    const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
+                        `${queue.current.author
+                        } - ${queue.current.title} ` : `${queue.current.title} `;
+                    embed.setAuthor({ name: `Now playing: ${title} `, iconURL: null, url: `${queue.current.url}` });
+                    return _fromButton ? interaction.channel.send({ embeds: [embed] }) : interaction.reply({ embeds: [embed] });
+                }
+                if (page === 2) {
+                    return _fromButton ? interaction.channel.send({ embeds: [pages[0]] }) : interaction.reply({ embeds: [pages[0]] });
+                }
+            }
+        } while (!emptypage);
 
-        if (!queue.tracks[0]) return interaction.reply(`${interaction.user}, No music in queue after current. ❌`);
-
-        const embed = new Discord.MessageEmbed();
-        const methods = ['🔁', '🔂'];
-
-        embed.setColor('RANDOM');
-        embed.setThumbnail(interaction.guild.iconURL({ size: 2048, dynamic: true }));
-        embed.setTitle(`Server Music List - ${interaction.guild.name} ${methods[queue.repeatMode]}`);
-
-        const tracks = queue.tracks.map((track, i) => `**${i + 1}** - ${track.title} | ${track.author} (Started by <@${track.requestedBy.id}>)`);
-
-        // const songs = queue.tracks.length;
-        // const nextSongs = songs > 5 ? `And **${songs - 5}** Other Song...` : `There are **${songs}** Songs in the List.`;
-
-        // embed.setDescription(`Currently Playing: \`${queue.current.title}\`\n\n${tracks.slice(0, 5).join('\n')}\n\n${nextSongs}`);
-        embed.setDescription(`Currently Playing: \`${queue.current.title}\`\n\n${tracks.join('\n')}`);
-
-        embed.setTimestamp();
-        embed.setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda', iconURL: interaction.user.avatarURL({ dynamic: true }) });
-
-        // const row = new Discord.MessageActionRow()
-        //     .addComponents(
-        //         new Discord.MessageButton()
-        //             .setCustomId('first')
-        //             .setLabel('⏮')
-        //             .setStyle('PRIMARY'),
-        //         new Discord.MessageButton()
-        //             .setCustomId('back')
-        //             .setLabel('◀️')
-        //             .setStyle('PRIMARY'),
-        //         new Discord.MessageButton()
-        //             .setCustomId('next')
-        //             .setLabel('▶️')
-        //             .setStyle('PRIMARY'),
-        //         new Discord.MessageButton()
-        //             .setCustomId('last')
-        //             .setLabel('⏭')
-        //             .setStyle('PRIMARY'),
-        //     );
-
-        // interaction.reply({ embeds: [embed], components: [row] });
-        interaction.reply({ embeds: [embed] });
+        generatePages(interaction, pages, { timeout: 40000, fromButton: _fromButton });
     },
 };

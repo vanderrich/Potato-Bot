@@ -20,7 +20,7 @@ module.exports = {
             requestedBy: interaction.member,
             searchEngine: QueryType.AUTO
         });
-        let index = interaction.options.getInteger('index') - 1 || 0;
+        let index = interaction.options.getInteger('index') || 1;
 
         if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);
 
@@ -36,7 +36,7 @@ module.exports = {
         }
 
 
-        res.playlist ? queue.addTracks(res.tracks) : queue.insert(res.tracks[0], index);
+        res.playlist ? queue.addTracks(res.tracks) : queue.insert(res.tracks[0], index - 1);
 
         if (!queue.playing) await queue.play();
 
