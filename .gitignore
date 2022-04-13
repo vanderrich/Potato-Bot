@@ -2,7 +2,6 @@ botConfig.js
 config.json
 eco.sqlite
 json.sqlite
-Procfile
 package-lock.json
 node_modules/
 .vscode/
