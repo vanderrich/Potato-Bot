@@ -16,7 +16,7 @@ module.exports = {
       let embed = new Discord.MessageEmbed()
         .setTitle("Store")
         .setDescription(content)
-        .setColor("BLURPLE")
+        .setColor("RANDOM")
         .setFooter({ text: "Use potat buy <item> [amount] to buy an item!" })
       return message.reply({ embeds: [embed] });
     }

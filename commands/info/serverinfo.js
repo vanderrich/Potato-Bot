@@ -47,7 +47,7 @@ module.exports = {
         //embed
         const embed = new Discord.MessageEmbed()
             .setDescription(`**Server Info**`)
-            .setColor('BLACK')
+            .setColor('RANDOM')
             .addField('General', `
                 **Name:** ${message.guild.name}
                 **ID:** ${message.guild.id}

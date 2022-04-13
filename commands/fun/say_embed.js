@@ -14,7 +14,7 @@ module.exports= {
 
 
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor('RANDOM')
       .setTitle(title)
       .setDescription(description)
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })

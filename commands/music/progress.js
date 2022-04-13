@@ -23,7 +23,7 @@ module.exports = {
         const row = new MessageActionRow().addComponents(saveButton);
 
         const embed = new MessageEmbed()
-            .setColor('BLUE')
+            .setColor('RANDOM')
             .setTitle(queue.current.title)
             .setThumbnail(client.user.displayAvatarURL())
             .setTimestamp()

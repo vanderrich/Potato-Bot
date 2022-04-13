@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const generatePages = require('../../pagination.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,14 +12,54 @@ module.exports = {
       .setThumbnail()
       .setTimestamp()
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-    const x = client.db.get(`items_${interaction.user.id}`);
-    if (!x) { return interaction.reply(`No Items Found To Display`); }
-    const arrayToObject = x.reduce((itemsobj, x) => {
+    const invPure = client.db.get(`items_${interaction.user.id}`);
+    const arrayToObject = invPure.reduce((itemsobj, x) => {
       itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
       return itemsobj;
     }, {});
-    Object.keys(arrayToObject).map(k => embed.addField(`Name: ${k}`, `Quantity: **${arrayToObject[k]}**`, false));
+    let inv = [];
+    Object.keys(arrayToObject).map(k => inv.push({ name: k, quantity: arrayToObject[k] }))
+    if (!invPure) {
+      embed.setDescription(`No items in the inventory.`);
+      return interaction.reply({ embeds: [embed] })
+    }
+    else {
+      const pages = [];
+      let page = 1, emptypage = false;
+      do {
+        const pageStart = 10 * (page - 1);
+        const pageEnd = pageStart + 10;
+        const items = inv.slice(pageStart, pageEnd).map((m, i) => {
+          return `** ${i + pageStart + 1}**. ${m.name} - ${m.quantity} `;
+        });
+        if (items.length) {
+          const embed = new Discord.MessageEmbed();
+          embed.setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.guild.iconURL })
+          embed.setDescription(`${items.join('\n')}${inv.length > pageEnd
+            ? `\n... ${inv.length - pageEnd} more item(s)`
+            : ''
+            } `);
+          if (page % 2 === 0) embed.setColor('#b84e44');
+          else embed.setColor('#44b868');
+          pages.push(embed);
+          page++;
+        }
+        else {
+          emptypage = true;
+          if (page === 1) {
+            const embed = new Discord.MessageEmbed();
+            embed.setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.guild.iconURL })
+            embed.setColor('RANDOM');
+            embed.setDescription(`No more items in the inventory.`);
+            return interaction.reply({ embeds: [embed] });
+          }
+          if (page === 2) {
+            return interaction.reply({ embeds: [pages[0]] });
+          }
+        }
+      } while (!emptypage);
 
-    return interaction.reply({ embeds: [embed] })
+      generatePages(interaction, pages, { timeout: 40000, fromButton: false });
+    }
   }
 }

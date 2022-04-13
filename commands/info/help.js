@@ -45,7 +45,7 @@ module.exports = {
 			a.push({ name: categories[category], value: `${value} commands in that category` })
 		}
 		const messageEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
+			.setColor('RANDOM')
 			.setTitle('Commands')
 			.setDescription(`Write ${prefix}help <category> to see the commands in the category`)
 			.addFields(...a)
