@@ -1,11 +1,11 @@
 {
     "dependencies": {
+        "@author.io/arg": "",
         "@discordjs/builders": "^0.12.0",
         "@discordjs/opus": "^0.5.3",
         "@discordjs/rest": "^0.3.0",
         "@discordjs/voice": "^0.8.0",
         "@quick.eco/sqlite": "^1.0.4",
-        "@author.io/arg": "",
         "better-sqlite3": "^7.5.0",
         "discord-api-types": "^0.26.1",
         "discord-collector": "^1.11.15",
@@ -13,6 +13,7 @@
         "discord.js": "^13.6.0",
         "discord.js-poll": "^1.0.4",
         "discordjs-reaction-role": "^2.1.1",
+        "dotenv": "^16.0.0",
         "ffmpeg-static": "^4.4.1",
         "libsodium-wrappers": "^0.7.9",
         "node-fetch": "^2.6.7",
