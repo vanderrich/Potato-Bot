@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { admins, token } = require("../../config.json")
+const { admins } = require("../../config.json")
+require("dotenv").config();
+const token = process.env.DISCORD_TOKEN;
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("restart")

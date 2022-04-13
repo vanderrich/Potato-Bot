@@ -4,7 +4,9 @@ const { EconomyManager } = require("quick.eco");
 const db = require("quick.db");
 const fs = require('fs')
 const Discord = require('discord.js');
-const { prefix, shop, settings, token } = require('./config.json');
+const { shop, settings } = require('./config.json');
+require("dotenv").config();
+const token = process.env.DISCORD_TOKEN;
 const deploy = require('./deploy-commands.js');
 
 const client = new Discord.Client({
@@ -18,13 +20,17 @@ client.eco = new EconomyManager({
 	}
 }); // quick.eco
 client.db = new db.table('inv'); // quick.db
-client.config = require("./botConfig");
 client.shop = shop;
 client.job = new db.table('job')
 client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
-client.player = new Player(client, client.config.opt.discordPlayer);
+client.player = new Player(client, {
+	ytdlOptions: {
+		quality: 'highestaudio', //Please don't touch
+		highWaterMark: 1 << 25 //Please don't touch
+	}
+});
 client.form = new Map();
 client.settings = settings;
 const player = client.player
@@ -85,7 +91,7 @@ player.on('connectionError', (queue, error) => {
 });
 
 player.on('trackStart', (queue, track) => {
-	if (!client.config.opt.loopMessage && queue.repeatMode !== 0) return;
+	if (queue.repeatMode !== 0) return;
 	queue.metadata.send(`🎵 Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}** 🎧`);
 });
 

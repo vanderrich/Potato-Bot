@@ -1,0 +1,91 @@
+    {
+    "prefix": "potat ",
+    "playing": "https://youtu.be/uAPQI9Oyxk4",
+    "random_status": [
+        "Arghh a bug",
+        "Oh no",
+        "I forgor 💀",
+        "Awesome",
+        "Potato",
+        "Potatoes"
+    ],
+    "admins": [
+        "709950767670493275"
+    ],
+    "words": [
+        "Potatoes are the best",
+        "Potato Moons",
+        "Mumbo isnt a cannibal",
+        "Mumbo is a cannibal?",
+        "Potato is a vegetable",
+        "Potato is a fruit?????",
+        "mubmo is a potato",
+        "som1 help me pls"
+    ],
+    "footers": [
+        "<insert epic footer here>",
+        "these footers are getting old",
+        "this is a footer",
+        "yea why did i do this footer thingys?",
+        "i bet you didnt ask for this footer",
+        "i forgor 💀",
+        "is this footer too distracting?",
+        "i dont know what to put here",
+        "fun fact: this footer isnt very good",
+        "fun fact: ",
+        "i think i need help",
+        "fun fact: van needs help",
+        "fun fact: <insert epic fun fact here>"
+    ],
+    "shop": {
+        "laptop": {
+            "cost": 1000
+        },
+        "potato": {
+            "cost": 10
+        },
+        "mop": {
+            "cost": 100
+        },
+        "potato_peeler": {
+            "cost": 1000
+        }
+    },
+    "welcomeMessages": [
+        "{{user}} joined the party!"
+    ],
+    "jobsEmbed": [
+        {
+            "name": "Potato Peeler",
+            "value": "requires **Potato Peeler**\n 10💵 per potato"
+        },
+        {
+            "name": "Janitor",
+            "value": "requires **Mop**\n100💵 per floor cleaned"
+        }
+    ],
+    "jobsPure": [
+        {
+            "name": "Potato Peeler",
+            "salary": {
+                "min": 1000,
+                "max": 5000
+            },
+            "requires": "potato peeler"
+        },
+        {
+            "name": "Janitor",
+            "salary": {
+                "min": 1100,
+                "max": 5500
+            },
+            "requires": "mop"
+        }
+    ],
+    "settings": {
+        "default": {},
+        "851217599403393094": {
+            "welcomeRole": "Other people"
+        }
+    }
+}

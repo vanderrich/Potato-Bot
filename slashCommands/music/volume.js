@@ -1,5 +1,5 @@
 const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
-const maxVol = require("../../botConfig.js").opt.maxVol;
+const maxVol = 250;
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
