@@ -1,6 +1,5 @@
 const { SlashCommandSubcommandBuilder } = require('@discordjs/builders');
 const { QueryType } = require('discord-player');
-const playdl = require('play-dl');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -21,10 +20,7 @@ module.exports = {
         if (!res || !res.tracks.length) return interaction.reply(`${interaction.user}, No search results found. ❌`);
 
         const queue = await client.player.createQueue(interaction.guild, {
-            metadata: interaction.channel,
-            async onBeforeCreateStream(track, source, _queue) {
-                return (await playdl.stream(track.url)).stream;
-            },
+            metadata: interaction.channel
         });
 
         const embed = new Discord.MessageEmbed();

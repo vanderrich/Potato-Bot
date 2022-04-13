@@ -1,5 +1,4 @@
 const { QueryType } = require('discord-player');
-const playdl = require('play-dl');
 
 module.exports = {
     name: "play",
@@ -15,10 +14,7 @@ module.exports = {
         if (!res || !res.tracks.length) return message.reply(`${message.author}, No results found! ❌`);
 
         const queue = await client.player.createQueue(message.guild, {
-            metadata: message.channel,
-            async onBeforeCreateStream(track, source, _queue) {
-                return (await playdl.stream(track.url)).stream;
-            },
+            metadata: message.channel
         });
 
         try {
