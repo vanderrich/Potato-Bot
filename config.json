@@ -47,8 +47,26 @@
         "mop": {
             "cost": 100
         },
-        "potato_peeler": {
+        "potato peeler": {
             "cost": 1000
+        },
+        "water": {
+            "cost": 5
+        },
+        "fertilizer": {
+            "cost": 25
+        },
+        "potato seeds (large)": {
+            "cost": 100
+        },
+        "potato seeds (medium)": {
+            "cost": 50
+        },
+        "potato seeds (small)": {
+            "cost": 25
+        },
+        "potato seeds (tiny)": {
+            "cost": 10
         }
     },
     "welcomeMessages": [
