@@ -12,7 +12,7 @@ module.exports = {
   async execute(msg, args, cmd, client, Discord, footers) {
     //sends the starting embed message 
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor('RANDOM')
       .setTitle('Fast type game is starting!')
       .setDescription('To participate, react on ✅')
       .addField('Goal: Be the fastest to write the words indicated.', 'you can exit the game by typing \`stop\` in the chat')

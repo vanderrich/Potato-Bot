@@ -39,8 +39,8 @@ module.exports = {
             ? `\n... ${inv.length - pageEnd} more item(s)`
             : ''
             } `);
-          if (page % 2 === 0) embed.setColor('#b84e44');
-          else embed.setColor('#44b868');
+          if (page % 2 === 0) embed.setColor('RANDOM');
+          else embed.setColor('RANDOM');
           pages.push(embed);
           page++;
         }

@@ -18,7 +18,7 @@ module.exports= {
       .setTitle(title)
       .setDescription(description)
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-    message.reply({ embeds: [embed] })
+    message.channel.send({ embeds: [embed] })
     message.delete()
   }
 }

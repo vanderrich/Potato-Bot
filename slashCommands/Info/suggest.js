@@ -19,7 +19,7 @@ module.exports = {
 
   async execute(interaction, client, Discord, footers) {
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor('RANDOM')
       .setTitle(`New Suggestion`)
       .setDescription(interaction.options.getString("suggestion"))
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })

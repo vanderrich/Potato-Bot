@@ -1,3 +1,5 @@
+const generatePages = require('../../pagination.js');
+
 module.exports = {
     name: 'queue',
     aliases: ['q'],
@@ -5,26 +7,59 @@ module.exports = {
     voiceChannel: true,
     category: "Music",
     execute(message, args, cmd, client, Discord) {
-        const queue = client.player.getQueue(message.guild.id);
+        const _fromButton = false
+        const queue = client.player.getQueue(message.guild);
+        if (!queue || !queue.current) {
+            if (_fromButton) return;
+            const embed = new Discord.MessageEmbed();
+            embed.setTitle('Server Queue');
+            embed.setColor('RANDOM');
+            embed.setDescription(`No songs in the queue.`);
+            return message.reply({ embeds: [embed] });
+        }
 
-        if (!queue || !queue.playing) return message.reply(`${message.author}, There is no music currently playing!. ❌`);
+        const pages = [];
+        let page = 1, emptypage = false, usedby = _fromButton ? `[${message.member}]\n` : "";
+        do {
+            const pageStart = 10 * (page - 1);
+            const pageEnd = pageStart + 10;
+            const tracks = queue.tracks.slice(pageStart, pageEnd).map((m, i) => {
+                const title = ['spotify-custom', 'soundcloud-custom'].includes(m.source) ?
+                    `${m.author} - ${m.title}` : `${m.title}`;
+                return `**${i + pageStart + 1}**. [${title}](${m.url}) ${m.duration} - ${m.requestedBy}`;
+            });
+            if (tracks.length) {
+                const embed = new Discord.MessageEmbed();
+                embed.setDescription(`${usedby}${tracks.join('\n')}${queue.tracks.length > pageEnd
+                    ? `\n... ${queue.tracks.length - pageEnd} more track(s)`
+                    : ''
+                    }`);
+                if (page % 2 === 0) embed.setColor('RANDOM');
+                else embed.setColor('RANDOM');
+                const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
+                    `${queue.current.author} - ${queue.current.title}` : `${queue.current.title}`;
+                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}`, iconURL: null, url: `${queue.current.url}` });
+                pages.push(embed);
+                page++;
+            }
+            else {
+                emptypage = true;
+                if (page === 1) {
+                    const embed = new Discord.MessageEmbed();
+                    embed.setColor('RANDOM');
+                    embed.setDescription(`${usedby}No more songs in the queue.`);
+                    const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
+                        `${queue.current.author
+                        } - ${queue.current.title} ` : `${queue.current.title} `;
+                    embed.setAuthor({ name: `Now playing: ${title} `, iconURL: null, url: `${queue.current.url}` });
+                    return _fromButton ? message.channel.send({ embeds: [embed] }) : message.reply({ embeds: [embed] });
+                }
+                if (page === 2) {
+                    return _fromButton ? message.channel.send({ embeds: [pages[0]] }) : message.reply({ embeds: [pages[0]] });
+                }
+            }
+        } while (!emptypage);
 
-        if (!queue.tracks[0]) return message.reply(`${message.author}, No music in queue after current. ❌`);
-
-        const embed = new Discord.MessageEmbed();
-        const methods = ['🔁', '🔂'];
-
-        embed.setColor('RANDOM');
-        embed.setThumbnail(message.guild.iconURL({ size: 2048, dynamic: true }));
-        embed.setTitle(`Server Music List - ${message.guild.name} ${methods[queue.repeatMode]}`);
-
-        const tracks = queue.tracks.map((track, i) => `**${i + 1}** - ${track.title} | ${track.author} (Started by <@${track.requestedBy.id}>)`);
-
-        embed.setDescription(`Currently Playing: \`${queue.current.title}\`\n\n${tracks.join('\n')}`);
-
-        embed.setTimestamp();
-        embed.setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda' }, message.author.avatarURL({ dynamic: true }));
-
-        message.reply({ embeds: [embed] });
+        generatePages(message, pages, { timeout: 40000, fromButton: _fromButton });
     },
 };

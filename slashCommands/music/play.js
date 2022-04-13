@@ -1,12 +1,14 @@
 const { SlashCommandSubcommandBuilder } = require('@discordjs/builders');
 const { QueryType } = require('discord-player');
+const playdl = require('playdl');
+
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName('play')
         .setDescription('Play a track.')
         .addStringOption(option => option
             .setName('track')
-            .setDescription('The url of the track to play.')
+            .setDescription('The url or query of the track to play.')
             .setRequired(true)
         )
         .addIntegerOption(option => option
@@ -25,7 +27,10 @@ module.exports = {
         if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);
 
         const queue = await client.player.createQueue(interaction.guild, {
-            metadata: interaction.channel
+            metadata: interaction.channel,
+            async onBeforeCreateStream(track, source, _queue) {
+                return (await playdl.stream(track.url)).stream;
+            },
         });
 
         try {

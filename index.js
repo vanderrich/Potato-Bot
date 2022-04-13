@@ -83,6 +83,8 @@ for (const file of eventFiles) {
 }
 //other random thingy
 player.on('error', (queue, error) => {
+	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released
+	if (error.message === '[DestroyedQueue] Cannot use destroyed queue') return;
 	queue.metadata.send(`There was a problem with the song queue => ${error.message}`);
 });
 
