@@ -8,6 +8,8 @@ Features:
 - Reaction roles
 - Moderation
 - Music
+- Slash Commands
+- And lots more
 
 
 Links:
