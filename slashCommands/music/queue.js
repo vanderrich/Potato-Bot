@@ -37,7 +37,8 @@ module.exports = {
                 else embed.setColor('#44b868');
                 const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
                     `${queue.current.author} - ${queue.current.title}` : `${queue.current.title}`;
-                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}`, iconURL: null, url: `${queue.current.url}` });
+                const totalTime = `${Math.floor(queue.totalTime % 2160)}:${queue.totalTime % (360)}:${queue.totalTime % 60}`
+                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}, Total time: ${totalTime}`, iconURL: null, url: `${queue.current.url}` });
                 pages.push(embed);
                 page++;
             }
