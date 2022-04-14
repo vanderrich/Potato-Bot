@@ -1,12 +1,13 @@
 const { SlashCommandSubcommandBuilder } = require('@discordjs/builders');
 const { QueryType } = require('discord-player');
+
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName('play')
         .setDescription('Play a track.')
         .addStringOption(option => option
             .setName('track')
-            .setDescription('The url of the track to play.')
+            .setDescription('The url or query of the track to play.')
             .setRequired(true)
         )
         .addIntegerOption(option => option

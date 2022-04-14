@@ -12,7 +12,7 @@ module.exports = {
             if (_fromButton) return;
             const embed = new Discord.MessageEmbed();
             embed.setTitle('Server Queue');
-            embed.setColor('#b84e44');
+            embed.setColor('RANDOM');
             embed.setDescription(`No songs in the queue.`);
             return interaction.reply({ embeds: [embed] });
         }
@@ -33,11 +33,11 @@ module.exports = {
                     ? `\n... ${queue.tracks.length - pageEnd} more track(s)`
                     : ''
                     }`);
-                if (page % 2 === 0) embed.setColor('#b84e44');
-                else embed.setColor('#44b868');
+                if (page % 2 === 0) embed.setColor('RANDOM');
+                else embed.setColor('RANDOM');
                 const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
                     `${queue.current.author} - ${queue.current.title}` : `${queue.current.title}`;
-                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}`, iconURL: null, url: `${queue.current.url}` });
+                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}, Total Time ${queue.totalTime}`, iconURL: null, url: `${queue.current.url}` });
                 pages.push(embed);
                 page++;
             }
@@ -45,7 +45,7 @@ module.exports = {
                 emptypage = true;
                 if (page === 1) {
                     const embed = new Discord.MessageEmbed();
-                    embed.setColor('#44b868');
+                    embed.setColor('RANDOM');
                     embed.setDescription(`${usedby}No more songs in the queue.`);
                     const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
                         `${queue.current.author

@@ -24,7 +24,7 @@ module.exports = {
 			const messageEmbed = new Discord.MessageEmbed()
 				.setColor("RANDOM")
 				.setTitle(category)
-				.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+				.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
 			for (command in commandsInCategory) {
 				command = commandsInCategory[command]
 				description = command.description ? (command.usage ? (command.description + '\n' + command.usage) : command.description) : (command.usage ? command.usage : "No Description Available")
@@ -49,7 +49,7 @@ module.exports = {
 			.setTitle('Commands')
 			.setDescription(`Write ${prefix}help <category> to see the commands in the category`)
 			.addFields(...a)
-			.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+			.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
 		message.reply({ embeds: [messageEmbed] })
 	},
 };

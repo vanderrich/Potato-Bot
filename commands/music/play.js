@@ -1,4 +1,5 @@
 const { QueryType } = require('discord-player');
+
 module.exports = {
     name: "play",
     aliases: ["p"],

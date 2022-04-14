@@ -13,7 +13,7 @@ module.exports = {
         { name: '\u200B', value: '\u200B' }
       )
       .setTimestamp()
-      .setFooter({ text: 'Use potat games <game> to play a game!' });
+      .setFooter({ text: 'Use potat games <game> to play a game!', iconURL: message.author.avatarURL({ dynamic: true }) });
     message.reply({ embeds: [exampleEmbed] });
   }
 }

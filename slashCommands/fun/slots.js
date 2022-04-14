@@ -16,7 +16,7 @@ module.exports = {
     var embed = new MessageEmbed()
       .setTitle('Slots')
       .setDescription('⬛⬛⬛')
-      .setFooter({ text: footer })
+      .setFooter({ text: footer, iconURL: message.author.avatarURL({ dynamic: true }) })
 
     //sends the embed message and reacts to it
     interaction.reply({ embeds: [embed], fetchReply: true }).then((msg) => {
@@ -47,7 +47,7 @@ module.exports = {
       //sends the frames
       for (let i = 0; i < messages.length; i++) {
         msg.edit({
-          embeds: [messages[i].setFooter({ text: footer })]
+          embeds: [messages[i].setFooter({ text: footer, iconURL: message.author.avatarURL({ dynamic: true }) })]
         })
       }
 

@@ -12,12 +12,12 @@ module.exports = {
   async execute(msg, args, cmd, client, Discord, footers) {
     //sends the starting embed message 
     const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
+      .setColor('RANDOM')
       .setTitle('Fast type game is starting!')
       .setDescription('To participate, react on ✅')
       .addField('Goal: Be the fastest to write the words indicated.', 'you can exit the game by typing \`stop\` in the chat')
       .setFooter({ text: 'to stop the game for everyone, type \`stopgame\`' })
-    var message = await msg.reply({ embeds: [embed] })
+    var message = await msg.reply({ embeds: [embed], iconURL: message.author.avatarURL({ dynamic: true }) })
     message.react('✅')
     let joinedUsers = []
     let log = []

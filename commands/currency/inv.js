@@ -9,7 +9,7 @@ module.exports = {
       .setColor("RANDOM")
       .setThumbnail()
       .setTimestamp()
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
     const x = client.db.get(`items_${message.author.id}`);
     if (!x) { return message.reply(`No Items Found To Display`); }
     const arrayToObject = x.reduce((itemsobj, x) => {

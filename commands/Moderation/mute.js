@@ -37,8 +37,9 @@ module.exports = {
     var kickEmbed = new Discord.MessageEmbed()
       .setTitle("Kick")
       .addField("Kicked user", `${user}`)
+      .setThumbnail(user.avatarURL())
       .addField("Reason", `${reason}`)
-      .setFooter({ text: `Kicked by ${message.author.tag}` })
+      .setFooter({ text: `Kicked by ${message.author.tag}`, iconURL: message.author.avatarURL({ dynamic: true }) })
       .setTimestamp();
     user.kick();
     channel.send({ embeds: [kickEmbed] });

@@ -104,7 +104,7 @@ module.exports = {
                 .setColor('RANDOM')
                 .setTitle('tictactoe')
                 .addField('game', tictactoe)
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
             if (!gameEnd) {
                 message.channel.send(`<@${turnUser}>\'s turn`)
             }

@@ -3,14 +3,14 @@ const Discord = require("discord.js")
 module.exports = {
   name: 'guildMemberAdd',
   execute(newMember, client) {
-    const welcomeChannel = newMember.guild.channels.cache.find(channel => channel.name.includes('welcome'))
-    if (newMember.bot) return;
+    const welcomeChannel = newMember.guild.channels.cache.find(channel => channel.name.includes('welcome') || channel.name.includes('general'))
+    if (newMember.bot || !welcomeChannel) return;
 
     const embed = new Discord.MessageEmbed()
       .setTitle('New Member!')
       .setDescription(`${newMember.user}`)
       .setThumbnail(newMember.user.avatarURL())
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
 
     welcomeChannel.send({ embeds: [embed] })
     if (client.settings[newMember.guild.id]?.welcomeRole) {

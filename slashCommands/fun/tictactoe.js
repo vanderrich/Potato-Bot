@@ -106,10 +106,10 @@ module.exports = {
             //sends the current state
             var tictactoe = result[0].join('') + '\n' + result[1].join('') + '\n' + result[2].join('')
             const exampleEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor('RANDOM')
                 .setTitle('tictactoe')
                 .addField('game', tictactoe)
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
             if (!gameEnd) {
                 interaction.channel.send(`<@${turnUser}>\'s turn`)
             }

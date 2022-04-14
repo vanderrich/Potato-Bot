@@ -79,7 +79,7 @@ module.exports = {
             command.execute(message, args, commandName, client, Discord, footers);
         } catch (error) {
             console.error(error);
-            message.reply('there was an error trying to execute that command!');
+            message.reply('There was an error trying to execute that command!\n' + error);
         }
     }
 }

@@ -44,7 +44,7 @@ module.exports = {
         //embed
         const embed = new Discord.MessageEmbed()
             .setDescription(`**Server Info**`)
-            .setColor('BLACK')
+            .setColor('RANDOM')
             .addField('General', `
                 **Name:** ${interaction.guild.name}
                 **ID:** ${interaction.guild.id}
@@ -74,7 +74,7 @@ module.exports = {
                 \u200b
             `)
             .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
         interaction.reply({ embeds: [embed] });
     }
 }

@@ -26,6 +26,8 @@ module.exports = {
         const roleEmbed = new Discord.MessageEmbed()
             .setTitle('Remove Role')
             .addField('Role', `${role}`)
+            .addField('User', `${targetuser}`)
+            .setFooter({ text: `Removed by ${interaction.author.tag}`, iconURL: interaction.author.avatarURL({ dynamic: true }) })
         const member = guild.members.cache.get(targetuser.id)
         member.roles.remove(role.id)
         channel.send({ embeds: [roleEmbed] })

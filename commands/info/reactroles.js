@@ -58,7 +58,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
                 .setDescription(description)
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
             for (const i in reactions) {
                 embed.addField(reactions[i], String(reactionRoles[i]));
             }

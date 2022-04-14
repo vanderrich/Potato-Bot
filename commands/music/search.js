@@ -1,4 +1,5 @@
 const { QueryType } = require('discord-player');
+const playdl = require('play-dl');
 
 module.exports = {
     name: 'search',

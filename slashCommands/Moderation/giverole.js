@@ -30,7 +30,7 @@ module.exports = {
       .setTitle('Give Role')
       .addField('Role', `${role}`)
       .addField('User', `${targetuser}`)
-      .setFooter({ text: `Given by ${interaction.user.tag}` })
+      .setFooter({ text: `Given by ${interaction.user.tag}`, iconURL: message.author.avatarURL({ dynamic: true }) })
     const member = guild.members.cache.get(targetuser.id)
     member.roles.add(role.id)
     channel.send({ embeds: [roleEmbed] })

@@ -8,6 +8,16 @@ module.exports = {
             option
                 .setName("item")
                 .setDescription("The item to buy.")
+                .addChoice("laptop", "laptop")
+                .addChoice("potato", "potato")
+                .addChoice("mop", "mop")
+                .addChoice("potato peeler", "potato peeler")
+                .addChoice("water", "water")
+                .addChoice("fertilizer", "fertilizer")
+                .addChoice("potato seeds (large)", "potato seeds (large)")
+                .addChoice("potato seeds (medium)", "potato seeds (medium)")
+                .addChoice("potato seeds (small)", "potato seeds (small)")
+                .addChoice("potato seeds (tiny)", "potato seeds (tiny)")
         )
         .addIntegerOption(option =>
             option
@@ -27,8 +37,8 @@ module.exports = {
             let embed = new Discord.MessageEmbed()
                 .setTitle("Store")
                 .setDescription(content)
-                .setColor("BLURPLE")
-                .setFooter({ text: "Use potat buy <item> [amount] to buy an item!" })
+                .setColor("RANDOM")
+                .setFooter({ text: "Use potat buy <item> [amount] to buy an item!", iconURL: message.author.avatarURL({ dynamic: true }) })
             return interaction.reply({ embeds: [embed] });
         }
 

@@ -35,7 +35,8 @@ module.exports = {
     var banEmbed = new Discord.MessageEmbed()
       .setTitle("Unban")
       .addField("Unbanned user", `<@${user}>`)
-      .setFooter({ text: `Unbanned by ${message.author.tag}` })
+      .setThumbnail(user.avatarURL())
+      .setFooter({ text: `Unbanned by ${message.author.tag}`, iconURL: message.author.avatarURL({ dynamic: true }) })
       .setTimestamp();
     guild.members.unban(user);
     channel.send({ embeds: [banEmbed] });

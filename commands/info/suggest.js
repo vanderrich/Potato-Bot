@@ -13,7 +13,7 @@ module.exports = {
       .setColor('RANDOM')
       .setTitle(`New Suggestion`)
       .setDescription(args.join(' '))
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
     let channel = message.guild.channels.cache.find(channel => channel.name.includes("suggest"))
     if (!channel) {
       message.reply("there is no channel named suggest")
