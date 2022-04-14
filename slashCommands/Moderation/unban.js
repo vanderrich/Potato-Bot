@@ -29,7 +29,7 @@ module.exports = {
     var banEmbed = new Discord.MessageEmbed()
       .setTitle("Unban")
       .addField("Unbanned user", `<@${user}>`)
-      .setFooter({ text: `Unbanned by ${interaction.author.tag}`, iconURL: interaction.author.avatarURL({ dynamic: true }) })
+      .setFooter({ text: `Unbanned by ${interaction.author.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
       .setTimestamp();
     guild.members.unban(user);
     channel.send({ embeds: [banEmbed] });

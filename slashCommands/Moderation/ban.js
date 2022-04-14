@@ -32,7 +32,7 @@ module.exports = {
             .setTitle("Ban")
             .addField("Banned user", `${user}`)
             .addField("Reason", `${reason}`)
-            .setFooter({ text: `Banned by ${interaction.author.tag}`, iconURL: interaction.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: `Banned by ${interaction.author.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
             .setTimestamp();
         user.ban();
         channel.send({ embeds: [banEmbed] });

@@ -11,7 +11,7 @@ module.exports = {
       .setColor("RANDOM")
       .setThumbnail()
       .setTimestamp()
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
     const invPure = client.db.get(`items_${interaction.user.id}`);
     if (!invPure) {
       embed.setDescription(`No items in the inventory.`);

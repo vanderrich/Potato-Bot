@@ -28,7 +28,7 @@ module.exports = {
             .setTitle(`Money Added!`)
             .setDescription(`User: <@${user.id}>\nTotal Amount: ${data}`)
             .setColor("RANDOM")
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
         return interaction.reply({ embeds: [embed] })
     }
 }

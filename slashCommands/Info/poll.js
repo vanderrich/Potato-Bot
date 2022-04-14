@@ -37,7 +37,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (description != null) embed.setDescription(description)
 
             interaction.reply({ embeds: [embed], fetchReply: true }).then(msg => {
@@ -64,7 +64,7 @@ module.exports = {
             embed
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n'))
             else embed.setDescription(arr.join('\n\n'))
 
