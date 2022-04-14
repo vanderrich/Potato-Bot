@@ -15,7 +15,7 @@ module.exports = {
         { name: '\u200B', value: '\u200B' }
       )
       .setTimestamp()
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) });
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) });
     message.reply({ embeds: [exampleEmbed] });
   }
 }

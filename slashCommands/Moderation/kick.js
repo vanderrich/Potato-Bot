@@ -31,7 +31,7 @@ module.exports = {
       .setTitle("Kick")
       .addField("Kicked user", `${user}`)
       .addField("Reason", `${reason}`)
-      .setFooter({ text: `Kicked by ${interaction.author.tag}`, iconURL: message.author.avatarURL({ dynamic: true }) })
+      .setFooter({ text: `Kicked by ${interaction.author.tag}`, iconURL: interaction.author.avatarURL({ dynamic: true }) })
       .setTimestamp();
     user.kick();
     channel.send({ embeds: [kickEmbed] });

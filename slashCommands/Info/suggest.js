@@ -22,7 +22,7 @@ module.exports = {
       .setColor('RANDOM')
       .setTitle(`New Suggestion`)
       .setDescription(interaction.options.getString("suggestion"))
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
     let channel = interaction.options.getChannel("channel");
     channel.send({ embeds: [embed] });
   }

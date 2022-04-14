@@ -23,7 +23,7 @@ module.exports = {
       .setColor('RANDOM')
       .setTitle(title)
       .setDescription(description)
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
     interaction.reply({ embeds: [embed] })
   }
 }
