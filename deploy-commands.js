@@ -25,7 +25,7 @@ async function deploy() {
         console.log('Started refreshing application (/) commands.');
 
         // test bot
-        if (clientId == '95458432580912334') {
+        if (clientId == '954584325809123348') {
             await rest.put(
                 Routes.applicationGuildCommands(clientId, '962861680226865193'),
                 { body: commands },

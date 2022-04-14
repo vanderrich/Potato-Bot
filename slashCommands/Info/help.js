@@ -1,5 +1,6 @@
 const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Work in Progress", "Bot Admin Only"]
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { prefix } = require("../../config.json");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,10 +18,11 @@ module.exports = {
         ),
     category: "Info",
     execute(interaction, client, Discord, footers) {
-        const { commands } = client;
+        const commands = client.slashCommands;
         if (interaction.options.getString("category")) {
-            let category = interaction.options.getString("category").charAt(0).toUpperCase()
-            if (!(categories.includes(category))) {
+            let category = interaction.options.getString("category")
+            category = category.charAt(0).toUpperCase() + category.slice(1)
+            if (!categories.includes(category)) {
                 return interaction.reply("No category with that name")
             }
             commandsInCategory = []
@@ -32,7 +34,7 @@ module.exports = {
             const messageEmbed = new Discord.MessageEmbed()
                 .setColor("RANDOM")
                 .setTitle(category)
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             for (command in commandsInCategory) {
                 command = commandsInCategory[command]
                 description = command.data.description
@@ -50,7 +52,7 @@ module.exports = {
                 .setColor("RANDOM")
                 .setTitle(commandObject.data.name)
                 .setDescription(commandObject.data.description)
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (commandObject.data.options) {
                 for (option in commandObject.data.options) {
                     option = commandObject.data.options[option]
@@ -75,7 +77,7 @@ module.exports = {
             .setTitle('Commands')
             .setDescription(`Write ${prefix}help <category> to see the commands in the category`)
             .addFields(...a)
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
         interaction.reply({ embeds: [messageEmbed] })
     }
 }

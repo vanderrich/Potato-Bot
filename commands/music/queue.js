@@ -1,4 +1,4 @@
-const generatePages = require('../../pagination.js');
+const generatePages = require('../../Util/pagination.js');
 
 module.exports = {
     name: 'queue',

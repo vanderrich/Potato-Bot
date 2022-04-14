@@ -1,6 +1,8 @@
 const { prefix, footers, admins } = require('./../config.json')
 const Discord = require('discord.js')
 const queue = new Map()
+const updateGrid = require('./../Util/tictactoe.js')
+
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
@@ -42,6 +44,11 @@ module.exports = {
                 catch (err) {
                     await interaction.editReply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                 }
+            }
+        }
+        else if (interaction.isMessageComponent()) {
+            if (interaction.customId.startsWith("ttt")) {
+                await updateGrid(interaction)
             }
         }
         else if (interaction.isButton()) {
