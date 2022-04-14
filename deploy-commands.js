@@ -7,8 +7,6 @@ const clientId = process.env.CLIENT_ID;
 
 async function deploy() {
     const commands = [];
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
     const slashCommandFolders = fs.readdirSync('./slashCommands');
     for (const folder of slashCommandFolders) {
         //loops through all folders of commandFolders
@@ -26,10 +24,20 @@ async function deploy() {
     try {
         console.log('Started refreshing application (/) commands.');
 
-        await rest.put(
-            Routes.applicationCommands(clientId),
-            { body: commands },
-        );
+        // test bot
+        if (clientId == '95458432580912334') {
+            await rest.put(
+                Routes.applicationGuildCommands(clientId, '962861680226865193'),
+                { body: commands },
+            );
+        }
+        // stable
+        else if (clientId == '894060283373449317') {
+            await rest.put(
+                Routes.applicationCommands(clientId),
+                { body: commands },
+            );
+        }
 
         console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
