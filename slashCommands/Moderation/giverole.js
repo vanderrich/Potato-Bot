@@ -16,6 +16,7 @@ module.exports = {
         .setRequired(true)
     ),
   permission: 'MANAGE_MEMBERS',
+  category: "Moderation",
   async execute(message, args, cmd, client, Discord) {
     //variables
     const targetuser = interaction.options.getUser("target");

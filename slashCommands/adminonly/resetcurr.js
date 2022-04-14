@@ -5,6 +5,7 @@ module.exports = {
         .setName("resetcurr")
         .setDescription("Resets the currency"),
     permissions: "BotAdmin",
+    category: "Bot Admin Only",
     async execute(interaction, client, Discord, footers) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
         interaction.reply("Are you sure you want to reset the database? Enter `Potato Bot` to continue")

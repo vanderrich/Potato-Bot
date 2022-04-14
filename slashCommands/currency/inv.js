@@ -5,6 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("inv")
     .setDescription("View your inventory"),
+  category: "Currency",
   async execute(interaction, client, Discord, footers) {
     const embed = new Discord.MessageEmbed()
       .setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.guild.iconURL })

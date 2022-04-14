@@ -12,7 +12,8 @@ module.exports = {
                 .addChoice("Loop the track", "track")
                 .addChoice("Loop the entire queue", "queue")
                 .addChoice("autoplay", "autoplay")
-        ),
+    ),
+    category: "Music",
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
         switch (interaction.options.getString("loop")) {

@@ -9,7 +9,8 @@ module.exports = {
         .setName("text")
         .setDescription("The text you want the bot to say")
         .setRequired(true),
-    ),
+  ),
+  category: "Fun",
   execute(interaction) {
     let text = interaction.options.getString("text");
     if (text.length > 2000) return interaction.reply("Your text is too long!");

@@ -15,7 +15,8 @@ module.exports = {
         .setName("amount")
         .setDescription("The amount of money you want to transfer")
         .setRequired(true)
-    ),
+  ),
+  category: "Currency",
   async execute(interaction, client) {
     let member = interaction.options.getUser("user");
     if (member == interaction.user) return interaction.reply("You cant transfer money to yourself!");

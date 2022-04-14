@@ -35,6 +35,7 @@ module.exports = {
         .addStringOption(option => option.setName("option4emoji").setDescription("The emoji of the fourth option of the reaction role"))
         .addRoleOption(option => option.setName("option4role").setDescription("The role of the fourth option of the reaction role")),
     permissions: "ADMINISTRATOR",
+    category: "Moderation",
     async execute(interaction, client, Discord, footers) {
         let title = interaction.options.getString("title");
         let description = interaction.options.getString("description");

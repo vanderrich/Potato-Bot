@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("slots")
     .setDescription("Spin the slots!"),
+  category: "Fun",
   execute(interaction, client, Discord, footers) {
     const footer = footers[Math.floor(Math.random() * footers.length)]
     let messages = [];

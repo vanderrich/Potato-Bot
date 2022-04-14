@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandSubcommandBuilder()
     .setName("daily")
     .setDescription("Get your daily reward!"),
+  category: "Currency",
   async execute(interaction, client) {
     let amount = Math.floor(Math.random() * 50) + 10;
     let addMoney = await client.eco.daily(interaction.user.id, false, amount, {});

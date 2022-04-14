@@ -23,6 +23,7 @@ module.exports = {
         .addStringOption(option => option.setName("option6").setDescription("The sixth option of the poll"))
         .addStringOption(option => option.setName("option7").setDescription("The seventh option of the poll"))
         .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")),
+    category: "Fun",
     async execute(interaction, client, Discord, footers) {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");

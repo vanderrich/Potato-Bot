@@ -8,7 +8,8 @@ module.exports = {
             .setName("pos")
             .setDescription("The position to seek to.")
             .setRequired(true)
-        ),
+    ),
+    category: "Music",
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

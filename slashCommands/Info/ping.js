@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('Pong!'),
+    category: "Info",
     async execute(interaction, client, Discord, footers) {
         const embed = new Discord.MessageEmbed()
         const ping = Date.now() - interaction.createdAt

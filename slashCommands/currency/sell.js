@@ -14,7 +14,8 @@ module.exports = {
             option
                 .setName("amount")
                 .setDescription("The amount of items you want to sell")
-        ),
+    ),
+    category: "Currency",
     async execute(interaction, client) {
         let item = interaction.options.getString("item");
         let hasItem;

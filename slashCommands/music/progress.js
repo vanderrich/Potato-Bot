@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("progress")
         .setDescription("See the current track progress"),
+    category: "Music",
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

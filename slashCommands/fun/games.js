@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("games")
     .setDescription("A list of games you can play"),
+  category: "Fun",
   execute(message, client, Discord, footers) {
     const exampleEmbed = new Discord.MessageEmbed()
       .setColor('RANDOM')

@@ -8,7 +8,8 @@ module.exports = {
         .setName("target")
         .setDescription("The user to check the balance of.")
         .setRequired(true)
-    ),
+  ),
+  category: "Currency",
   async execute(interaction, client, Discord, footers) {
     let user = interaction.options.getUser("target");
     let userBalance = await client.eco.fetchMoney(user.id ? user.id : user, false);

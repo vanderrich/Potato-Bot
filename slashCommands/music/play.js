@@ -14,7 +14,8 @@ module.exports = {
             .setName('index')
             .setDescription('The index of the track to play.')
             .setRequired(false)
-        ),
+    ),
+    category: 'Music',
     async execute(interaction, client) {
         interaction.deferReply()
         const res = await client.player.search(interaction.options.getString('track'), {

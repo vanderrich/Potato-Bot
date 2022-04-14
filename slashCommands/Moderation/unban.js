@@ -16,6 +16,7 @@ module.exports = {
         .setRequired(false)
     ),
   permissions: 'BAN_MEMBERS',
+  category: "Moderation",
   async execute(interaction, client, Discord) {
     //initialize
     var channel = interaction.guild.channels.cache.find(channel => channel.name.includes("mod"));

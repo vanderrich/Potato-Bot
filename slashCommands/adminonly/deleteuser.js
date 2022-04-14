@@ -11,6 +11,7 @@ module.exports = {
                 .setRequired(true)
         ),
     permissions: "BotAdmin",
+    category: "Bot Admin Only",
     execute(interaction, client, Discord, footers) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
         let user = interaction.options.getUser('target');

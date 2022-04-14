@@ -10,7 +10,8 @@ module.exports = {
                 .setName('query')
                 .setDescription('The song to search for.')
                 .setRequired(true)
-        ),
+    ),
+    category: 'Music',
     async execute(interaction, client, Discord) {
         const res = await client.player.search(interaction.options.getString("query"), {
             requestedBy: interaction.member,

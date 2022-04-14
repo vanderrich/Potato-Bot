@@ -16,7 +16,7 @@ module.exports = {
         .setDescription("The channel to send the suggestion in")
         .setRequired(true)
     ),
-
+  category: "Info",
   async execute(interaction, client, Discord, footers) {
     const embed = new Discord.MessageEmbed()
       .setColor('RANDOM')

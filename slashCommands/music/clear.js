@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("clear")
         .setDescription("Clear the queue."),
+    category: "Music",
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

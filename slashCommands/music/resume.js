@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("resume")
         .setDescription("Resume the current track"),
+    category: "Music",
     execute(message, client) {
         const queue = client.player.getQueue(message.guild.id);
 

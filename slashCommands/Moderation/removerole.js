@@ -17,6 +17,7 @@ module.exports = {
                 .setRequired(true)
         ),
     permissions: "MANAGE_ROLES",
+    category: "Moderation",
     async execute(interaction) {
         const targetuser = interaction.options.getUser("target");
         const { guild } = interaction
