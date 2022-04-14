@@ -28,7 +28,7 @@ module.exports = {
             .setTitle('Remove Role')
             .addField('Role', `${role}`)
             .addField('User', `${targetuser}`)
-            .setFooter({ text: `Removed by ${interaction.author.tag}`, iconURL: interaction.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: `Removed by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
         const member = guild.members.cache.get(targetuser.id)
         member.roles.remove(role.id)
         channel.send({ embeds: [roleEmbed] })

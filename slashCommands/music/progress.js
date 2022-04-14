@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.author}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
         const progress = queue.createProgressBar();
         const timestamp = queue.getPlayerTimestamp();

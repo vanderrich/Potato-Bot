@@ -75,7 +75,7 @@ module.exports = {
                 \u200b
             `)
             .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
         interaction.reply({ embeds: [embed] });
     }
 }

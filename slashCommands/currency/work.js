@@ -26,7 +26,7 @@ module.exports = {
         }
       }
       if (job) {
-        if (client.db.get(`items_${interaction.user.id}`).includes(job.requires)) return interaction.reply("You dont have the proper tool for that job!")
+        if (!client.db.get(`items_${interaction.user.id}`)?.includes(job.requires)) return interaction.reply("You dont have the proper tool for that job!")
         client.job.push(`job_${interaction.user.id}`, inputedJob)
         return interaction.reply(`You are now working as a ${inputedJob}`)
       }

@@ -3,6 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
+const clientId = process.env.CLIENT_ID;
 
 async function deploy() {
     const commands = [];
@@ -26,7 +27,11 @@ async function deploy() {
         console.log('Started refreshing application (/) commands.');
 
         await rest.put(
+<<<<<<< HEAD
             Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
+=======
+            Routes.applicationCommands(clientId),
+>>>>>>> aa406aed6a401b315bd260b39b70d472cebfef8e
             { body: commands },
         );
 

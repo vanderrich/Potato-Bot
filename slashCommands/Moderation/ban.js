@@ -33,9 +33,9 @@ module.exports = {
             .setTitle("Ban")
             .addField("Banned user", `${user}`)
             .addField("Reason", `${reason}`)
-            .setFooter({ text: `Banned by ${interaction.author.tag}`, iconURL: message.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: `Banned by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
             .setTimestamp();
-        user.ban();
+        interaction.guild.members.kick(user, reason);
         channel.send({ embeds: [banEmbed] });
     }
 }

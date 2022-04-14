@@ -39,7 +39,7 @@ module.exports = {
                 .setTitle("Store")
                 .setDescription(content)
                 .setColor("RANDOM")
-                .setFooter({ text: "Use potat buy <item> [amount] to buy an item!", iconURL: message.author.avatarURL({ dynamic: true }) })
+                .setFooter({ text: "Use potat buy <item> [amount] to buy an item!", iconURL: interaction.user.avatarURL({ dynamic: true }) })
             return interaction.reply({ embeds: [embed] });
         }
 

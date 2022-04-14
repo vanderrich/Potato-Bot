@@ -21,7 +21,7 @@ module.exports = {
             .setTitle(`User Deleted`)
             .setDescription(`User: ${user}\n`)
             .setColor("RANDOM")
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
         return interaction.reply({ embeds: [embed] })
 
     }
