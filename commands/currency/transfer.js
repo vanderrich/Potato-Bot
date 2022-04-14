@@ -6,6 +6,7 @@ module.exports = {
   async execute(message, args, cmd, client, Discord) {
     let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) 
     let authordata = client.eco.fetchMoney(message.author.id) 
+    if (member == message.author) return message.reply("You cant transfer money to yourself!");
     if (!member) return message.reply('Please mention the person or give their ID') 
     let amount = parseInt(args[1])
     if (!amount || isNaN(amount) || amount < 0) return message.reply('Please enter a valid amount to transfer')

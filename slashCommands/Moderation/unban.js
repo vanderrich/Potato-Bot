@@ -31,7 +31,7 @@ module.exports = {
       .addField("Unbanned user", `<@${user}>`)
       .setFooter({ text: `Unbanned by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
       .setTimestamp();
-    guild.members.unban(user);
+    interaction.guild.members.unban(user);
     channel.send({ embeds: [banEmbed] });
   }
 }
