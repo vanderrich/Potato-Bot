@@ -26,14 +26,20 @@ async function deploy() {
     try {
         console.log('Started refreshing application (/) commands.');
 
-        await rest.put(
-<<<<<<< HEAD
-            Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
-=======
-            Routes.applicationCommands(clientId),
->>>>>>> aa406aed6a401b315bd260b39b70d472cebfef8e
-            { body: commands },
-        );
+        // test bot
+        if (clientId == '95458432580912334') {
+            await rest.put(
+                Routes.applicationGuildCommands(clientId, '962861680226865193'),
+                { body: commands },
+            );
+        }
+        // stable
+        else if (clientId == '894060283373449317') {
+            await rest.put(
+                Routes.applicationCommands(clientId),
+                { body: commands },
+            );
+        }
 
         console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
