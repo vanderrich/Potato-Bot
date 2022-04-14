@@ -3,7 +3,7 @@ const Discord = require("discord.js")
 module.exports = {
   name: 'guildMemberAdd',
   execute(newMember, client) {
-    const welcomeChannel = newMember.guild.channels.cache.find(channel => channel.name.includes('welcome') || channel.name.includes('general'))
+    const welcomeChannel = newMember.guild.channels.cache.find(channel => channel.name.includes('welcome')) || newMember.guild.channels.cache.find(channel => channel.name.includes('general'))
     if (newMember.bot || !welcomeChannel) return;
 
     const embed = new Discord.MessageEmbed()
