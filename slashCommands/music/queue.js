@@ -37,7 +37,7 @@ module.exports = {
                 else embed.setColor('RANDOM');
                 const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
                     `${queue.current.author} - ${queue.current.title}` : `${queue.current.title}`;
-                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}, Total Time ${queue.totalTime}`, iconURL: null, url: `${queue.current.url}` });
+                if (page === 1) embed.setAuthor({ name: `Now playing: ${title}`, iconURL: null, url: `${queue.current.url}` });
                 pages.push(embed);
                 page++;
             }
