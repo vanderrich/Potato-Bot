@@ -14,7 +14,7 @@ module.exports = {
       .addField(`Balance`, `${userBalance} 💸`)
       .setColor("RANDOM")
       .setThumbnail(user.displayAvatarURL)
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
       .setTimestamp()
     return message.reply({ embeds: [embed] })
   }

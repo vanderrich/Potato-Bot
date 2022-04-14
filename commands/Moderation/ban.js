@@ -37,8 +37,9 @@ module.exports = {
         var banEmbed = new Discord.MessageEmbed()
             .setTitle("Ban")
             .addField("Banned user", `${user}`)
+            .setThumbnail(user.avatarURL())
             .addField("Reason", `${reason}`)
-            .setFooter({ text: `Banned by ${message.author.tag}` })
+            .setFooter({ text: `Banned by ${message.author.tag}`, iconURL: message.author.avatarURL({ dynamic: true }) })
             .setTimestamp();
         user.ban();
         channel.send({ embeds: [banEmbed] });

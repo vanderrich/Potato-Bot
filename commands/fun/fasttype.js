@@ -16,7 +16,7 @@ module.exports = {
       .setTitle('Fast type game is starting!')
       .setDescription('To participate, react on ✅')
       .addField('Goal: Be the fastest to write the words indicated.', 'you can exit the game by typing \`stop\` in the chat')
-      .setFooter({ text: 'to stop the game for everyone, type \`stopgame\`' })
+      .setFooter({ text: 'to stop the game for everyone, type \`stopgame\`', iconURL: message.author.avatarURL({ dynamic: true }) })
     var message = await msg.reply({ embeds: [embed] })
     message.react('✅')
     let joinedUsers = []

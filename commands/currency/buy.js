@@ -17,7 +17,7 @@ module.exports = {
         .setTitle("Store")
         .setDescription(content)
         .setColor("RANDOM")
-        .setFooter({ text: "Use potat buy <item> [amount] to buy an item!" })
+        .setFooter({ text: "Use potat buy <item> [amount] to buy an item!", iconURL: message.author.avatarURL({ dynamic: true }) })
       return message.reply({ embeds: [embed] });
     }
     let userBalance = await client.eco.fetchMoney(message.author.id);

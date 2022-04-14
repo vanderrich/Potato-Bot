@@ -18,7 +18,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('📊 ' + question)
                 .setColor('RANDOM')
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
 
             await message.reply({ embeds: [embed] }).then(msg => {
                 msg.react('👍');
@@ -77,7 +77,7 @@ module.exports = {
             embed
                 .setDescription(description + '\n\n' + arr.join('\n\n'))
                 .setColor('RANDOM')
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
 
             await message.reply({ embeds: [embed] }).then(msg => {
                 for (let i = 0; i < options.length; i++) {

@@ -12,7 +12,7 @@ module.exports = {
       .setColor("RANDOM")
       .setThumbnail(client.users.cache.get(leaderboard[0].id) ? client.users.cache.get(leaderboard[0].id).displayAvatarURL : "https://cdn.discordapp.com/avatars/603948445362946084/a_f61398e073d78ae104e32b0517c891c3.gif")
       .setTimestamp()
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
     i = 1
     leaderboard.forEach(u => {
       if (client.users.cache.get(u.user)) {

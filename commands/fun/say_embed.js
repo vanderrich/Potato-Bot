@@ -17,7 +17,7 @@ module.exports= {
       .setColor('RANDOM')
       .setTitle(title)
       .setDescription(description)
-      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+      .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
     message.channel.send({ embeds: [embed] })
     message.delete()
   }

@@ -11,7 +11,7 @@ module.exports = {
         embed.setTitle("Pong!")
         embed.setDescription(`**Ping is ${ping}ms. API Latency is ${Math.round(client.ws.ping)}ms**`);
         embed.addField("In words", `${fieldMessage}`, true)
-        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: message.author.avatarURL({ dynamic: true }) })
         interaction.reply({ embeds: [embed] });
     },
 };
