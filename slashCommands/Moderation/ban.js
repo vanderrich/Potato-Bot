@@ -34,7 +34,7 @@ module.exports = {
             .addField("Reason", `${reason}`)
             .setFooter({ text: `Banned by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
             .setTimestamp();
-        user.ban();
+        guild.members.kick(user, reason);
         channel.send({ embeds: [banEmbed] });
     }
 }

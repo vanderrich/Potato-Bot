@@ -33,7 +33,7 @@ module.exports = {
       .addField("Reason", `${reason}`)
       .setFooter({ text: `Kicked by ${interaction.user.tag}`, iconURL: interaction.user.avatarURL({ dynamic: true }) })
       .setTimestamp();
-    user.kick();
+    guild.members.kick(user, reason);
     channel.send({ embeds: [kickEmbed] });
   }
 }
