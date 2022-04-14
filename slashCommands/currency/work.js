@@ -14,7 +14,8 @@ module.exports = {
       option
         .setName("job")
         .setDescription("The job you want to work (`none` for no job)"),
-    ),
+  ),
+  category: "Currency",
   execute(interaction, client) {
     var inputedJob = interaction.options.getString("job");
     if (!client.job.get(`job_${interaction.user.id}`)) {

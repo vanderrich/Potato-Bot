@@ -9,7 +9,8 @@ module.exports = {
                 .setName('target')
                 .setDescription('The user to get information about.')
                 .setRequired(true)
-        ),
+    ),
+    category: 'Info',
     async execute(interaction, client, Discord, footers) {
         const userMention = interaction.options.getUser('target')
 

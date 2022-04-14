@@ -15,7 +15,8 @@ module.exports = {
         .setName("amount")
         .setDescription("The amount of money you want to transfer")
         .setRequired(true)
-    ),
+  ),
+  category: "Currency",
   async execute(interaction, client) {
     let member = interaction.options.getString("user");
     let authordata = client.eco.fetchMoney(interaction.user.id)

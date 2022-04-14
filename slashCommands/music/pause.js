@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("pause")
         .setDescription("Pause the current track"),
+    category: "Music",
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

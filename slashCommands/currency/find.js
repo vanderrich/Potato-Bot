@@ -6,6 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("find")
     .setDescription("Find money"),
+  category: "Currency",
   async execute(interaction, client) {
     let amount = Math.floor(Math.random() * 5) + 5;
     let beg = await client.eco.beg(interaction.user.id, false, amount, { canLose: true, cooldown: 300000, customName: "search" });

@@ -5,6 +5,7 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("queue")
         .setDescription("See the current queue"),
+    category: "Music",
     execute(interaction, client, Discord) {
         const _fromButton = false
         const queue = client.player.getQueue(interaction.guild);

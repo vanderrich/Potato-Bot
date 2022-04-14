@@ -8,6 +8,7 @@ module.exports = {
         .setName("restart")
         .setDescription("Restarts the bot."),
     permissions: "BotAdmin",
+    category: "Bot Admin Only",
     execute(interaction, client) {
         if (!admins.includes(interaction.user.id)) return;
         interaction.reply("Resetting...");

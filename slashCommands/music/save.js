@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("save")
         .setDescription("Save the current track to your dms"),
+    category: "Music",
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

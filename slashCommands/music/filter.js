@@ -11,7 +11,8 @@ module.exports = {
             .addChoice("8D", "8D")
             .addChoice("nightcore", "nightcore")
             .addChoice("bassboost", "bassboost")
-        ),
+    ),
+    category: "Music",
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

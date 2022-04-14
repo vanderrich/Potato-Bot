@@ -14,7 +14,8 @@ module.exports = {
       option
         .setName("description")
         .setDescription("The description of the embed"),
-    ),
+  ),
+  category: "Fun",
   execute(interaction, client, Discord, footers) {
     var title = interaction.options.getString("title");
     var description = interaction.options.getString("description");

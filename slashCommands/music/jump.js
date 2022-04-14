@@ -8,7 +8,8 @@ module.exports = {
             .setName("index")
             .setDescription("The index of the track to skip to.")
             .setRequired(true)
-        ),
+    ),
+    category: "Music",
     execute(message, client) {
         const queue = client.player.getQueue(message.guild.id);
 

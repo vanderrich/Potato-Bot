@@ -26,7 +26,7 @@ async function deploy() {
         console.log('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationCommands('954584325809123348'),
+            Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
             { body: commands },
         );
 

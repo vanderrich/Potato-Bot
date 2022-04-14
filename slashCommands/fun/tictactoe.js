@@ -9,7 +9,8 @@ module.exports = {
                 .setName("opponent")
                 .setDescription("The opponent to play against")
                 .setRequired(true),
-        ),
+    ),
+    category: "Fun",
     async execute(interaction, client, Discord, footers) {
         //initialize
         var tictactoemap = ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']

@@ -12,6 +12,7 @@ module.exports = {
                 .setRequired(true)
         ),
     permissions: "BotAdmin",
+    category: "Bot Admin Only",
     async execute(interaction, client) {
         if (!admins.includes(interaction.user.id)) return;
         //variables

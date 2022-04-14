@@ -23,7 +23,8 @@ module.exports = {
             option
                 .setName("amount")
                 .setDescription("The amount to buy.")
-        ),
+    ),
+    category: "Currency",
     async execute(interaction, client, Discord, footers) {
         let item = interaction.options.getString("item");
         if (!item) {

@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("lb")
     .setDescription("See the leaderboard!"),
+  category: "Currency",
   async execute(interaction, client, Discord, footers) {
     let leaderboard = await client.eco.leaderboard();
     if (!leaderboard || leaderboard.length < 1) return interaction.reply("❌ | Empty Leaderboard!");

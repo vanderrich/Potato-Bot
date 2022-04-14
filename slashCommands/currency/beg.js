@@ -4,6 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("beg")
     .setDescription("Beg for money!"),
+  category: "Currency",
   async execute(interaction, client, Discord, footers) {
     let users = [
       "Potato Moon",

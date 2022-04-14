@@ -10,7 +10,8 @@ module.exports = {
                 .setName("vol")
                 .setDescription("The volume to set the track to.")
                 .setRequired(true)
-        ),
+    ),
+    category: "Music",
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

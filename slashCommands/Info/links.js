@@ -4,6 +4,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('links')
         .setDescription('Links'),
+    category: "Info",
     async execute(interaction, client, Discord, footers) {
         const embed = new Discord.MessageEmbed()
             .setTitle("Links")
