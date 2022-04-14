@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("transfer")
     .setDescription("Transfer money to another user")
-    .addStringOption(option =>
+    .addUserOption(option =>
       option
         .setName("user")
         .setDescription("The user you want to transfer to")
@@ -17,7 +17,8 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction, client) {
-    let member = interaction.options.getString("user");
+    let member = interaction.options.getUser("user");
+    if (member == interaction.user) return interaction.reply("You cant transfer money to yourself!");
     let authordata = client.eco.fetchMoney(interaction.user.id)
     if (!member) return interaction.reply('Please mention the person or give their ID')
     let amount = interaction.options.getInteger("amount");
