@@ -42,7 +42,7 @@ const commandFolders = fs.readdirSync('./commands');
 // 	console.log(reactionroles[i])
 // 	console.log(reactionrolesjson[i].guildId)
 // 	reactionroles[i].channel = reactionroles[i].guild.channels.cache.get(reactionrolesjson[i].channelId)
-// 	reactionroles[i].message = reactionroles[i].channel.messages.cache.get(reactionrolesjson[i].messageId)
+// 	reactionroles[i].messag	e = reactionroles[i].channel.messages.cache.get(reactionrolesjson[i].messageId)
 // }
 client.rr = new db.table('reactionroles');
 

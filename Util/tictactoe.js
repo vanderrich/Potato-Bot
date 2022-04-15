@@ -38,9 +38,6 @@ module.exports = async (interaction, client) => {
         j = parseInt(interaction.customId[4]);
 
     let currPlayer = xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o;
-    console.log(currPlayer)
-    console.log(client.tictactoe)
-    console.log(xs_turn)
     if (interaction.user.id !== currPlayer) {
         return interaction.reply({ content: 'It\'s not your turn!', ephemeral: true });
     }
@@ -64,9 +61,16 @@ module.exports = async (interaction, client) => {
         }
     }
 
-    if (checkWin(message.components) == "tie") await message.edit({ content: "It's a tie!", components: components });
-    else if (checkWin(message.components)) await message.edit({ content: `Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
+    if (checkWin(message.components) == "tie") {
+        await message.edit({ content: "It's a tie!", components: components });
+        delete client.tictactoe[message.id];
+    }
+    else if (checkWin(message.components)) {
+        await message.edit({ content: `Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
+        delete client.tictactoe[message.id];
+    }
     else await message.edit({ content: `<@${xs_turn ? client.tictactoe[message.id].o : client.tictactoe[message.id].x}>'s turn`, components: components });
 
+    client.tictactoe[message.id].lastInteraction = Date.now();
     await interaction.deferUpdate();
 }

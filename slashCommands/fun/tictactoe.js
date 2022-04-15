@@ -12,8 +12,9 @@ module.exports = {
     ),
     category: "Fun",
     async execute(interaction, client, Discord, footers) {
-        // if (interaction.user.id == interaction.options.getUser("opponent")) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
+        if (interaction.user.id == interaction.options.getUser("opponent")) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
         if (interaction.options.getUser("opponent") == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
+        if (interaction.options.getUser("opponent").bot) interaction.channel.send('Have fun playing with a bot lol') 
 
         const game = await interaction.reply({
             content: `${interaction.user}'s turn`,
@@ -42,9 +43,17 @@ module.exports = {
             ],
             fetchReply: true,
         });
+        for (tttGame in client.tictactoe) {
+            tttGame = client.tictactoe[tttGame];
+            if (tttGame.message.editedTimestamp - 60000 > Date.now()) {
+                tttGame.message.edit('Timeout')
+                delete client.tictactoe[tttGame.message.id];
+            }
+        }
         client.tictactoe[game.id] = {
             x: interaction.user.id,
-            o: interaction.options.getUser("opponent").id
+            o: interaction.options.getUser("opponent").id,
+            message: game
         }
     }
     //     //initialize
