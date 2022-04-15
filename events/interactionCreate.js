@@ -48,7 +48,7 @@ module.exports = {
         }
         else if (interaction.isMessageComponent()) {
             if (interaction.customId.startsWith("ttt")) {
-                await updateGrid(interaction)
+                await updateGrid(interaction, client)
             }
         }
         else if (interaction.isButton()) {

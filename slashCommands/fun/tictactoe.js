@@ -12,8 +12,11 @@ module.exports = {
     ),
     category: "Fun",
     async execute(interaction, client, Discord, footers) {
-        interaction.reply({
-            content: "Here we go!",
+        // if (interaction.user.id == interaction.options.getUser("opponent")) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
+        if (interaction.options.getUser("opponent") == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
+
+        const game = await interaction.reply({
+            content: `${interaction.user}'s turn`,
             components: [
                 {
                     type: 1, components: [
@@ -36,8 +39,13 @@ module.exports = {
                         { type: 2, label: "_", style: 2, custom_id: "ttt33" },
                     ]
                 },
-            ]
+            ],
+            fetchReply: true,
         });
+        client.tictactoe[game.id] = {
+            x: interaction.user.id,
+            o: interaction.options.getUser("opponent").id
+        }
     }
     //     //initialize
     //     var tictactoemap = ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']

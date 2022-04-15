@@ -1,4 +1,4 @@
-const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Work in Progress", "Bot Admin Only"]
+const categories = ["Currency", "Fun", "Info", "Moderation", "Music", "Bot Admin Only"]
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { prefix } = require("../../config.json");
 
@@ -10,6 +10,12 @@ module.exports = {
             option
                 .setName("category")
                 .setDescription("The category to get help for.")
+                .addChoice("Currency", "Currency")
+                .addChoice("Fun", "Fun")
+                .addChoice("Info", "Info")
+                .addChoice("Moderation", "Moderation")
+                .addChoice("Music", "Music")
+                .addChoice("Bot Admin Only", "Bot Admin Only")
         )
         .addStringOption(option =>
             option

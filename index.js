@@ -33,6 +33,7 @@ client.player = new Player(client, {
 });
 client.form = new Map();
 client.settings = settings;
+client.tictactoe = {};
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 // let reactionroles = [{}, {}, {}];

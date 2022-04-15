@@ -1,4 +1,25 @@
-module.exports = async (interaction) => {
+function checkWin(board) {
+    // Check rows
+    if (board[0].components[0].label === board[0].components[1].label && board[0].components[0].label === board[0].components[2].label && board[0].components[0].label !== '_') return true;
+    if (board[1].components[0].label === board[1].components[1].label && board[1].components[0].label === board[1].components[2].label && board[1].components[0].label !== '_') return true;
+    if (board[2].components[0].label === board[2].components[1].label && board[2].components[0].label === board[2].components[2].label && board[2].components[0].label !== '_') return true;
+    // Check columns
+    if (board[0].components[0].label === board[1].components[0].label && board[0].components[0].label === board[2].components[0].label && board[0].components[0].label !== '_') return true;
+    if (board[0].components[1].label === board[1].components[1].label && board[0].components[1].label === board[2].components[1].label && board[0].components[1].label !== '_') return true;
+    if (board[0].components[2].label === board[1].components[2].label && board[0].components[2].label === board[2].components[2].label && board[0].components[2].label !== '_') return true;
+    // Check diagonals
+    if (board[0].components[0].label === board[1].components[1].label && board[0].components[0].label === board[2].components[2].label && board[0].components[0].label !== '_') return true;
+    if (board[0].components[2].label === board[1].components[1].label && board[0].components[2].label === board[2].components[0].label && board[0].components[2].label !== '_') return true;
+    // Check for tie
+    for (let actionRow of board) {
+        for (let action of actionRow.components) {
+            if (action.label === '_') return false;
+        }
+    }
+    return "tie";
+}
+
+module.exports = async (interaction, client) => {
     /** @type {Discord.Message} message */
     const message = interaction.message;
 
@@ -15,10 +36,18 @@ module.exports = async (interaction) => {
     const i = parseInt(interaction.customId[3]),
         j = parseInt(interaction.customId[4]);
 
+    let currPlayer = xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o;
+    console.log(currPlayer)
+    console.log(client.tictactoe)
+    console.log(xs_turn)
+    if (interaction.user.id !== currPlayer) {
+        return interaction.reply({ content: 'It\'s not your turn!', ephemeral: true });
+    }
+
     const buttonPressed = message.components[i - 1].components[j - 1];
 
     if (buttonPressed.label !== '_')
-        return await interaction.reply("Someone already played there!", { ephemeral: true });
+        return interaction.reply({ content: "Someone already played there!", ephemeral: true });
 
     buttonPressed.label = xs_turn ? 'X' : 'O';
     buttonPressed.style = xs_turn ? "SUCCESS" : "DANGER";
@@ -34,7 +63,9 @@ module.exports = async (interaction) => {
         }
     }
 
-    await message.edit({ components: components });
+    if (checkWin(message.components) == "tie") await message.edit({ content: "It's a tie!", components: components });
+    else if (checkWin(message.components)) await message.edit({ content: `Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
+    else await message.edit({ content: `<@${xs_turn ? client.tictactoe[message.id].o : client.tictactoe[message.id].x}>'s turn`, components: components });
 
     await interaction.deferUpdate();
 }
