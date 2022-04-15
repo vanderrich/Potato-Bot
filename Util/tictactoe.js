@@ -22,6 +22,7 @@ function checkWin(board) {
 module.exports = async (interaction, client) => {
     /** @type {Discord.Message} message */
     const message = interaction.message;
+    if (!client.tictactoe.includes(message.id)) return;
 
     let xs = 0, os = 0;
 
