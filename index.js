@@ -28,8 +28,15 @@ client.cooldowns = new Discord.Collection();
 client.player = new Player(client, {
 	ytdlOptions: {
 		quality: 'highestaudio', //Please don't touch
+		filter: 'audioonly', //Please don't touch
 		highWaterMark: 1 << 25 //Please don't touch
-	}
+	},
+	leaveOnEmpty: true,
+	leaveOnEnd: true,
+	leaveOnStop: true,
+	autoSelfDeaf: true,
+	leaveOnEmptyCooldown: 5000,
+	initialVolume: 75,
 });
 client.form = new Map();
 client.settings = settings;
@@ -94,7 +101,6 @@ player.on('connectionError', (queue, error) => {
 });
 
 player.on('trackStart', (queue, track) => {
-	if (queue.repeatMode !== 0) return;
 	queue.metadata.send(`🎵 Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}** 🎧`);
 });
 

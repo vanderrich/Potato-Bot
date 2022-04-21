@@ -1,4 +1,4 @@
-const maxVol = 250;
+const maxVol = 150;
 
 module.exports = {
     name: 'volume',
