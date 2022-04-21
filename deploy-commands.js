@@ -7,8 +7,6 @@ const clientId = process.env.CLIENT_ID;
 
 async function deploy() {
     const commands = [];
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
     const slashCommandFolders = fs.readdirSync('./slashCommands');
     for (const folder of slashCommandFolders) {
         //loops through all folders of commandFolders
@@ -27,7 +25,7 @@ async function deploy() {
         console.log('Started refreshing application (/) commands.');
 
         // test bot
-        if (clientId == '95458432580912334') {
+        if (clientId == '954584325809123348') {
             await rest.put(
                 Routes.applicationGuildCommands(clientId, '962861680226865193'),
                 { body: commands },

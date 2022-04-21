@@ -22,6 +22,24 @@ module.exports = {
             requestedBy: interaction.member,
             searchEngine: QueryType.AUTO
         });
+        let run = true;
+        if (res.tracks[0].source != 'youtube') {
+            interaction.editReply({ content: `The package we use to play music (discord-player) does not support spotify and will search youtube for it, Are you sure you want to continue? (yes if yes and anything else for no)` });
+            const filter = response => {
+                return response.author.id == interaction.user.id
+            }
+            await interaction.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                if (collected.first().content.toLowerCase() != 'yes') {
+                    run = false
+                    return interaction.editReply({ content: `Canceled playing **${res.tracks[0].title}**` });
+                }
+            }).catch(() => {
+                run = false
+                return interaction.channel.send({ content: "Timeout" });
+            });
+        }
+        if (!run) return;
+
         let index = interaction.options.getInteger('index') || 1;
 
         if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);

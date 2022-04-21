@@ -1,5 +1,5 @@
 const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
-const generatePages = require('../../pagination.js');
+const generatePages = require('../../Util/pagination.js');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()

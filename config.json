@@ -102,7 +102,17 @@
         }
     ],
     "settings": {
-        "default": {},
+        "default": {
+            "prefix": "potat ",
+            "bad_words": [
+                "fuck",
+                "shit",
+                "bitch",
+                "pussy",
+                "dick",
+                "nigger"
+            ]
+        },
         "851217599403393094": {
             "welcomeRole": "Other people"
         }

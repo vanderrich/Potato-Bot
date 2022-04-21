@@ -33,6 +33,7 @@ client.player = new Player(client, {
 });
 client.form = new Map();
 client.settings = settings;
+client.tictactoe = {};
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 // let reactionroles = [{}, {}, {}];
@@ -41,7 +42,7 @@ const commandFolders = fs.readdirSync('./commands');
 // 	console.log(reactionroles[i])
 // 	console.log(reactionrolesjson[i].guildId)
 // 	reactionroles[i].channel = reactionroles[i].guild.channels.cache.get(reactionrolesjson[i].channelId)
-// 	reactionroles[i].message = reactionroles[i].channel.messages.cache.get(reactionrolesjson[i].messageId)
+// 	reactionroles[i].messag	e = reactionroles[i].channel.messages.cache.get(reactionrolesjson[i].messageId)
 // }
 client.rr = new db.table('reactionroles');
 
