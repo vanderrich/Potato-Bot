@@ -6,7 +6,7 @@ module.exports = {
         for (let i = 0; i < client.settings?.default?.bad_words?.length; i++) {
             let badword
             try {
-                badword = message.content.includes(client.settings.default.bad_words[i]) || message.content.includes(client.settings[message.guild.id].bad_words[i])
+                badword = message.content.toLowerCase().includes(client.settings.default.bad_words[i]) || message.content.toLowerCase().includes(client.settings[message.guild.id].bad_words[i])
             } catch { }
             if (badword) {
                 const m = await message.reply('Message contains a word in bad words list')
@@ -18,7 +18,9 @@ module.exports = {
 
         // client.commands = clientCommands
 
-        // if (message.content.substring(0, prefix.length).toLowerCase() !== prefix) return
+        if (message.content.substring(0, prefix.length).toLowerCase() == prefix) {
+            message.reply("Text commands is deprecated, please use slash (/) commands instead")
+        }
         // const args = message.content.slice(prefix.length).trim().split(/ +/);
         // const commandName = args.shift().toLowerCase();
         // const command = client.commands.get(commandName)

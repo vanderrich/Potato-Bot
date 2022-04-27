@@ -53,16 +53,16 @@ const commandFolders = fs.readdirSync('./commands');
 // }
 client.rr = new db.table('reactionroles');
 
-//initialize commands
-for (const folder of commandFolders) {
-	//loops through all folders of commandFolders
-	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		//loops through all the commandFiles and add them to the client commands collection
-		const command = require(`./commands/${folder}/${file}`);
-		client.commands.set(command.name, command);
-	}
-}
+// //initialize commands
+// for (const folder of commandFolders) {
+// 	//loops through all folders of commandFolders
+// 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+// 	for (const file of commandFiles) {
+// 		//loops through all the commandFiles and add them to the client commands collection
+// 		const command = require(`./commands/${folder}/${file}`);
+// 		client.commands.set(command.name, command);
+// 	}
+// }
 
 // initialize slash commands
 const slashCommandFolders = fs.readdirSync('./slashCommands');
