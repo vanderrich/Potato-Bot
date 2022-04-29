@@ -8,6 +8,7 @@ const { shop, settings } = require('./config.json');
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const deploy = require('./deploy-commands.js');
+const { GiveawaysManager } = require('discord-giveaways');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
@@ -41,6 +42,15 @@ client.player = new Player(client, {
 client.form = new Map();
 client.settings = settings;
 client.tictactoe = {};
+client.giveawaysManager = new GiveawaysManager(client, {
+	storage: './giveaways.json',
+	default: {
+		botsCanWin: false,
+		embedColor: '#FF0000',
+		embedColorEnd: '#000000',
+		reaction: '🎉'
+	}
+});
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
 // let reactionroles = [{}, {}, {}];
