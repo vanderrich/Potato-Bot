@@ -60,6 +60,6 @@ module.exports = {
 
         if (!queue.playing) await queue.play();
 
-        await interaction.editReply(`Added ${res.playlist ? 'playlist' : 'track'} to the queue! 🎧`);
+        interaction.editReply(`Added ${res.playlist ? 'playlist' : 'track'} to the queue! 🎧`);
     }
 }
