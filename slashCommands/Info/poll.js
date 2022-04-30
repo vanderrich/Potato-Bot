@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const ms = require("ms");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,10 +16,10 @@ module.exports = {
                 .setName("description")
                 .setDescription("The description of the poll"),
         )
-        .addNumberOption(option =>
+        .addStringOption(option =>
             option
-                .setName("minutes")
-                .setDescription("The amount of minutes the poll will last"),
+                .setName("duration")
+                .setDescription("The duration the poll will last"),
         )
         .addStringOption(option => option.setName("option1").setDescription("The first option of the poll"))
         .addStringOption(option => option.setName("option2").setDescription("The second option of the poll"))
@@ -33,7 +34,8 @@ module.exports = {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");
         var options = [];
-        var time = new Date(interaction.options.getNumber("minutes") / 60000 + Date.now());
+        var time = Date.now() + ms(interaction.options.getString("duration"));
+        if (!time) return interaction.message.reply("Invalid duration!");
         for (var i = 1; i <= 25; i++) {
             if (interaction.options.getString("option" + i) != null) {
                 options.push(interaction.options.getString("option" + i));
@@ -44,7 +46,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setDescription(`This poll will end in ${time.toString()}`)
+                .setDescription(`This poll will end <t:${Math.floor(time / 1000)}:R>`)
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (description != null) embed.setDescription(description)
 

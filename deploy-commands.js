@@ -23,7 +23,6 @@ async function deploy() {
 
     try {
         console.log('Started refreshing application (/) commands.');
-
         // test bot
         if (clientId == '954584325809123348') {
             await rest.put(

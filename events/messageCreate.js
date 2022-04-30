@@ -19,7 +19,7 @@ module.exports = {
         // client.commands = clientCommands
 
         if (message.content.substring(0, prefix.length).toLowerCase() == prefix) {
-            message.reply("Text commands is deprecated, please use slash (/) commands instead")
+            message.reply("Text commands are deprecated, please use slash (/) commands instead")
         }
         // const args = message.content.slice(prefix.length).trim().split(/ +/);
         // const commandName = args.shift().toLowerCase();
