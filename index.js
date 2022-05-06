@@ -9,14 +9,16 @@ const Economy = require('currency-system');
 const deploy = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
 const mongoose = require('mongoose');
-// const Dashboard = require('discord-easy-dashboard');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"],
 });
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+});
 
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', () => {
@@ -150,22 +152,6 @@ client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
 		reaction: "🥔",
 	}
 });
-// client.dashboard = new Dashboard(client, {
-// 	name: 'Potato Bot', // Bot's name
-// 	description: 'A general purpose bot', // Bot's description
-// 	baseUrl: 'http://localhost', // Leave this if ur in local development
-// 	path: '/dashboard', // Dashboard's path
-// 	port: 80,
-// 	noPortIncallbackUrl: false, // set it to true if you want to use the callback url without port (like if you are using repl.it)
-// 	secret: '_CTkCCQCwhexkmzjZCBY5yIYphM_LH7o', // client.secret -> accessible at https://discord.com/developers/applications (OAuth2 section)
-// });
-// client.prefixes = {}; // Prefixes for each guild
-// const validatePrefix = prefix => prefix.length <= 5; // Only accepts prefixes of up to 5 characters
-// const setPrefix = (discordClient, guild, value) => discordClient.prefixes[guild.id] = value; // Stores the prefix in the client.prefixes object
-// const getPrefix = (discordClient, guild) => discordClient.prefixes[guild.id] || '!'; // Get the prefix in the client.prefixes object or give the default one
-
-// // Here we indicate to the module that we want the user to be able to set the prefix of his bot
-// client.dashboard.addTextInput('Prefix', 'The prefix that is added to discord messages in order to invoke commands.', validatePrefix, setPrefix, getPrefix);
 
 const player = client.player
 const rrSchema = new mongoose.Schema({

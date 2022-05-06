@@ -10,7 +10,6 @@
         "discord-api-types": "^0.26.1",
         "discord-backup": "^3.0.1",
         "discord-collector": "^1.11.15",
-        "discord-easy-dashboard": "^1.2.1",
         "discord-giveaways": "^5.1.1",
         "discord-mongo-currency": "^1.0.4",
         "discord-player": "5.1.0",
