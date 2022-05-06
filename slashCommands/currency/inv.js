@@ -13,25 +13,24 @@ module.exports = {
       .setThumbnail()
       .setTimestamp()
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
-    const invPure = client.db.get(`items_${interaction.user.id}`);
+    const invPure = await client.eco.getUserItems({ user: interaction.user.id });
     if (!invPure) {
       embed.setDescription(`No items in the inventory.`);
       return interaction.reply({ embeds: [embed] })
     }
     else {
-      const arrayToObject = invPure.reduce((itemsobj, x) => {
-        itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
-        return itemsobj;
-      }, {});
-      let inv = [];
-      Object.keys(arrayToObject).map(k => inv.push({ name: k, quantity: arrayToObject[k] }))
+      // const arrayToObject = invPure.reduce((itemsobj, x) => {
+      //   itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
+      //   return itemsobj;
+      // }, {});
+      let inv = invPure.inventory;
       const pages = [];
       let page = 1, emptypage = false;
       do {
         const pageStart = 10 * (page - 1);
         const pageEnd = pageStart + 10;
         const items = inv.slice(pageStart, pageEnd).map((m, i) => {
-          return `** ${i + pageStart + 1}**. ${m.name} - ${m.quantity} `;
+          return `** ${i + pageStart + 1}**. ${m.name} - ${m.amount} ${m.amount > 1 ? 'items' : 'item'}`;
         });
         if (items.length) {
           const embed = new Discord.MessageEmbed();

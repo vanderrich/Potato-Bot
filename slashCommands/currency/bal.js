@@ -11,16 +11,18 @@ module.exports = {
   ),
   category: "Currency",
   async execute(interaction, client, Discord, footers) {
+    await interaction.deferReply();
     let user = interaction.options.getUser("target");
-    let userBalance = await client.eco.fetchMoney(user.id ? user.id : user, false);
+    let userInfo = await client.eco.balance({ user: user.id });
     const embed = new Discord.MessageEmbed()
-      .setTitle(`Balance`)
-      .addField(`User`, `${user.id ? user : `<@${user}>`}`)
-      .addField(`Balance`, `${userBalance} 💸`)
+      .setTitle(`${user.username}'s Balance`)
+      .addField(`Wallet`, `${userInfo.wallet}`)
+      .addField(`Bank`, `${userInfo.bank}`)
+      .addField(`Total`, `${userInfo.networth}`)
       .setColor("RANDOM")
       .setThumbnail(user.displayAvatarURL)
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
       .setTimestamp()
-    return interaction.reply({ embeds: [embed] })
+    return interaction.editReply({ embeds: [embed] })
   }
 }

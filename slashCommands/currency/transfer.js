@@ -20,11 +20,10 @@ module.exports = {
   async execute(interaction, client) {
     let member = interaction.options.getUser("user");
     if (member == interaction.user) return interaction.reply("You cant transfer money to yourself!");
-    let authordata = client.eco.fetchMoney(interaction.user.id)
     let amount = interaction.options.getInteger("amount");
     if (!amount || isNaN(amount) || amount < 0) return interaction.reply('Please enter a valid amount to transfer')
     if (authordata.amount < amount) return interaction.reply('Looks like you don\'t have that much money')
-    await client.eco.subtractMoney(interaction.user.id, false, amount).then(client.eco.addMoney(member.id, false, amount))
+    await client.eco.transferMoney({ user: interaction.user.id, user2: member.id, amount });
     return interaction.reply(`You have successfully transferred 💸**${amount}** to ** ${member}**.`)
   }
 }

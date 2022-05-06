@@ -4,20 +4,20 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("buy")
         .setDescription("Buy an item!")
-        .addStringOption(option =>
+        .addNumberOption(option =>
             option
                 .setName("item")
-                .setDescription("The item to buy.")
-                .addChoice("laptop", "laptop")
-                .addChoice("potato", "potato")
-                .addChoice("mop", "mop")
-                .addChoice("potato peeler", "potato peeler")
-                .addChoice("water", "water")
-                .addChoice("fertilizer", "fertilizer")
-                .addChoice("potato seeds (large)", "potato seeds (large)")
-                .addChoice("potato seeds (medium)", "potato seeds (medium)")
-                .addChoice("potato seeds (small)", "potato seeds (small)")
-                .addChoice("potato seeds (tiny)", "potato seeds (tiny)")
+                .setDescription("The ID of the item you want to buy.")
+                .addChoice("laptop", 1)
+                .addChoice("potato", 2)
+                .addChoice("mop", 3)
+                .addChoice("potato peeler", 4)
+                .addChoice("water", 5)
+                .addChoice("fertilizer", 6)
+                .addChoice("potato seeds (large)", 7)
+                .addChoice("potato seeds (medium)", 8)
+                .addChoice("potato seeds (small)", 9)
+                .addChoice("potato seeds (tiny)", 10)
         )
         .addIntegerOption(option =>
             option
@@ -26,40 +26,30 @@ module.exports = {
     ),
     category: "Currency",
     async execute(interaction, client, Discord, footers) {
-        let item = interaction.options.getString("item");
-        if (!item) {
-            let items = Object.keys(client.shop);
-            let content = "";
+        let item = interaction.options.getNumber("item");
 
-            for (var i in items) {
-                content += `${items[i]} - :dollar: ${client.shop[items[i]].cost}\n`
-            }
+        if (!item) {
+            let items = await client.eco.getShopItems({ user: interaction.user.id });
+            let inv = items.inventory
 
             let embed = new Discord.MessageEmbed()
                 .setTitle("Store")
-                .setDescription(content)
                 .setColor("RANDOM")
-                .setFooter({ text: "Use potat buy <item> [amount] to buy an item!", iconURL: interaction.user.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+
+            for (let key in inv) {
+                embed.addField(`${parseInt(key) + 1} - Price: $${inv[key].price} - **${inv[key].name}:**`, inv[key].description)
+            }
             return interaction.reply({ embeds: [embed] });
         }
-
-        let userBalance = await client.eco.fetchMoney(interaction.user.id);
-        let hasItem = client.shop[item.toLowerCase()];
-        if (!hasItem || hasItem == undefined) return interaction.reply("That item doesn't exist");
-        let amount = interaction.options.getInteger("amount");
-        if (!amount) amount = 1;
-        let isBalanceEnough = (userBalance >= hasItem.cost * amount);
-        if (!isBalanceEnough) return interaction.reply("Your balance is insufficient. You need :dollar: " + hasItem.cost * amount + " to buy this item.");
-        client.eco.subtractMoney(interaction.user.id, false, hasItem.cost * amount);
-
-        let itemStruct = {
-            name: item.toLowerCase(),
-            price: hasItem.cost
-        };
-        if (amount >= 5000) interaction.reply('Purchasing items, this might take a while')
-        for (let i = 0; i < amount; i++) {
-            client.db.push(`items_${interaction.user.id}`, itemStruct);
-        }
-        return interaction.reply(`You purchased **${amount} ${item}** for **:dollar: ${hasItem.cost * amount}**.`);
+        let result = await client.eco.addUserItem({
+            user: interaction.user.id,
+            item
+        });
+        if (result.error) {
+            if (result.type === 'No-Item') return interaction.reply('Please provide valid item number');
+            if (result.type === 'Invalid-Item') return interaction.reply('Item does not exist');
+            if (result.type === 'low-money') return interaction.reply(`You're too broke to buy this item.`);
+        } else return interaction.reply(`Successfully bought  \`${result.inventory.name}\` for $${result.inventory.price}`)
     }
 }

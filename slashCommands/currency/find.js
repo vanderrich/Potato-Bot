@@ -8,10 +8,8 @@ module.exports = {
     .setDescription("Find money"),
   category: "Currency",
   async execute(interaction, client) {
-    let amount = Math.floor(Math.random() * 5) + 5;
-    let beg = await client.eco.beg(interaction.user.id, false, amount, { canLose: true, cooldown: 300000, customName: "search" });
-    if (beg.cooldown) return interaction.reply(`Come back after ${beg.time.minutes} minutes & ${beg.time.seconds} seconds.`);
-    if (beg.lost) return interaction.reply(`**${users[Math.floor(Math.random() * users.length)]}:** You were caught! You couldn't get money kiddo.`);
-    else return interaction.reply(`**${users[Math.floor(Math.random() * users.length)]}** was somewhat profitable, you found **${amount}** 💸.`);
+    let beg = await client.eco.beg({ user: interaction.user.id, minAmount: 5, maxAmount: 10 });
+    if (beg.error) return interaction.reply(`Come back after ${beg.time}.`);
+    else return interaction.reply(`**${users[Math.floor(Math.random() * users.length)]}** was somewhat profitable, you found **${beg.amount}** 💸.`);
   }
 }

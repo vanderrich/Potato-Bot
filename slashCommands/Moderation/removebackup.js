@@ -3,8 +3,8 @@ const backup = require("discord-backup");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("loadbackup")
-        .setDescription("Create a backup of the server")
+        .setName("removebackup")
+        .setDescription("Remove a backup")
         .addStringOption(option => option
             .setName("id")
             .setDescription("The ID of the backup to load")

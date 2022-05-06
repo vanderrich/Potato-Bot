@@ -38,38 +38,48 @@
         "fun fact: van needs help",
         "fun fact: <insert epic fun fact here>"
     ],
-    "shop": {
-        "laptop": {
-            "cost": 1000
+    "shop": [
+        {
+            "name": "laptop",
+            "price": 1000
         },
-        "potato": {
-            "cost": 10
+        {
+            "name": "potato",
+            "price": 10
         },
-        "mop": {
-            "cost": 100
+        {
+            "name": "mop",
+            "price": 100
         },
-        "potato peeler": {
-            "cost": 1000
+        {
+            "name": "potato peeler",
+            "price": 1000
         },
-        "water": {
-            "cost": 5
+        {
+            "name": "water",
+            "price": 5
         },
-        "fertilizer": {
-            "cost": 25
+        {
+            "name": "fertilizer",
+            "price": 25
         },
-        "potato seeds (large)": {
-            "cost": 100
+        {
+            "name": "potato seeds (large)",
+            "price": 100
         },
-        "potato seeds (medium)": {
-            "cost": 50
+        {
+            "name": "potato seeds (medium)",
+            "price": 50
         },
-        "potato seeds (small)": {
-            "cost": 25
+        {
+            "name": "potato seeds (small)",
+            "price": 25
         },
-        "potato seeds (tiny)": {
-            "cost": 10
+        {
+            "name": "potato seeds (tiny)",
+            "price": 10
         }
-    },
+    ],
     "welcomeMessages": [
         "{{user}} joined the party!"
     ],
