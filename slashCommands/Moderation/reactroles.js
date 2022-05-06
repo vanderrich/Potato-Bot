@@ -65,10 +65,22 @@ module.exports = {
             embed.addField(reactions[i], String(reactionRoles[i]));
         }
         channel.send({ embeds: [embed], fetchReply: true }).then(m => {
+            const rr = new client.rr({
+                messageId: m.id,
+                channelId: channel.id,
+                guildId: interaction.guild.id,
+                emoji: reactions,
+                roleId: reactionRoles.map(r => r.id)
+            })
+            rr.save()
+                .then(() => {
+                    console.log(rr);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
             for (const i in reactions) {
                 m.react(reactions[i])
-                //client.rr.push({ messageId: m.id, channelId: channel.id, guildId: message.guild.id, emoji: reactions[i], roleId: reactionRoles[i].id })
-                client.rr.push(m.id, { messageId: m.id, channelId: channel.id, guildId: interaction.guild.id, emoji: reactions[i], roleId: reactionRoles[i].id })
             }
         })
         interaction.reply({ content: 'Reaction Role created!', ephemeral: true });

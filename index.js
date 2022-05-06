@@ -1,6 +1,6 @@
 //initialize variables
 const { Player } = require('discord-player');
-const mongooseConnection = require("quick.db");
+const db = require("quick.db");
 const fs = require('fs')
 const Discord = require('discord.js');
 const { shop, settings } = require('./config.json');
@@ -97,9 +97,7 @@ eco.setDefaultBankAmount(100);
 eco.setMaxBankAmount(0);
 eco.setItems({ shop });
 client.eco = eco;
-client.db = new mongooseConnection.table('inv'); // quick.db
 client.shop = shop;
-client.job = new mongooseConnection.table('job')
 client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
@@ -178,7 +176,18 @@ client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
 
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
-client.rr = new mongooseConnection.table('reactionroles');
+const rrSchema = new mongoose.Schema({
+	guildId: String,
+	channelId: String,
+	messageId: String,
+	userId: String,
+	emoji: [String],
+	roleId: [String],
+	timestamp: String
+}, { id: false });
+
+
+client.rr = new mongoose.model('rr', rrSchema);
 
 // //initialize commands
 // for (const folder of commandFolders) {

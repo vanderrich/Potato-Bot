@@ -7,16 +7,12 @@ module.exports = {
 
         if (user.bot) return
 
-        let reactionRole = client.rr.get(`${reaction.message.id}`)
-        if (!reactionRole) return
-        reactionRole.forEach(rr => {
-            if (rr.emoji === reaction.emoji.toString()) {
-                reactionRole = rr;
-            }
-        });
+        let reactionRole = await client.rr.findOne({ messageId: reaction.message.id })
+        let reactionEmojiIndex = reactionRole.emoji.indexOf(reaction.emoji.name)
+        if (reactionEmojiIndex == -1) return
 
         try {
-            reaction.message.guild.members.cache.get(user.id).roles.remove(reactionRole.roleId)
+            reaction.message.guild.members.cache.get(user.id).roles.remove(reactionRole.roleId[reactionEmojiIndex])
         }
         catch (err) {
             switch (err.code) {
