@@ -1,6 +1,6 @@
 # Potato-Bot
 
-Potato Bot is a general purpose bot
+Your local general purpose potato
 
 Features:
 - Economy
@@ -8,6 +8,9 @@ Features:
 - Reaction roles
 - Moderation
 - Music
+- Backups
+- Giveaways
+- Games
 - Slash Commands
 - And lots more
 
