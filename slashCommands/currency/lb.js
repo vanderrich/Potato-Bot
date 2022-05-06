@@ -6,15 +6,20 @@ module.exports = {
     .setDescription("See the leaderboard!"),
   category: "Currency",
   async execute(interaction, client, Discord, footers) {
-    let leaderboard = await client.eco.leaderboard(10);
+    let leaderboard = await client.eco.globalLeaderboard();
     if (!leaderboard || leaderboard.length < 1) return interaction.reply("❌ | Empty Leaderboard!");
-    const mappedLeaderboard = leaderboard.map(i => `${client.users.cache.get(i.userId).tag ? client.users.cache.get(i.userId).tag : "Nobody"} - ${i.coinsInWallet}`);
 
     const embed = new Discord.MessageEmbed()
       .setTitle(`Leaderboard`)
-      .setDescription(`${mappedLeaderboard.join('\n')}`)
       .setColor("RANDOM")
       .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+
+    let pos = 0;
+    leaderboard.slice(0, 10).map(user => {
+      if (!client.users.cache.get(user.userID)) return;
+      pos++
+      embed.addField(`${pos} - **${client.users.cache.get(user.userID).username}**`, `Wallet: **${user.wallet}** - Bank: **${user.bank}**`, true);
+    });
 
     return interaction.reply({ embeds: [embed] })
   }

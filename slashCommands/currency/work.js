@@ -23,7 +23,7 @@ module.exports = {
       replies: ['Potato Peeler', 'Janitor'],
       cooldown: 25
     });
-    if (result.error) return interaction.reply(`You have already worked recently Try again in ${result.time}`);
-    else interaction.reply(`You worked as a ${result.workType} and earned $${result.amount}.`)
+    if (result.error) return interaction.reply(`You're too tired, Try again in ${result.time}`);
+    else interaction.reply(`You worked as a ${result.workType} and earned **$${result.amount}**.`)
   }
 }

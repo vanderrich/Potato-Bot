@@ -9,11 +9,6 @@ module.exports = {
                 .setName("item")
                 .setDescription("The item you want to sell")
                 .setRequired(true)
-        )
-        .addIntegerOption(option =>
-            option
-                .setName("amount")
-                .setDescription("The amount of items you want to sell")
     ),
     category: "Currency",
     async execute(interaction, client) {
@@ -24,6 +19,17 @@ module.exports = {
         if (result.error) {
             if (result.type == 'Invalid-Item-Number') return interaction.reply('Please enter the item number to remove!')
             if (result.type == 'Unknown-Item') return interaction.reply('The item doesn\'t exist!')
-        } else interaction.reply('Successfully sold `' + result.inventory.name + '` for ! You now have ' + result.inventory.amount + ' of those items left!')
+        }
+        else {
+            let shopItem = await client.eco.getShopItems({ user: interaction.user.id });
+            let item = shopItem.inventory.find(item => item.name === result.inventory.name);
+            if (item) {
+                client.eco.removeMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
+                return interaction.reply(`You have sold **${result.inventory.name}** for **$${item.price}**`);
+            }
+            else {
+                return interaction.reply('The item doesn\'t exist!');
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ module.exports = {
             prize: prize,
             hostedBy: interaction.member.user.tag
         }).then((gData) => {
-            console.log(gData);
+            interaction.reply({ content: `Giveaway created!\n\n${gData.toString()}`, ephemeral: true });
         });
     }
 };

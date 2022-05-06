@@ -13,13 +13,19 @@ module.exports = {
         )
         .addStringOption(option =>
             option
-                .setName("description")
-                .setDescription("The description of the poll"),
+                .setName("duration")
+                .setDescription("The duration the poll will last")
+                .setRequired(true),
+        )
+        .addBooleanOption(option =>
+            option
+                .setName("ping")
+                .setDescription("Should i ping everyone")
         )
         .addStringOption(option =>
             option
-                .setName("duration")
-                .setDescription("The duration the poll will last"),
+                .setName("description")
+                .setDescription("The description of the poll"),
         )
         .addStringOption(option => option.setName("option1").setDescription("The first option of the poll"))
         .addStringOption(option => option.setName("option2").setDescription("The second option of the poll"))
@@ -35,6 +41,7 @@ module.exports = {
         var description = interaction.options.getString("description");
         var options = [];
         var time = Date.now() + ms(interaction.options.getString("duration"));
+        var ping = interaction.options.getBoolean("ping") || false;
         if (!time) return interaction.message.reply("Invalid duration!");
         for (var i = 1; i <= 25; i++) {
             if (interaction.options.getString("option" + i) != null) {
@@ -50,7 +57,7 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (description != null) embed.setDescription(description)
 
-            interaction.reply({ embeds: [embed], fetchReply: true }).then(msg => {
+            interaction.reply({ content: ping ? '@everyone' : 'New poll', embeds: [embed], fetchReply: true }).then(msg => {
                 msg.react('👍');
                 msg.react('👎');
             });

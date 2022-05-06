@@ -22,8 +22,8 @@ module.exports = {
     if (member == interaction.user) return interaction.reply("You cant transfer money to yourself!");
     let amount = interaction.options.getInteger("amount");
     if (!amount || isNaN(amount) || amount < 0) return interaction.reply('Please enter a valid amount to transfer')
-    if (authordata.amount < amount) return interaction.reply('Looks like you don\'t have that much money')
-    await client.eco.transferMoney({ user: interaction.user.id, user2: member.id, amount });
-    return interaction.reply(`You have successfully transferred 💸**${amount}** to ** ${member}**.`)
+    let result = await client.eco.transferMoney({ user: interaction.user.id, user2: member.id, amount });
+    if (result.error) return interaction.reply('Looks like you don\'t have that much money')
+    return interaction.reply(`You have successfully transferred **$${amount}** to **${member}**.`)
   }
 }

@@ -1,6 +1,6 @@
 //initialize variables
 const { Player } = require('discord-player');
-const db = require("quick.db");
+const mongooseConnection = require("quick.db");
 const fs = require('fs')
 const Discord = require('discord.js');
 const { shop, settings } = require('./config.json');
@@ -9,6 +9,7 @@ const token = process.env.DISCORD_TOKEN;
 const Economy = require('currency-system');
 const deploy = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
+const mongoose = require('mongoose');
 // const Dashboard = require('discord-easy-dashboard');
 
 const client = new Discord.Client({
@@ -22,6 +23,70 @@ const client = new Discord.Client({
 
 // client.eco = require('./Util/economy.js');
 
+mongoose.connect(process.env.MONGO_URI);
+
+mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
+mongoose.connection.once('open', () => {
+	console.log('Connected to MongoDB.');
+});
+
+const giveawaySchema = new mongoose.Schema({
+	messageId: String,
+	channelId: String,
+	guildId: String,
+	startAt: Number,
+	endAt: Number,
+	ended: Boolean,
+	winnerCount: Number,
+	prize: String,
+	messages: {
+		giveaway: String,
+		giveawayEnded: String,
+		inviteToParticipate: String,
+		drawing: String,
+		dropMessage: String,
+		winMessage: mongoose.Mixed,
+		embedFooter: mongoose.Mixed,
+		noWinner: String,
+		winners: String,
+		endedAt: String,
+		hostedBy: String
+	},
+	thumbnail: String,
+	hostedBy: String,
+	winnerIds: { type: [String], default: undefined },
+	reaction: mongoose.Mixed,
+	botsCanWin: Boolean,
+	embedColor: mongoose.Mixed,
+	embedColorEnd: mongoose.Mixed,
+	exemptPermissions: { type: [], default: undefined },
+	exemptMembers: String,
+	bonusEntries: String,
+	extraData: mongoose.Mixed,
+	lastChance: {
+		enabled: Boolean,
+		content: String,
+		threshold: Number,
+		embedColor: mongoose.Mixed
+	},
+	pauseOptions: {
+		isPaused: Boolean,
+		content: String,
+		unPauseAfter: Number,
+		embedColor: mongoose.Mixed,
+		durationAfterPause: Number,
+		infiniteDurationText: String
+	},
+	isDrop: Boolean,
+	allowedMentions: {
+		parse: { type: [String], default: undefined },
+		users: { type: [String], default: undefined },
+		roles: { type: [String], default: undefined }
+	}
+}, { id: false });
+
+
+
 const eco = new Economy;
 Economy.cs.on('debug', (debug, error) => {
 	console.log(debug);
@@ -32,9 +97,9 @@ eco.setDefaultBankAmount(100);
 eco.setMaxBankAmount(0);
 eco.setItems({ shop });
 client.eco = eco;
-client.db = new db.table('inv'); // quick.db
+client.db = new mongooseConnection.table('inv'); // quick.db
 client.shop = shop;
-client.job = new db.table('job')
+client.job = new mongooseConnection.table('job')
 client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
@@ -54,16 +119,46 @@ client.player = new Player(client, {
 client.form = new Map();
 client.settings = settings;
 client.tictactoe = {};
-client.giveawaysManager = new GiveawaysManager(client, {
-	storage: './giveaways.json',
+const giveawayModel = mongoose.model('giveaways', giveawaySchema);
+const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
+	// This function is called when the manager needs to get all giveaways which are stored in the database.
+	async getAllGiveaways() {
+		// Get all giveaways from the database. We fetch all documents by passing an empty condition.
+		return await giveawayModel.find().lean().exec();
+	}
+
+	// This function is called when a giveaway needs to be saved in the database.
+	async saveGiveaway(messageId, giveawayData) {
+		// Add the new giveaway to the database
+		await giveawayModel.create(giveawayData);
+		// Don't forget to return something!
+		return true;
+	}
+
+	// This function is called when a giveaway needs to be edited in the database.
+	async editGiveaway(messageId, giveawayData) {
+		// Find by messageId and update it
+		await giveawayModel.updateOne({ messageId }, giveawayData, { omitUndefined: true }).exec();
+		// Don't forget to return something!
+		return true;
+	}
+
+	// This function is called when a giveaway needs to be deleted from the database.
+	async deleteGiveaway(messageId) {
+		// Find by messageId and delete it
+		await giveawayModel.deleteOne({ messageId }).exec();
+		// Don't forget to return something!
+		return true;
+	}
+};
+client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
 	default: {
 		botsCanWin: false,
-		embedColor: '#FF0000',
-		embedColorEnd: '#000000',
-		reaction: '🎉'
+		embedColor: "RANDOM",
+		embedColorEnd: "RANDOM",
+		reaction: "🥔",
 	}
 });
-
 // client.dashboard = new Dashboard(client, {
 // 	name: 'Potato Bot', // Bot's name
 // 	description: 'A general purpose bot', // Bot's description
@@ -83,7 +178,7 @@ client.giveawaysManager = new GiveawaysManager(client, {
 
 const player = client.player
 const commandFolders = fs.readdirSync('./commands');
-client.rr = new db.table('reactionroles');
+client.rr = new mongooseConnection.table('reactionroles');
 
 // //initialize commands
 // for (const folder of commandFolders) {

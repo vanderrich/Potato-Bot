@@ -50,6 +50,6 @@ module.exports = {
             if (result.type === 'No-Item') return interaction.reply('Please provide valid item number');
             if (result.type === 'Invalid-Item') return interaction.reply('Item does not exist');
             if (result.type === 'low-money') return interaction.reply(`You're too broke to buy this item.`);
-        } else return interaction.reply(`Successfully bought  \`${result.inventory.name}\` for $${result.inventory.price}`)
+        } else return interaction.reply(`Successfully bought **${result.inventory.name}** for $${result.inventory.price}`)
     }
 }

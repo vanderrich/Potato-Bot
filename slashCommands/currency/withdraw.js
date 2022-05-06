@@ -22,8 +22,8 @@ module.exports = {
             if (result.type === 'low-money') return interaction.reply("You don't have that much money in your bank.");
             if (result.type === 'bank-full') return interaction.reply("Your bank is empty.");
         } else {
-            if (result.type === 'all-success') return interaction.reply("You have deposited all your money to your bank" + `\nNow you have $${result.rawData.wallet} in your wallet and $${result.rawData.bank} in your bank.`);
-            if (result.type === 'success') return interaction.reply(`You have deposited ${result.amount} to your bank.\nNow you have $${result.rawData.wallet} in your wallet and $${result.rawData.bank} in your bank.`);
+            if (result.type === 'all-success') return interaction.reply("You have withdrawn all your money to your bank" + `\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
+            if (result.type === 'success') return interaction.reply(`You have withdrawn **$${result.amount}** to your bank.\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
         };
     }
 }
