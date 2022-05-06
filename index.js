@@ -1,6 +1,5 @@
 //initialize variables
 const { Player } = require('discord-player');
-const db = require("quick.db");
 const fs = require('fs')
 const Discord = require('discord.js');
 const { shop, settings } = require('./config.json');
@@ -16,12 +15,6 @@ const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"],
 });
-// mongoose.connect(process.env.MONGO_URI, {
-// 	useNewURLParser: true,
-// 	useUnifiedTopology: true,
-// })
-
-// client.eco = require('./Util/economy.js');
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -175,7 +168,6 @@ client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
 // client.dashboard.addTextInput('Prefix', 'The prefix that is added to discord messages in order to invoke commands.', validatePrefix, setPrefix, getPrefix);
 
 const player = client.player
-const commandFolders = fs.readdirSync('./commands');
 const rrSchema = new mongoose.Schema({
 	guildId: String,
 	channelId: String,
@@ -190,11 +182,12 @@ const rrSchema = new mongoose.Schema({
 client.rr = new mongoose.model('rr', rrSchema);
 
 // //initialize commands
+// const commandFolders = fs.readdirSync('./commands');
 // for (const folder of commandFolders) {
-// 	//loops through all folders of commandFolders
-// 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+	// 	//loops through all folders of commandFolders
+	// 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 // 	for (const file of commandFiles) {
-// 		//loops through all the commandFiles and add them to the client commands collection
+	// 		//loops through all the commandFiles and add them to the client commands collection
 // 		const command = require(`./commands/${folder}/${file}`);
 // 		client.commands.set(command.name, command);
 // 	}
