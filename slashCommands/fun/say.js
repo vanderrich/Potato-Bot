@@ -14,6 +14,7 @@ module.exports = {
   execute(interaction) {
     let text = interaction.options.getString("text");
     if (text.length > 2000) return interaction.reply("Your text is too long!");
-    interaction.reply(text)
+    if (text.includes("@everyone") || text.includes("@here") && !interaction.member.permissions.has('MENTION_EVERYONE')) return interaction.reply("You dont have the permission ping everyone or here!");
+    interaction.reply(text);
   }
 } 
