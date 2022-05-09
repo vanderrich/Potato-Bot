@@ -8,8 +8,8 @@ module.exports = {
         if (user.bot) return
 
         let reactionRole = await client.rr.findOne({ messageId: reaction.message.id })
-        let reactionEmojiIndex = reactionRole.emoji.indexOf(reaction.emoji.name)
-        if (reactionEmojiIndex == -1) return
+        let reactionEmojiIndex = reactionRole?.emoji?.indexOf(reaction.emoji.name)
+        if (!reactionEmojiIndex || reactionEmojiIndex == -1) return
         try {
             reaction.message.guild.members.cache.get(user.id).roles.add(reactionRole.roleId[reactionEmojiIndex])
         }
