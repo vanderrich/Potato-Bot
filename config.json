@@ -1,4 +1,4 @@
-    {
+{
     "prefix": "potat ",
     "playing": "https://youtu.be/uAPQI9Oyxk4",
     "random_status": [
@@ -126,5 +126,6 @@
         "851217599403393094": {
             "welcomeRole": "Other people"
         }
-    }
+    },
+    "subscriptionCheckTime": 30000
 }

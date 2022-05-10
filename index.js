@@ -9,6 +9,7 @@ const Economy = require('currency-system');
 const deploy = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
 const mongoose = require('mongoose');
+const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
@@ -79,8 +80,6 @@ const giveawaySchema = new mongoose.Schema({
 		roles: { type: [String], default: undefined }
 	}
 }, { id: false });
-
-
 
 const eco = new Economy;
 Economy.cs.on('debug', (debug, error) => {
@@ -165,7 +164,17 @@ const rrSchema = new mongoose.Schema({
 }, { id: false });
 
 
-client.rr = new mongoose.model('rr', rrSchema);
+client.rr = mongoose.model('rr', rrSchema);
+
+client.tickets = mongoose.model('tickets', new mongoose.Schema({
+	guildId: String,
+	categoryId: String,
+	closeCategoryId: String,
+	channelId: Array,
+	messageId: String,
+	title: String,
+	description: String,
+}));
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');
@@ -237,6 +246,7 @@ player.on('queueEnd', (queue) => {
 });
 
 //Run
+// setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", _ => console.error(_.stack + '\n' + '='.repeat(20)));
 deploy()
 client.login(token);
