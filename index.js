@@ -9,7 +9,7 @@ const Economy = require('currency-system');
 const deploy = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
 const mongoose = require('mongoose');
-const setupSubscriptions = require('./Util/setupSubscriptions.js');
+// const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
@@ -94,6 +94,7 @@ client.eco = eco;
 client.shop = shop;
 client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
+client.buttons = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.player = new Player(client, {
 	ytdlOptions: {
@@ -214,6 +215,15 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args, client, client.commands));
 	}
 }
+
+//initialize buttons
+const buttonFiles = fs.readdirSync('./buttons').filter(file => file.endsWith('.js'));
+for (const file of buttonFiles) {
+	//loops through all folders of commandFolders
+	const button = require(`./buttons/${file}`);
+	client.buttons.set(button.name, button);
+}
+
 //other random thingy
 player.on('error', (queue, error) => {
 	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released

@@ -57,13 +57,15 @@ module.exports = {
                     .setCustomId(`delete-ticket-type-${title}`)
                     .setStyle("DANGER")
             );
-
+        category.permissionOverwrites.create(interaction.guild.id, {
+            deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
+        });
         let message = await channel.send({ embeds: [embed], components: [buttons] });
         let ticket = new client.tickets({
             title: title,
             description: description,
             categoryId: category.id,
-            closedCategoryId: closecategory.id,
+            closeCategoryId: closecategory.id,
             guildId: interaction.guild.id,
             messageId: message.id,
         });

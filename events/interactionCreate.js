@@ -51,6 +51,24 @@ module.exports = {
             }
         }
         else if (interaction.isButton()) {
+            const button = client.buttons.get(interaction.customId);
+
+            if (button?.permissions) {
+                if ((button.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.member.permissions.has(button.permissions)) return interaction.reply("You don't have permission to use this command!");
+            }
+
+            try {
+                button?.execute(interaction, client, Discord, footers);
+            } catch (error) {
+                console.error(error);
+                try {
+                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                }
+                catch (err) {
+                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                }
+            }
+
             const queue = client.player.getQueue(interaction.guildId);
             if (interaction.customId.startsWith("ticket-")) {
                 const ticket = interaction.customId.split("-")[1];
@@ -102,9 +120,8 @@ module.exports = {
             else if (interaction.customId.startsWith("close-ticket-")) {
                 const ticket = interaction.customId.split("-")[2];
                 const ticketInfo = await client.tickets.findOne({ title: ticket });
-                interaction.channel.permissionOverwrites.create(interaction.user, {
-                    SEND_MESSAGES: false,
-                })
+
+
 
                 const controls = new Discord.MessageActionRow()
                     .addComponents(
@@ -125,8 +142,7 @@ module.exports = {
 
                 interaction.channel.send({ content: `Ticket closed by ${interaction.user}`, components: [controls] });
                 ticketInfo.updateOne({ $pull: { channelId: interaction.channel.id } });
-                const closecategory = client.guilds.cache.get(ticketInfo.guildId).channels.cache.get(ticketInfo.closedCategoryId);
-                console.log(closecategory)
+                const closecategory = client.guilds.cache.get(ticketInfo.guildId).channels.cache.get(ticketInfo.closeCategoryId);
                 interaction.channel.setParent(closecategory);
                 interaction.channel.edit({ name: `closed-${ticketInfo.title}-ticket-${ticketInfo.id}` });
                 interaction.reply({ content: "Closed Ticket Successfully", ephemeral: true });
@@ -253,13 +269,14 @@ module.exports = {
                 const ticket = interaction.customId.split("-")[2];
                 const ticketInfo = await client.tickets.findOne({ title: ticket });
                 if (!ticketInfo) return interaction.reply("Ticket not found!");
-                interaction.channel.permissionOverwrites.create(interaction.user, {
-                    SEND_MESSAGES: true,
-                })
+                const category = client.guilds.cache.get(interaction.guild.id).channels.cache.get(ticketInfo.categoryId);
+                interaction.channel.setParent(category);
+                interaction.channel.edit({ name: `${ticketInfo.title}-ticket-${ticketInfo.id}` });
                 interaction.reply({ content: "Opened Ticket Successfully", ephemeral: true });
                 interaction.channel.send({ content: `Ticket opened by ${interaction.user}` });
                 return;
             }
+            return
             switch (interaction.customId) {
                 case 'saveTrack': {
                     if (!queue || !queue.playing) return interaction.reply({ content: `No music currently playing. ❌`, ephemeral: true, components: [] });
