@@ -16,6 +16,7 @@ module.exports = {
             .setRequired(false)
     ),
     category: 'Music',
+    isSubcommand: true,
     async execute(interaction, client) {
         interaction.deferReply()
         const res = await client.player.search(interaction.options.getString('track'), {
@@ -40,7 +41,7 @@ module.exports = {
         }
         if (!run) return;
 
-        let index = interaction.options.getInteger('index') || 1;
+        let index = interaction.options.getInteger('index');
 
         if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);
 
@@ -56,7 +57,7 @@ module.exports = {
         }
 
 
-        res.playlist ? queue.addTracks(res.tracks) : queue.insert(res.tracks[0], index - 1);
+        res.playlist ? queue.addTracks(res.tracks) : index ? queue.insert(res.tracks[0], index - 1) : queue.addTracks(res.tracks);
 
         if (!queue.playing) await queue.play();
 

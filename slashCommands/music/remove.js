@@ -10,10 +10,11 @@ module.exports = {
             .setRequired(true)
     ),
     category: "Music",
+    isSubcommand: true,
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
-        const success = queue.removeTrack(interaction.options.getInteger('index'));
+        const success = queue.remove(queue.tracks[interaction.options.getInteger('index') - 1]);
         return interaction.reply(success ? `Removed track from queue! ✅` : `${interaction.user}, Something went wrong. ❌`);
     },
 };
