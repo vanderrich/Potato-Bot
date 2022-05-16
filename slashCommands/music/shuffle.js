@@ -5,6 +5,7 @@ module.exports = {
         .setName("shuffle")
         .setDescription("Shuffle the current queue."),
     category: "Music",
+    isSubcommand: true,
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

@@ -2,9 +2,9 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: 'messageDelete',
-    execute(message) {
+    execute(message, client) {
         //ghost ping detection
-        if (message.mentions?.users.size > 0 || message.mentions?.roles.size > 0 || message?.mentions.everyone) {
+        if (message.mentions?.users.size > 0 || message.mentions?.roles.size > 0 || message?.mentions.everyone && message.author.id !== client.user.id) {
             user = message.mentions.users
             roles = message.mentions.roles
             let embed = new MessageEmbed()

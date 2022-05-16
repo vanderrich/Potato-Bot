@@ -12,6 +12,7 @@ module.exports = {
                 .setRequired(true)
     ),
     category: "Music",
+    isSubcommand: true,
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

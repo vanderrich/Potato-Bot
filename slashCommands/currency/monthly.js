@@ -5,6 +5,7 @@ module.exports = {
         .setName("monthly")
         .setDescription("Get your monthly reward!"),
     category: "Currency",
+    isSubcommand: true,
     async execute(interaction, client) {
         let amount = Math.floor(Math.random() * 500) + 1000;
         let addMoney = await client.eco.monthly({ user: interaction.user.id, amount });

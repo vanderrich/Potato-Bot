@@ -14,7 +14,8 @@ async function deploy() {
         for (const file of commandFiles) {
             //loops through all the commandFiles and add them to the client commands collection
             const command = require(`./slashCommands/${folder}/${file}`);
-            if (!command.data) continue;
+            if (!command.data || command.isSubcommand) continue;
+            console.log(command, command.isSubcommand);
             commands.push(command.data.toJSON());
         }
     }
@@ -28,6 +29,10 @@ async function deploy() {
             await rest.put(
                 Routes.applicationGuildCommands(clientId, '962861680226865193'),
                 { body: commands },
+            );
+            await rest.put(
+                Routes.applicationCommands(clientId, '962861680226865193'),
+                { body: {} }
             );
         }
         // stable

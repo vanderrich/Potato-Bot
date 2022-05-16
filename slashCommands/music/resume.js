@@ -5,6 +5,7 @@ module.exports = {
         .setName("resume")
         .setDescription("Resume the current track"),
     category: "Music",
+    isSubcommand: true,
     execute(message, client) {
         const queue = client.player.getQueue(message.guild.id);
 

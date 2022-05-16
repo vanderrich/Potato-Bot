@@ -5,6 +5,7 @@ module.exports = {
         .setName("nowplaying")
         .setDescription("See the current track"),
     category: "Music",
+    isSubcommand: true,
     execute(interaction, client, Discord) {
         const queue = client.player.getQueue(interaction.guild.id);
 

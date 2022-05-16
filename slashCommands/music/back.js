@@ -5,6 +5,7 @@ module.exports = {
         .setName("back")
         .setDescription("Go back to the previous track."),
     category: "Music",
+    isSubcommand: true,
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

@@ -12,6 +12,7 @@ module.exports = {
                 .setRequired(true)
     ),
     category: 'Music',
+    isSubcommand: true,
     async execute(interaction, client, Discord) {
         const res = await client.player.search(interaction.options.getString("query"), {
             requestedBy: interaction.member,

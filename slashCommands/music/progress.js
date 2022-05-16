@@ -5,6 +5,7 @@ module.exports = {
         .setName("progress")
         .setDescription("See the current track progress"),
     category: "Music",
+    isSubcommand: true,
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

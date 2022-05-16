@@ -70,6 +70,9 @@ module.exports = {
             }
 
             const queue = client.player.getQueue(interaction.guildId);
+            if (interaction.customId.startsWith("ttt")) {
+                await updateGrid(interaction, client)
+            }
             if (interaction.customId.startsWith("ticket-")) {
                 const ticket = interaction.customId.split("-")[1];
                 const ticketInfo = await client.tickets.findOne({ title: ticket });
@@ -321,9 +324,7 @@ module.exports = {
             }
         }
         else if (interaction.isMessageComponent()) {
-            if (interaction.customId.startsWith("ttt")) {
-                await updateGrid(interaction, client)
-            }
+
         }
     }
 }

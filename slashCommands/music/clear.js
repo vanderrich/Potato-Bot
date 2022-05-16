@@ -5,6 +5,7 @@ module.exports = {
         .setName("clear")
         .setDescription("Clear the queue."),
     category: "Music",
+    isSubcommand: true,
     async execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

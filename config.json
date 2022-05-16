@@ -41,43 +41,53 @@
     "shop": [
         {
             "name": "laptop",
-            "price": 1000
+            "price": 1000,
+            "description": "a laptop"
         },
         {
             "name": "potato",
-            "price": 10
+            "price": 10,
+            "description": "a potato"
         },
         {
             "name": "mop",
-            "price": 100
+            "price": 100,
+            "description": "a mop"
         },
         {
             "name": "potato peeler",
-            "price": 1000
+            "price": 1000,
+            "description": "a potato peeler to peel potatoes"
         },
         {
             "name": "water",
-            "price": 5
+            "price": 5,
+            "description": "water to feed your potato"
         },
         {
             "name": "fertilizer",
-            "price": 25
+            "price": 25,
+            "description": "fertilizer to feed your potato"
         },
         {
             "name": "potato seeds (large)",
-            "price": 100
+            "price": 100,
+            "description": "potato seeds to plant a large potato"
         },
         {
             "name": "potato seeds (medium)",
-            "price": 50
+            "price": 50,
+            "description": "potato seeds to plant a medium potato"
         },
         {
             "name": "potato seeds (small)",
-            "price": 25
+            "price": 25,
+            "description": "potato seeds to plant a small potato"
         },
         {
             "name": "potato seeds (tiny)",
-            "price": 10
+            "price": 10,
+            "description": "potato seeds to plant a tiny potato"
         }
     ],
     "welcomeMessages": [

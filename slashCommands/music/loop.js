@@ -14,6 +14,7 @@ module.exports = {
                 .addChoice("autoplay", "autoplay")
     ),
     category: "Music",
+    isSubcommand: true,
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
         switch (interaction.options.getString("loop")) {

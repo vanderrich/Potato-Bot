@@ -5,6 +5,7 @@ module.exports = {
         .setName("stop")
         .setDescription("Stop the current track."),
     category: "Music",
+    isSubcommand: true,
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
 

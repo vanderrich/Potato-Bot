@@ -8,16 +8,11 @@ module.exports = {
             option
                 .setName("item")
                 .setDescription("The ID of the item you want to buy.")
-                .addChoice("laptop", 1)
-                .addChoice("potato", 2)
-                .addChoice("mop", 3)
-                .addChoice("potato peeler", 4)
-                .addChoice("water", 5)
-                .addChoice("fertilizer", 6)
-                .addChoice("potato seeds (large)", 7)
-                .addChoice("potato seeds (medium)", 8)
-                .addChoice("potato seeds (small)", 9)
-                .addChoice("potato seeds (tiny)", 10)
+    )
+        .addBooleanOption(option =>
+            option
+                .setName("local")
+                .setDescription("Whether or not the item is local.")
         )
         .addIntegerOption(option =>
             option
@@ -27,10 +22,11 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client, Discord, footers) {
         let item = interaction.options.getNumber("item");
+        let local = interaction.options.getBoolean("local");
 
         if (!item) {
-            let items = await client.eco.getShopItems({ user: interaction.user.id });
-            let inv = items.inventory
+            let items = await client.eco.getShopItems(local ? { guild: interaction.guild.id } : { user: interaction.user.id });
+            let inv = items.inventory;
 
             let embed = new Discord.MessageEmbed()
                 .setTitle("Store")
@@ -42,14 +38,17 @@ module.exports = {
             }
             return interaction.reply({ embeds: [embed] });
         }
+        interaction.deferReply();
         let result = await client.eco.addUserItem({
             user: interaction.user.id,
+            guild: local ? interaction.guild.id : undefined,
             item
         });
+        console.log(result);
         if (result.error) {
-            if (result.type === 'No-Item') return interaction.reply('Please provide valid item number');
-            if (result.type === 'Invalid-Item') return interaction.reply('Item does not exist');
-            if (result.type === 'low-money') return interaction.reply(`You're too broke to buy this item.`);
-        } else return interaction.reply(`Successfully bought **${result.inventory.name}** for $${result.inventory.price}`)
+            if (result.type === 'No-Item') return interaction.editReply('Please provide valid item number');
+            if (result.type === 'Invalid-Item') return interaction.editReply('Item does not exist');
+            if (result.type === 'low-money') return interaction.editReply(`You're too broke to buy this item.`);
+        } else return interaction.editReply(`Successfully bought **${result.inventory.name}** for $${result.inventory.price}`)
     }
 }

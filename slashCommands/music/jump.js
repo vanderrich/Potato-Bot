@@ -10,6 +10,7 @@ module.exports = {
             .setRequired(true)
     ),
     category: "Music",
+    isSubcommand: true,
     execute(message, client) {
         const queue = client.player.getQueue(message.guild.id);
 
