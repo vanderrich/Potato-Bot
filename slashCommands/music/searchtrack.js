@@ -3,12 +3,12 @@ const { QueryType } = require('discord-player');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName('search')
-        .setDescription('Search for a song')
+        .setName('searchtrack')
+        .setDescription('Search for a track')
         .addStringOption(option =>
             option
                 .setName('query')
-                .setDescription('The song to search for.')
+                .setDescription('The track to search for.')
                 .setRequired(true)
     ),
     category: 'Music',

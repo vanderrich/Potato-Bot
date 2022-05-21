@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("clear")
+        .setName("clearqueue")
         .setDescription("Clear the queue."),
     category: "Music",
     isSubcommand: true,

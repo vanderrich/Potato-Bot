@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("jump")
+        .setName("jumptoindex")
         .setDescription("Jump to a specific track in the queue.")
         .addIntegerOption(option => option
             .setName("index")

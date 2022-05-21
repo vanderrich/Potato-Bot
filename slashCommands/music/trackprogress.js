@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("progress")
+        .setName("trackprogress")
         .setDescription("See the current track progress"),
     category: "Music",
     isSubcommand: true,

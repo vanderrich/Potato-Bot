@@ -2,8 +2,8 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("skip")
-        .setDescription("Skip the current track."),
+        .setName("pausetrack")
+        .setDescription("Pause the current track"),
     category: "Music",
     isSubcommand: true,
     execute(interaction, client) {
@@ -11,8 +11,8 @@ module.exports = {
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
-        const success = queue.skip();
+        const success = queue.setPaused(true);
 
-        return interaction.reply(success ? `**${queue.current.title}**, Skipped song ✅` : `${interaction.user}, Something went wrong ❌`);
+        return interaction.reply(success ? `The currently playing music named **${queue.current.title}** has stopped ✅` : `${interaction.user}, Something went wrong. ❌`);
     },
 };

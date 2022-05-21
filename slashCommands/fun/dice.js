@@ -15,6 +15,10 @@ module.exports = {
         .addNumberOption(option => option
             .setName("modifier")
             .setDescription("The modifier to add to the dice.")
+    )
+        .addStringOption(option => option
+            .setName("note")
+            .setDescription("A note to add to the roll.")
         ),
     category: "Fun",
     execute: (interaction, client, Discord, footers) => {
@@ -28,7 +32,7 @@ module.exports = {
         const total = rolls.reduce((a, b) => a + b, 0) + modifier;
         const embed = new Discord.MessageEmbed()
             .setTitle(`${number}d${sides}${modifier ? `+${modifier}` : ""}`)
-            .setDescription(`${rolls.join(", ")} = ${total}`)
+            .setDescription(`${interaction.options.getString("note") || "Result"}: ${rolls.join(", ")} = ${total}`)
             .setColor('RANDOM')
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         return interaction.reply({ embeds: [embed] });

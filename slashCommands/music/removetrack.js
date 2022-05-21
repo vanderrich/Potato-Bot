@@ -2,13 +2,13 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("remove")
+        .setName("removetrack")
         .setDescription("Remove a track from the queue")
         .addIntegerOption(option => option
             .setName("index")
             .setDescription("The index of the track to remove.")
             .setRequired(true)
-    ),
+        ),
     category: "Music",
     isSubcommand: true,
     async execute(interaction, client) {

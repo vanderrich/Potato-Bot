@@ -163,8 +163,6 @@ const rrSchema = new mongoose.Schema({
 	roleId: [String],
 	timestamp: String
 }, { id: false });
-
-
 client.rr = mongoose.model('rr', rrSchema);
 
 client.tickets = mongoose.model('tickets', new mongoose.Schema({
@@ -176,6 +174,20 @@ client.tickets = mongoose.model('tickets', new mongoose.Schema({
 	title: String,
 	description: String,
 }));
+
+client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
+	userId: String,
+	guildId: String,
+	birthday: Date,
+}));
+
+client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
+	guildId: String,
+	channelId: String,
+	roleId: String,
+	message: String,
+}));
+
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');

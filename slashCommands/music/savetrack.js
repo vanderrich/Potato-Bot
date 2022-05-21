@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("save")
+        .setName("savetrack")
         .setDescription("Save the current track to your dms"),
     category: "Music",
     isSubcommand: true,

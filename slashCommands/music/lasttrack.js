@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("back")
+        .setName("lasttrack")
         .setDescription("Go back to the previous track."),
     category: "Music",
     isSubcommand: true,

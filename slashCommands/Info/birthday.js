@@ -5,29 +5,40 @@ module.exports = {
         .setName("birthday")
         .setDescription("Birthday commands")
         .addSubcommand(subcommand => subcommand
-            .setName("set")
+            .setName("setbday")
             .setDescription("Set your birthday.")
             .addStringOption(option => option
                 .setName("birthdate")
-                .setDescription("Your birthdate.")
+                .setDescription("Your birthdate in MM/DD, eg. 01/01")
                 .setRequired(true)
-            )
-            .addStringOption(option => option
-                .setName("timezone")
-                .setDescription("Your timezone.")
-                .setRequired(true)
-            )
+            ),
         )
         .addSubcommand(subcommand => subcommand
-            .setName("list")
+            .setName("listbday")
             .setDescription("List all birthdays.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("remove")
+            .setName("removebday")
             .setDescription("Remove your birthday data.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("next")
+            .setName("nextbday")
             .setDescription("Get the next birthday.")
+        )
+        .addSubcommand(subcommand => subcommand
+            .setName("setupbday")
+            .setDescription("Setup your birthday channel.")
+            .addChannelOption(option => option
+                .setName("birthdaychannel")
+                .setDescription("The channel to send the birthday messages to.")
+            )
+            .addRoleOption(option => option
+                .setName("birthdayrole")
+                .setDescription("The role to give to users whose birthday is today.")
+            )
+            .addStringOption(option => option
+                .setName("birthdaymessage")
+                .setDescription("The role to give to users whose birthday is today, to ping the user type <@${user.id}>.")
+            )
         )
 }

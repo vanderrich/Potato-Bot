@@ -8,7 +8,7 @@ module.exports = {
         if (user.bot) return
 
         let reactionRole = await client.rr.findOne({ messageId: reaction.message.id })
-        let reactionEmojiIndex = reactionRole.emoji.indexOf(reaction.emoji.name)
+        let reactionEmojiIndex = reactionRole?.emoji?.indexOf(reaction.emoji.name)
         if (!reactionEmojiIndex || reactionEmojiIndex == -1) return
 
         try {

@@ -3,7 +3,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("filter")
-        .setDescription("Filter")
+        .setDescription("Add a filter to the music playing")
         .addStringOption(option => option
             .setName("filter")
             .setDescription("Filter")

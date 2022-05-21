@@ -16,6 +16,14 @@ module.exports = {
             }
         }
 
+        //check if message has an unicode character
+        if (message.content.match(/[^\x00-\x7F]/g)) {
+            const m = await message.reply('Message contains an unicode character')
+            message.delete()
+            setTimeout(function () { m.delete() }, 5000)
+            return
+        }
+
         // client.commands = clientCommands
 
         if (message.content.substring(0, prefix.length).toLowerCase() == prefix) {

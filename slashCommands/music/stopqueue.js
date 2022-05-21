@@ -2,8 +2,8 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("pause")
-        .setDescription("Pause the current track"),
+        .setName("stopqueue")
+        .setDescription("Destroy the queue."),
     category: "Music",
     isSubcommand: true,
     execute(interaction, client) {
@@ -11,8 +11,8 @@ module.exports = {
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
-        const success = queue.setPaused(true);
+        queue.destroy();
 
-        return interaction.reply(success ? `The currently playing music named **${queue.current.title}** has stopped ✅` : `${interaction.user}, Something went wrong. ❌`);
+        interaction.reply(`The music playing on this server has been turned off, see you next time ✅`);
     },
 };
