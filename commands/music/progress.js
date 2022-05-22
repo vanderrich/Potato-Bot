@@ -12,7 +12,7 @@ module.exports = {
         const progress = queue.createProgressBar();
         const timestamp = queue.getPlayerTimestamp();
 
-        if (timestamp.progress == 'Infinity') return message.channel.send({ content: `This song is live streaming, no duration data to display. 🎧` });
+        if (timestamp.progress == 'Infinity') return message.channel.send({ content: `This track is live streaming, no duration data to display. 🎧` });
 
         const saveButton = new MessageButton();
 

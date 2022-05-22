@@ -3,37 +3,22 @@ module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("loop")
         .setDescription("Loop the track or queue")
-        .addStringOption(option =>
+        .addNumberOption(option =>
             option
                 .setName("loop")
                 .setDescription("The object to loop")
                 .setRequired(true)
-                .addChoice("No loop", "off")
-                .addChoice("Loop the track", "track")
-                .addChoice("Loop the entire queue", "queue")
-                .addChoice("autoplay", "autoplay")
+                .addChoice("No loop", 0)
+                .addChoice("Loop the track", 1)
+                .addChoice("Loop the entire queue", 2)
+                .addChoice("autoplay", 3)
     ),
     category: "Music",
     isSubcommand: true,
     execute(interaction, client) {
         const queue = client.player.getQueue(interaction.guild.id);
-        switch (interaction.options.getString("loop")) {
-            case "off":
-                queue.setRepeatMode(0)
-                interaction.reply("🔁 Loop off")
-                break;
-            case "track":
-                queue.setRepeatMode(1)
-                interaction.reply("🔁 Looping track")
-                break;
-            case "queue":
-                queue.setRepeatMode(2)
-                interaction.reply("🔁 Looping queue")
-                break;
-            case "autoplay":
-                queue.setRepeatMode(3)
-                interaction.reply("🔁 Autoplaying")
-                break;
-        }
+        const loop = interaction.options.getNumber("loop");
+        queue.setRepeatMode(loop);
+        interaction.reply(`${loop === 0 ? "Off" : loop === 1 ? "Looping track 🔂" : loop === 2 ? "Looping queue 🔁" : "Autoplaying 🔂"}`);
     }
 }

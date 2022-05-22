@@ -14,7 +14,7 @@ module.exports = {
         const progress = queue.createProgressBar();
         const timestamp = queue.getPlayerTimestamp();
 
-        if (timestamp.progress == 'Infinity') return interaction.reply(`This song is live streaming, no duration data to display. 🎧`);
+        if (timestamp.progress == 'Infinity') return interaction.reply(`This track is live streaming, no duration data to display. 🎧`);
 
         interaction.reply(`${progress} (**${timestamp.progress}**%)`);
     },

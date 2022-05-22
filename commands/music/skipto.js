@@ -16,6 +16,6 @@ module.exports = {
 
         queue.skipTo(index);
 
-        return message.reply(`Skipped songs ✅`);
+        return message.reply(`Skipped tracks ✅`);
     },
 };

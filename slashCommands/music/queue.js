@@ -15,7 +15,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed();
             embed.setTitle('Server Queue');
             embed.setColor('RANDOM');
-            embed.setDescription(`No songs in the queue.`);
+            embed.setDescription(`No tracks in the queue.`);
             return interaction.reply({ embeds: [embed] });
         }
 
@@ -48,7 +48,7 @@ module.exports = {
                 if (page === 1) {
                     const embed = new Discord.MessageEmbed();
                     embed.setColor('RANDOM');
-                    embed.setDescription(`${usedby}No more songs in the queue.`);
+                    embed.setDescription(`${usedby}No more tracks in the queue.`);
                     const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
                         `${queue.current.author
                         } - ${queue.current.title} ` : `${queue.current.title} `;
@@ -61,6 +61,6 @@ module.exports = {
             }
         } while (!emptypage);
 
-        generatePages(interaction, pages, { timeout: 40000, fromButton: _fromButton });
+        generatePages(interaction, pages, { timeout: 40000, fromButton: _fromButton, hasSentReply: false });
     },
 };

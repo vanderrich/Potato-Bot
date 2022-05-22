@@ -59,7 +59,7 @@ module.exports = {
                 }
             } while (!emptypage);
 
-            generatePages(interaction, pages, { timeout: 40000, fromButton: false });
+            generatePages(interaction, pages, { timeout: 40000, fromButton: false, replyHasSent: false });
         }
     }
 }

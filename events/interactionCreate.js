@@ -308,7 +308,7 @@ module.exports = {
                     const progress = queue.createProgressBar();
                     const timestamp = queue.getPlayerTimestamp();
 
-                    if (timestamp.progress == 'Infinity') return interaction.message.edit({ content: `This song is live streaming, no duration data to display. 🎧` });
+                    if (timestamp.progress == 'Infinity') return interaction.message.edit({ content: `This track is live streaming, no duration data to display. 🎧` });
 
                     const embed = new Discord.MessageEmbed()
                         .setColor('BLUE')

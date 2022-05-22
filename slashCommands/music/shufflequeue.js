@@ -12,7 +12,7 @@ module.exports = {
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
         let success;
-        for (let i = queue.songs.length - 1; i > 0; i--) {
+        for (let i = queue.tracks.length - 1; i > 0; i--) {
             success = success && queue.shuffle();
         }
 

@@ -13,6 +13,6 @@ module.exports = {
 
         const success = queue.skip();
 
-        return interaction.reply(success ? `**${queue.current.title}**, Skipped song ✅` : `${interaction.user}, Something went wrong ❌`);
+        return interaction.reply(success ? `**${queue.current.title}**, Skipped track ✅` : `${interaction.user}, Something went wrong ❌`);
     },
 };

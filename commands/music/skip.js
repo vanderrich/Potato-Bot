@@ -9,6 +9,6 @@ module.exports = {
 
         const success = queue.skip();
 
-        return message.reply(success ? `**${queue.current.title}**, Skipped song ✅` : `${message.author}, Something went wrong ❌`);
+        return message.reply(success ? `**${queue.current.title}**, Skipped track ✅` : `${message.author}, Something went wrong ❌`);
     },
 };

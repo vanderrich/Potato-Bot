@@ -1,8 +1,8 @@
 module.exports = {
     name: "loop",
-    description: "Loop the song or queue or autoplay",
+    description: "Loop the track or queue or autoplay",
     aliases: [],
-    usage: "loop [off|song|queue|autoplay]",
+    usage: "loop [off|track|queue|autoplay]",
     category: "Music",
     execute(message, args, cmd, client) {
         const queue = client.player.getQueue(message.guild.id);
@@ -11,9 +11,9 @@ module.exports = {
                 queue.setRepeatMode(0)
                 message.reply("🔁 Loop off")
                 break;
-            case "song":
+            case "track":
                 queue.setRepeatMode(1)
-                message.reply("🔁 Looping song")
+                message.reply("🔁 Looping track")
                 break;
             case "queue":
                 queue.setRepeatMode(0)
@@ -25,7 +25,7 @@ module.exports = {
                 break;
 
             default:
-                message.reply("Not a valid option, either off song queue or autoplay")
+                message.reply("Not a valid option, either off track queue or autoplay")
                 break;
         }
     }

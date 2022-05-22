@@ -18,7 +18,7 @@ module.exports = {
     category: 'Music',
     isSubcommand: true,
     async execute(interaction, client) {
-        interaction.deferReply()
+        await interaction.deferReply()
         const res = await client.player.search(interaction.options.getString('track'), {
             requestedBy: interaction.member,
             searchEngine: QueryType.AUTO

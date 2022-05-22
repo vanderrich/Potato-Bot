@@ -91,6 +91,11 @@
             "name": "potato seeds (tiny)",
             "price": 10,
             "description": "potato seeds to plant a tiny potato"
+        },
+        {
+            "name": "test item",
+            "price": 1,
+            "description": "this is a test item"
         }
     ],
     "welcomeMessages": [

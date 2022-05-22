@@ -38,11 +38,11 @@ module.exports = {
             }
             return interaction.reply({ embeds: [embed] });
         }
-        interaction.deferReply();
+        await interaction.deferReply();
         let result = await client.eco.addUserItem({
             user: interaction.user.id,
-            guild: local ? interaction.guild.id : undefined,
-            item
+            guild: local ? interaction.guild : undefined,
+            item: item,
         });
         console.log(result);
         if (result.error) {

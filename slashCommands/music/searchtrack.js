@@ -32,7 +32,7 @@ module.exports = {
 
         const maxTracks = res.tracks.slice(0, 10);
 
-        embed.setDescription(`${maxTracks.map((track, i) => `**${i + 1}**. ${track.title} | ${track.author}`).join('\n')}\n\nChoose a song from **1** to **${maxTracks.length}** write send or write **cancel** and cancel selection.⬇️`);
+        embed.setDescription(`${maxTracks.map((track, i) => `**${i + 1}**. ${track.title} | ${track.author}`).join('\n')}\n\nChoose a track from **1** to **${maxTracks.length}** write send or write **cancel** and cancel selection.⬇️`);
 
         embed.setTimestamp();
         embed.setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda', iconURL: interaction.user.avatarURL({ dynamic: true }) });
@@ -50,7 +50,7 @@ module.exports = {
 
             const value = parseInt(query.content);
 
-            if (!value || value <= 0 || value > maxTracks.length) return interaction.followUp(`Error: select a song **1** to **${maxTracks.length}** and write send or type **cancel** and cancel selection. ❌`);
+            if (!value || value <= 0 || value > maxTracks.length) return interaction.followUp(`Error: select a track **1** to **${maxTracks.length}** and write send or type **cancel** and cancel selection. ❌`);
 
             collector.stop();
 
@@ -69,7 +69,7 @@ module.exports = {
         });
 
         collector.on('end', (msg, reason) => {
-            if (reason === 'time') return interaction.followUp(`${interaction.user}, Song search time expired ❌`);
+            if (reason === 'time') return interaction.followUp(`${interaction.user}, track search time expired ❌`);
         });
     },
 };

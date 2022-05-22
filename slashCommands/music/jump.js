@@ -22,6 +22,6 @@ module.exports = {
 
         queue.jump(index);
 
-        return message.reply(`Skipped songs ✅`);
+        return message.reply(`Skipped tracks ✅`);
     },
 };

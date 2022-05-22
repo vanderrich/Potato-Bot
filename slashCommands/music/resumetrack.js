@@ -13,6 +13,6 @@ module.exports = {
 
         const success = queue.setPaused(false);
 
-        return message.reply(success ? `**${queue.current.title}**, The song continues to play. ✅` : `${message.author}, Something went wrong. ❌`);
+        return message.reply(success ? `**${queue.current.title}**, The track continues to play. ✅` : `${message.author}, Something went wrong. ❌`);
     },
 };

@@ -30,7 +30,7 @@ module.exports = async (source, pages, options) => {
         components: [row]
     }
 
-    const message = options.fromButton ? await source.channel.send(content) : await source.reply(content);
+    const message = options.fromButton ? await source.channel.send(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
     const pagedMessage = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
 
     const filter = (button) => button.customId === 'first' || 'previous' || 'next' || 'last';

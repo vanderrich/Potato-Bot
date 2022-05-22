@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder, time } = require("@discordjs/builders");
 const ms = require("ms");
 
 module.exports = {
@@ -53,7 +53,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setDescription(`This poll will end <t:${Math.floor(time / 1000)}:R>`)
+                .setDescription(`This poll will end ${time(time, 'R')}`)
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (description != null) embed.setDescription(description)
 
@@ -82,10 +82,10 @@ module.exports = {
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
-            if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + '\n\nThis poll will end in ' + time.toString());
-            else embed.setDescription(arr.join('\n\n'))
+            if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\nThis poll will end ${time(time, 'R')}`);
+            else embed.setDescription(arr.join('\n\n')) + `\n\nThis poll will end ${time(time, 'R')}`;
 
-            interaction.reply({ embeds: [embed], fetchReply: true }).then(msg => {
+            interaction.reply({ content: ping ? '@everyone' : 'New poll', embeds: [embed], fetchReply: true }).then(msg => {
                 for (let i = 0; i < options.length; i++) {
                     msg.react(alphabet[i]);
                 }

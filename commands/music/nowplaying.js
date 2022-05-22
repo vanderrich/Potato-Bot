@@ -27,7 +27,7 @@ module.exports = {
 
         const saveButton = new Discord.MessageButton();
 
-        saveButton.setLabel('Save Song');
+        saveButton.setLabel('Save track');
         saveButton.setCustomId('saveTrack');
         saveButton.setStyle('SUCCESS');
 

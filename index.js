@@ -18,7 +18,8 @@ const client = new Discord.Client({
 
 mongoose.connect(process.env.MONGO_URI, {
 	useNewUrlParser: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
+	autoIndex: false
 });
 
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
@@ -109,6 +110,16 @@ client.player = new Player(client, {
 	leaveOnEmptyCooldown: 5000,
 	initialVolume: 75,
 });
+client.playlists = mongoose.model('playlists', new mongoose.Schema({
+	name: String,
+	tracks: Array,
+	owner: String,
+	settings: {
+		loop: Number,
+		shuffle: Boolean,
+		volume: Number,
+	}
+}));
 client.form = new Map();
 client.settings = settings;
 client.tictactoe = {};
@@ -240,7 +251,7 @@ for (const file of buttonFiles) {
 player.on('error', (queue, error) => {
 	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released
 	if (error.message === '[DestroyedQueue] Cannot use destroyed queue') return;
-	queue.metadata.send(`There was a problem with the song queue => ${error.message}`);
+	queue.metadata.send(`There was a problem with the track queue => ${error.message}`);
 });
 
 player.on('connectionError', (queue, error) => {

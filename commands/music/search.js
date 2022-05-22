@@ -3,11 +3,11 @@ const { QueryType } = require('discord-player');
 module.exports = {
     name: 'search',
     aliases: [],
-    utilisation: 'search [song name]',
+    utilisation: 'search [track name]',
     category: "Music",
     async execute(message, args, cmd, client, Discord) {
 
-        if (!args[0]) return message.reply(`${message.author}, Please enter a valid song name. ❌`);
+        if (!args[0]) return message.reply(`${message.author}, Please enter a valid track name. ❌`);
 
         const res = await client.player.search(args.join(' '), {
             requestedBy: message.member,
@@ -27,7 +27,7 @@ module.exports = {
 
         const maxTracks = res.tracks.slice(0, 10);
 
-        embed.setDescription(`${maxTracks.map((track, i) => `**${i + 1}**. ${track.title} | ${track.author}`).join('\n')}\n\nChoose a song from **1** to **${maxTracks.length}** write send or write **cancel** and cancel selection.⬇️`);
+        embed.setDescription(`${maxTracks.map((track, i) => `**${i + 1}**. ${track.title} | ${track.author}`).join('\n')}\n\nChoose a track from **1** to **${maxTracks.length}** write send or write **cancel** and cancel selection.⬇️`);
 
         embed.setTimestamp();
         embed.setFooter('Music Code by Umut Bayraktar aka 1umutda', message.author.avatarURL({ dynamic: true }));
@@ -45,7 +45,7 @@ module.exports = {
 
             const value = parseInt(query.content);
 
-            if (!value || value <= 0 || value > maxTracks.length) return message.reply(`Error: select a song **1** to **${maxTracks.length}** and write send or type **cancel** and cancel selection. ❌`);
+            if (!value || value <= 0 || value > maxTracks.length) return message.reply(`Error: select a track **1** to **${maxTracks.length}** and write send or type **cancel** and cancel selection. ❌`);
 
             collector.stop();
 
@@ -64,7 +64,7 @@ module.exports = {
         });
 
         collector.on('end', (msg, reason) => {
-            if (reason === 'time') return message.reply(`${message.author}, Song search time expired ❌`);
+            if (reason === 'time') return message.reply(`${message.author}, track search time expired ❌`);
         });
     },
 };
