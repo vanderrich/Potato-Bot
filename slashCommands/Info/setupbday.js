@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("setupbday")
+        .setName("setup")
         .setDescription("Setup your birthday channel.")
         .addChannelOption(option => option
             .setName("birthdaychannel")

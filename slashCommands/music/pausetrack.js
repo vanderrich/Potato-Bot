@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("pausetrack")
+        .setName("pause")
         .setDescription("Pause the current track"),
     category: "Music",
     isSubcommand: true,

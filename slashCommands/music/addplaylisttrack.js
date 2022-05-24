@@ -3,7 +3,7 @@ const { QueryType } = require('discord-player');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("addplaylisttrack")
+        .setName("add")
         .setDescription("Add a track to a playlist.")
         .addStringOption(option => option
             .setName("url")
@@ -34,7 +34,7 @@ module.exports = {
         if (track.tracks[0].source !== "youtube") return interaction.editReply("I can't play non YouTube videos!");
 
         const playlist = await client.playlists.findOne({
-            owner: user.id,
+            managers: user.id,
             name: playlistName
         });
 

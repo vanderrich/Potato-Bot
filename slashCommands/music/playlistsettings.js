@@ -3,7 +3,7 @@ const maxVol = 150;
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("playlistsettings")
+        .setName("settings")
         .setDescription("Playlist settings")
         .addStringOption(option => option
             .setName("name")
@@ -42,7 +42,7 @@ module.exports = {
         const name = interaction.options.getString("name");
 
         const playlist = await client.playlists.findOne({
-            owner: user.id,
+            managers: user.id,
             name: name
         });
 

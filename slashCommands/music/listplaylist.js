@@ -3,7 +3,7 @@ const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("listplaylist")
+        .setName("list")
         .setDescription("List all playlists."),
     category: "Music",
     isSubcommand: true,

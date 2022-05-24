@@ -40,5 +40,9 @@ module.exports = {
                 .setName("birthdaymessage")
                 .setDescription("The role to give to users whose birthday is today, to ping the user type <@${user.id}>.")
             )
-        )
+        ),
+    category: "Info",
+    execute(interaction, client, Discord, footers) {
+        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+    }
 }

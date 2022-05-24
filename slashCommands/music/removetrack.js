@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("removetrack")
+        .setName("remove")
         .setDescription("Remove a track from the queue")
         .addIntegerOption(option => option
             .setName("index")

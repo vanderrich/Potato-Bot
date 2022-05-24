@@ -5,7 +5,7 @@ require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
 
-async function deploy() {
+async function deploy(client) {
     const commands = [];
     const slashCommandFolders = fs.readdirSync('./slashCommands');
     for (const folder of slashCommandFolders) {
@@ -15,7 +15,6 @@ async function deploy() {
             //loops through all the commandFiles and add them to the client commands collection
             const command = require(`./slashCommands/${folder}/${file}`);
             if (!command.data || command.isSubcommand) continue;
-            console.log(command, command.isSubcommand);
             commands.push(command.data.toJSON());
         }
     }
@@ -26,14 +25,17 @@ async function deploy() {
         console.log('Started refreshing application (/) commands.');
         // test bot
         if (clientId == '954584325809123348') {
-            await rest.put(
-                Routes.applicationGuildCommands(clientId, '962861680226865193'),
-                { body: commands },
-            );
-            await rest.put(
-                Routes.applicationCommands(clientId, '962861680226865193'),
-                { body: {} }
-            );
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve();
+                }, 5000);
+            });
+            client.guilds.cache.forEach(async (guild) => {
+                await rest.put(
+                    Routes.applicationGuildCommands(clientId, guild.id),
+                    { body: commands },
+                );
+            });
         }
         // stable
         else if (clientId == '894060283373449317') {

@@ -3,7 +3,7 @@ const { QueryType } = require('discord-player');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName('playmusic')
+        .setName('play')
         .setDescription('Play a track.')
         .addStringOption(option => option
             .setName('track')

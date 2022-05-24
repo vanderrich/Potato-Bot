@@ -1,12 +1,23 @@
-const { prefix, footers, admins } = require('./../config.json')
+const { prefix, footers, admins, settings } = require('./../config.json')
+const { badWordPresets } = settings
 const Discord = require('discord.js')
 module.exports = {
     name: 'messageCreate',
     async execute(message, client, clientCommands) {
-        for (let i = 0; i < client.settings?.default?.bad_words?.length; i++) {
+        let guildSettings = await client.guildSettings.findOne({ guildID: message.guild.id })
+        if (!guildSettings) {
+            guildSettings = new client.guildSettings({
+                guildID: message.guild.id,
+                badWords: badWordPresets.low,
+                welcomeMessage: "",
+                welcomeRole: ""
+            });
+            guildSettings.save();
+        }
+        for (let i = 0; i < guildSettings.badWords.length; i++) {
             let badword
             try {
-                badword = message.content.toLowerCase().includes(client.settings.default.bad_words[i]) || message.content.toLowerCase().includes(client.settings[message.guild.id].bad_words[i])
+                badword = message.content.toLowerCase().includes(client?.settings?.default?.bad_words[i]) || message.content.toLowerCase().includes(guildSettings.badWords[i])
             } catch { }
             if (badword) {
                 const m = await message.reply('Message contains a word in bad words list')

@@ -1,15 +1,16 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { execute } = require("./playplaylist");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("music")
         .setDescription("Music commands")
         .addSubcommand(subcommand => subcommand
-            .setName("lasttrack")
+            .setName("back")
             .setDescription("Go back to the previous track.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("clearqueue")
+            .setName("clear")
             .setDescription("Clear the current queue.")
         )
         .addSubcommand(subcommand => subcommand
@@ -43,11 +44,11 @@ module.exports = {
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("pausetrack")
+            .setName("pause")
             .setDescription("Pause the current track.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("playmusic")
+            .setName("play")
             .setDescription("Play a track.")
             .addStringOption(option => option
                 .setName("track")
@@ -60,19 +61,19 @@ module.exports = {
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("resumetrack")
+            .setName("resume")
             .setDescription("Resume the current track.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("stopqueue")
+            .setName("stop")
             .setDescription("Stop the current track.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("skiptrack")
+            .setName("skip")
             .setDescription("Skip the current track.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("shufflequeue")
+            .setName("shuffle")
             .setDescription("Shuffle the queue.")
         )
         .addSubcommand(subcommand => subcommand
@@ -102,15 +103,15 @@ module.exports = {
             .setDescription("See the current queue")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("removetrack")
+            .setName("remove")
             .setDescription("Remove a track from the queue.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("savetrack")
+            .setName("save")
             .setDescription("Save the current track.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("searchtrack")
+            .setName("search")
             .setDescription("Search for a track.")
         )
         .addSubcommand(subcommand => subcommand
@@ -121,7 +122,7 @@ module.exports = {
             .setName("playlist")
             .setDescription("Playlist commands.")
             .addSubcommand(subcommand => subcommand
-                .setName("addplaylisttrack")
+                .setName("add")
                 .setDescription("Add a track to a playlist.")
                 .addStringOption(option => option
                     .setName("url")
@@ -135,7 +136,7 @@ module.exports = {
                 )
             )
             .addSubcommand(subcommand => subcommand
-                .setName("removeplaylisttrack")
+                .setName("remove")
                 .setDescription("Remove a track from a playlist.")
                 .addStringOption(option => option
                     .setName("playlist")
@@ -150,7 +151,7 @@ module.exports = {
                 ),
             )
             .addSubcommand(subcommand => subcommand
-                .setName("createplaylist")
+                .setName("create")
                 .setDescription("Create a playlist.")
                 .addStringOption(option => option
                     .setName("name")
@@ -159,7 +160,7 @@ module.exports = {
                 )
             )
             .addSubcommand(subcommand => subcommand
-                .setName("deleteplaylist")
+                .setName("delete")
                 .setDescription("Delete a playlist.")
                 .addStringOption(option => option
                     .setName("name")
@@ -169,11 +170,11 @@ module.exports = {
                 )
             )
             .addSubcommand(subcommand => subcommand
-                .setName("listplaylist")
+                .setName("list")
                 .setDescription("List all playlists.")
             )
             .addSubcommand(subcommand => subcommand
-                .setName("playplaylist")
+                .setName("play")
                 .setDescription("Play a playlist.")
                 .addStringOption(option => option
                     .setName("name")
@@ -182,7 +183,7 @@ module.exports = {
                 )
             )
             .addSubcommand(subcommand => subcommand
-                .setName("playlistsettings")
+                .setName("settings")
                 .setDescription("Playlist settings.")
                 .addStringOption(option => option
                     .setName("name")
@@ -210,7 +211,7 @@ module.exports = {
                 ),
             )
             .addSubcommand(subcommand => subcommand
-                .setName("playlistinfo")
+                .setName("info")
                 .setDescription("Get information about a playlist.")
                 .addStringOption(option => option
                     .setName("name")
@@ -218,5 +219,36 @@ module.exports = {
                     .setRequired(true)
                 )
             )
+            .addSubcommand(subcommand => subcommand
+                .setName("share")
+                .setDescription("Share a playlist.")
+                .addStringOption(option => option
+                    .setName("name")
+                    .setDescription("The name of the playlist, case sensitive.")
+                    .setRequired(true)
+                )
+                .addUserOption(option => option
+                    .setName("user")
+                    .setDescription("The user to share the playlist with.")
+                    .setRequired(true)
+                )
+            )
+            .addSubcommand(subcommand => subcommand
+                .setName("unshare")
+                .setDescription("Unshare a playlist.")
+                .addStringOption(option => option
+                    .setName("name")
+                    .setDescription("The name of the playlist, case sensitive.")
+                    .setRequired(true)
+                )
+                .addUserOption(option => option
+                    .setName("user")
+                    .setDescription("The user to unshare the playlist with.")
+                    .setRequired(true)
+                )
         )
+    ),
+    execute(interaction, client, Discord, footers) {
+        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+    }
 }

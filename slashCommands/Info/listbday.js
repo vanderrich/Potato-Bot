@@ -3,7 +3,7 @@ const generatePages = require('../../Util/pagination.js');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("listbday")
+        .setName("list")
         .setDescription("List of all birthdays."),
     category: "Info",
     isSubcommand: true,

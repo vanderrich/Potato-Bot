@@ -113,13 +113,15 @@ client.player = new Player(client, {
 client.playlists = mongoose.model('playlists', new mongoose.Schema({
 	name: String,
 	tracks: Array,
-	owner: String,
+	creator: { type: String, index: true },
+	managers: { type: [String], index: true },
 	settings: {
 		loop: Number,
 		shuffle: Boolean,
 		volume: Number,
 	}
-}));
+}).index());
+
 client.form = new Map();
 client.settings = settings;
 client.tictactoe = {};
@@ -193,12 +195,18 @@ client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
 }));
 
 client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
-	guildId: String,
+	guildId: { type: String, index: true },
 	channelId: String,
 	roleId: String,
 	message: String,
-}));
+}).index());
 
+client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
+	guildId: { type: String, index: true },
+	badWords: [String],
+	welcomeMessage: String,
+	welcomeChannel: String
+}).index());
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');
@@ -220,7 +228,7 @@ for (const folder of slashCommandFolders) {
 	for (const file of commandFiles) {
 		//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./slashCommands/${folder}/${file}`);
-		if (!command.data) continue;
+		if (!command.data || command.isSubcommand) continue;
 		if (client.slashCommands.has(command.data.name)) console.log(`${command.data.name} is already taken.`);
 		client.slashCommands.set(command.data.name, command);
 	}
@@ -281,5 +289,5 @@ player.on('queueEnd', (queue) => {
 //Run
 // setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", _ => console.error(_.stack + '\n' + '='.repeat(20)));
-deploy()
 client.login(token);
+deploy(client)

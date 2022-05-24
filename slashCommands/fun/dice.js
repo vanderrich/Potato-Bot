@@ -34,13 +34,11 @@ module.exports = {
             assign = assign.split(",");
             assign = new Map(assign.map(a => a.split("=").map(a => parseInt(a) || a)));
         }
-        console.log(assign);
         const rolls = [];
         for (let i = 0; i < number; i++) {
             rolls.push(Math.floor(Math.random() * sides) + 1);
         }
         const total = rolls.reduce((a, b) => a + b, 0) + modifier;
-        console.log(assign.get(total));
         const embed = new Discord.MessageEmbed()
             .setTitle(`${number}d${sides}${modifier ? `+${modifier}` : ""}`)
             .setDescription(`**${interaction.options.getString("note") || "Result"}**: ${rolls.join(", ")} = **${total}**${assign?.has(total) ? `\n**${assign.get(total)}**` : ""

@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("skiptrack")
+        .setName("skip")
         .setDescription("Skip the current track."),
     category: "Music",
     isSubcommand: true,

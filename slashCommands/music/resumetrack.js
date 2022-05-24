@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("resumetrack")
+        .setName("resume")
         .setDescription("Resume the current track"),
     category: "Music",
     isSubcommand: true,

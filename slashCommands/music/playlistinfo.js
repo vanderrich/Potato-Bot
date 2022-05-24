@@ -4,7 +4,7 @@ const generatePages = require('../../Util/pagination.js');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("playlistinfo")
+        .setName("info")
         .setDescription("Get information about a playlist.")
         .addStringOption(option => option
             .setName("name")
@@ -21,7 +21,7 @@ module.exports = {
         const playlistName = interaction.options.getString("name");
 
         const playlist = await client.playlists.findOne({
-            owner: user.id,
+            managers: user.id,
             name: playlistName
         });
 

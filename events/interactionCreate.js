@@ -20,26 +20,7 @@ module.exports = {
             }
 
             try {
-                try {
-                    if (interaction.options.getSubcommand()) {
-                        const subcommand = client.slashCommands.get(interaction.options.getSubcommand());
-                        try {
-                            await subcommand.execute(interaction, client, Discord, footers)
-                        }
-                        catch (err) {
-                            console.log(err)
-                            try {
-                                await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
-                            }
-                            catch (err) {
-                                await interaction.editReply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
-                            }
-                        }
-                    }
-                }
-                catch (err) {
-                    await command.execute(interaction, client, Discord, footers);
-                }
+                await command.execute(interaction, client, Discord, footers);
             } catch (error) {
                 console.error(error);
                 try {

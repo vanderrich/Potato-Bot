@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("setbday")
+        .setName("set")
         .setDescription("Set your birthday.")
         .addStringOption(option => option
             .setName("birthdate")

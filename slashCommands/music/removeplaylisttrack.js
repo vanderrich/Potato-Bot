@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("removeplaylisttrack")
+        .setName("remove")
         .setDescription("Remove a track from a playlist.")
         .addStringOption(option => option
             .setName("playlist")
@@ -21,7 +21,7 @@ module.exports = {
         const playlistName = interaction.options.getString("playlist");
         const index = interaction.options.getInteger("index");
         const playlist = await client.playlists.findOne({
-            owner: interaction.user.id,
+            managers: interaction.user.id,
             name: playlistName
         });
 

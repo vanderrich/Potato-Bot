@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("createplaylist")
+        .setName("create")
         .setDescription("Create a playlist.")
         .addStringOption(option => option
             .setName("name")
@@ -17,10 +17,13 @@ module.exports = {
 
         const playlistName = interaction.options.getString("name");
 
+        if (await client.playlists.findOne({ managers: user.id, name: playlistName })) return interaction.reply("You already have a playlist with that name!");
+
         const playlist = new client.playlists({
             guildId: guild.id,
             name: playlistName,
-            owner: user.id,
+            creator: user.id,
+            managers: [user.id],
             tracks: [],
             settings: {
                 volume: 75,

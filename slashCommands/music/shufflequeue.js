@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("shufflequeue")
+        .setName("shuffle")
         .setDescription("Shuffle the current queue."),
     category: "Music",
     isSubcommand: true,

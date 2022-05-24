@@ -5,7 +5,7 @@ module.exports = {
         .setName("playlist")
         .setDescription("Playlist commands.")
         .addSubcommand(subcommand => subcommand
-            .setName("addplaylisttrack")
+            .setName("add")
             .setDescription("Add a track to a playlist.")
             .addStringOption(option => option
                 .setName("url")
@@ -19,7 +19,7 @@ module.exports = {
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("removeplaylisttrack")
+            .setName("remove")
             .setDescription("Remove a track from a playlist.")
             .addStringOption(option => option
                 .setName("playlist")
@@ -34,7 +34,7 @@ module.exports = {
             ),
         )
         .addSubcommand(subcommand => subcommand
-            .setName("createplaylist")
+            .setName("create")
             .setDescription("Create a playlist.")
             .addStringOption(option => option
                 .setName("name")
@@ -43,7 +43,7 @@ module.exports = {
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("deleteplaylist")
+            .setName("delete")
             .setDescription("Delete a playlist.")
             .addStringOption(option => option
                 .setName("name")
@@ -53,11 +53,11 @@ module.exports = {
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("listplaylist")
+            .setName("list")
             .setDescription("List all playlists.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("playplaylist")
+            .setName("play")
             .setDescription("Play a playlist.")
             .addStringOption(option => option
                 .setName("name")
@@ -66,7 +66,7 @@ module.exports = {
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("playlistsettings")
+            .setName("settings")
             .setDescription("Playlist settings.")
             .addStringOption(option => option
                 .setName("name")
@@ -94,7 +94,7 @@ module.exports = {
             ),
         )
         .addSubcommand(subcommand => subcommand
-            .setName("playlistinfo")
+            .setName("info")
             .setDescription("Get information about a playlist.")
             .addStringOption(option => option
                 .setName("name")
@@ -104,4 +104,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
+    execute(interaction, client, Discord, footers) {
+        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+    }
 }

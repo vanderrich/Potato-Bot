@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("nextbday")
+        .setName("next")
         .setDescription("Get the next birthday."),
     category: "Info",
     isSubcommand: true,

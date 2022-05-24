@@ -2,7 +2,7 @@ const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("removebday")
+        .setName("remove")
         .setDescription("Remove your birthday data."),
     category: "Info",
     isSubcommand: true,

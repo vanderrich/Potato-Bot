@@ -4,7 +4,7 @@ const { QueryType } = require('discord-player');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName("playplaylist")
+        .setName("play")
         .setDescription("Play a playlist.")
         .addStringOption(option => option
             .setName("name")
@@ -20,7 +20,7 @@ module.exports = {
 
         const playlistName = interaction.options.getString("name");
 
-        const playlist = await client.playlists.findOne({ owner: user.id, name: playlistName });
+        const playlist = await client.playlists.findOne({ managers: user.id, name: playlistName });
 
         if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
 

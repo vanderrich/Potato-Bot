@@ -130,19 +130,48 @@
         }
     ],
     "settings": {
-        "default": {
-            "prefix": "potat ",
-            "bad_words": [
-                "fuck",
-                "shit",
+        "badWordPresets": {
+            "low": [
+                "nigger",
+                "nigga"
+            ],
+            "medium": [
+                "nigger",
+                "nigga",
                 "bitch",
                 "pussy",
+                "cock",
+                "cunt",
+                "dick"
+            ],
+            "high": [
+                "nigger",
+                "nigga",
+                "bitch",
+                "pussy",
+                "cock",
+                "cunt",
                 "dick",
-                "nigger"
+                "fuck",
+                "shit"
+            ],
+            "highest": [
+                "nigger",
+                "nigga",
+                "bitch",
+                "pussy",
+                "cock",
+                "cunt",
+                "dick",
+                "fuck",
+                "shit",
+                "ass",
+                "hell",
+                "bastard",
+                "piss",
+                "bugger",
+                "damn"
             ]
-        },
-        "851217599403393094": {
-            "welcomeRole": "Other people"
         }
     },
     "subscriptionCheckTime": 30000

@@ -3,7 +3,7 @@ const { QueryType } = require('discord-player');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
-        .setName('searchtrack')
+        .setName('search')
         .setDescription('Search for a track')
         .addStringOption(option =>
             option

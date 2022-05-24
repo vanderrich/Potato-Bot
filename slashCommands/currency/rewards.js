@@ -23,5 +23,9 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("yearly")
             .setDescription("Get your yearly rewards!")
-        ),
+    ),
+    category: "Currency",
+    execute(interaction, client, Discord, footers) {
+        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+    }
 }
