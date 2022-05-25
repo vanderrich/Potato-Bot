@@ -5,7 +5,7 @@ module.exports = {
         .setName("birthday")
         .setDescription("Birthday commands")
         .addSubcommand(subcommand => subcommand
-            .setName("setbday")
+            .setName("set")
             .setDescription("Set your birthday.")
             .addStringOption(option => option
                 .setName("birthdate")
@@ -14,19 +14,19 @@ module.exports = {
             ),
         )
         .addSubcommand(subcommand => subcommand
-            .setName("listbday")
+            .setName("list")
             .setDescription("List all birthdays.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("removebday")
+            .setName("remove")
             .setDescription("Remove your birthday data.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("nextbday")
+            .setName("next")
             .setDescription("Get the next birthday.")
         )
         .addSubcommand(subcommand => subcommand
-            .setName("setupbday")
+            .setName("setup")
             .setDescription("Setup your birthday channel.")
             .addChannelOption(option => option
                 .setName("birthdaychannel")
@@ -43,6 +43,6 @@ module.exports = {
         ),
     category: "Info",
     execute(interaction, client, Discord, footers) {
-        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+        require("./" + interaction.options.getSubcommand() + "bday").execute(interaction, client, Discord, footers);
     }
 }

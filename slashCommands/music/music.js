@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { execute } = require("./playplaylist");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -249,6 +248,12 @@ module.exports = {
         )
     ),
     execute(interaction, client, Discord, footers) {
-        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+        let subcommand;
+        try {
+            subcommand = interaction.options.getSubcommandGroup();
+        } catch (e) {
+            subcommand = interaction.options.getSubcommand();
+        }
+        require("./" + subcommand).execute(interaction, client, Discord, footers);
     }
 }

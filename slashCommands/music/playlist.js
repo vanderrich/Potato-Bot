@@ -105,6 +105,29 @@ module.exports = {
     category: "Music",
     isSubcommand: true,
     execute(interaction, client, Discord, footers) {
-        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+        let subcommand;
+        switch (interaction.options.getSubcommand()) {
+            case "add":
+                subcommand = "addplaylisttrack";
+                break;
+            case "remove":
+                subcommand = "removeplaylisttrack";
+                break;
+            case "create":
+            case "delete":
+            case "list":
+            case "play":
+            case "settings":
+            case "info":
+            case "share":
+            case "unshare":
+                subcommand = interaction.options.getSubcommand() + "playlist";
+                break;
+            default:
+                break;
+        }
+        if (subcommand) {
+            require(`./playlist/${subcommand}`).execute(interaction, client, Discord, footers);
+        }
     }
 }
