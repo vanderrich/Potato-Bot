@@ -45,6 +45,7 @@ module.exports = {
                     guildID: interaction.guild.id,
                     badWords: badWords,
                     welcomeMessage: "",
+                    welcomeChannel: "",
                     welcomeRole: ""
                 });
                 newSettings.save();
@@ -61,6 +62,7 @@ module.exports = {
                     guildID: interaction.guild.id,
                     badWords: badWordPresets[preset],
                     welcomeMessage: "",
+                    welcomeChannel: "",
                     welcomeRole: ""
                 });
                 newSettings.save();

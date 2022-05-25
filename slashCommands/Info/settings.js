@@ -35,7 +35,11 @@ module.exports = {
                 .setDescription("The role to give to the user.")
                 .setRequired(false)
             )
-        ),
+            .addChannelOption(option => option
+                .setName("channel")
+                .setDescription("The channel to send the welcome message.")
+                .setRequired(false)
+            )),
     category: "Info",
     execute(interaction, client, Discord, footers) {
         require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);

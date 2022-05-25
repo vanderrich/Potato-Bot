@@ -10,6 +10,7 @@ module.exports = {
                 guildID: message.guild.id,
                 badWords: badWordPresets.low,
                 welcomeMessage: "",
+                welcomeChannel: "",
                 welcomeRole: ""
             });
             guildSettings.save();

@@ -203,10 +203,11 @@ client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
 
 client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 	guildId: { type: String, index: true },
-	badWords: [String],
+	badWords: { type: [String], default: settings.badWordPresets.low },
 	welcomeMessage: String,
-	welcomeChannel: String
-}).index());
+	welcomeChannel: String,
+	welcomeRole: String,
+}));
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');
