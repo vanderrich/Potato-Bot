@@ -204,6 +204,7 @@ client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
 client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 	guildId: { type: String, index: true },
 	badWords: { type: [String], default: settings.badWordPresets.low },
+	autoPublishChannels: [String],
 	welcomeMessage: String,
 	welcomeChannel: String,
 	welcomeRole: String,

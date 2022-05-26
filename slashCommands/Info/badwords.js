@@ -38,7 +38,8 @@ module.exports = {
             }
 
             if (await client.guildSettings.findOne({ guildID: interaction.guild.id })) {
-                client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWords } });
+                console.log("found settings");
+                await client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWords } });
             }
             else {
                 const newSettings = new client.guildSettings({
@@ -55,7 +56,7 @@ module.exports = {
         }
         else {
             if (await client.guildSettings.findOne({ guildID: interaction.guild.id })) {
-                client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWordPresets[preset] } });
+                await client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWordPresets[preset] } });
             }
             else {
                 const newSettings = new client.guildSettings({

@@ -36,6 +36,14 @@ module.exports = {
             return
         }
 
+        //check if message is in the autoPublishChannels array
+        if (guildSettings.autoPublishChannels.length > 0) {
+            console.log(guildSettings.autoPublishChannels)
+            if (guildSettings.autoPublishChannels.find(channel => channel === message.channel.id))
+                return message.crosspost()
+        }
+
+
         // client.commands = clientCommands
 
         if (message.content.substring(0, prefix.length).toLowerCase() == prefix) {
