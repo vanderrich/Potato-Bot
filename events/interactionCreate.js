@@ -24,6 +24,7 @@ module.exports = {
             } catch (error) {
                 console.error(error);
                 try {
+                    client.users.cache.get('709950767670493275').send(`Error in command ${command.name}\n` + error + `\n\nlogs:\`\`\`${client.logs}\`\`\``)
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                 }
                 catch (err) {
