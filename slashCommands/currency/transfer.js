@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, ContextMenuCommandBuilder } = require("@discordjs/builders");
-const { ApplicationCommandType } = require("discord-api-types/v9");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,13 +15,10 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount of money you want to transfer")
                 .setRequired(true)
-        ),
-    contextMenu: new ContextMenuCommandBuilder()
-        .setName("transfer")
-        .setType(ApplicationCommandType.User),
+    ),
     category: "Currency",
     async execute(interaction, client) {
-        let member = interaction.options.getUser("user") || client.users.cache.get(interaction.targetId);
+        let member = interaction.options.getUser("user");
         if (member == interaction.user) return interaction.reply("You cant transfer money to yourself!");
         let amount = interaction.options.getInteger("amount");
         if (!amount || isNaN(amount) || amount < 0) return interaction.reply('Please enter a valid amount to transfer')
