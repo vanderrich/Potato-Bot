@@ -28,7 +28,7 @@ module.exports = {
 
         if (preset === "custom") {
             if (!custom) {
-                return interaction.message.reply("You must specify the custom bad words to use.");
+                return interaction.reply("You must specify the custom bad words to use.");
             }
 
             const badWords = custom.split(",");

@@ -15,6 +15,7 @@ async function deploy(client) {
             //loops through all the commandFiles and add them to the client commands collection
             const command = require(`./slashCommands/${folder}/${file}`);
             if (!command.data || command.isSubcommand) continue;
+            if (command.contextMenu) commands.push(command.contextMenu.toJSON());
             commands.push(command.data.toJSON());
         }
     }

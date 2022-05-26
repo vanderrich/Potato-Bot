@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder, ContextMenuCommandBuilder } = require("@discordjs/builders");
+const { ApplicationCommandType } = require("discord-api-types/v9");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,11 +11,15 @@ module.exports = {
                 .setDescription("The opponent to play against")
                 .setRequired(true),
     ),
+    contextMenu: new ContextMenuCommandBuilder()
+        .setName("tictactoe")
+        .setType(ApplicationCommandType.User),
     category: "Fun",
     async execute(interaction, client, Discord, footers) {
-        if (interaction.user.id == interaction.options.getUser("opponent")) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
-        if (interaction.options.getUser("opponent") == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
-        if (interaction.options.getUser("opponent").bot) interaction.channel.send('Have fun playing with a bot lol') 
+        const opponent = interaction.options.getUser("opponent") || client.users.cache.get(interaction.targetId);
+        if (interaction.user.id == opponent) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
+        if (opponent == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
+        if (opponent.bot) interaction.channel.send('Have fun playing with a bot lol') 
 
         const game = await interaction.reply({
             content: `${interaction.user}'s turn`,
@@ -52,7 +57,7 @@ module.exports = {
         }
         client.tictactoe[game.id] = {
             x: interaction.user.id,
-            o: interaction.options.getUser("opponent").id,
+            o: opponent.id,
             message: game
         }
     }

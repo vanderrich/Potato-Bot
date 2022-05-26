@@ -16,9 +16,10 @@ module.exports = {
             guildSettings.save();
         }
         for (let i = 0; i < guildSettings.badWords.length; i++) {
+            if (message.channel.type === 'DM') break
             let badword
             try {
-                badword = message.content.toLowerCase().includes(client?.settings?.default?.bad_words[i]) || message.content.toLowerCase().includes(guildSettings.badWords[i])
+                badword = message.content.toLowerCase().includes(guildSettings.badWords[i])
             } catch { }
             if (badword) {
                 const m = await message.reply('Message contains a word in bad words list')

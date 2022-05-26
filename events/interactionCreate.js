@@ -10,7 +10,7 @@ module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
 
-        if (interaction.isCommand()) {
+        if (interaction.isCommand() || interaction.isContextMenu()) {   
             const command = client.slashCommands.get(interaction.commandName);
 
             if (!command) return;
@@ -23,11 +23,18 @@ module.exports = {
                 await command.execute(interaction, client, Discord, footers);
             } catch (error) {
                 console.error(error);
+                fs.appendFile('log.txt', client.logs.join(''), (err) => {
+                    if (err) throw err;
+                });
+                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\n\nLogs:`, files: [{ attachment: 'log.txt', name: 'log.txt' }] });
+                fs.unlink('log.txt', (err) => {
+                    if (err) throw err;
+                });
                 try {
-                    client.users.cache.get('709950767670493275').send(`Error in command ${command.name}\n` + error + `\n\nlogs:\`\`\`${client.logs}\`\`\``)
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                 }
                 catch (err) {
+                    console.error(err);
                     await interaction.editReply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                 }
             }
@@ -331,9 +338,6 @@ module.exports = {
                 }
                     break
             }
-        }
-        else if (interaction.isMessageComponent()) {
-
         }
     }
 }

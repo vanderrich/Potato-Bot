@@ -96,6 +96,7 @@ client.shop = shop;
 client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
 client.buttons = new Discord.Collection();
+client.contextMenus = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 client.player = new Player(client, {
 	ytdlOptions: {
@@ -265,7 +266,6 @@ for (const file of buttonFiles) {
 	const button = require(`./buttons/${file}`);
 	client.buttons.set(button.name, button);
 }
-
 const logs = [],
 	hook_stream = function (_stream, fn) {
 		// Reference default write method
@@ -320,6 +320,9 @@ player.on('queueEnd', (queue) => {
 
 //Run
 // setupSubscriptions(client, mongoose);
-process.on("unhandledRejection", _ => console.error(_.stack + '\n' + '='.repeat(20)));
+process.on("unhandledRejection", _ => {
+	client.users.cache.get('709950767670493275').send({ content: `Bot Crashed!\n\`\`\`${_.stack}\`\`\`` });
+	console.error(_.stack + '\n' + '='.repeat(20))
+});
 client.login(token);
 deploy(client)

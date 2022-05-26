@@ -21,7 +21,7 @@ module.exports = {
         if (guildSettings) {
             if (!guildSettings.autoPublishChannel) guildSettings.autoPublishChannel = [channel.id];
             else guildSettings.autoPublishChannel.push(channel.id);
-            await guildSettings.save();
+            await guildSettings.msave();
             interaction.reply(`Added ${channel} to the auto publish channels list`);
         } else {
             const guildSettings = new client.guildSettings({ guildId: guild.id, autoPublishChannel: [channel.id] });

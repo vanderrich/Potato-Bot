@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder, ContextMenuCommandBuilder } = require("@discordjs/builders");
+const { ApplicationCommandType } = require("discord-api-types/v9");
 const petPetGif = require("pet-pet-gif");
 
 module.exports = {
@@ -9,9 +10,13 @@ module.exports = {
             .setName("user")
             .setRequired(false)
             .setDescription("the user to pet, defaults to yourself")
-        ),
+    ),
+    contextMenu: new ContextMenuCommandBuilder()
+        .setName("petpet")
+        .setType(ApplicationCommandType.User),
+    category: "Fun",
     async execute(interaction, client, Discord, footers) {
-        const user = interaction.options.getUser("user") || interaction.user;
+        const user = interaction.options.getUser("user") || client.users.cache.get(interaction.targetId) || interaction.user;
         const avatar = user.displayAvatarURL({ format: "png", size: 512 });
 
         const animatedGif = await petPetGif(avatar);

@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, ContextMenuCommandBuilder } = require('@discordjs/builders');
+const { ApplicationCommandType } = require('discord-api-types/v9');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,10 +10,13 @@ module.exports = {
                 .setName('target')
                 .setDescription('The user to get information about.')
                 .setRequired(true)
-    ),
+        ),
+    contextMenu: new ContextMenuCommandBuilder()
+        .setName('userinfo')
+        .setType(ApplicationCommandType.User),
     category: 'Info',
     async execute(interaction, client, Discord, footers) {
-        const userMention = interaction.options.getUser('target')
+        const userMention = interaction.options.getUser('target') || client.users.cache.get(interaction.targetId);
 
         let userinfo = {};
         userinfo.bot = userMention.bot;
