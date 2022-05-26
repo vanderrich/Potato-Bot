@@ -117,12 +117,13 @@ module.exports = {
             case "delete":
             case "list":
             case "play":
-            case "settings":
-            case "info":
             case "share":
             case "unshare":
                 subcommand = interaction.options.getSubcommand() + "playlist";
                 break;
+            case "settings":
+            case "info":
+                subcommand = "playlist" + interaction.options.getSubcommand();
             default:
                 break;
         }

@@ -8,6 +8,7 @@ Features:
 - Reaction roles
 - Moderation
 - Music
+- Playlists
 - Backups
 - Giveaways
 - Games

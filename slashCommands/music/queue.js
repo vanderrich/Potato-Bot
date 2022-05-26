@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("See the current queue"),
     category: "Music",
     isSubcommand: true,
-    execute(interaction, client, Discord) {
+    execute(interaction, client, Discord, footers) {
         const _fromButton = false
         const queue = client.player.getQueue(interaction.guild);
         if (!queue || !queue.current) {
@@ -16,6 +16,7 @@ module.exports = {
             embed.setTitle('Server Queue');
             embed.setColor('RANDOM');
             embed.setDescription(`No tracks in the queue.`);
+            embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
             return interaction.reply({ embeds: [embed] });
         }
 
@@ -35,6 +36,7 @@ module.exports = {
                     ? `\n... ${queue.tracks.length - pageEnd} more track(s)`
                     : ''
                     }`);
+                embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
                 if (page % 2 === 0) embed.setColor('RANDOM');
                 else embed.setColor('RANDOM');
                 const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
@@ -49,6 +51,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed();
                     embed.setColor('RANDOM');
                     embed.setDescription(`${usedby}No more tracks in the queue.`);
+                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
                     const title = ['spotify-custom', 'soundcloud-custom'].includes(queue.current.source) ?
                         `${queue.current.author
                         } - ${queue.current.title} ` : `${queue.current.title} `;

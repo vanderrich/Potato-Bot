@@ -1,6 +1,6 @@
 const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
 const { QueryType } = require('discord-player');
-const generatePages = require('../../Util/pagination.js');
+const generatePages = require('../../../Util/pagination.js');
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -53,6 +53,7 @@ module.exports = {
                         ? `\n... ${playlist.tracks.length - pageEnd} more track(s)`
                         : ''
                     } `);
+                embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: user.avatarURL({ dynamic: true }) });
                 if (page % 2 === 0) embed.setColor('RANDOM');
                 else embed.setColor('RANDOM');
                 if (page === 1) embed.setTitle(`${playlist.name} `)
@@ -67,6 +68,7 @@ module.exports = {
                     embed.setColor('RANDOM');
                     embed.setDescription(`No more tracks in the playlist.`);
                     embed.setAuthor({ name: `${playlist.name} `, iconURL: null, url: `${playlist.url} ` });
+                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: user.avatarURL({ dynamic: true }) });
                     return interaction.editReply({ embeds: [embed] });
                 }
                 if (page === 2) {

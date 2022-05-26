@@ -39,6 +39,7 @@ module.exports = {
                         ? `\n... ${inv.length - pageEnd} more item(s)`
                         : ''
                         } `);
+                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
                     if (page % 2 === 0) embed.setColor('RANDOM');
                     else embed.setColor('RANDOM');
                     pages.push(embed);
@@ -51,6 +52,7 @@ module.exports = {
                         embed.setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.guild.iconURL })
                         embed.setColor('RANDOM');
                         embed.setDescription(`No more items in the inventory.`);
+                        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
                         return interaction.reply({ embeds: [embed] });
                     }
                     if (page === 2) {

@@ -4,7 +4,7 @@ const Discord = require('discord.js')
 module.exports = {
     name: 'messageCreate',
     async execute(message, client, clientCommands) {
-        let guildSettings = await client.guildSettings.findOne({ guildID: message.guild.id })
+        let guildSettings = await client.guildSettings.findOne({ guildId: message.guild?.id })
         if (!guildSettings) {
             guildSettings = new client.guildSettings({
                 guildID: message.guild.id,

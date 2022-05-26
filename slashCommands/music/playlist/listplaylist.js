@@ -20,6 +20,7 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setColor("RANDOM")
             .setTitle("Your playlists")
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: user.avatarURL({ dynamic: true }) })
 
         playlists.forEach(playlist => {
             embed.addField(playlist.name, playlist.tracks.length + " tracks");

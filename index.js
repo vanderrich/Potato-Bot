@@ -209,6 +209,16 @@ client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 	welcomeRole: String,
 }));
 
+client.forms = mongoose.model('forms', new mongoose.Schema({
+	guildId: String,
+	channelId: String,
+	messageId: String,
+	title: String,
+	description: String,
+	fields: Array,
+	color: String,
+}));
+
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');
 // for (const folder of commandFolders) {

@@ -44,7 +44,7 @@ module.exports = {
             .setDescription(`**${interaction.options.getString("note") || "Result"}**: ${rolls.join(", ")} = **${total}**${assign?.has(total) ? `\n**${assign.get(total)}**` : ""
                 }`)
             .setColor('RANDOM')
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], icon_url: interaction.user.avatarURL({ dynamic: true }) });
         return interaction.reply({ embeds: [embed] });
     }
 }

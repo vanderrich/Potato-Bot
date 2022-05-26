@@ -6,7 +6,7 @@ module.exports = {
         .setDescription("See the current track"),
     category: "Music",
     isSubcommand: true,
-    execute(interaction, client, Discord) {
+    execute(interaction, client, Discord, footers) {
         const queue = client.player.getQueue(interaction.guild.id);
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
@@ -27,7 +27,7 @@ module.exports = {
         embed.setDescription(`Audio **%${queue.volume}**\nDuration **${trackDuration}**\nLoop Mode **${methods[queue.repeatMode]}**\n${track.requestedBy}`);
 
         embed.setTimestamp();
-        embed.setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda', iconURL: interaction.user.avatarURL({ dynamic: true }) });
+        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
 
         const saveButton = new Discord.MessageButton();
 
