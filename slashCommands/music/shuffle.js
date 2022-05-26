@@ -11,11 +11,10 @@ module.exports = {
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
-        let success;
         for (let i = queue.tracks.length - 1; i > 0; i--) {
-            success = success && queue.shuffle();
+            queue.shuffle();
         }
 
-        return interaction.reply(success ? `Shuffled queue ✅` : `${interaction.user}, Something went wrong ❌`);
+        return interaction.reply(`Shuffled queue ✅`);
     },
 };
