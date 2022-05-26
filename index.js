@@ -211,10 +211,9 @@ client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 
 client.forms = mongoose.model('forms', new mongoose.Schema({
 	guildId: String,
-	channelId: String,
-	messageId: String,
 	title: String,
 	description: String,
+	customId: String,
 	fields: Array,
 	color: String,
 }));

@@ -260,6 +260,33 @@ module.exports = {
                 interaction.channel.send({ content: `Ticket opened by ${interaction.user}` });
                 return;
             }
+            else if (interaction.customId.startsWith("form-")) {
+                const name = interaction.customId.split("-")[1];
+                const form = await client.forms.findOne({ title: name });
+                if (!form) return interaction.reply("Form not found!");
+                const modal = new Discord.Modal()
+                    .setTitle(form.name)
+                    .setCustomId(form.customId)
+                const fields = [];
+                for (const field of form.fields) {
+                    let component;
+                    if (field.type === "text") {
+                        component = new Discord.TextInputComponent()
+                            .setLabel(field.name)
+                            .setCustomId(field.customId)
+                            .setStyle(field.style)
+                    } else if (field.type === "select") {
+                        component = new Discord.MessageSelectMenu()
+                            .setCustomId(field.customId)
+                            .setPlaceholder(field.placeholder)
+                            .addOptions(field.options.map(option => new Discord.MessageOption(option.name, option.value)))
+                    }
+
+                    fields.push(new Discord.MessageActionRow().addComponents(component));
+                }
+                modal.addComponents(...fields);
+                return await interaction.showModal(modal);
+            }
             return
             switch (interaction.customId) {
                 case 'saveTrack': {

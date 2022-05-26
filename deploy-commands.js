@@ -30,6 +30,7 @@ async function deploy(client) {
                     resolve();
                 }, 5000);
             });
+            console.log(client.guilds.cache)
             client.guilds.cache.forEach(async (guild) => {
                 await rest.put(
                     Routes.applicationGuildCommands(clientId, guild.id),
