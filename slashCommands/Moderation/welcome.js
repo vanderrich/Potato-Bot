@@ -19,7 +19,7 @@ module.exports = {
             .setDescription("The channel to send the welcome message.")
             .setRequired(false)
         ),
-    category: "Info",
+    category: "Moderation",
     isSubcommand: true,
     async execute(interaction, client, Discord, footers) {
         const message = interaction.options.getString("message");

@@ -1,8 +1,8 @@
-const { SlashCommandBuilder, time } = require("@discordjs/builders");
+const Builders = require("@discordjs/builders");
 const ms = require("ms");
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Builders.SlashCommandBuilder()
         .setName("poll")
         .setDescription("Make the bot send a poll")
         .addStringOption(option =>
@@ -40,7 +40,7 @@ module.exports = {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");
         var options = [];
-        var time = Date.now() + ms(interaction.options.getString("duration"));
+        var time = new Date(Date.now() + ms(interaction.options.getString("duration")));
         var ping = interaction.options.getBoolean("ping") || false;
         if (!time) return interaction.message.reply("Invalid duration!");
         for (var i = 1; i <= 25; i++) {
@@ -53,7 +53,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setDescription(`This poll will end ${time(time, 'R')}`)
+                .setDescription(`This poll will end ${Builders.time(time, 'R')}`)
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
             if (description != null) embed.setDescription(description)
 
@@ -82,8 +82,8 @@ module.exports = {
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
-            if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\nThis poll will end ${time(time, 'R')}`);
-            else embed.setDescription(arr.join('\n\n')) + `\n\nThis poll will end ${time(time, 'R')}`;
+            if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\nThis poll will end ${Builders.time(time, 'R')}`);
+            else embed.setDescription(arr.join('\n\n')) + `\n\nThis poll will end ${Builders.time(time, 'R')}`;
 
             interaction.reply({ content: ping ? '@everyone' : 'New poll', embeds: [embed], fetchReply: true }).then(msg => {
                 for (let i = 0; i < options.length; i++) {

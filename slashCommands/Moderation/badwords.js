@@ -20,7 +20,7 @@ module.exports = {
             .setDescription("The custom bad words to use, seperate with commas.")
             .setRequired(false)
         ),
-    category: "Info",
+    category: "Moderation",
     isSubcommand: true,
     async execute(interaction, client, Discord, footers) {
         const preset = interaction.options.getString("preset");

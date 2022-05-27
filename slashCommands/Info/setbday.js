@@ -27,10 +27,14 @@ module.exports = {
         if (month < 1 || month > 12) return interaction.editReply("Invalid birthdate!");
         if (day < 1 || day > 31) return interaction.editReply("Invalid birthdate!");
 
+        let now = new Date(),
+            date = new Date(now.getFullYear(), month - 1, day);
+        if (date > now) date.setFullYear(date.getFullYear() - 1);
+
         if (client.birthdays.findOne({ userId: user.id })) {
             client.birthdays.updateOne({ userId: user.id }, {
                 $set: {
-                    birthday: new Date(new Date().getFullYear() + 1, month - 1, day)
+                    birthday: date,
                 }
             })
                 .then(() => {
@@ -44,7 +48,7 @@ module.exports = {
             const birthday = new client.birthdays({
                 userId: user.id,
                 guildId: interaction.guild ? interaction.guild.id : undefined,
-                birthday: new Date(new Date().getFullYear() + 1, month - 1, day),
+                birthday: date,
             })
             birthday.save().then(() => {
                 interaction.editReply("Birthday set!");

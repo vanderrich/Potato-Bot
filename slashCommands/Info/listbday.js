@@ -26,16 +26,11 @@ module.exports = {
                 const pageEnd = pageStart + 10;
                 birthdays.filter((bday) => client.guilds.cache.get(bday.guildId).members.cache.get(bday.userId))
                 const items = birthdays.slice(pageStart, pageEnd).map((m, i) => {
-                    return `** ${i + pageStart + 1}**. ${userMention(m.userId)} - ${time(m.birthday, 'd')}`;
+                    return `**${i + pageStart + 1}**. ${userMention(m.userId)} - ${time(m.birthday, 'd')}`;
                 });
                 if (items.length) {
-                    const embed = new Discord.MessageEmbed();
-                    embed.setAuthor({ name: `Birthdays for ${interaction.guild ? interaction.guild.name : "all servers"}`, iconURL: interaction.guild ? interaction.guild.iconURL() : undefined })
-                    embed.setDescription(`${items.join('\n')}${birthdays.length > pageEnd
-                        ? `\n... ${birthdays.length - pageEnd} more item(s)`
-                        : ''
-                        } `);
-                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
+                    console.log(items);
+                    embed.setDescription(`${items.join('\n')}${birthdays.length > pageEnd ? `\n... ${birthdays.length - pageEnd} more item(s)` : ''}`);
                     if (page % 2 === 0) embed.setColor('RANDOM');
                     else embed.setColor('RANDOM');
                     page++;
@@ -45,9 +40,11 @@ module.exports = {
                     if (page === 1) {
                         embed.setDescription("No birthdays set!");
                         embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
+                        console.log(embed)
                         return interaction.reply({ embeds: [embed] });
                     }
                     if (page === 2) {
+                        console.log(embed)
                         return interaction.reply({ embeds: [pages[0]] });
                     }
                 }

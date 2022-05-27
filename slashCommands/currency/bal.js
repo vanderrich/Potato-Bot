@@ -1,4 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder, ContextMenuCommandBuilder } = require("@discordjs/builders");
+const { ApplicationCommandType } = require("discord-api-types/v9");
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("bal")
@@ -9,6 +11,9 @@ module.exports = {
         .setDescription("The user to check the balance of.")
         .setRequired(true)
   ),
+  contextMenu: new ContextMenuCommandBuilder()
+    .setName("bal")
+    .setType(ApplicationCommandType.User),
   category: "Currency",
   async execute(interaction, client, Discord, footers) {
     await interaction.deferReply();

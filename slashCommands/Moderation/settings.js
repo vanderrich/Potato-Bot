@@ -40,7 +40,8 @@ module.exports = {
                 .setDescription("The channel to send the welcome message.")
                 .setRequired(false)
             )),
-    category: "Info",
+    category: "Moderation",
+    permissions: "MANAGE_GUILD",
     execute(interaction, client, Discord, footers) {
         require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
     }
