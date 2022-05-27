@@ -9,7 +9,6 @@ const msglimit = 100
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
-
         if (interaction.isCommand() || interaction.isContextMenu()) {   
             const command = client.slashCommands.get(interaction.commandName);
 
@@ -21,12 +20,14 @@ module.exports = {
 
             try {
                 await command.execute(interaction, client, Discord, footers);
+                client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${interaction.user.username} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}`)}\`` : ""}`); // log the command
             } catch (error) {
                 console.error(error);
                 fs.appendFile('log.txt', client.logs.join(''), (err) => {
                     if (err) throw err;
                 });
-                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\n\nLogs:`, files: [{ attachment: 'log.txt', name: 'log.txt' }] });
+                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\n\nLogs:`, files: [{ attachment: 'log.txt', name: 'log.txt' }] }); // log the error to the bot owner
+                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\n\nLogs:`, files: [{ attachment: 'log.txt', name: 'log.txt' }] }); // log the error to the bot logs channel
                 fs.unlink('log.txt', (err) => {
                     if (err) throw err;
                 });
