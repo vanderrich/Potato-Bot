@@ -5,7 +5,7 @@ module.exports = {
         .setName("remove")
         .setDescription("Remove a track from a playlist.")
         .addStringOption(option => option
-            .setName("playlist")
+            .setName("name")
             .setDescription("The name of the playlist to add the track to, case sensitive.")
             .setRequired(true)
         )
@@ -18,7 +18,7 @@ module.exports = {
     category: "Music",
     isSubcommand: true,
     async execute(interaction, client) {
-        const playlistName = interaction.options.getString("playlist");
+        const playlistName = interaction.options.getString("name");
         const index = interaction.options.getInteger("index");
         const playlist = await client.playlists.findOne({
             managers: interaction.user.id,

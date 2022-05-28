@@ -3,7 +3,6 @@ module.exports = {
     execute(client) {
         console.log('Ready!')
         client.user.setUsername('Potato bot')
-        console.log(client.guilds.cache)
         client.user.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then(birthdays => {
             if (birthdays.length > 0) {

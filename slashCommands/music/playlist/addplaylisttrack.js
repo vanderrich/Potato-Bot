@@ -11,7 +11,7 @@ module.exports = {
             .setRequired(true)
         )
         .addStringOption(option => option
-            .setName("playlist")
+            .setName("name")
             .setDescription("The name of the playlist to add the track to, case sensitive.")
             .setRequired(true)
         ),
@@ -22,7 +22,7 @@ module.exports = {
         const user = interaction.user;
         const guild = interaction.guild;
 
-        const playlistName = interaction.options.getString("playlist");
+        const playlistName = interaction.options.getString("name");
         const url = interaction.options.getString("url");
 
         const track = await client.player.search(url, {

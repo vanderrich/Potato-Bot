@@ -13,7 +13,7 @@ module.exports = {
                 .setRequired(true)
             )
             .addStringOption(option => option
-                .setName("playlist")
+                .setName("name")
                 .setDescription("The name of the playlist to add the track to, case sensitive.")
                 .setRequired(true)
             )
@@ -22,7 +22,7 @@ module.exports = {
             .setName("remove")
             .setDescription("Remove a track from a playlist.")
             .addStringOption(option => option
-                .setName("playlist")
+                .setName("name")
                 .setDescription("The name of the playlist to add the track to, case sensitive.")
                 .setRequired(true)
             )
