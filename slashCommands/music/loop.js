@@ -8,10 +8,12 @@ module.exports = {
                 .setName("loop")
                 .setDescription("The object to loop")
                 .setRequired(true)
-                .addChoice("No loop", 0)
-                .addChoice("Loop the track", 1)
-                .addChoice("Loop the entire queue", 2)
-                .addChoice("autoplay", 3)
+                .addChoices(
+                    { name: "Off", value: 0 },
+                    { name: "Track", value: 1 },
+                    { name: "Queue", value: 2 },
+                    { name: "Autoplay", value: 3 }
+                )
     ),
     category: "Music",
     isSubcommand: true,

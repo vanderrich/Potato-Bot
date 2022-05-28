@@ -10,12 +10,14 @@ module.exports = {
             option
                 .setName("category")
                 .setDescription("The category to get help for.")
-                .addChoice("Currency", "Currency")
-                .addChoice("Fun", "Fun")
-                .addChoice("Info", "Info")
-                .addChoice("Moderation", "Moderation")
-                .addChoice("Music", "Music")
-                .addChoice("Bot Admin Only", "Bot Admin Only")
+                .addChoices(
+                    { name: "Currency", value: "Currency" },
+                    { name: "Fun", value: "Fun" },
+                    { name: "Info", value: "Info" },
+                    { name: "Moderation", value: "Moderation" },
+                    { name: "Music", value: "Music" },
+                    { name: "Bot Admin Only", value: "Bot Admin Only" },
+                )
         )
         .addStringOption(option =>
             option

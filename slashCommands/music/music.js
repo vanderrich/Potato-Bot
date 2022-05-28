@@ -33,13 +33,16 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("loop")
             .setDescription("Loop the track or queue")
-            .addStringOption(option => option
+            .addNumberOption(option => option
                 .setName("loop")
                 .setDescription("The object to loop")
-                .setRequired(true).addChoice("No loop", "off")
-                .addChoice("Loop the track", "track")
-                .addChoice("Loop the entire queue", "queue")
-                .addChoice("autoplay, no idea what this mess is", "autoplay")
+                .setRequired(true)
+                .addChoices(
+                    { name: "Off", value: 0 },
+                    { name: "Track", value: 1 },
+                    { name: "Queue", value: 2 },
+                    { name: "Autoplay", value: 3 }
+                )
             )
         )
         .addSubcommand(subcommand => subcommand
@@ -197,10 +200,12 @@ module.exports = {
                 .addNumberOption(option => option
                     .setName("loop")
                     .setDescription("Loop the playlist")
-                    .addChoice("No loop", 0)
-                    .addChoice("Loop the track", 1)
-                    .addChoice("Loop the entire queue", 2)
-                    .addChoice("autoplay", 3)
+                    .addChoices(
+                        { name: "Off", value: 0 },
+                        { name: "Track", value: 1 },
+                        { name: "Queue", value: 2 },
+                        { name: "Autoplay", value: 3 }
+                    )
                     .setRequired(false)
                 )
                 .addNumberOption(option => option

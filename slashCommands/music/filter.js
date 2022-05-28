@@ -8,9 +8,11 @@ module.exports = {
             .setName("filter")
             .setDescription("Filter")
             .setRequired(true)
-            .addChoice("8D", "8D")
-            .addChoice("nightcore", "nightcore")
-            .addChoice("bassboost", "bassboost")
+            .addChoices(
+                { name: "8D", value: "8D" },
+                { name: "nightcore", value: "nightcore" },
+                { name: "bassbost", value: "bassbost" }
+            )
     ),
     category: "Music",
     isSubcommand: true,

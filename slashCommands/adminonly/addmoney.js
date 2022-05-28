@@ -20,8 +20,10 @@ module.exports = {
             option
                 .setName("place")
                 .setDescription("The place to add the money to.")
-                .addChoice("Bank", "bank")
-                .addChoice("Wallet", "wallet")
+                .addChoices(
+                    { name: "Bank", value: "bank" },
+                    { name: "Wallet", value: "wallet" },
+                )
                 .setRequired(true)
     ),
     permissions: "BotAdmin",

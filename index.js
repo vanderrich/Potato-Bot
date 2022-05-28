@@ -6,7 +6,7 @@ const { shop, settings } = require('./config.json');
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const Economy = require('currency-system');
-const deploy = require('./deploy-commands.js');
+const { deploy } = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
 const mongoose = require('mongoose');
 // const setupSubscriptions = require('./Util/setupSubscriptions.js');

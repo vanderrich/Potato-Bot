@@ -11,11 +11,13 @@ module.exports = {
                 .setName("preset")
                 .setDescription("The preset to use.")
                 .setRequired(true)
-                .addChoice("Low (only racism and other stuff)", "low")
-                .addChoice("Medium (curse words other than f and s words and other stuff, recommended)", "medium")
-                .addChoice("High (most curse words, recommended)", "high")
-                .addChoice("Highest (all curse words, not recommended)", "highest")
-                .addChoice("Custom", "custom")
+                .addChoices(
+                    { name: "Low (only racism and other stuff, default)", value: "low" },
+                    { name: "Medium (curse words other than f and s and other stuff, recommended)", value: "medium" },
+                    { name: "High (most curse words, not recommended)", value: "high" },
+                    { name: "Highest (all curse words)", value: "highest" },
+                    { name: "Custom", value: "custom" },
+                )
             )
             .addStringOption(option => option
                 .setName("custom")
