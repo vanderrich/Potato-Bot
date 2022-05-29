@@ -18,7 +18,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction: ContextMenuInteraction | CommandInteraction, client: any, Discord: any, footers: Array<string>) {
         await interaction.deferReply();
-        let user = interaction.options.getUser("target") || interaction.user;
+        let user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
         let userInfo = await client.eco.balance({ user: user.id });
         const embed = new Discord.MessageEmbed()
             .setTitle(`${user.username}'s Balance`)

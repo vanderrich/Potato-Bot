@@ -1,16 +1,18 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBuilder, SlashCommandNumberOption } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("withdraw")
         .setDescription("Deposit money into your bank account.")
-        .addNumberOption(option =>
+        .addNumberOption((option: SlashCommandNumberOption) =>
             option
                 .setName("amount")
                 .setDescription("The amount to withdraw.")
                 .setRequired(true)
         ),
     category: "Currency",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         let money = interaction.options.getNumber("amount");
         let result = await client.eco.withdraw({
             user: interaction.user.id,

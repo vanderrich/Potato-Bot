@@ -1,10 +1,6 @@
-const { MessageEmbed } = require("discord.js")
-const { jobsEmbed, jobsPure, footers } = require("../../config.json")
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const jobEmbed = new MessageEmbed()
-  .setTitle("Jobs")
-  .addFields(jobsEmbed)
-  .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+import { CommandInteraction, MessageEmbed } from "discord.js";
+import { jobsEmbed, footers } from "../../config.json";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -14,11 +10,11 @@ module.exports = {
       option
         .setName("job")
         .setDescription("The job you want to work (`none` for no job)"),
-  ),
+    ),
   category: "Currency",
-  async execute(interaction, client) {
+  async execute(interaction: CommandInteraction, client: any) {
     let result = await client.eco.work({
-      user: interaction.guild.id,
+      user: interaction.guild?.id,
       maxAmount: 100,
       replies: ['Potato Peeler', 'Janitor'],
       cooldown: 25

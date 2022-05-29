@@ -26,7 +26,7 @@ module.exports = {
             .setThumbnail()
             .setTimestamp()
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
-        const invPure = await client.eco.getUserItems({ user: interaction.user.id });
+        const invPure = await client.eco.getUserItems({ user });
         if (!invPure) {
             embed.setDescription(`No items in the inventory.`);
             return interaction.reply({ embeds: [embed] })

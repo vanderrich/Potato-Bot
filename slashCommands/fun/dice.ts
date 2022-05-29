@@ -1,38 +1,39 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("dice")
         .setDescription("Rolls a die.")
-        .addNumberOption(option => option
+        .addNumberOption((option: SlashCommandNumberOption) => option
             .setName("number")
             .setDescription("The number of dice to roll.")
         )
-        .addNumberOption(option => option
+        .addNumberOption((option: SlashCommandNumberOption) => option
             .setName("sides")
             .setDescription("The number of sides on the dice.")
         )
-        .addNumberOption(option => option
+        .addNumberOption((option: SlashCommandNumberOption) => option
             .setName("modifier")
             .setDescription("The modifier to add to the dice.")
-    )
-        .addStringOption(option => option
+        )
+        .addStringOption((option: SlashCommandStringOption) => option
             .setName("note")
             .setDescription("A note to add to the roll.")
-    )
-        .addStringOption(option => option
+        )
+        .addStringOption((option: SlashCommandStringOption) => option
             .setName("assign")
             .setDescription("Assign each number to something, syntax: <number>=<text>, separate with commas.")
         ),
     category: "Fun",
-    execute: (interaction, client, Discord, footers) => {
+    execute: (interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) => {
         const number = interaction.options.getNumber("number") || 1;
         const sides = interaction.options.getNumber("sides") || 6;
         const modifier = interaction.options.getNumber("modifier") || 0;
-        let assign = interaction.options.getString("assign");
+        let assign: any = interaction.options.getString("assign");
         if (assign) {
             assign = assign.split(",");
-            assign = new Map(assign.map(a => a.split("=").map(a => parseInt(a) || a)));
+            assign = new Map(assign.map((a: string) => a.split("=").map(a => parseInt(a) || a)));
         }
         const rolls = [];
         for (let i = 0; i < number; i++) {

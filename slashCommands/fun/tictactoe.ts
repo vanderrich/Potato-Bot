@@ -1,25 +1,26 @@
-const { SlashCommandBuilder, ContextMenuCommandBuilder } = require("@discordjs/builders");
-const { ApplicationCommandType } = require("discord-api-types/v9");
+import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandUserOption } from "@discordjs/builders";
+import { ApplicationCommandType } from "discord-api-types/v9";
+import { CommandInteraction, ContextMenuInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("tictactoe")
         .setDescription("Play tictactoe")
-        .addUserOption(option =>
+        .addUserOption((option: SlashCommandUserOption) =>
             option
                 .setName("opponent")
                 .setDescription("The opponent to play against")
                 .setRequired(true),
-    ),
+        ),
     contextMenu: new ContextMenuCommandBuilder()
         .setName("tictactoe")
         .setType(ApplicationCommandType.User),
     category: "Fun",
-    async execute(interaction, client, Discord, footers) {
-        const opponent = interaction.options.getUser("opponent") || client.users.cache.get(interaction.targetId);
+    async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any) {
+        const opponent = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
         if (interaction.user.id == opponent) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
         if (opponent == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
-        if (opponent.bot) interaction.channel.send('Have fun playing with a bot lol') 
+        if (opponent.bot) interaction.channel?.send('Have fun playing with a bot lol')
 
         const game = await interaction.reply({
             content: `${interaction.user}'s turn`,
@@ -48,18 +49,16 @@ module.exports = {
             ],
             fetchReply: true,
         });
-        for (tttGame in client.tictactoe) {
-            tttGame = client.tictactoe[tttGame];
-            if (tttGame.message.editedTimestamp - 60000 > Date.now()) {
-                tttGame.message.edit('Timeout')
-                delete client.tictactoe[tttGame.message.id];
-            }
-        }
         client.tictactoe[game.id] = {
             x: interaction.user.id,
             o: opponent.id,
             message: game
         }
+        setTimeout(() => {
+            if (client.tictactoe[game.id]) {
+                delete client.tictactoe[game.id]
+            }
+        }, 300000);
     }
     //     //initialize
     //     var tictactoemap = ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']
