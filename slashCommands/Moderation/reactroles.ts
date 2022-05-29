@@ -46,8 +46,8 @@ module.exports = {
         let options: Array<string> = [];
         let reactionRoles: Array<any> = [];
         let reactions: Array<Discord.GuildEmoji | string> = [];
-        if (!interaction.guild) return interaction.channel?.send("You can't use this command in a DM!");
-        if (!interaction.guild.me?.roles.highest.position) return interaction.channel?.send("I don't have permission to manage roles!");
+        if (!interaction.guild) return interaction.reply("You can't use this command in a DM!");
+        if (!interaction.guild.me?.roles.highest.position) return interaction.reply("I don't have permission to manage roles!");
         for (let i = 1; i <= 25; i++) {
             let option = interaction.options.getString(`option${i}`);
             let emoji = interaction.options.getString(`option${i}emoji`);
@@ -58,42 +58,41 @@ module.exports = {
                     reactionRoles.push(role);
                     reactions.push(emoji.trim());
                 } else {
-                    return interaction.channel?.send(`The role ${role.name}'s position is higher than my highest role's position!`);
+                    return interaction.reply(`The role ${role.name}'s position is higher than my highest role's position!`);
                 }
             }
+        }
 
-
-            const embed = new Discord.MessageEmbed()
-                .setTitle(title)
-                .setDescription(description)
-                .setFooter({
-                    text: footers[Math.floor(Math.random() * footers.length)],
-                    iconURL: interaction.user.avatarURL({ dynamic: true })
+        const embed = new Discord.MessageEmbed()
+            .setTitle(title)
+            .setDescription(description)
+            .setFooter({
+                text: footers[Math.floor(Math.random() * footers.length)],
+                iconURL: interaction.user.avatarURL({ dynamic: true })
+            })
+        for (const i in reactions) {
+            embed.addField(reactions[i], String(reactionRoles[i]));
+        }
+        channel.send({ embeds: [embed], fetchReply: true }).then((m: Discord.Message) => {
+            const rr = new client.rr({
+                messageId: m.id,
+                channelId: channel.id,
+                guildId: interaction.guildId,
+                emoji: reactions,
+                roleId: reactionRoles.map(r => r.id)
+            })
+            rr.save()
+                .then(() => {
+                    console.log(rr);
+                })
+                .catch((err: any) => {
+                    console.log(err);
                 })
             for (const i in reactions) {
-                embed.addField(reactions[i], String(reactionRoles[i]));
+                m.react(reactions[i])
             }
-            channel.send({ embeds: [embed], fetchReply: true }).then((m: Discord.Message) => {
-                const rr = new client.rr({
-                    messageId: m.id,
-                    channelId: channel.id,
-                    guildId: interaction.guildId,
-                    emoji: reactions,
-                    roleId: reactionRoles.map(r => r.id)
-                })
-                rr.save()
-                    .then(() => {
-                        console.log(rr);
-                    })
-                    .catch((err: any) => {
-                        console.log(err);
-                    })
-                for (const i in reactions) {
-                    m.react(reactions[i])
-                }
-            })
-            interaction.reply({ content: 'Reaction Role created!', ephemeral: true });
-        }
+        })
+        interaction.reply({ content: 'Reaction Role created!', ephemeral: true });
     }
 }
 // some old code in case i need it for examples
