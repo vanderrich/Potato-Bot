@@ -54,6 +54,7 @@ module.exports = {
             let role = interaction.options.getRole(`option${i}role`);
             if (option && emoji && role) {
                 if (role.position < interaction.guild.me.roles.highest.position) {
+                    if (emoji.match(/<a?:[a-zA-Z0-9_]+:[0-9]+>/g)) return interaction.reply("Invalid emoji!");
                     options.push(option);
                     reactionRoles.push(role);
                     reactions.push(emoji.trim());

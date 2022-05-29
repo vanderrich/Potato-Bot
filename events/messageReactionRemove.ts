@@ -13,6 +13,7 @@ module.exports = {
 
         try {
             reaction.message.guild?.members.cache.get(user.id)?.roles.remove(reactionRole.roleId[reactionEmojiIndex])
+            client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${user.username} un reacted with ${reaction.emoji.name} and removed their role <@&${reactionRole.roleId[reactionEmojiIndex]}>`)
         }
         catch (err: any) {
             switch (err.code) {

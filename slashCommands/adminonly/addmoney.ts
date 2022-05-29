@@ -1,22 +1,23 @@
-const { admins } = require("../../config.json")
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBuilder, SlashCommandIntegerOption, SlashCommandStringOption, SlashCommandUserOption } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
+import { admins } from "../../config.json";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("addmoney")
         .setDescription("Add money to a user.")
-        .addUserOption(option =>
+        .addUserOption((option: SlashCommandUserOption) =>
             option
                 .setName("target")
                 .setDescription("The user to add money to.")
                 .setRequired(true)
         )
-        .addIntegerOption(option =>
+        .addIntegerOption((option: SlashCommandIntegerOption) =>
             option
                 .setName("amount")
                 .setDescription("The amount of money to add.")
                 .setRequired(true)
-    )
-        .addStringOption(option =>
+        )
+        .addStringOption((option: SlashCommandStringOption) =>
             option
                 .setName("place")
                 .setDescription("The place to add the money to.")
@@ -25,19 +26,21 @@ module.exports = {
                     { name: "Wallet", value: "wallet" },
                 )
                 .setRequired(true)
-    ),
+        ),
     permissions: "BotAdmin",
     category: "Bot Admin Only",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
         let user = interaction.options.getUser("target");
         if (!user) return interaction.reply("Please specify a user!");
         let amount = interaction.options.getInteger("amount");
-        let data = await client.eco.addMoney({ user: user.id, amount, wheretoPutMoney: interaction.options.getString("place") });
+        let place = interaction.options.getString("place");
+        if (!place) return interaction.reply("Please specify a place!");
+        let data = await client.eco.addMoney({ user: user.id, amount, wheretoPutMoney: place });
 
         const embed = new Discord.MessageEmbed()
             .setTitle(`Money Added!`)
-            .setDescription(`User: <@${user.id}>\nBalance Given: ${amount}\nTotal Amount: ${data.rawData[interaction.options.getString("place")]}`)
+            .setDescription(`User: <@${user.id}>\nBalance Given: ${amount}\nTotal Amount: ${data.rawData[place]}`)
             .setColor("RANDOM")
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
         return interaction.reply({ embeds: [embed] })
