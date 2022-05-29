@@ -1,5 +1,7 @@
-const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
-const { QueryType } = require('discord-player');
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { APIGuildMember } from "discord-api-types";
+import { QueryType } from "discord-player";
+import { CommandInteraction, GuildMember } from "discord.js";
 
 
 module.exports = {
@@ -13,10 +15,12 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
+
+        if (!guild) return interaction.reply("You can't use this command in a DM!");
 
         const playlistName = interaction.options.getString("name");
 
@@ -34,18 +38,18 @@ module.exports = {
         });
 
         try {
-            if (!queue.connection) await queue.connect(interaction.member.voice.channel);
+            if (!queue.connection && interaction.member instanceof GuildMember) await queue.connect(interaction.member?.voice.channel);
         } catch {
             await client.player.deleteQueue(interaction.guild.id);
             return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);
         }
 
-        const tracks = await res.map(async track => {
+        const tracks = await res.map(async (track: string) => {
             return new Promise(async (resolve, reject) => {
                 client.player.search(track, {
                     requestedBy: interaction.member,
                     searchEngine: QueryType.AUTO
-                }).then(trackToPlay => {
+                }).then((trackToPlay: any) => {
                     return resolve(trackToPlay.tracks[0]);
                 });
             });

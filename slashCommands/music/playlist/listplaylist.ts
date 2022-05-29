@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 
 module.exports = {
@@ -7,9 +8,8 @@ module.exports = {
         .setDescription("List all playlists."),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
         const user = interaction.user;
-        const guild = interaction.guild;
 
         const playlists = await client.playlists.find({
             owner: user.id
@@ -22,7 +22,7 @@ module.exports = {
             .setTitle("Your playlists")
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: user.avatarURL({ dynamic: true }) })
 
-        playlists.forEach(playlist => {
+        playlists.forEach((playlist: any) => {
             embed.addField(playlist.name, playlist.tracks.length + " tracks");
         });
         interaction.reply({ embeds: [embed] });

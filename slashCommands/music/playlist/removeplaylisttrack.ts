@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client) {
+    async execute(interaction: CommandInteraction, client: any) {
         const playlistName = interaction.options.getString("name");
         const index = interaction.options.getInteger("index");
         const playlist = await client.playlists.findOne({
@@ -26,6 +27,7 @@ module.exports = {
         });
 
         if (!playlist?.tracks) return interaction.reply("I couldn't find that playlist!");
+        if (!index) return interaction.reply("You must specify an index!");
 
         playlist.tracks.splice(index - 1, 1);
         playlist.save();

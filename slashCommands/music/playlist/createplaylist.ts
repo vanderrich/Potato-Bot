@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         const user = interaction.user;
         const guild = interaction.guild;
 
@@ -20,7 +21,6 @@ module.exports = {
         if (await client.playlists.findOne({ managers: user.id, name: playlistName })) return interaction.reply("You already have a playlist with that name!");
 
         const playlist = new client.playlists({
-            guildId: guild.id,
             name: playlistName,
             creator: user.id,
             managers: [user.id],

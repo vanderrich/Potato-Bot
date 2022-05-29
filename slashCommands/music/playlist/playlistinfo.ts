@@ -1,6 +1,7 @@
-const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
-const { QueryType } = require('discord-player');
-const generatePages = require('../../../Util/pagination.js');
+import { SlashCommandSubcommandBuilder, userMention, time } from "@discordjs/builders";
+import { QueryType } from 'discord-player';
+import { CommandInteraction } from "discord.js";
+import generatePages from '../../../Util/pagination.js';
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -13,7 +14,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -33,7 +34,7 @@ module.exports = {
         do {
             const pageStart = 10 * (page - 1);
             const pageEnd = pageStart + 10;
-            const tracks = await Promise.all(playlist.tracks.slice(pageStart, pageEnd).map(async (m, i) => {
+            const tracks = await Promise.all(playlist.tracks.slice(pageStart, pageEnd).map(async (m: any, i: number) => {
                 let track = await client.player.search(m, {
                     requestedBy: interaction.member,
                     searchEngine: QueryType.AUTO

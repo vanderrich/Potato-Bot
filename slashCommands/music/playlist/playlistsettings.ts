@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 const maxVol = 150;
 
 module.exports = {
@@ -33,7 +34,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client) {
+    async execute(interaction: CommandInteraction, client: any) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -51,11 +52,13 @@ module.exports = {
         if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
         console.log(playlist);
 
-        if (volume > maxVol) return interaction.editReply(`Volume can't be higher than ${maxVol}!`);
 
-        if (shuffle !== undefined) playlist.settings.shuffle = shuffle;
-        if (loop !== undefined) playlist.settings.loop = loop;
-        if (volume !== undefined) playlist.settings.volume = volume;
+        if (shuffle) playlist.settings.shuffle = shuffle;
+        if (loop) playlist.settings.loop = loop;
+        if (volume) {
+            if (volume > maxVol) return interaction.editReply(`Volume can't be higher than ${maxVol}!`);
+            playlist.settings.volume = volume;
+        }
 
         await playlist.save();
 

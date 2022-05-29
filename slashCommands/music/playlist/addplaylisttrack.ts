@@ -1,5 +1,6 @@
-const { SlashCommandSubcommandBuilder, userMention, time } = require("@discordjs/builders");
-const { QueryType } = require('discord-player');
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { QueryType, Track } from 'discord-player';
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -41,7 +42,7 @@ module.exports = {
         if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
 
 
-        playlist.tracks = playlist.tracks.concat(track.tracks.map(t => t.url));
+        playlist.tracks = playlist.tracks.concat(track.tracks.map((t: Track) => t.url));
         playlist.save();
 
 

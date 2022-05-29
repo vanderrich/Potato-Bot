@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -16,7 +17,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -32,7 +33,7 @@ module.exports = {
         const res = playlist.tracks;
 
         const userToShare = interaction.options.getUser("user");
-
+        if (!userToShare) return interaction.editReply("You must specify a user!");
         const userToSharePlaylist = await client.playlists.findOne({ creator: userToShare.id, name: playlistName });
 
         if (!userToSharePlaylist) return interaction.editReply(`${userToShare} doesn't have a playlist with that name!`);
