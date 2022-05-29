@@ -32,11 +32,11 @@ module.exports = {
                     if (err) throw err;
                 });
                 try {
-                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
                 catch (err) {
                     console.error(err);
-                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error });
+                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue" });
                 }
             }
         }

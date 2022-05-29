@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 const maxVol = 150;
 
 module.exports = {
@@ -10,11 +11,11 @@ module.exports = {
                 .setName("vol")
                 .setDescription("The volume to set the track to.")
                 .setRequired(true)
-    ),
+        ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction, client) {
-        const queue = client.player.getQueue(interaction.guild.id);
+    execute(interaction: CommandInteraction, client: any) {
+        const queue = client.player.getQueue(interaction.guild?.id);
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 

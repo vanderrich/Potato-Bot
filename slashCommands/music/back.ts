@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -6,8 +7,8 @@ module.exports = {
         .setDescription("Go back to the previous track."),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client) {
-        const queue = client.player.getQueue(interaction.guild.id);
+    async execute(interaction: CommandInteraction, client: any) {
+        const queue = client.player.getQueue(interaction.guild?.id);
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, No music currently playing! ❌`);
 

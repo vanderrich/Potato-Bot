@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -13,25 +14,25 @@ module.exports = {
                 { name: "nightcore", value: "nightcore" },
                 { name: "bassbost", value: "bassbost" }
             )
-    ),
+        ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction, client) {
-        const queue = client.player.getQueue(interaction.guild.id);
+    async execute(interaction: CommandInteraction, client: any) {
+        const queue = client.player.getQueue(interaction.guild?.id);
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
         const actualFilter = queue.getFiltersEnabled()[0];
 
-        const filters = [];
-        queue.getFiltersEnabled().map(x => filters.push(x));
-        queue.getFiltersDisabled().map(x => filters.push(x));
+        const filters: string[] = [];
+        queue.getFiltersEnabled().map((x: string) => filters.push(x));
+        queue.getFiltersDisabled().map((x: string) => filters.push(x));
 
-        const filter = filters.find((x) => x.toLowerCase() === interaction.options.getString("filter").toLowerCase());
+        const filter = filters.find((x: string) => x.toLowerCase() === interaction.options.getString("filter")?.toLowerCase());
 
         if (!filter) return interaction.reply(`${interaction.user}, I couldn't find a filter with your name. ❌\n\`bassboost, 8D, nightcore\``);
 
-        const filtersUpdated = {};
+        const filtersUpdated: any = {};
 
         filtersUpdated[filter] = queue.getFiltersEnabled().includes(filter) ? false : true;
 

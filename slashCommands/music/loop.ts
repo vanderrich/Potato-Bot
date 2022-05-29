@@ -1,4 +1,6 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders")
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
+
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("loop")
@@ -14,11 +16,11 @@ module.exports = {
                     { name: "Queue", value: 2 },
                     { name: "Autoplay", value: 3 }
                 )
-    ),
+        ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction, client) {
-        const queue = client.player.getQueue(interaction.guild.id);
+    execute(interaction: CommandInteraction, client: any) {
+        const queue = client.player.getQueue(interaction.guild?.id);
         const loop = interaction.options.getNumber("loop");
         queue.setRepeatMode(loop);
         interaction.reply(`${loop === 0 ? "Off" : loop === 1 ? "Looping track 🔂" : loop === 2 ? "Looping queue 🔁" : "Autoplaying 🔂"}`);

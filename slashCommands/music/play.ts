@@ -1,5 +1,6 @@
-const { SlashCommandSubcommandBuilder } = require('@discordjs/builders');
-const { QueryType } = require('discord-player');
+import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { QueryType } from 'discord-player';
+import { CommandInteraction, GuildMember, Message } from 'discord.js';
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -17,7 +18,8 @@ module.exports = {
         ),
     category: 'Music',
     isSubcommand: true,
-    async execute(interaction, client) {
+    async execute(interaction: CommandInteraction, client: any) {
+        if (!interaction.guild || !(interaction.member instanceof GuildMember)) return interaction.reply('You must be in a guild to use this command.');
         await interaction.deferReply()
         const res = await client.player.search(interaction.options.getString('track'), {
             requestedBy: interaction.member,
@@ -26,17 +28,17 @@ module.exports = {
         let run = true;
         if (res.tracks[0].source != 'youtube') {
             interaction.editReply({ content: `The package we use to play music (discord-player) does not support spotify and will search youtube for it, Are you sure you want to continue? (yes if yes and anything else for no)` });
-            const filter = response => {
+            const filter = (response: Message) => {
                 return response.author.id == interaction.user.id
             }
-            await interaction.channel.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).then(collected => {
-                if (collected.first().content.toLowerCase() != 'yes') {
+            await interaction.channel?.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                if (collected.first()?.content.toLowerCase() != 'yes') {
                     run = false
                     return interaction.editReply({ content: `Canceled playing **${res.tracks[0].title}**` });
                 }
             }).catch(() => {
                 run = false
-                return interaction.channel.send({ content: "Timeout" });
+                return interaction.channel?.send({ content: "Timeout" });
             });
         }
         if (!run) return;
@@ -50,7 +52,7 @@ module.exports = {
         });
 
         try {
-            if (!queue.connection) await queue.connect(interaction.member.voice.channel);
+            if (!queue.connection) await queue.connect(interaction.member?.voice.channel);
         } catch {
             await client.player.deleteQueue(interaction.guild.id);
             return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);

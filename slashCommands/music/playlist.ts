@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandGroupBuilder } = require('@discordjs/builders')
+import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
 
 module.exports = {
     data: new SlashCommandSubcommandGroupBuilder()
@@ -106,7 +107,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction, client, Discord, footers) {
+    execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
         let subcommand;
         switch (interaction.options.getSubcommand()) {
             case "add":

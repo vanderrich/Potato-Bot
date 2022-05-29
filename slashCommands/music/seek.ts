@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -8,11 +9,11 @@ module.exports = {
             .setName("pos")
             .setDescription("The position to seek to.")
             .setRequired(true)
-    ),
+        ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction, client) {
-        const queue = client.player.getQueue(interaction.guild.id);
+    execute(interaction: CommandInteraction, client: any) {
+        const queue = client.player.getQueue(interaction.guild?.id);
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 

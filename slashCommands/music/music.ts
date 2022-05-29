@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -250,9 +251,9 @@ module.exports = {
                     .setDescription("The user to unshare the playlist with.")
                     .setRequired(true)
                 )
-        )
-    ),
-    execute(interaction, client, Discord, footers) {
+            )
+        ),
+    execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
         let subcommand;
         try {
             subcommand = interaction.options.getSubcommandGroup();
