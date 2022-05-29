@@ -1,11 +1,12 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("beg")
     .setDescription("Beg for money!"),
   category: "Currency",
-  async execute(interaction, client, Discord, footers) {
+  async execute(interaction: CommandInteraction, client: any) {
     let users = [
       "A Stranger",
       "A Potato",

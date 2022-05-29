@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,12 +22,13 @@ module.exports = {
         ),
     category: "Currency",
     permissions: "ADMINISTRATOR",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
         const name = interaction.options.getString("name");
         const description = interaction.options.getString("description");
         const price = interaction.options.getNumber("price");
 
-        if (price < 1) return interaction.channel.send("You can't add an item for less than 1$!");
+        if (!price) return interaction.reply("You can't add an item for less than 1$!");
+        if (!interaction.guild) return interaction.reply("You can't add an item in a DM!");
         let result = await client.eco.addItem({
             guild: interaction.guild.id,
             inventory: {
@@ -36,10 +38,10 @@ module.exports = {
             }
         });
         if (result.error) {
-            if (result.type == 'No-Inventory-Name') return interaction.channel.send('Enter item name to add!')
-            if (result.type == 'Invalid-Inventory-Price') return interaction.channel.send('Invalid price!')
-            if (result.type == 'No-Inventory-Price') return interaction.channel.send('You didnt specify the price!')
-            if (result.type == 'No-Inventory') return interaction.channel.send('No data received!')
-        } else return interaction.channel.send('Successfully added `' + name + '` to the shop!')
+            if (result.type == 'No-Inventory-Name') return interaction.reply('Enter item name to add!')
+            if (result.type == 'Invalid-Inventory-Price') return interaction.reply('Invalid price!')
+            if (result.type == 'No-Inventory-Price') return interaction.reply('You didnt specify the price!')
+            if (result.type == 'No-Inventory') return interaction.reply('No data received!')
+        } else return interaction.reply('Successfully added `' + name + '` to the shop!')
     }
 }

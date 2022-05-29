@@ -1,31 +1,33 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandBooleanOption, SlashCommandBuilder, SlashCommandIntegerOption, SlashCommandNumberOption } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("buy")
         .setDescription("Buy an item!")
-        .addNumberOption(option =>
+        .addNumberOption((option: SlashCommandNumberOption) =>
             option
                 .setName("item")
                 .setDescription("The ID of the item you want to buy.")
-    )
-        .addBooleanOption(option =>
+        )
+        .addBooleanOption((option: SlashCommandBooleanOption) =>
             option
                 .setName("local")
                 .setDescription("Whether or not the item is local.")
         )
-        .addIntegerOption(option =>
+        .addIntegerOption((option: SlashCommandIntegerOption) =>
             option
                 .setName("amount")
                 .setDescription("The amount to buy.")
-    ),
+        ),
     category: "Currency",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
         let item = interaction.options.getNumber("item");
         let local = interaction.options.getBoolean("local");
+        if (local && !interaction.guild) return interaction.reply("You can't buy local items in DMs!");
 
         if (!item) {
-            let items = await client.eco.getShopItems(local ? { guild: interaction.guild.id } : { user: interaction.user.id });
+            let items = await client.eco.getShopItems(local ? { guild: interaction.guild?.id } : { user: interaction.user.id });
             let inv = items.inventory;
 
             let embed = new Discord.MessageEmbed()

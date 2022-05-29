@@ -11,7 +11,7 @@ module.exports = {
                 .setDescription("The amount of messages to delete")
                 .setRequired(true)
         ),
-    permissions: "ADMINISTRATOR",
+    permissions: "MANAGE_MESSAGES",
     category: "Moderation",
     execute(interaction) {
         let amount = interaction.options.getInteger("amount");

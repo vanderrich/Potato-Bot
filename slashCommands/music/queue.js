@@ -31,8 +31,9 @@ module.exports = {
                 return `**${i + pageStart + 1}**. [${title}](${m.url}) ${m.duration} - ${m.requestedBy}`;
             });
             if (tracks.length) {
+                const loopType = playlist.settings.loop === 0 ? "None" : playlist.settings.loop === 1 ? "Track" : playlist.settings.loop === 2 ? "Queue" : playlist.settings.loop === 3 ? "Autoplay" : "Impossible edge case, notify developer";
                 const embed = new Discord.MessageEmbed();
-                embed.setDescription(`${usedby}${tracks.join('\n')}${queue.tracks.length > pageEnd
+                embed.setDescription(`${page === 1 ? `Shuffle: ${playlist.settings.shuffle ? "True" : "False"}, Volume: ${playlist.settings.volume}%, Loop: ${loopType}\n` : ""}\n\n${usedby}${tracks.join('\n')}${queue.tracks.length > pageEnd
                     ? `\n... ${queue.tracks.length - pageEnd} more track(s)`
                     : ''
                     }`);

@@ -1,11 +1,12 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const fs = require('fs');
-const { admins } = require('../../config.json');
+import { SlashCommandBuilder, SlashCommandStringOption } from '@discordjs/builders';
+import { CommandInteraction } from 'discord.js';
+import fs from 'fs';
+import { admins } from '../../config.json';
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('reload')
         .setDescription('Reloads a command.')
-        .addStringOption(option =>
+        .addStringOption((option: SlashCommandStringOption) =>
             option
                 .setName('command')
                 .setDescription('The command to reload.')
@@ -13,12 +14,12 @@ module.exports = {
         ),
     permissions: "BotAdmin",
     category: "Bot Admin Only",
-    async execute(interaction, client) {
+    async execute(interaction: CommandInteraction, client: any) {
         if (!admins.includes(interaction.user.id)) return;
         //variables
         const commandName = interaction.options.getString('command');
         const command = client.slashCommands.get(commandName)
-            || client.slashCommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+            || client.slashCommands.find((cmd: any) => cmd.aliases && cmd.aliases.includes(commandName));
         const commandFolders = fs.readdirSync('./slashCommands');
 
         //conditions
@@ -29,11 +30,11 @@ module.exports = {
 
         try {
             const newCommand = require(`../${folderName}/${command.data.name}.js`);
-            interaction.client.slashCommands.set(newCommand.name, newCommand);
+            client.slashCommands.set(newCommand.name, newCommand);
             interaction.reply(`Command \`${newCommand.data.name}\` was reloaded!`);
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error.interaction}\``);
+            interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error}\``);
         }
     },
 };

@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { CommandInteraction } from "discord.js";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -6,7 +7,7 @@ module.exports = {
         .setDescription("Get your daily reward!"),
     category: "Currency",
     isSubcommand: true,
-    async execute(interaction, client) {
+    async execute(interaction: CommandInteraction, client: any) {
         let amount = Math.floor(Math.random() * 50) + 10;
         let addMoney = await client.eco.daily({ user: interaction.user.id, amount });
         if (addMoney.error) return interaction.reply(`You have already claimed your daily credit. Come back in ${addMoney.time} to claim it again.`);

@@ -1,7 +1,7 @@
 {
     "name": "potato-bot",
-    "version": "1.3.0",
-    "description": "The official Discord Bot for FreeStuffBot.xyz",
+    "version": "idk",
+    "description": "Your local general purpose bot",
     "main": "build/index.js",
     "scripts": {
         "start": "tsc && node index.js",
@@ -20,7 +20,7 @@
         "@discordjs/voice": "^0.8.0",
         "@types/mongoose": "^5.11.97",
         "currency-system": "^2.6.53",
-        "discord-api-types": "^0.26.1",
+        "discord-api-types": "^0.33.0",
         "discord-backup": "^3.0.1",
         "discord-collector": "^1.11.15",
         "discord-giveaways": "^5.1.1",

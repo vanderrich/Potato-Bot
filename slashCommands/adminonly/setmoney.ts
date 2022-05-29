@@ -1,16 +1,17 @@
-const { admins } = require("../../config.json")
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { admins } from "../../config.json";
+import { SlashCommandBuilder, SlashCommandIntegerOption, SlashCommandUserOption } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("setmoney")
         .setDescription("Set the balance of a user.")
-        .addUserOption(option =>
+        .addUserOption((option: SlashCommandUserOption) =>
             option
                 .setName("target")
                 .setDescription("The user to set the balance of.")
                 .setRequired(true)
         )
-        .addIntegerOption(option =>
+        .addIntegerOption((option: SlashCommandIntegerOption) =>
             option
                 .setName("amount")
                 .setDescription("The amount of money to set.")
@@ -18,7 +19,7 @@ module.exports = {
         ),
     permissions: "BotAdmin",
     category: "Bot Admin Only",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
         let user = interaction.options.getUser("target");
         if (!user) return interaction.reply("Please specify a user!");
