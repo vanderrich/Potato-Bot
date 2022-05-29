@@ -53,7 +53,7 @@ module.exports = {
             let emoji = interaction.options.getString(`option${i}emoji`);
             let role = interaction.options.getRole(`option${i}role`);
             if (option && emoji && role) {
-                if (role.position > interaction.guild.me.roles.highest.position) {
+                if (role.position < interaction.guild.me.roles.highest.position) {
                     options.push(option);
                     reactionRoles.push(role);
                     reactions.push(emoji.trim());
