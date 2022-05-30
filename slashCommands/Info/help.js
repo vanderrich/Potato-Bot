@@ -83,7 +83,7 @@ module.exports = {
         const messageEmbed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTitle('Commands')
-            .setDescription(`Write ${prefix}help <category> to see the commands in the category`)
+            .setDescription(`Do /help but assign the parameters to get help for a specific command or category.\n\nFor example: \`/help category: currency\``)
             .addFields(...a)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
         interaction.reply({ embeds: [messageEmbed] })
