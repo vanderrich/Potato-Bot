@@ -1,5 +1,5 @@
 import { prefix, footers, admins } from './../config.json'
-import Discord from 'discord.js'
+import Discord, { IntegrationApplication } from 'discord.js'
 import fs from 'fs'
 import updateGrid from './../Util/tictactoe.js'
 import officegen from 'officegen'
@@ -131,13 +131,19 @@ module.exports = {
                             .setStyle('DANGER')
                             .setCustomId(`delete-ticket-${interaction.customId.split("-")[2]}`)
                     )
-
+                if (!interaction.member || !(interaction.member instanceof Discord.GuildMember)) return interaction.reply("You can't close tickets in DM channels!");
 
                 interaction.channel.send({ content: `Ticket closed by ${interaction.user}`, components: [controls] });
                 ticketInfo.updateOne({ $pull: { channelId: interaction.channel?.id } });
                 const closecategory = client.guilds.cache.get(ticketInfo.guildId).channels.cache.get(ticketInfo.closeCategoryId);
                 interaction.channel.setParent(closecategory);
-                interaction.channel.edit({ name: `closed-${ticketInfo.title}-ticket-${ticketInfo.id}` });
+                await interaction.channel.edit({ name: `closed-${ticketInfo.title}-ticket-${ticketInfo.id}` });
+                interaction.channel.permissionOverwrites.create(interaction.member.id, {
+                    VIEW_CHANNEL: true,
+                    SEND_MESSAGES: true,
+                    READ_MESSAGE_HISTORY: true,
+                    ADD_REACTIONS: true
+                });
                 interaction.reply({ content: "Closed Ticket Successfully", ephemeral: true });
                 return;
             }
@@ -220,7 +226,7 @@ module.exports = {
                     pObj.addText(`   ${msg.createdAt.toDateString()}   ${msg.createdAt.toLocaleTimeString()}`, { font_face: 'Arial', color: '3c5c63', bold: true, font_size: 14 }); //
                     //LINEBREAK
                     pObj.addLineBreak()
-                    //interaction of user     
+                    //interaction of user
                     let umsg;
 
                     if (msg.content.startsWith("```")) {
@@ -238,7 +244,7 @@ module.exports = {
                     pObj.addText(`______________________________________________________________________________________________________________________________________________________________________________________________________________`, { color: 'a6a6a6', font_size: 4 });
 
                 });
-                pObj.startBookmark('myBookmark');  //add a bookmark at tha last interaction to make the jump 
+                pObj.startBookmark('myBookmark');  //add a bookmark at tha last interaction to make the jump
                 pObj.endBookmark();
                 let out = fs.createWriteStream(path)  //write everything in the docx file
                 out.on('error', function (err) {
@@ -264,11 +270,26 @@ module.exports = {
             else if (interaction.customId.startsWith("open-ticket-")) {
                 const ticket = interaction.customId.split("-")[2];
                 const ticketInfo = await client.tickets.findOne({ title: ticket });
+                if (!interaction.member || !interaction.guild) return interaction.reply("you are not in a guild! (no idea how this happened)");
                 if (!ticketInfo) return interaction.reply("Ticket not found!");
                 if (interaction.channel?.type !== "GUILD_TEXT") return interaction.reply("This command can only be used in a server!");
                 const category = client.guilds.cache.get(interaction.guildId).channels.cache.get(ticketInfo.categoryId);
                 interaction.channel.setParent(category);
-                interaction.channel.edit({ name: `${ticketInfo.title}-ticket-${ticketInfo.id}` });
+                await interaction.channel.edit({ name: `${ticketInfo.title}-ticket-${ticketInfo.id}` });
+                interaction.channel.permissionOverwrites.set(
+                    [
+                        {
+                            id: interaction.member,
+                            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
+                        },
+                        {
+                            id: interaction.guild.id,
+                            deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
+                        },
+                        {
+                            id: client.user.id,
+                            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
+                        }])
                 interaction.reply({ content: "Opened Ticket Successfully", ephemeral: true });
                 interaction.channel.send({ content: `Ticket opened by ${interaction.user}` });
                 return;
