@@ -1,5 +1,5 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import Discord, { GuildMember } from "discord.js";
+import Discord from "discord.js";
 import { QueryType, Track } from "discord-player"
 import { APIMessage, APIInteractionGuildMember } from "discord-api-types"
 
@@ -49,7 +49,7 @@ module.exports = {
         if (!collector) return interaction.reply(`${interaction.user}, Timeout.`);
 
         collector.on('collect', async (query: any) => {
-            if (!interaction.guild || !interaction.member || !(interaction.member instanceof GuildMember)) {
+            if (!interaction.guild || !interaction.member || !(interaction.member instanceof Discord.GuildMember)) {
                 interaction.reply('This command can only be used in a guild.');
                 return;
             }
