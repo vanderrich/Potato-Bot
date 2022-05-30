@@ -1,5 +1,4 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { APIGuildMember } from "discord-api-types";
 import { QueryType } from "discord-player";
 import { CommandInteraction, GuildMember } from "discord.js";
 

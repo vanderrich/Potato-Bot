@@ -1,7 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import Discord from "discord.js";
 import { QueryType, Track } from "discord-player"
-import { APIMessage, APIInteractionGuildMember } from "discord-api-types"
+import { APIMessage, APIInteractionGuildMember } from "discord-api-types/v9"
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
