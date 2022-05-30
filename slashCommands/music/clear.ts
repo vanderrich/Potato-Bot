@@ -1,5 +1,5 @@
 import { CommandInteraction } from "discord.js";
-import { SlashCommandSubcommandBuilder } from "discordjs/builders";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
