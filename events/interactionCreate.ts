@@ -20,7 +20,7 @@ module.exports = {
 
             try {
                 client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${interaction.user.username} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}`)}\`` : ""}`); // log the command
-                await command.execute(interaction, client, Discord, footers);
+                await command.execute(interaction, client, footers);
             } catch (error) {
                 console.error(error);
                 fs.appendFile('log.txt', client.logs.join(''), (err) => {
@@ -48,7 +48,7 @@ module.exports = {
             }
 
             try {
-                button?.execute(interaction, client, Discord, footers);
+                button?.execute(interaction, client, footers);
             } catch (error) {
                 console.error(error);
                 try {

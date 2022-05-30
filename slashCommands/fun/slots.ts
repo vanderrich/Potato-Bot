@@ -7,7 +7,7 @@ module.exports = {
         .setName("slots")
         .setDescription("Spin the slots!"),
     category: "Fun",
-    execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
+    execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const footer = footers[Math.floor(Math.random() * footers.length)]
         let messages: MessageEmbed[] = [];
         let win = true;

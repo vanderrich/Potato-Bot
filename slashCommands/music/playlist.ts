@@ -107,7 +107,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
+    execute(interaction: CommandInteraction, client: any, footers: string[]) {
         let subcommand;
         switch (interaction.options.getSubcommand()) {
             case "add":
@@ -131,7 +131,7 @@ module.exports = {
                 break;
         }
         if (subcommand) {
-            require(`./playlist/${subcommand}`).execute(interaction, client, Discord, footers);
+            require(`./playlist/${subcommand}`).execute(interaction, client, footers);
         }
     }
 }

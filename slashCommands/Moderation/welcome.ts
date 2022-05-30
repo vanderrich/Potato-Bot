@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -21,10 +22,11 @@ module.exports = {
         ),
     category: "Moderation",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         const message = interaction.options.getString("message");
         const role = interaction.options.getRole("role");
         const channel = interaction.options.getChannel("channel");
+        if (!interaction.guild) return interaction.reply("You can't use this command in a DM!");
         const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild.id });
 
         if (!guildSettings) {

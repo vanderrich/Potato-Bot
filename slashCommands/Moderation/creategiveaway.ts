@@ -1,5 +1,7 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const ms = require("ms");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
+import ms from "ms";
+import { Giveaway } from "discord-giveaways"
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,7 +27,7 @@ module.exports = {
         ),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
-    execute(interaction, client, Discord, footers) {
+    execute(interaction: CommandInteraction, client: any) {
         let duration = interaction.options.getString("duration");
         let winners = interaction.options.getInteger("winners");
         let prize = interaction.options.getString("prize");
@@ -34,8 +36,8 @@ module.exports = {
             duration: ms(duration),
             winnerCount: winners,
             prize: prize,
-            hostedBy: interaction.member.user.tag
-        }).then((gData) => {
+            hostedBy: interaction.user.tag
+        }).then((gData: Giveaway) => {
             interaction.reply({ content: `Giveaway created!\n\n${gData.toString()}`, ephemeral: true });
         });
     }

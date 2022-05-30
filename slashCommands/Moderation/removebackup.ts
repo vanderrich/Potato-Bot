@@ -1,5 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const backup = require("discord-backup");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import backup from "discord-backup";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +12,10 @@ module.exports = {
             .setRequired(true)),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
-    async execute(interaction) {
+    async execute(interaction: CommandInteraction) {
         interaction.deferReply();
         const backupID = interaction.options.getString("id");
+        if (!backupID) return interaction.reply("Please provide a backup ID.");
         backup.remove(backupID)
             .then(() => { interaction.editReply("Backup removed!") })
             .catch(err => { interaction.editReply("Error removing backup: " + err) });

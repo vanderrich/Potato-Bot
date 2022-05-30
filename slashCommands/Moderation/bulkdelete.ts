@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const backup = require("discord-backup");
+import { CommandInteraction } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,10 +13,11 @@ module.exports = {
         ),
     permissions: "MANAGE_MESSAGES",
     category: "Moderation",
-    execute(interaction) {
+    execute(interaction: CommandInteraction) {
         let amount = interaction.options.getInteger("amount");
         if (!amount || isNaN(amount) || amount < 0) return interaction.reply("Please enter a valid amount to delete");
-        interaction.channel.bulkDelete(amount)
+        if (interaction.channel?.type === "DM") return interaction.reply("You can't use this command in a DM!");
+        interaction.channel?.bulkDelete(amount)
             .then(() => {
                 interaction.reply("Messages deleted!");
             })

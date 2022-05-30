@@ -1,6 +1,8 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders")
-const { badWordPresets } = require("../../config.json").settings
-
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders"
+import { CommandInteraction } from "discord.js";
+import { settings } from "../../config.json"
+const { badWordPresets } = settings;
+type badWordsTypeThingy = string & "low" | "medium" | "high";
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("badwords")
@@ -24,11 +26,13 @@ module.exports = {
         ),
     category: "Moderation",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         const preset = interaction.options.getString("preset");
         const custom = interaction.options.getString("custom");
 
-        if (preset === "custom") {
+        if (!interaction.guild) return interaction.reply("You can't use this command in a DM!");
+
+        if (preset === "custom" || !preset) {
             if (!custom) {
                 return interaction.reply("You must specify the custom bad words to use.");
             }
@@ -36,7 +40,7 @@ module.exports = {
             const badWords = custom.split(",");
 
             if (badWords.length === 0) {
-                return interaction.message.reply("You must specify at least one bad word.");
+                return interaction.reply("You must specify at least one bad word.");
             }
 
             if (await client.guildSettings.findOne({ guildID: interaction.guild.id })) {
@@ -57,13 +61,14 @@ module.exports = {
             return interaction.reply({ content: `Set the custom bad words to ${badWords.join(", ")}`, ephemeral: true });
         }
         else {
+            const badWordPresetTyped: badWordsTypeThingy = preset as badWordsTypeThingy;
             if (await client.guildSettings.findOne({ guildID: interaction.guild.id })) {
-                await client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWordPresets[preset] } });
+                await client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWordPresets[badWordPresetTyped] } });
             }
             else {
                 const newSettings = new client.guildSettings({
                     guildID: interaction.guild.id,
-                    badWords: badWordPresets[preset],
+                    badWords: badWordPresets[badWordPresetTyped],
                     welcomeMessage: "",
                     welcomeChannel: "",
                     welcomeRole: ""

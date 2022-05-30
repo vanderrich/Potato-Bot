@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const backup = require("discord-backup");
-
+import { SlashCommandBuilder } from "@discordjs/builders";
+import backup from "discord-backup";
+import { CommandInteraction, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,9 +8,9 @@ module.exports = {
         .setDescription("List all backups"),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const backups = await backup.list();
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle("Backups")
             .setDescription("Here are all the backups of this server")
             .setColor('RANDOM')
@@ -18,7 +18,7 @@ module.exports = {
                 name: `Backup ${backupID}`,
                 value: '<insert placeholder here>',
             })))
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         interaction.reply({ embeds: [embed] });
     }
 }

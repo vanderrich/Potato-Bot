@@ -22,7 +22,7 @@ module.exports = {
         ),
     category: "Currency",
     permissions: "ADMINISTRATOR",
-    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         const name = interaction.options.getString("name");
         const description = interaction.options.getString("description");
         const price = interaction.options.getNumber("price");

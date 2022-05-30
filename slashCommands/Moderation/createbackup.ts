@@ -1,5 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const backup = require("discord-backup");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import backup from "discord-backup";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,8 +8,9 @@ module.exports = {
         .setDescription("Create a backup of the server"),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
-    async execute(interaction) {
+    async execute(interaction: CommandInteraction) {
         interaction.deferReply();
+        if (!interaction.guild) return interaction.reply("You can't use this command in a DM!");
         backup.create(interaction.guild).then((backupData) => {
             interaction.editReply("Backup created! ID: " + backupData.id);
         }).catch(err => {

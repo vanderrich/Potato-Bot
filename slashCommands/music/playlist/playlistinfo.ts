@@ -1,6 +1,6 @@
 import { SlashCommandSubcommandBuilder, userMention, time } from "@discordjs/builders";
 import { QueryType } from 'discord-player';
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from "discord.js";
 import generatePages from '../../../Util/pagination.js';
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -48,13 +48,13 @@ module.exports = {
 
             if (tracks.length) {
                 const loopType = playlist.settings.loop === 0 ? "None" : playlist.settings.loop === 1 ? "Track" : playlist.settings.loop === 2 ? "Queue" : playlist.settings.loop === 3 ? "Autoplay" : "Impossible edge case, notify developer";
-                const embed = new Discord.MessageEmbed();
+                const embed = new MessageEmbed();
                 embed.setDescription(`${page === 1 ? `Shuffle: ${playlist.settings.shuffle ? "True" : "False"}, Volume: ${playlist.settings.volume}%, Loop: ${loopType}\n` : ""}
                 ${tracks.join('\n')}${playlist.tracks.length > pageEnd
                         ? `\n... ${playlist.tracks.length - pageEnd} more track(s)`
                         : ''
                     } `);
-                embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: user.avatarURL({ dynamic: true }) });
+                embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                 if (page % 2 === 0) embed.setColor('RANDOM');
                 else embed.setColor('RANDOM');
                 if (page === 1) embed.setTitle(`${playlist.name} `)
@@ -65,11 +65,11 @@ module.exports = {
             else {
                 emptypage = true;
                 if (page === 1) {
-                    const embed = new Discord.MessageEmbed();
+                    const embed = new MessageEmbed();
                     embed.setColor('RANDOM');
                     embed.setDescription(`No more tracks in the playlist.`);
-                    embed.setAuthor({ name: `${playlist.name} `, iconURL: null, url: `${playlist.url} ` });
-                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: user.avatarURL({ dynamic: true }) });
+                    embed.setAuthor({ name: `${playlist.name} `, url: `${playlist.url} ` });
+                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                     return interaction.editReply({ embeds: [embed] });
                 }
                 if (page === 2) {

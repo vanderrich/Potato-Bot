@@ -26,7 +26,7 @@ module.exports = {
             .setDescription("Get your yearly rewards!")
         ),
     category: "Currency",
-    execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
-        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+    execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+        require("./" + interaction.options.getSubcommand()).execute(interaction, client, footers);
     }
 }

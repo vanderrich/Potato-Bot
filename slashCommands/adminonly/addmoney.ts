@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, SlashCommandIntegerOption, SlashCommandStringOption, SlashCommandUserOption } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from "discord.js";
 import { admins } from "../../config.json";
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,7 +29,7 @@ module.exports = {
         ),
     permissions: "BotAdmin",
     category: "Bot Admin Only",
-    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
         let user = interaction.options.getUser("target");
         if (!user) return interaction.reply("Please specify a user!");
@@ -38,11 +38,11 @@ module.exports = {
         if (!place) return interaction.reply("Please specify a place!");
         let data = await client.eco.addMoney({ user: user.id, amount, wheretoPutMoney: place });
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(`Money Added!`)
             .setDescription(`User: <@${user.id}>\nBalance Given: ${amount}\nTotal Amount: ${data.rawData[place]}`)
             .setColor("RANDOM")
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         return interaction.reply({ embeds: [embed] })
     }
 }

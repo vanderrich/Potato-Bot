@@ -1,5 +1,5 @@
 import { SlashCommandBooleanOption, SlashCommandBuilder, SlashCommandIntegerOption, SlashCommandNumberOption } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +21,7 @@ module.exports = {
                 .setDescription("The amount to buy.")
         ),
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         let item = interaction.options.getNumber("item");
         let local = interaction.options.getBoolean("local");
         if (local && !interaction.guild) return interaction.reply("You can't buy local items in DMs!");
@@ -30,10 +30,10 @@ module.exports = {
             let items = await client.eco.getShopItems(local ? { guild: interaction.guild?.id } : { user: interaction.user.id });
             let inv = items.inventory;
 
-            let embed = new Discord.MessageEmbed()
+            let embed = new MessageEmbed()
                 .setTitle("Store")
                 .setColor("RANDOM")
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
             for (let key in inv) {
                 embed.addField(`${parseInt(key) + 1} - Price: $${inv[key].price} - **${inv[key].name}:**`, inv[key].description)

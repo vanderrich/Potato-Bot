@@ -1,7 +1,8 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new SlashCommandSubcommandBuilder()
         .setName("autopublish")
         .setDescription("Auto publish new posts")
         .addChannelOption(option => option
@@ -10,9 +11,10 @@ module.exports = {
             .setDescription("The channel to publish to")
         ),
     permissions: ["MANAGE_GUILD"],
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         const channel = interaction.options.getChannel("channel");
         const guild = interaction.guild;
+        if (!guild) return interaction.reply("You can't use this command in a DM!");
         const guildSettings = await client.guildSettings.findOne({ guildId: guild.id });
         if (channel?.type !== 'GUILD_NEWS') return interaction.reply("That channel is not a guild news channel");
         console.log(guildSettings);

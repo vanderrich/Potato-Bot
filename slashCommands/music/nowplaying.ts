@@ -1,5 +1,5 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -7,14 +7,14 @@ module.exports = {
         .setDescription("See the current track"),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
+    execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const queue = client.player.getQueue(interaction.guild?.id);
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
 
         const track = queue.current;
 
-        const embed = new Discord.MessageEmbed();
+        const embed = new MessageEmbed();
 
         embed.setColor('RANDOM');
         embed.setThumbnail(track.thumbnail);
@@ -28,15 +28,15 @@ module.exports = {
         embed.setDescription(`Audio **%${queue.volume}**\nDuration **${trackDuration}**\nLoop Mode **${methods[queue.repeatMode]}**\n${track.requestedBy}`);
 
         embed.setTimestamp();
-        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
+        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 
-        const saveButton = new Discord.MessageButton();
+        const saveButton = new MessageButton();
 
         saveButton.setLabel('Save track');
         saveButton.setCustomId('saveTrack');
         saveButton.setStyle('SUCCESS');
 
-        const row = new Discord.MessageActionRow().addComponents(saveButton);
+        const row = new MessageActionRow().addComponents(saveButton);
 
         interaction.reply({ embeds: [embed], components: [row] });
     }

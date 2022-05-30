@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders")
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,7 +45,7 @@ module.exports = {
             )),
     category: "Moderation",
     permissions: "MANAGE_GUILD",
-    execute(interaction, client, Discord, footers) {
-        require("./" + interaction.options.getSubcommand()).execute(interaction, client, Discord, footers);
+    execute(interaction: CommandInteraction, client: any, footers: string) {
+        require("./" + interaction.options.getSubcommand()).execute(interaction, client, footers);
     }
 }

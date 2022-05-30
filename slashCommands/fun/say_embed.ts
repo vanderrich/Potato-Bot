@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, Message } from "discord.js";
+import { CommandInteraction, Message, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ module.exports = {
                 .setDescription("The description of the embed"),
         ),
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         const title: string | null = interaction.options.getString("title");
         let description: string | null = interaction.options.getString("description");
         if (!description) {
@@ -29,11 +29,13 @@ module.exports = {
             descriptionThingy?.first()?.delete();
         }
 
-        const embed = new Discord.MessageEmbed()
+        if (!title) return interaction.reply("Please specify a title!");
+
+        const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setTitle(title)
             .setDescription(description)
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         interaction.reply({ embeds: [embed] })
     }
 }

@@ -1,5 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const backup = require("discord-backup");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import backup from "discord-backup";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +12,13 @@ module.exports = {
             .setRequired(true)),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
-    async execute(interaction) {
-        interaction.deferReply();
+    async execute(interaction: CommandInteraction) {
+        if (!interaction.guild) return interaction.reply("This command can only be used in a guild.");
+        await interaction.deferReply();
         const backupID = interaction.options.getString("id");
+        if (!backupID) {
+            return interaction.reply("Please provide a backup ID.");
+        }
         backup.load(backupID, interaction.guild).then(() => {
             backup.remove(backupID);
             interaction.editReply("Backup loaded!");

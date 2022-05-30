@@ -253,13 +253,13 @@ module.exports = {
                 )
             )
         ),
-    execute(interaction: CommandInteraction, client: any, Discord: any, footers: string[]) {
+    execute(interaction: CommandInteraction, client: any, footers: string[]) {
         let subcommand;
         try {
             subcommand = interaction.options.getSubcommandGroup();
         } catch (e) {
             subcommand = interaction.options.getSubcommand();
         }
-        require("./" + subcommand).execute(interaction, client, Discord, footers);
+        require("./" + subcommand).execute(interaction, client, footers);
     }
 }

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,7 +26,7 @@ module.exports = {
             .setDescription("Assign each number to something, syntax: <number>=<text>, separate with commas.")
         ),
     category: "Fun",
-    execute: (interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) => {
+    execute: (interaction: CommandInteraction, client: any, footers: Array<string>) => {
         const number = interaction.options.getNumber("number") || 1;
         const sides = interaction.options.getNumber("sides") || 6;
         const modifier = interaction.options.getNumber("modifier") || 0;
@@ -40,12 +40,12 @@ module.exports = {
             rolls.push(Math.floor(Math.random() * sides) + 1);
         }
         const total = rolls.reduce((a, b) => a + b, 0) + modifier;
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(`${number}d${sides}${modifier ? `+${modifier}` : ""}`)
             .setDescription(`**${interaction.options.getString("note") || "Result"}**: ${rolls.join(", ")} = **${total}**${assign?.has(total) ? `\n**${assign.get(total)}**` : ""
                 }`)
             .setColor('RANDOM')
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], icon_url: interaction.user.avatarURL({ dynamic: true }) });
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         return interaction.reply({ embeds: [embed] });
     }
 }
