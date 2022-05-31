@@ -172,7 +172,7 @@ module.exports = {
                 const ticketInfo = await client.tickets.findOne({ title: ticket });
                 if (!ticketInfo) return interaction.reply("Ticket not found!");
                 if (interaction.channel?.type !== "GUILD_TEXT") return interaction.reply("You can't transcribe tickets in DM channels!");
-                interaction.deferReply({ ephemeral: true });
+                interaction.deferReply();
                 let docx = officegen({
                     type: 'docx',
                     author: client.user.username,
@@ -180,24 +180,23 @@ module.exports = {
                     description: `Transcript for the Channel #${interaction.channel.name} with the ID: ${interaction.channel.id}`,
                     pageMargins: { top: 1000, right: 1000, bottom: 1000, left: 1000 },
                     title: `Transcript!`
-
-                })
+                });
                 docx.on('error', function (err: any) {
                     return console.log(err)
-                })
-                const path = `./assets/transcripts/${interaction.channel.name}-${interaction.channel.id}.docx`
-                const filename = `${interaction.channel.name}-${interaction.channel.id}.docx`
-                let pObj = docx.createP() //Make a new paragraph
+                });
+                const path = `./assets/transcripts/${interaction.channel.name}-${interaction.channel.id}.docx`;
+                const filename = `${interaction.channel.name}-${interaction.channel.id}.docx`;
+                let pObj = docx.createP(); //Make a new paragraph
                 pObj.options.align = 'left';  //align it to the left page
                 pObj.options.indentLeft = -350;   //overdrive it 350px to the left
                 pObj.options.indentFirstLine = -250;  //go 250 px to the - left so right of the overdrive
                 pObj.addText('Transcript for:    #' + interaction.channel.name, { font_face: 'Arial', color: '3c5c63', bold: true, font_size: 22 }); //add the TEXT CHANNEL NAME
-                pObj.addLineBreak() //make a new LINE
+                pObj.addLineBreak(); //make a new LINE
                 pObj.addText("ChannelID: " + interaction.channel.id, { font_face: 'Arial', color: '000000', bold: false, font_size: 10 }); //Channel id
-                pObj.addLineBreak() //Make a new LINE
+                pObj.addLineBreak(); //Make a new LINE
                 pObj.addText(`Oldest message at the BOTTOM `, { hyperlink: 'myBookmark', font_face: 'Arial', color: '5dbcd2', italic: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
                 pObj.addText(`  [CLICK HERE TO JUMP]`, { hyperlink: 'myBookmark', font_face: 'Arial', color: '1979a9', italic: false, bold: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
-                pObj.addLineBreak()
+                pObj.addLineBreak();
                 let messageCollection: any = new Discord.Collection<string, Discord.Message>(); //make a new collection
                 let channelMessages = await interaction.channel.messages.fetch({//fetch the last 100 messages
                     limit: 100
