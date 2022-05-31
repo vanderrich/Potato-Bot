@@ -1,5 +1,12 @@
-const { SlashCommandSubcommandBuilder, time, userMention } = require("@discordjs/builders");
-const generatePages = require('../../Util/pagination.js');
+import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/builders";
+import { CommandInteraction, MessageEmbed } from "discord.js";
+import generatePages from '../../Util/pagination.js';
+
+type birthday = {
+    userId: string,
+    guildId: string,
+    birthday: Date,
+}
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -7,25 +14,25 @@ module.exports = {
         .setDescription("List of all birthdays."),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const birthdays = await client.birthdays.find({});
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor('RANDOM')
-            .setAuthor({ name: `Birthdays for ${interaction.guild ? interaction.guild.name : "all servers"}`, iconURL: interaction.guild ? interaction.guild.iconURL() : undefined })
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+            .setAuthor({ name: `Birthdays for ${interaction.guild ? interaction.guild.name : "all servers"}` })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             .setTimestamp();
 
         if (birthdays.length == 0) {
             embed.setDescription("No birthdays set!");
             return interaction.reply({ embeds: [embed] });
         } else {
-            const pages = [];
+            const pages: any[] = [];
             let page = 1, emptypage = false;
             do {
                 const pageStart = 10 * (page - 1);
                 const pageEnd = pageStart + 10;
-                birthdays.filter((bday) => client.guilds.cache.get(bday.guildId).members.cache.get(bday.userId))
-                const items = birthdays.slice(pageStart, pageEnd).map((m, i) => {
+                birthdays.filter((bday: birthday) => client.guilds.cache.get(bday.guildId).members.cache.get(bday.userId))
+                const items = birthdays.slice(pageStart, pageEnd).map((m: birthday, i: number) => {
                     return `**${i + pageStart + 1}**. ${userMention(m.userId)} - ${time(m.birthday, 'd')}`;
                 });
                 if (items.length) {
@@ -39,7 +46,7 @@ module.exports = {
                     emptypage = true;
                     if (page === 1) {
                         embed.setDescription("No birthdays set!");
-                        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) });
+                        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                         console.log(embed)
                         return interaction.reply({ embeds: [embed] });
                     }

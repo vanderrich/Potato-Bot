@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
         ),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any) {
         await interaction.deferReply();
         const birthdate = interaction.options.getString("birthdate");
         const user = interaction.user;
@@ -40,8 +41,8 @@ module.exports = {
                 .then(() => {
                     return interaction.editReply("Your birthday has been updated!")
                 })
-                .catch((err) => {
-                    interaction.editReply("Something went wrong!"); return console.log(err)
+                .catch((err: any) => {
+                    interaction.editReply("Something went wrong! Error: " + err); return console.log(err)
                 });
         }
         else {
@@ -54,9 +55,9 @@ module.exports = {
                 interaction.editReply("Birthday set!");
                 console.log(`[INFO] ${user.tag} set their birthday to ${birthdate}`);
             })
-                .catch(err => {
+                .catch((err: any) => {
                     console.error(err);
-                    interaction.editReply("Something went wrong!");
+                    interaction.editReply("Something went wrong! Error: " + err);
                 });
         }
     }

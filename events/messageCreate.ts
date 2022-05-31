@@ -29,14 +29,6 @@ module.exports = {
             }
         }
 
-        //check if message has an unicode character
-        if (message.content.match(/[^\x00-\x7F]/g) && !message.content.match(/<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu)) {
-            const m = await message.reply('Message contains an unicode character')
-            message.delete()
-            setTimeout(function () { m.delete() }, 5000)
-            return
-        }
-
         //check if message is in the autoPublishChannels array
         if (guildSettings.autoPublishChannels.length > 0) {
             console.log(guildSettings.autoPublishChannels)

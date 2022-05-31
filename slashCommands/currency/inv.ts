@@ -1,6 +1,6 @@
 import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandUserOption } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
-import { CommandInteraction, ContextMenuInteraction, GuildMember } from "discord.js";
+import { CommandInteraction, ContextMenuInteraction, GuildMember, MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination.js';
 
 module.exports = {
@@ -17,15 +17,13 @@ module.exports = {
         .setName("inv")
         .setType(ApplicationCommandType.User),
     category: "Currency",
-    async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any, Discord: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any, footers: Array<string>) {
         const user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
 
-        const embed = new Discord.MessageEmbed()
-            .setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.member instanceof GuildMember ? interaction.member.avatarURL({ dynamic: true }) : interaction.user.avatarURL({ dynamic: true }) })
+        const embed = new MessageEmbed()
+            .setAuthor({ name: `Inventory of ${interaction.user.tag}` })
             .setColor("RANDOM")
-            .setThumbnail()
-            .setTimestamp()
-            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         const invPure = await client.eco.getUserItems({ user });
         if (!invPure) {
             embed.setDescription(`No items in the inventory.`);
@@ -46,13 +44,13 @@ module.exports = {
                     return `** ${i + pageStart + 1}**. ${m.name} - ${m.amount} ${m.amount > 1 ? 'items' : 'item'}`;
                 });
                 if (items.length) {
-                    const embed = new Discord.MessageEmbed();
-                    embed.setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.member instanceof GuildMember ? interaction.member.avatarURL({ dynamic: true }) : interaction.user.avatarURL({ dynamic: true }) })
+                    const embed = new MessageEmbed();
+                    embed.setAuthor({ name: `Inventory of ${interaction.user.tag}` })
                     embed.setDescription(`${items.join('\n')}${inv.length > pageEnd
                         ? `\n... ${inv.length - pageEnd} more item(s)`
                         : ''
                         } `);
-                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+                    embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
                     if (page % 2 === 0) embed.setColor('RANDOM');
                     else embed.setColor('RANDOM');
                     pages.push(embed);
@@ -61,11 +59,11 @@ module.exports = {
                 else {
                     emptypage = true;
                     if (page === 1) {
-                        const embed = new Discord.MessageEmbed();
-                        embed.setAuthor({ name: `Inventory of ${interaction.user.tag}`, iconURL: interaction.member instanceof GuildMember ? interaction.member.avatarURL({ dynamic: true }) : interaction.user.avatarURL({ dynamic: true }) })
-                        embed.setColor('RANDOM');
-                        embed.setDescription(`No more items in the inventory.`);
-                        embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+                        const embed = new MessageEmbed()
+                            .setAuthor({ name: `Inventory of ${interaction.user.tag}` })
+                            .setColor('RANDOM')
+                            .setDescription(`No more items in the inventory.`)
+                            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                         return interaction.reply({ embeds: [embed] });
                     }
                     if (page === 2) {

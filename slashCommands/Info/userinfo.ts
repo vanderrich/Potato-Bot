@@ -1,6 +1,6 @@
-const { SlashCommandBuilder, ContextMenuCommandBuilder } = require('@discordjs/builders');
-const { ApplicationCommandType } = require('discord-api-types/v9');
-const { MessageEmbed } = require('discord.js');
+import { SlashCommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
+import { ApplicationCommandType } from 'discord-api-types/v9';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,17 +16,18 @@ module.exports = {
         .setName('userinfo')
         .setType(ApplicationCommandType.User),
     category: 'Info',
-    async execute(interaction, client, footers) {
-        const userMention = interaction.options.getUser('target') || client.users.cache.get(interaction.targetId);
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+        const userMention = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
 
-        let userinfo = {};
-        userinfo.bot = userMention.bot;
-        userinfo.createdate = userMention.createdAt;
-        userinfo.discrim = userMention.discriminator;
-        userinfo.id = userMention.id;
-        userinfo.tag = userMention.tag;
-        userinfo.uname = userMention.username;
-        userinfo.avatar = userMention.avatarURL();
+        let userinfo = {
+            bot: userMention.bot,
+            createdate: userMention.createdAt,
+            discrim: userMention.discriminator,
+            id: userMention.id,
+            tag: userMention.tag,
+            uname: userMention.username,
+            avatar: userMention.avatarURL(),
+        };
 
         var myInfo = new MessageEmbed()
             .setAuthor({ name: userinfo.uname, iconURL: userinfo.avatar })

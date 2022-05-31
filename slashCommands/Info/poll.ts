@@ -1,5 +1,6 @@
-const Builders = require("@discordjs/builders");
-const ms = require("ms");
+import Builders from "@discordjs/builders";
+import { CommandInteraction, Message, MessageEmbed } from "discord.js";
+import ms from "ms";
 
 module.exports = {
     data: new Builders.SlashCommandBuilder()
@@ -36,13 +37,13 @@ module.exports = {
         .addStringOption(option => option.setName("option7").setDescription("The seventh option of the poll"))
         .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")),
     category: "Fun",
-    async execute(interaction, client, Discord, footers) {
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");
         var options = [];
         var time = new Date(Date.now() + ms(interaction.options.getString("duration")));
         var ping = interaction.options.getBoolean("ping") || false;
-        if (!time) return interaction.message.reply("Invalid duration!");
+        if (!time) return interaction.reply("Invalid duration!");
         for (var i = 1; i <= 25; i++) {
             if (interaction.options.getString("option" + i) != null) {
                 options.push(interaction.options.getString("option" + i));
@@ -50,26 +51,28 @@ module.exports = {
         }
 
         if (options.length < 1) {
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
                 .setDescription(`This poll will end ${Builders.time(time, 'R')}`)
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             if (description != null) embed.setDescription(description)
 
             interaction.reply({ content: ping ? '@everyone' : 'New poll', embeds: [embed], fetchReply: true }).then(msg => {
-                msg.react('👍');
-                msg.react('👎');
+                if (msg instanceof Message) {
+                    msg.react('👍');
+                    msg.react('👎');
+                }
             });
         }
 
         else {
-            const embed = new Discord.MessageEmbed();
+            const embed = new MessageEmbed();
 
             const alphabet = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱',
                 '🇲', '🇳', '🇴', '🇵', '🇶', '🇷', '🇸', '🇹', '🇺', '🇻', '🇼', '🇽', '🇾', '🇿'];
 
-            const arr = [];
+            const arr: string[] = [];
 
             let count = 0;
 
@@ -81,15 +84,17 @@ module.exports = {
             embed
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: interaction.user.avatarURL({ dynamic: true }) })
+                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\nThis poll will end ${Builders.time(time, 'R')}`);
             else embed.setDescription(arr.join('\n\n')) + `\n\nThis poll will end ${Builders.time(time, 'R')}`;
 
             interaction.reply({ content: ping ? '@everyone' : 'New poll', embeds: [embed], fetchReply: true }).then(msg => {
-                for (let i = 0; i < options.length; i++) {
-                    msg.react(alphabet[i]);
+                if (msg instanceof Message) {
+                    for (let i = 0; i < options.length; i++) {
+                        msg.react(alphabet[i]);
+                    }
                 }
             })
         }
     }
-} 
+}

@@ -21,7 +21,7 @@ module.exports = {
         const title: string | null = interaction.options.getString("title");
         let description: string | null = interaction.options.getString("description");
         if (!description) {
-            await interaction.deferReply({ ephemeral: true })
+            await interaction.deferReply();
             const message = await interaction.channel?.send("Enter a description, wait for 30 seconds to leave it empty.");
             const descriptionThingy = await interaction.channel?.awaitMessages({ filter: (m: Message) => m.author.id === interaction.user.id, max: 1, time: 30000 });
             description = descriptionThingy?.first()?.content || "";
@@ -36,6 +36,6 @@ module.exports = {
             .setTitle(title)
             .setDescription(description)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
-        interaction.reply({ embeds: [embed] })
+        interaction.editReply({ embeds: [embed] })
     }
 }

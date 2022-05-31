@@ -1,4 +1,5 @@
-const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, GuildChannel } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -18,32 +19,32 @@ module.exports = {
         ),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction, client, Discord, footers) {
-        const user = interaction.user;
-        const guild = interaction.guild;
+    async execute(interaction: CommandInteraction, client: any) {
+        if (!interaction.guild) return interaction.editReply("This command can only be used in a guild!");
 
         const birthdayRole = interaction.options.getRole("birthdayrole");
         const birthdayChannel = interaction.options.getChannel("birthdaychannel");
         const birthdayMessage = interaction.options.getString("birthdaymessage");
 
-        if (!birthdayChannel?.isText() && birthdayChannel != null) return inteaction.reply("That channel is not a text channel!");
+        if (birthdayChannel instanceof GuildChannel && birthdayChannel)
+            if (!birthdayChannel.isText() && birthdayChannel != null) return interaction.reply("That channel is not a text channel!");
 
-        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: guild.id });
+        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild.id });
 
         if (birthdayConfig) {
-            client.birthdayConfigs.updateOne({ guildId: guild.id }, { $set: { birthdayChannel: birthdayChannel, birthdayRole: birthdayRole, birthdayMessage: birthdayMessage } });
+            client.birthdayConfigs.updateOne({ guildId: interaction.guild.id }, { $set: { birthdayChannel: birthdayChannel, birthdayRole: birthdayRole, birthdayMessage: birthdayMessage } });
         } else {
             new client.birthdayConfigs(
                 {
-                    guildId: guild.id,
-                    channelId: birthdayChannel.id,
-                    roleId: birthdayRole.id,
+                    guildId: interaction.guild.id,
+                    channelId: birthdayChannel?.id,
+                    roleId: birthdayRole?.id,
                     message: birthdayMessage
                 }
             ).save();
         }
 
         interaction.reply("Your birthday data has been set!");
-        console.log(`[INFO] ${user.tag} set their birthday data`);
+        console.log(`[INFO] ${interaction.user.tag} set their birthday data`);
     }
 }

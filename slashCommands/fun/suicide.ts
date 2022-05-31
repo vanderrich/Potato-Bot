@@ -4,9 +4,9 @@ import { CommandInteraction } from "discord.js";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("suicide")
-        .setDescription("suicide"),
+        .setDescription("suicide, why is this in the fun category"),
     category: "Fun",
     execute(interaction: CommandInteraction) {
-        interaction.reply("please go to http://www.suicide.org/ :)");
+        interaction.reply("please go to [suicide.org](http://www.suicide.org/) :)");
     }
 }
