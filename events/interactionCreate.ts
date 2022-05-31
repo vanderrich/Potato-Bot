@@ -1,7 +1,7 @@
 import { prefix, footers, admins } from './../config.json'
 import Discord, { IntegrationApplication } from 'discord.js'
 import fs from 'fs'
-import updateGrid from './../Util/tictactoe.js'
+import updateGrid from '../../Util/tictactoe.js'
 import officegen from 'officegen'
 const msglimit = 100
 const queue = new Map()

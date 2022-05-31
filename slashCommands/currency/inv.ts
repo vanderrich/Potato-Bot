@@ -1,7 +1,7 @@
 import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandUserOption } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
 import { CommandInteraction, ContextMenuInteraction, GuildMember, MessageEmbed } from "discord.js";
-import generatePages from '../../Util/pagination.js';
+import generatePages from '../../Util/pagination';
 
 module.exports = {
     data: new SlashCommandBuilder()

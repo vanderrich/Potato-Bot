@@ -1,6 +1,6 @@
-const { MessageActionRow, MessageButton, CommandInteraction } = require('discord.js');
+import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction } from 'discord.js';
 
-module.exports = async (source, pages, options) => {
+export default async (source: CommandInteraction | MessageComponentInteraction | ContextMenuInteraction, pages: any[], options: any) => {
 
     const buttons = [
         new MessageButton()
@@ -30,13 +30,13 @@ module.exports = async (source, pages, options) => {
         components: [row]
     }
 
-    const message = options.fromButton ? await source.channel.send(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
+    const message = options.fromButton ? await source.channel?.send(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
     const pagedMessage = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
-
-    const filter = (button) => button.customId === 'first' || 'previous' || 'next' || 'last';
+    if (!(pagedMessage instanceof Message)) return console.log("how did this happen")
+    const filter = (button: any) => button.customId === 'first' || button.customId === 'previous' || button.customId === 'next' || button.customId === 'last';
     const collector = await pagedMessage.createMessageComponentCollector({ filter, time: options.timeout });
 
-    collector.on("collect", async (button) => {
+    collector.on("collect", async (button: MessageButton) => {
         switch (button.customId) {
             case 'first':
                 currentPage = 0;
@@ -67,16 +67,16 @@ module.exports = async (source, pages, options) => {
             components: [row]
         });
         collector.resetTimer();
-        await button.deferUpdate();
+        // await button.deferUpdate();
     });
 
-    collector.on("end", (_, reason) => {
+    collector.on("end", (_, reason: string) => {
         if (reason !== "messageDelete" && pagedMessage.editable) {
             row.setComponents(buttons[0].setDisabled(true), buttons[1].setDisabled(true), buttons[2].setDisabled(true), buttons[3].setDisabled(true));
             pagedMessage.edit({
                 embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
                 components: [row]
-            }).catch(error => { });
+            }).catch((error: any) => { });
         }
     });
     return pagedMessage;
