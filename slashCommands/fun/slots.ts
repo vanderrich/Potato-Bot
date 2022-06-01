@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { APIMessage } from "discord-api-types/v9";
-import { CommandInteraction, Message, MessageEmbed } from "discord.js";
+import { CommandInteraction, GuildEmoji, Message, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,10 +12,10 @@ module.exports = {
         let messages: MessageEmbed[] = [];
         let win = true;
         //initializes the emojis and the embed
-        const diamond = client.emojis.cache.get("894921495665573898")
-        const emerald = client.emojis.cache.get("894921477080625223")
-        const potat = client.emojis.cache.get("957927957035356180")
-        const embed: MessageEmbed = new MessageEmbed()
+        const diamond = client.emojis.cache.get("981348563852329050")
+        const emerald = client.emojis.cache.get("981348806450896936")
+        const potat = client.emojis.cache.get("981348806450896936")
+        const embed = new MessageEmbed()
             .setTitle('Slots')
             .setDescription('⬛⬛⬛')
             .setFooter({ text: footer })
@@ -25,7 +25,7 @@ module.exports = {
             if (msg instanceof Message) {
                 var frameCount = Math.floor(Math.random() * 5) + 5
                 for (let i = 0; i < frameCount; i++) {
-                    let slotdisplay = []
+                    let slotdisplay: GuildEmoji[] = []
                     for (let x = 0; x < 3; x++) {
                         switch (Math.floor(Math.random() * 3)) {
                             case 1:
@@ -58,7 +58,7 @@ module.exports = {
                 if (win) {
                     setTimeout(async function () {
                         interaction.channel?.send(`${interaction.user} won 50 💸!`);
-                        await client.eco.addMoney(interaction.user.id, false, 50)
+                        await client.eco.addMoney({ user: interaction.user.id, amount: 50, whereToPutMoney: "wallet" })
                     }, messages.length * 1000)
                 } else {
                     setTimeout(async function () {

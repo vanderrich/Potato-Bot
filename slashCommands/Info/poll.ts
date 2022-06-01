@@ -1,9 +1,9 @@
-import Builders from "@discordjs/builders";
-import { CommandInteraction, Message, MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { CommandInteraction, Message, MessageEmbed, Formatters } from "discord.js";
 import ms from "ms";
 
 module.exports = {
-    data: new Builders.SlashCommandBuilder()
+    data: new SlashCommandBuilder()
         .setName("poll")
         .setDescription("Make the bot send a poll")
         .addStringOption(option =>
@@ -54,7 +54,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
-                .setDescription(`This poll will end ${Builders.time(time, 'R')}`)
+                .setDescription(`This poll will end ${Formatters.time(time, 'R')}`)
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             if (description != null) embed.setDescription(description)
 
@@ -85,8 +85,8 @@ module.exports = {
                 .setTitle('📊 ' + title)
                 .setColor('RANDOM')
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-            if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\nThis poll will end ${Builders.time(time, 'R')}`);
-            else embed.setDescription(arr.join('\n\n')) + `\n\nThis poll will end ${Builders.time(time, 'R')}`;
+            if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\nThis poll will end ${Formatters.time(time, 'R')}`);
+            else embed.setDescription(arr.join('\n\n')) + `\n\nThis poll will end ${Formatters.time(time, 'R')}`;
 
             interaction.reply({ content: ping ? '@everyone' : 'New poll', embeds: [embed], fetchReply: true }).then(msg => {
                 if (msg instanceof Message) {

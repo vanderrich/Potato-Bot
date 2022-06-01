@@ -1,6 +1,6 @@
-import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction } from 'discord.js';
+import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction, Interaction, ButtonInteraction } from 'discord.js';
 
-export default async (source: CommandInteraction | MessageComponentInteraction | ContextMenuInteraction, pages: any[], options: any) => {
+export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], options: any) => {
 
     const buttons = [
         new MessageButton()
@@ -27,16 +27,17 @@ export default async (source: CommandInteraction | MessageComponentInteraction |
     let currentPage = 0;
     let content = {
         embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
-        components: [row]
+        components: [row],
+        fetchReply: true
     }
 
-    const message = options.fromButton ? await source.channel?.send(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
+    const message = source instanceof ButtonInteraction ? await source.update(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
     const pagedMessage = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
     if (!(pagedMessage instanceof Message)) return console.log("how did this happen")
     const filter = (button: any) => button.customId === 'first' || button.customId === 'previous' || button.customId === 'next' || button.customId === 'last';
     const collector = await pagedMessage.createMessageComponentCollector({ filter, time: options.timeout });
 
-    collector.on("collect", async (button: MessageButton) => {
+    collector.on("collect", async (button: ButtonInteraction) => {
         switch (button.customId) {
             case 'first':
                 currentPage = 0;
@@ -67,7 +68,7 @@ export default async (source: CommandInteraction | MessageComponentInteraction |
             components: [row]
         });
         collector.resetTimer();
-        // await button.deferUpdate();
+        await button.deferUpdate();
     });
 
     collector.on("end", (_, reason: string) => {

@@ -19,7 +19,7 @@ module.exports = {
     leaderboard.slice(0, 10).map((user: any) => {
       if (!client.users.cache.get(user.userID)) return;
       pos++
-      embed.addField(`${pos} - **${client.users.cache.get(user.userID).username}**`, `Wallet: **${user.wallet}** - Bank: **${user.bank}**`, true);
+      embed.addField(`${pos} - **${client.users.cache.get(user.userID).username}**`, `Wallet: **${user.wallet}** - Bank: **${user.bank}**`);
     });
 
     return interaction.reply({ embeds: [embed] })
