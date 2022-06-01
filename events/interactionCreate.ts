@@ -1,5 +1,5 @@
 import { prefix, footers, admins } from './../config.json'
-import Discord, { IntegrationApplication } from 'discord.js'
+import Discord from 'discord.js'
 import fs from 'fs'
 import updateGrid from '../Util/tictactoe'
 import officegen from 'officegen'
@@ -35,7 +35,6 @@ module.exports = {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
                 catch (err) {
-                    console.error(err);
                     await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue" });
                 }
             }

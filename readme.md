@@ -1,6 +1,6 @@
 # Potato-Bot
 
-Your local general purpose potato
+Your local general purpose bot
 
 Features:
 - Economy
