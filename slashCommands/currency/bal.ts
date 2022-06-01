@@ -17,7 +17,6 @@ module.exports = {
         .setType(ApplicationCommandType.User),
     category: "Currency",
     async execute(interaction: ContextMenuInteraction | CommandInteraction, client: any, footers: Array<string>) {
-        await interaction.deferReply();
         let user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
         let userInfo = await client.eco.balance({ user: user.id });
         const embed = new MessageEmbed()
@@ -29,6 +28,6 @@ module.exports = {
             .setThumbnail(user.displayAvatarURL)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             .setTimestamp()
-        return interaction.editReply({ embeds: [embed] })
+        return interaction.reply({ embeds: [embed] })
     }
 }
