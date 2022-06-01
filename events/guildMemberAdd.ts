@@ -4,7 +4,6 @@ module.exports = {
     name: 'guildMemberAdd',
     async execute(newMember: Discord.GuildMember, client: any) {
         const guildSettings = await client.guildSettings.findOne({ guildId: newMember.guild.id })
-        console.log(guildSettings)
         const welcomeChannel = newMember.guild.channels.cache.get(guildSettings?.welcomeChannel) || newMember.guild.channels.cache.find(channel => channel.name.includes('welcome')) || newMember.guild.channels.cache.find(channel => channel.name.includes('general'))
         if (newMember.user.bot || !welcomeChannel) return;
 

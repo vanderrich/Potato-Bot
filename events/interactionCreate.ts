@@ -1,5 +1,5 @@
 import { prefix, footers, admins } from './../config.json'
-import Discord from 'discord.js'
+import Discord, { DiscordAPIError } from 'discord.js'
 import fs from 'fs'
 import updateGrid from '../Util/tictactoe'
 import officegen from 'officegen'
@@ -21,16 +21,10 @@ module.exports = {
             try {
                 client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${interaction.user.username} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}`)}\`` : ""}`); // log the command
                 await command.execute(interaction, client, footers);
-            } catch (error) {
+            } catch (error: DiscordAPIError | any | Error) {
                 console.error(error);
-                fs.appendFile('log.txt', client.logs.join(''), (err) => {
-                    if (err) throw err;
-                });
-                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\n\nLogs:`, files: [{ attachment: 'log.txt', name: 'log.txt' }] }); // log the error to the bot owner
-                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\n\nLogs:`, files: [{ attachment: 'log.txt', name: 'log.txt' }] }); // log the error to the bot logs channel
-                fs.unlink('log.txt', (err) => {
-                    if (err) throw err;
-                });
+                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData.json}` }); // log the error to the bot owner
+                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData.json}` }); // log the error to the bot logs channel
                 try {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
@@ -40,22 +34,27 @@ module.exports = {
             }
         }
         else if (interaction.isButton()) {
+            client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${interaction.user.username} clicked on a button with the custom id of ${interaction.customId} on the message with the content ${interaction.message.content}`); // log the command
+
             const button = client.buttons.get(interaction.customId);
 
-            if (button?.permissions) {
-                if ((button.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(button.permissions)) return interaction.reply("You don't have permission to use this command!");
-            }
+            if (button) {
+                if (button?.permissions) {
+                    if ((button.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(button.permissions)) return interaction.reply("You don't have permission to use this command!");
+                }
 
-            try {
-                button?.execute(interaction, client, footers);
-            } catch (error) {
-                console.error(error);
                 try {
-                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                    button?.execute(interaction, client, footers);
+                } catch (error) {
+                    console.error(error);
+                    try {
+                        await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
+                    }
+                    catch (err) {
+                        await interaction.editReply({ content: 'There was an error while executing this command!\n' + error });
+                    }
                 }
-                catch (err) {
-                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error });
-                }
+                return
             }
 
             const queue = client.player.getQueue(interaction.guildId);
