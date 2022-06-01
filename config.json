@@ -177,5 +177,14 @@
             ]
         }
     },
-    "subscriptionCheckTime": 30000
+    "subscriptionCheckTime": 30000,
+    "tags": [
+        {
+            "name": "Dont Ask To Ask",
+            "value": "data"
+        }
+    ],
+    "tagDescriptions": {
+        "data": "https://dontasktoask.com/"
+    }
 }

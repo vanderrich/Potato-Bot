@@ -2,7 +2,7 @@
 const { Player } = require('discord-player');
 const fs = require('fs')
 const Discord = require('discord.js');
-const { shop, settings } = require('./config.json');
+const { shop, settings, tags, tagDescriptions } = require('./config.json');
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const Economy = require('currency-system');
@@ -25,6 +25,16 @@ mongoose.connect(process.env.MONGO_URI, {
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', () => {
 	console.log('Connected to MongoDB.');
+	const eco = new Economy;
+	Economy.cs.on('debug', (debug, error) => {
+		console.log(debug);
+		if (error) console.error(error);
+	});
+	eco.setMongoURL(process.env.MONGO_URI);
+	eco.setDefaultBankAmount(100);
+	eco.setMaxBankAmount(0);
+	eco.setItems({ shop });
+	client.eco = eco;
 });
 
 const giveawaySchema = new mongoose.Schema({
@@ -82,16 +92,6 @@ const giveawaySchema = new mongoose.Schema({
 	}
 }, { id: false });
 
-const eco = new Economy;
-Economy.cs.on('debug', (debug, error) => {
-	console.log(debug);
-	if (error) console.error(error);
-});
-eco.setMongoURL(process.env.MONGO_URI);
-eco.setDefaultBankAmount(100);
-eco.setMaxBankAmount(0);
-eco.setItems({ shop });
-client.eco = eco;
 client.shop = shop;
 client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
@@ -114,8 +114,8 @@ client.player = new Player(client, {
 client.playlists = mongoose.model('playlists', new mongoose.Schema({
 	name: String,
 	tracks: Array,
-	creator: { type: String, index: true },
-	managers: { type: [String], index: true },
+	creator: { type: String },
+	managers: { type: [String] },
 	settings: {
 		loop: Number,
 		shuffle: Boolean,
@@ -196,20 +196,46 @@ client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
 }));
 
 client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
-	guildId: { type: String, index: true },
+	guildId: { type: String },
 	channelId: String,
 	roleId: String,
 	message: String,
-}).index());
+}));
 
 client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
-	guildId: { type: String, index: true },
+	guildId: String,
 	badWords: { type: [String], default: settings.badWordPresets.low },
 	autoPublishChannels: [String],
 	welcomeMessage: String,
 	welcomeChannel: String,
 	welcomeRole: String,
+	tags: [{
+		name: String,
+		value: String
+	}],
+	tagDescriptions: Object
 }));
+
+client.cachedTags = new Discord.Collection();
+const updateCache = () => {
+	client.guildSettings.find({}, (err, docs) => {
+		if (err) return console.log(err);
+		docs.forEach(guildSetting => {
+			if (!guildSetting.tags) return;
+			const tags = [];
+			guildSetting.tags.forEach(tag => {
+				tags.push({
+					name: tag.name,
+					value: tag.value,
+				});
+			});
+			client.cachedTags.set(guildSetting.guildId, tags);
+		});
+	});
+}
+setInterval(updateCache, 60000);
+updateCache();
+
 
 client.forms = mongoose.model('forms', new mongoose.Schema({
 	guildId: String,
@@ -321,10 +347,10 @@ player.on('queueEnd', (queue) => {
 //Run
 // setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", _ => {
-	client.users.cache.get('709950767670493275').send({ content: `Bot Crashed!\n\`\`\`${_.stack}\`\`\`` }); // log the crash to the bot owner
-	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`Bot Crashed!\n\`\`\`${_.stack}\`\`\``); // log the crash to the bot logs channel
+	client.users.cache.get('709950767670493275').send({ content: `Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\`` }); // log the crash to the bot owner
+	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
 	console.error(_.stack + '\n' + '='.repeat(20))
 
 });
 client.login(token);
-deploy(client)
+deploy(client);

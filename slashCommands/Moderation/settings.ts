@@ -42,7 +42,26 @@ module.exports = {
                 .setName("channel")
                 .setDescription("The channel to send the welcome message.")
                 .setRequired(false)
-            )),
+        ))
+        .addSubcommand(subcommand => subcommand
+            .setName("tags")
+            .setDescription("Tags")
+            .addStringOption(option => option
+                .setName("tag")
+                .setDescription("The tag to add")
+                .setRequired(true)
+            )
+            .addStringOption(option => option
+                .setName("customid")
+                .setDescription("The value of the tag in the options")
+                .setRequired(true)
+            )
+            .addStringOption(option => option
+                .setName("value")
+                .setDescription("The value of the tag to send")
+                .setRequired(true)
+            )
+        ),
     category: "Moderation",
     permissions: "MANAGE_GUILD",
     execute(interaction: CommandInteraction, client: any, footers: string) {

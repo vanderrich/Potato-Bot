@@ -1,10 +1,13 @@
-import { prefix, footers, admins } from './../config.json'
+import { tags, footers, admins } from './../config.json'
 import Discord, { DiscordAPIError } from 'discord.js'
 import fs from 'fs'
 import updateGrid from '../Util/tictactoe'
 import officegen from 'officegen'
 const msglimit = 100
-const queue = new Map()
+type Tag = {
+    name: string,
+    value: string,
+}
 
 module.exports = {
     name: 'interactionCreate',
@@ -23,8 +26,8 @@ module.exports = {
                 await command.execute(interaction, client, footers);
             } catch (error: DiscordAPIError | any | Error) {
                 console.error(error);
-                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData.json}` }); // log the error to the bot owner
-                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData.json}` }); // log the error to the bot logs channel
+                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}` }); // log the error to the bot owner
+                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}` }); // log the error to the bot logs channel
                 try {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
@@ -354,6 +357,19 @@ module.exports = {
             //     }
             //         break
             // }
+        }
+        else if (interaction.isAutocomplete()) {
+            if (interaction.commandName === 'tag') {
+                console.log(client.cachedTags)
+                const guildTags = client.cachedTags.get(interaction.guildId)?.filter((tag: Tag) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""))
+                const globalTags = tags.filter((tag: Tag) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""));
+                const respondTags = [...globalTags];
+                if (guildTags) {
+                    respondTags.push(...guildTags);
+                }
+                console.log(respondTags)
+                await interaction.respond(respondTags);
+            }
         }
     }
 }
