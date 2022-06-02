@@ -4,16 +4,12 @@ const { badWordPresets } = settings
 module.exports = {
     name: 'messageCreate',
     async execute(message: Discord.Message, client: any, clientCommands: any) {
-        let guildSettings = await client.guildSettings.findOne({ guildId: message.guild?.id })
+        let guildSettings = await client.guildSettings.findOne({ guildId: message.guildId })
         if (!guildSettings && message.guild) {
             guildSettings = new client.guildSettings({
                 guildID: message.guild?.id,
-                badWords: badWordPresets.low,
-                welcomeMessage: "",
-                welcomeChannel: "",
-                welcomeRole: ""
             });
-            guildSettings.save();
+            await guildSettings.save();
         }
         for (let i = 0; i < guildSettings.badWords.length; i++) {
             if (message.channel.type === 'DM') break

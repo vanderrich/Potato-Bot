@@ -360,14 +360,12 @@ module.exports = {
         }
         else if (interaction.isAutocomplete()) {
             if (interaction.commandName === 'tag') {
-                console.log(client.cachedTags)
                 const guildTags = client.cachedTags.get(interaction.guildId)?.filter((tag: Tag) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""))
                 const globalTags = tags.filter((tag: Tag) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""));
                 const respondTags = [...globalTags];
                 if (guildTags) {
                     respondTags.push(...guildTags);
                 }
-                console.log(respondTags)
                 await interaction.respond(respondTags);
             }
         }

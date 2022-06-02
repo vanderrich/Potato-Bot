@@ -22,6 +22,22 @@ mongoose.connect(process.env.MONGO_URI, {
 	autoIndex: false
 });
 
+const updateCache = () => {
+	client.guildSettings.find({}, (err, docs) => {
+		if (err) return console.log(err);
+		docs.forEach(guildSetting => {
+			if (!guildSetting.tags) return;
+			const tags = [];
+			guildSetting.tags.forEach(tag => {
+				tags.push({
+					name: tag.name,
+					value: tag.value,
+				});
+			});
+			client.cachedTags.set(guildSetting.guildId, tags);
+		});
+	});
+}
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', () => {
 	console.log('Connected to MongoDB.');
@@ -35,62 +51,171 @@ mongoose.connection.once('open', () => {
 	eco.setMaxBankAmount(0);
 	eco.setItems({ shop });
 	client.eco = eco;
-});
-
-const giveawaySchema = new mongoose.Schema({
-	messageId: String,
-	channelId: String,
-	guildId: String,
-	startAt: Number,
-	endAt: Number,
-	ended: Boolean,
-	winnerCount: Number,
-	prize: String,
-	messages: {
-		giveaway: String,
-		giveawayEnded: String,
-		inviteToParticipate: String,
-		drawing: String,
-		dropMessage: String,
-		winMessage: mongoose.Mixed,
-		embedFooter: mongoose.Mixed,
-		noWinner: String,
-		winners: String,
-		endedAt: String,
-		hostedBy: String
-	},
-	thumbnail: String,
-	hostedBy: String,
-	winnerIds: { type: [String], default: undefined },
-	reaction: mongoose.Mixed,
-	botsCanWin: Boolean,
-	embedColor: mongoose.Mixed,
-	embedColorEnd: mongoose.Mixed,
-	exemptPermissions: { type: [], default: undefined },
-	exemptMembers: String,
-	bonusEntries: String,
-	extraData: mongoose.Mixed,
-	lastChance: {
-		enabled: Boolean,
-		content: String,
-		threshold: Number,
-		embedColor: mongoose.Mixed
-	},
-	pauseOptions: {
-		isPaused: Boolean,
-		content: String,
-		unPauseAfter: Number,
+	const giveawaySchema = new mongoose.Schema({
+		messageId: String,
+		channelId: String,
+		guildId: String,
+		startAt: Number,
+		endAt: Number,
+		ended: Boolean,
+		winnerCount: Number,
+		prize: String,
+		messages: {
+			giveaway: String,
+			giveawayEnded: String,
+			inviteToParticipate: String,
+			drawing: String,
+			dropMessage: String,
+			winMessage: mongoose.Mixed,
+			embedFooter: mongoose.Mixed,
+			noWinner: String,
+			winners: String,
+			endedAt: String,
+			hostedBy: String
+		},
+		thumbnail: String,
+		hostedBy: String,
+		winnerIds: { type: [String], default: undefined },
+		reaction: mongoose.Mixed,
+		botsCanWin: Boolean,
 		embedColor: mongoose.Mixed,
-		durationAfterPause: Number,
-		infiniteDurationText: String
-	},
-	isDrop: Boolean,
-	allowedMentions: {
-		parse: { type: [String], default: undefined },
-		users: { type: [String], default: undefined },
-		roles: { type: [String], default: undefined }
-	}
-}, { id: false });
+		embedColorEnd: mongoose.Mixed,
+		exemptPermissions: { type: [], default: undefined },
+		exemptMembers: String,
+		bonusEntries: String,
+		extraData: mongoose.Mixed,
+		lastChance: {
+			enabled: Boolean,
+			content: String,
+			threshold: Number,
+			embedColor: mongoose.Mixed
+		},
+		pauseOptions: {
+			isPaused: Boolean,
+			content: String,
+			unPauseAfter: Number,
+			embedColor: mongoose.Mixed,
+			durationAfterPause: Number,
+			infiniteDurationText: String
+		},
+		isDrop: Boolean,
+		allowedMentions: {
+			parse: { type: [String], default: undefined },
+			users: { type: [String], default: undefined },
+			roles: { type: [String], default: undefined }
+		}
+	}, { id: false });
+	client.playlists = mongoose.model('playlists', new mongoose.Schema({
+		name: String,
+		tracks: Array,
+		creator: { type: String },
+		managers: { type: [String] },
+		settings: {
+			loop: Number,
+			shuffle: Boolean,
+			volume: Number,
+		}
+	}).index());
+	const giveawayModel = mongoose.model('giveaways', giveawaySchema);
+	const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
+		// This function is called when the manager needs to get all giveaways which are stored in the database.
+		async getAllGiveaways() {
+			// Get all giveaways from the database. We fetch all documents by passing an empty condition.
+			return await giveawayModel.find().lean().exec();
+		}
+
+		// This function is called when a giveaway needs to be saved in the database.
+		async saveGiveaway(messageId, giveawayData) {
+			// Add the new giveaway to the database
+			await giveawayModel.create(giveawayData);
+			// Don't forget to return something!
+			return true;
+		}
+
+		// This function is called when a giveaway needs to be edited in the database.
+		async editGiveaway(messageId, giveawayData) {
+			// Find by messageId and update it
+			await giveawayModel.updateOne({ messageId }, giveawayData, { omitUndefined: true }).exec();
+			// Don't forget to return something!
+			return true;
+		}
+
+		// This function is called when a giveaway needs to be deleted from the database.
+		async deleteGiveaway(messageId) {
+			// Find by messageId and delete it
+			await giveawayModel.deleteOne({ messageId }).exec();
+			// Don't forget to return something!
+			return true;
+		}
+	};
+	client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
+		default: {
+			botsCanWin: false,
+			embedColor: "RANDOM",
+			embedColorEnd: "RANDOM",
+			reaction: "🥔",
+		}
+	});
+	const rrSchema = new mongoose.Schema({
+		guildId: String,
+		channelId: String,
+		messageId: String,
+		userId: String,
+		emoji: [String],
+		roleId: [String],
+		timestamp: String
+	}, { id: false });
+	client.rr = mongoose.model('rr', rrSchema);
+	client.tickets = mongoose.model('tickets', new mongoose.Schema({
+		guildId: String,
+		categoryId: String,
+		closeCategoryId: String,
+		channelId: Array,
+		messageId: String,
+		title: String,
+		description: String,
+	}));
+
+	client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
+		userId: String,
+		guildId: String,
+		birthday: Date,
+	}));
+
+	client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
+		guildId: { type: String },
+		channelId: String,
+		roleId: String,
+		message: String,
+	}));
+
+	client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
+		guildId: { type: String, required: true },
+		badWords: { type: [String], default: settings.badWordPresets.low },
+		autoPublishChannels: { type: [String], default: [] },
+		welcomeMessage: { type: String, default: "" },
+		welcomeChannel: { type: String, default: "" },
+		welcomeRole: { type: String, default: "" },
+		tags: { type: [{ name: String, value: String }], default: [] },
+		tagDescriptions: { type: Object, default: {} },
+	}));
+
+	client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
+		if (err) console.log(err);
+	});
+	client.forms = mongoose.model('forms', new mongoose.Schema({
+		guildId: String,
+		title: String,
+		description: String,
+		customId: String,
+		fields: Array,
+		color: String,
+	}));
+	setInterval(updateCache, 60000);
+	updateCache();
+	client.login(token);
+	deploy(client);
+});
 
 client.shop = shop;
 client.commands = new Discord.Collection();
@@ -111,140 +236,15 @@ client.player = new Player(client, {
 	leaveOnEmptyCooldown: 5000,
 	initialVolume: 75,
 });
-client.playlists = mongoose.model('playlists', new mongoose.Schema({
-	name: String,
-	tracks: Array,
-	creator: { type: String },
-	managers: { type: [String] },
-	settings: {
-		loop: Number,
-		shuffle: Boolean,
-		volume: Number,
-	}
-}).index());
-
 client.form = new Map();
 client.settings = settings;
 client.tictactoe = {};
-const giveawayModel = mongoose.model('giveaways', giveawaySchema);
-const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
-	// This function is called when the manager needs to get all giveaways which are stored in the database.
-	async getAllGiveaways() {
-		// Get all giveaways from the database. We fetch all documents by passing an empty condition.
-		return await giveawayModel.find().lean().exec();
-	}
-
-	// This function is called when a giveaway needs to be saved in the database.
-	async saveGiveaway(messageId, giveawayData) {
-		// Add the new giveaway to the database
-		await giveawayModel.create(giveawayData);
-		// Don't forget to return something!
-		return true;
-	}
-
-	// This function is called when a giveaway needs to be edited in the database.
-	async editGiveaway(messageId, giveawayData) {
-		// Find by messageId and update it
-		await giveawayModel.updateOne({ messageId }, giveawayData, { omitUndefined: true }).exec();
-		// Don't forget to return something!
-		return true;
-	}
-
-	// This function is called when a giveaway needs to be deleted from the database.
-	async deleteGiveaway(messageId) {
-		// Find by messageId and delete it
-		await giveawayModel.deleteOne({ messageId }).exec();
-		// Don't forget to return something!
-		return true;
-	}
-};
-client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
-	default: {
-		botsCanWin: false,
-		embedColor: "RANDOM",
-		embedColorEnd: "RANDOM",
-		reaction: "🥔",
-	}
-});
-
 const player = client.player
-const rrSchema = new mongoose.Schema({
-	guildId: String,
-	channelId: String,
-	messageId: String,
-	userId: String,
-	emoji: [String],
-	roleId: [String],
-	timestamp: String
-}, { id: false });
-client.rr = mongoose.model('rr', rrSchema);
 
-client.tickets = mongoose.model('tickets', new mongoose.Schema({
-	guildId: String,
-	categoryId: String,
-	closeCategoryId: String,
-	channelId: Array,
-	messageId: String,
-	title: String,
-	description: String,
-}));
-
-client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
-	userId: String,
-	guildId: String,
-	birthday: Date,
-}));
-
-client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
-	guildId: { type: String },
-	channelId: String,
-	roleId: String,
-	message: String,
-}));
-
-client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
-	guildId: String,
-	badWords: { type: [String], default: settings.badWordPresets.low },
-	autoPublishChannels: [String],
-	welcomeMessage: String,
-	welcomeChannel: String,
-	welcomeRole: String,
-	tags: [{
-		name: String,
-		value: String
-	}],
-	tagDescriptions: Object
-}));
 
 client.cachedTags = new Discord.Collection();
-const updateCache = () => {
-	client.guildSettings.find({}, (err, docs) => {
-		if (err) return console.log(err);
-		docs.forEach(guildSetting => {
-			if (!guildSetting.tags) return;
-			const tags = [];
-			guildSetting.tags.forEach(tag => {
-				tags.push({
-					name: tag.name,
-					value: tag.value,
-				});
-			});
-			client.cachedTags.set(guildSetting.guildId, tags);
-		});
-	});
-}
-setInterval(updateCache, 60000);
-updateCache();
 
 
-client.forms = mongoose.model('forms', new mongoose.Schema({
-	guildId: String,
-	title: String,
-	description: String,
-	customId: String,
-	fields: Array,
-	color: String,
-}));
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');
@@ -352,5 +352,3 @@ process.on("unhandledRejection", _ => {
 	console.error(_.stack + '\n' + '='.repeat(20))
 
 });
-client.login(token);
-deploy(client);

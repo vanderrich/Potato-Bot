@@ -4,7 +4,16 @@ import { CommandInteraction } from "discord.js";
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("tags")
-        .setDescription("Adds a tag to the database")
+        .setDescription("Tags")
+        .addStringOption(option => option
+            .setName("action")
+            .setDescription("The action to perform")
+            .addChoices(
+                { name: "add", value: "add" },
+                { name: "remove", value: "remove" },
+            )
+            .setRequired(true)
+        )
         .addStringOption(option => option
             .setName("tag")
             .setDescription("The tag to add")
@@ -18,7 +27,6 @@ module.exports = {
         .addStringOption(option => option
             .setName("value")
             .setDescription("The value of the tag to send")
-            .setRequired(true)
         ),
     category: "Moderation",
     permission: "MANAGE_GUILD",
@@ -27,7 +35,8 @@ module.exports = {
         const tag = interaction.options.getString("tag");
         const customid = interaction.options.getString("customid")?.toLowerCase().replace(/ /g, "");
         const value = interaction.options.getString("value");
-        if (!tag || !customid || !value) return interaction.reply("You must provide a tag, customid, and value.");
+        const action = interaction.options.getString("action");
+        if (!tag || !customid || (!value && action == "add")) return interaction.reply("You must provide a tag, customid, and value.");
         if (!interaction.guild) return interaction.reply("You can't use this command in a DM!");
         const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild.id });
 
@@ -37,22 +46,25 @@ module.exports = {
                 tags: [{
                     name: tag,
                     value: customid
-                }]
+                }],
+                tagDescriptions: {
+                    [customid]: value
+                }
             });
-            guildSettings.tagDescription[customid] = value;
-            guildSettings.save();
+            await guildSettings.save();
+            interaction.reply(`Created setting with the tag ${tag} with customid ${customid} and value ${value}`);
         } else {
-            if (!guildSettings.tags)
-                guildSettings.tags = [];
-            if (!guildSettings.tagDescriptions)
-                guildSettings.tagDescriptions = {};
-            if (guildSettings.tags.find((t: any) => t.name === tag))
-                return interaction.reply("That tag already exists!");
-
-            guildSettings.tags.push({ name: tag, value: customid });
-            guildSettings.tagDescriptions[customid] = value;
+            if (action === "add") {
+                if (!guildSettings.tags) guildSettings.tags = [];
+                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
+                guildSettings.tags.push({ name: tag, value: customid });
+                guildSettings.tagDescriptions = { [customid]: value };
+            } else if (action === "remove") {
+                guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
+                delete guildSettings.tagDescriptions[customid];
+            }
             guildSettings.save();
+            interaction.reply(`Successfully ${action == "add" ? "added" : "removed"} the tag **${tag}** with the custom id **${customid}** ${action == "add" ? `and value **${value}**` : ''} `);
         }
-        interaction.reply("Added tag.");
     }
 }

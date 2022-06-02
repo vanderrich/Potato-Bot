@@ -47,6 +47,15 @@ module.exports = {
             .setName("tags")
             .setDescription("Tags")
             .addStringOption(option => option
+                .setName("action")
+                .setDescription("The action to perform")
+                .addChoices(
+                    { name: "add", value: "add" },
+                    { name: "remove", value: "remove" },
+                )
+                .setRequired(true)
+            )
+            .addStringOption(option => option
                 .setName("tag")
                 .setDescription("The tag to add")
                 .setRequired(true)
@@ -59,8 +68,7 @@ module.exports = {
             .addStringOption(option => option
                 .setName("value")
                 .setDescription("The value of the tag to send")
-                .setRequired(true)
-            )
+        ),
         ),
     category: "Moderation",
     permissions: "MANAGE_GUILD",
