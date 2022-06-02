@@ -4,7 +4,7 @@ import fs from 'fs'
 import updateGrid from '../Util/tictactoe'
 import officegen from 'officegen'
 const msglimit = 100
-type Tag = {
+type AutocompleteThingy = {
     name: string,
     value: string,
 }
@@ -359,14 +359,27 @@ module.exports = {
             // }
         }
         else if (interaction.isAutocomplete()) {
-            if (interaction.commandName === 'tag') {
-                const guildTags = client.cachedTags.get(interaction.guildId)?.filter((tag: Tag) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""))
-                const globalTags = tags.filter((tag: Tag) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""));
-                const respondTags = [...globalTags];
-                if (guildTags) {
-                    respondTags.push(...guildTags);
-                }
-                await interaction.respond(respondTags);
+            switch (interaction.commandName) {
+                case 'tag':
+                    const guildTags = client.cachedTags.get(interaction.guildId)?.filter((tag: AutocompleteThingy) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""))
+                    const globalTags = tags.filter((tag: AutocompleteThingy) => tag.name.toLowerCase().includes(interaction.options.getString("tag") ?? ""));
+                    const respondTags = [...globalTags];
+                    if (guildTags) {
+                        respondTags.push(...guildTags);
+                    }
+                    await interaction.respond(respondTags);
+                    break;
+                case 'buy':
+                case 'sell':
+                    console.log(client.cachedShopItems.get(interaction.guildId), client.globalShopItems)
+                    const guildItems = client.cachedShopItems.get(interaction.guildId)?.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
+                    const globalItems = client.globalShopItems.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""));
+                    const respondItems = [...globalItems];
+                    if (guildItems) {
+                        respondItems.push(...guildItems);
+                    }
+                    await interaction.respond(respondItems);
+                    break;
             }
         }
     }
