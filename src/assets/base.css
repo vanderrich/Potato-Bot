@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+.topNav {
+  background-color: #AC3931;
+  overflow: hidden;
+}
+
+.topNav {
+  float: left;
+  color: #FFB17A;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: 'Roboto';
+}
+
+.toHomepage {
+  background-color: #020122;
+  color: #FCE762;
+}
+
+.topNav:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topNav:visited {
+  color: #FFB17A;
+}
+
+body {
+  background-color: #7F534B;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+a {
+  font-family: 'Lato', sans-serif;
+}
+
+a {
+  color: #020122;
+}
+
+a:hover {
+  color: #FCE762;
+}
+
+a:visited {
+  color: #020122;
+}
