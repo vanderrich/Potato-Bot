@@ -30,6 +30,7 @@
         "discord.js-poll": "^1.0.4",
         "discordjs-reaction-role": "^2.1.1",
         "dotenv": "^16.0.0",
+        "ffmpeg": "^0.0.4",
         "libsodium-wrappers": "^0.7.9",
         "mongodb": "^4.5.0",
         "mongoose": "^6.3.2",
