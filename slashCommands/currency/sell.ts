@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("sell")
         .setDescription("Sell an item")
-        .addNumberOption(option =>
+        .addStringOption(option =>
             option
                 .setName("item")
                 .setDescription("The item you want to sell")
