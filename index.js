@@ -64,7 +64,7 @@ const updateCache = () => {
 				items.inventory.forEach((item, key) => {
 					userItemsCache.push({
 						name: item.name,
-						value: key + 1;
+						value: key + 1
 					});
 				});
 				client.cachedInventories.set(user.id, userItemsCache);
