@@ -1,23 +1,23 @@
-import { SlashCommandBuilder, SlashCommandIntegerOption, SlashCommandStringOption, SlashCommandUserOption } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import { admins } from "../../config.json";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("addmoney")
         .setDescription("Add money to a user.")
-        .addUserOption((option: SlashCommandUserOption) =>
+        .addUserOption(option =>
             option
                 .setName("target")
                 .setDescription("The user to add money to.")
                 .setRequired(true)
         )
-        .addIntegerOption((option: SlashCommandIntegerOption) =>
+        .addIntegerOption(option =>
             option
                 .setName("amount")
                 .setDescription("The amount of money to add.")
                 .setRequired(true)
         )
-        .addStringOption((option: SlashCommandStringOption) =>
+        .addStringOption(option =>
             option
                 .setName("place")
                 .setDescription("The place to add the money to.")

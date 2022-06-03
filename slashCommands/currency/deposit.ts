@@ -1,10 +1,10 @@
-import { SlashCommandBuilder, SlashCommandNumberOption } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("deposit")
         .setDescription("Deposit money into your bank account.")
-        .addNumberOption((option: SlashCommandNumberOption) =>
+        .addNumberOption(option =>
             option
                 .setName("amount")
                 .setDescription("The amount to deposit.")

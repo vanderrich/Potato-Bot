@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, SlashCommandStringOption } from '@discordjs/builders';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import fs from 'fs';
 import { admins } from '../../config.json';
@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('reload')
         .setDescription('Reloads a command.')
-        .addStringOption((option: SlashCommandStringOption) =>
+        .addStringOption(option =>
             option
                 .setName('command')
                 .setDescription('The command to reload.')

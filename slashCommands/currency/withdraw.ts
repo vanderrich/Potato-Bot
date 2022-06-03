@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("withdraw")
         .setDescription("Deposit money into your bank account.")
-        .addNumberOption((option: SlashCommandNumberOption) =>
+        .addNumberOption(option =>
             option
                 .setName("amount")
                 .setDescription("The amount to withdraw.")

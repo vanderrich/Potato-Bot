@@ -1,4 +1,4 @@
-import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandUserOption } from "@discordjs/builders";
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
 import { CommandInteraction, ContextMenuInteraction } from "discord.js";
 
@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("tictactoe")
         .setDescription("Play tictactoe")
-        .addUserOption((option: SlashCommandUserOption) =>
+        .addUserOption(option =>
             option
                 .setName("opponent")
                 .setDescription("The opponent to play against")

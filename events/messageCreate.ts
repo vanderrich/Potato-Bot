@@ -5,9 +5,9 @@ module.exports = {
     name: 'messageCreate',
     async execute(message: Discord.Message, client: any, clientCommands: any) {
         let guildSettings = await client.guildSettings.findOne({ guildId: message.guildId })
-        if (!guildSettings && message.guild) {
+        if (!guildSettings && message.guild?.id) {
             guildSettings = new client.guildSettings({
-                guildID: message.guild?.id,
+                guildID: message.guildId,
             });
             await guildSettings.save();
         }

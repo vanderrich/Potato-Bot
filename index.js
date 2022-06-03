@@ -22,6 +22,10 @@ mongoose.connect(process.env.MONGO_URI, {
 	autoIndex: false
 });
 
+client.cachedTags = new Discord.Collection();
+client.cachedShopItems = new Discord.Collection();
+client.globalShopItems = [];
+
 const updateCache = () => {
 	client.guildSettings.find({}, (err, docs) => {
 		if (err) return console.log(err);
@@ -37,9 +41,23 @@ const updateCache = () => {
 			client.cachedTags.set(guildSetting.guildId, tags);
 		});
 	});
+	client.guilds.cache.forEach(guild => {
+		if (!guild.available) return;
+		client.eco.getShopItems({ guild: guild.id })
+			.then(items => {
+				const shopItemsCache = []
+				items.inventory.forEach((item, key) => {
+					shopItemsCache.push({
+						name: item.name,
+						value: `${key}_local`
+					});
+				});
+				client.cachedShopItems.set(guild.id, shopItemsCache);
+			});
+	});
 }
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
-mongoose.connection.once('open', () => {
+mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB.');
 	const eco = new Economy;
 	Economy.cs.on('debug', (debug, error) => {
@@ -213,8 +231,17 @@ mongoose.connection.once('open', () => {
 	}));
 	setInterval(updateCache, 60000);
 	updateCache();
-	client.login(token);
+	await client.login(token);
 	deploy(client);
+	client.eco.getShopItems({ user: client.user.id })
+		.then(items => {
+			items.inventory.forEach((item, key) => {
+				client.globalShopItems.push({
+					name: item.name,
+					value: key.toString()
+				});
+			});
+		});
 });
 
 client.shop = shop;
@@ -240,11 +267,6 @@ client.form = new Map();
 client.settings = settings;
 client.tictactoe = {};
 const player = client.player
-
-
-client.cachedTags = new Discord.Collection();
-
-
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');

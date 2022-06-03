@@ -1,13 +1,13 @@
-import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandUserOption } from "@discordjs/builders";
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
-import { CommandInteraction, ContextMenuInteraction, GuildMember, MessageEmbed } from "discord.js";
+import { CommandInteraction, ContextMenuInteraction, MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination';
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("inv")
         .setDescription("View your inventory")
-        .addUserOption((option: SlashCommandUserOption) =>
+        .addUserOption(option =>
             option
                 .setName("user")
                 .setDescription("The user to view the inventory of.")

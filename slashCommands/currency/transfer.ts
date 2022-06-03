@@ -1,17 +1,17 @@
-import { SlashCommandUserOption, SlashCommandBuilder, SlashCommandIntegerOption } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("transfer")
         .setDescription("Transfer money to another user")
-        .addUserOption((option: SlashCommandUserOption) =>
+        .addUserOption(option =>
             option
                 .setName("user")
                 .setDescription("The user you want to transfer to")
                 .setRequired(true)
         )
-        .addIntegerOption((option: SlashCommandIntegerOption) =>
+        .addIntegerOption(option =>
             option
                 .setName("amount")
                 .setDescription("The amount of money you want to transfer")

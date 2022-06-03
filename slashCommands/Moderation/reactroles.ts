@@ -1,40 +1,40 @@
-import { SlashCommandBuilder, SlashCommandStringOption, SlashCommandChannelOption, SlashCommandRoleOption } from "@discordjs/builders"
+import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("reactroles")
         .setDescription("Make the bot send a reaction role")
-        .addStringOption((option: SlashCommandStringOption) =>
+        .addStringOption(option =>
             option
                 .setName("title")
                 .setDescription("The title of the reaction role")
                 .setRequired(true)
         )
-        .addChannelOption((option: SlashCommandChannelOption) =>
+        .addChannelOption(option =>
             option
                 .setName("channel")
                 .setDescription("The channel to send the reaction role in")
                 .setRequired(true)
         )
-        .addStringOption((option: SlashCommandStringOption) =>
+        .addStringOption(option =>
             option
                 .setName("description")
                 .setDescription("The description of the reaction role")
                 .setRequired(true)
         )
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option1").setDescription("The first option of the reaction role").setRequired(true))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option1emoji").setDescription("The emoji of the first option of the reaction role").setRequired(true))
-        .addRoleOption((option: SlashCommandRoleOption) => option.setName("option1role").setDescription("The role of the first option of the reaction role").setRequired(true))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option2").setDescription("The second option of the reaction role").setRequired(true))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option2emoji").setDescription("The emoji of the second option of the reaction role").setRequired(true))
-        .addRoleOption((option: SlashCommandRoleOption) => option.setName("option2role").setDescription("The role of the second option of the reaction role").setRequired(true))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option3").setDescription("The third option of the reaction role"))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option3emoji").setDescription("The emoji of the third option of the reaction role"))
-        .addRoleOption((option: SlashCommandRoleOption) => option.setName("option3role").setDescription("The role of the third option of the reaction role"))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option4").setDescription("The fourth option of the reaction role"))
-        .addStringOption((option: SlashCommandStringOption) => option.setName("option4emoji").setDescription("The emoji of the fourth option of the reaction role"))
-        .addRoleOption((option: SlashCommandRoleOption) => option.setName("option4role").setDescription("The role of the fourth option of the reaction role")),
+        .addStringOption(option => option.setName("option1").setDescription("The first option of the reaction role").setRequired(true))
+        .addStringOption(option => option.setName("option1emoji").setDescription("The emoji of the first option of the reaction role").setRequired(true))
+        .addRoleOption(option => option.setName("option1role").setDescription("The role of the first option of the reaction role").setRequired(true))
+        .addStringOption(option => option.setName("option2").setDescription("The second option of the reaction role").setRequired(true))
+        .addStringOption(option => option.setName("option2emoji").setDescription("The emoji of the second option of the reaction role").setRequired(true))
+        .addRoleOption(option => option.setName("option2role").setDescription("The role of the second option of the reaction role").setRequired(true))
+        .addStringOption(option => option.setName("option3").setDescription("The third option of the reaction role"))
+        .addStringOption(option => option.setName("option3emoji").setDescription("The emoji of the third option of the reaction role"))
+        .addRoleOption(option => option.setName("option3role").setDescription("The role of the third option of the reaction role"))
+        .addStringOption(option => option.setName("option4").setDescription("The fourth option of the reaction role"))
+        .addStringOption(option => option.setName("option4emoji").setDescription("The emoji of the fourth option of the reaction role"))
+        .addRoleOption(option => option.setName("option4role").setDescription("The role of the fourth option of the reaction role")),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
     async execute(interaction: Discord.CommandInteraction, client: any, Discord: any, footers: Array<string>) {

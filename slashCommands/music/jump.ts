@@ -1,11 +1,11 @@
-import { SlashCommandIntegerOption, SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("jumptoindex")
         .setDescription("Jump to a specific track in the queue.")
-        .addIntegerOption((option: SlashCommandIntegerOption) => option
+        .addIntegerOption(option => option
             .setName("index")
             .setDescription("The index of the track to skip to.")
             .setRequired(true)

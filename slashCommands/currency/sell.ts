@@ -1,11 +1,11 @@
-import { SlashCommandBuilder, SlashCommandNumberOption } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("sell")
         .setDescription("Sell an item")
-        .addNumberOption((option: SlashCommandNumberOption) =>
+        .addNumberOption(option =>
             option
                 .setName("item")
                 .setDescription("The item you want to sell")

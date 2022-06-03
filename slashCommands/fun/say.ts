@@ -1,11 +1,11 @@
-import { SlashCommandBuilder, SlashCommandStringOption } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("say")
         .setDescription("Make the bot say something")
-        .addStringOption((option: SlashCommandStringOption) =>
+        .addStringOption(option =>
             option
                 .setName("text")
                 .setDescription("The text you want the bot to say")
