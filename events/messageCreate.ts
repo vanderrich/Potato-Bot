@@ -5,12 +5,6 @@ module.exports = {
     name: 'messageCreate',
     async execute(message: Discord.Message, client: any, clientCommands: any) {
         let guildSettings = await client.guildSettings.findOne({ guildId: message.guildId })
-        if (!guildSettings && message.guild?.id) {
-            guildSettings = new client.guildSettings({
-                guildID: message.guildId,
-            });
-            await guildSettings.save();
-        }
         for (let i = 0; i < guildSettings?.badWords.length; i++) {
             if (message.channel.type === 'DM') break
             let badword

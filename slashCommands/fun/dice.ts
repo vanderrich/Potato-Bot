@@ -1,27 +1,27 @@
-import { SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("dice")
         .setDescription("Rolls a die.")
-        .addNumberOption((option: SlashCommandNumberOption) => option
+        .addNumberOption(option => option
             .setName("number")
             .setDescription("The number of dice to roll.")
         )
-        .addNumberOption((option: SlashCommandNumberOption) => option
+        .addNumberOption(option => option
             .setName("sides")
             .setDescription("The number of sides on the dice.")
         )
-        .addNumberOption((option: SlashCommandNumberOption) => option
+        .addNumberOption(option => option
             .setName("modifier")
             .setDescription("The modifier to add to the dice.")
         )
-        .addStringOption((option: SlashCommandStringOption) => option
+        .addStringOption(option => option
             .setName("note")
             .setDescription("A note to add to the roll.")
         )
-        .addStringOption((option: SlashCommandStringOption) => option
+        .addStringOption(option => option
             .setName("assign")
             .setDescription("Assign each number to something, syntax: <number>=<text>, separate with commas.")
         ),
