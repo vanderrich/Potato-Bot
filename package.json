@@ -26,6 +26,7 @@
         "discord.js": "",
         "dotenv": "",
         "ffmpeg": "",
+        "ffmpeg-static": "",
         "libsodium-wrappers": "",
         "mongodb": "",
         "mongoose": "",
