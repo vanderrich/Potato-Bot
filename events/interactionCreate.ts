@@ -369,8 +369,10 @@ module.exports = {
                     }
                     await interaction.respond(respondTags);
                     break;
-                case 'buy':
                 case 'sell':
+                    const inventory = client.cachedInventories.get(interaction.user.id)?.filter((item: AutocompleteThingy) => item.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
+                    await interaction.respond(inventory);
+                case 'buy':
                     const guildItems = client.cachedShopItems.get(interaction.guildId)?.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
                     const globalItems = client.globalShopItems.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""));
                     const respondItems = [...globalItems];
