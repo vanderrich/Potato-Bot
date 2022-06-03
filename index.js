@@ -24,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 client.cachedTags = new Discord.Collection();
 client.cachedShopItems = new Discord.Collection();
+client.cachedInventories = new Discord.Collection();
 client.globalShopItems = [];
 
 const updateCache = () => {
@@ -55,6 +56,20 @@ const updateCache = () => {
 				client.cachedShopItems.set(guild.id, shopItemsCache);
 			});
 	});
+
+	client.users.cache.forEach(user => {
+		client.eco.getUserItems({ user: user.id })
+			.then(items => {
+				const userItemsCache = []
+				items.inventory.forEach((item, key) => {
+					userItemsCache.push({
+						name: item.name,
+						value: `${key + 1}`
+					});
+				});
+				client.cachedInventories.set(user.id, userItemsCache);
+			});
+	})
 }
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', async () => {
