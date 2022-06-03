@@ -9,6 +9,7 @@ module.exports = {
             option
                 .setName("item")
                 .setDescription("The item you want to sell")
+                .setAutocomplete(true)
                 .setRequired(true)
         ),
     category: "Currency",

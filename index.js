@@ -49,7 +49,7 @@ const updateCache = () => {
 				items.inventory.forEach((item, key) => {
 					shopItemsCache.push({
 						name: item.name,
-						value: `${key}_local`
+						value: `${key + 1}_local`
 					});
 				});
 				client.cachedShopItems.set(guild.id, shopItemsCache);
@@ -238,7 +238,7 @@ mongoose.connection.once('open', async () => {
 			items.inventory.forEach((item, key) => {
 				client.globalShopItems.push({
 					name: item.name,
-					value: key.toString()
+					value: (key + 1).toString()
 				});
 			});
 		});

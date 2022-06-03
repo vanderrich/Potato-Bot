@@ -371,7 +371,6 @@ module.exports = {
                     break;
                 case 'buy':
                 case 'sell':
-                    console.log(client.cachedShopItems.get(interaction.guildId), client.globalShopItems)
                     const guildItems = client.cachedShopItems.get(interaction.guildId)?.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
                     const globalItems = client.globalShopItems.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""));
                     const respondItems = [...globalItems];
