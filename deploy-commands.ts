@@ -27,8 +27,8 @@ export const deploy = async (client: Client) => {
     try {
         console.log('Started refreshing application (/) commands.');
         // test bot
-        if (clientId == '954584325809123348') {
-            await new Promise((resolve, reject) => {
+        if (clientId == '954584325809123348' || clientId == '982231580363853875') {
+            await new Promise((resolve) => {
                 setTimeout(() => {
                     resolve(null);
                 }, 5000);

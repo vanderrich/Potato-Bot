@@ -4,7 +4,6 @@ module.exports = {
     name: 'ready',
     execute(client: any) {
         console.log('Ready!')
-        client.user.setUsername('Potato bot')
         client.user.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then((birthdays: any) => {
             if (birthdays.length > 0) {
