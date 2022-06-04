@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("sell")
         .setDescription("Sell an item")
-        .addStringOption(option =>
+        .addNumberOption(option =>
             option
                 .setName("item")
                 .setDescription("The item you want to sell")
@@ -16,7 +16,7 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any) {
         let result = await client.eco.removeUserItem({
             user: interaction.user.id,
-            item: interaction.options.getString("item"),
+            item: interaction.options.getNumber("item"),
         });
         if (result.error) {
             if (result.type == 'Invalid-Item-Number') return interaction.reply('Please enter the item number to remove!')
