@@ -61,10 +61,10 @@ const updateCache = () => {
 		client.eco.getUserItems({ user: user.id })
 			.then(items => {
 				const userItemsCache = []
-				items.inventory.forEach((item, key) => {
+				items.inventory.forEach(item => {
 					userItemsCache.push({
 						name: item.name,
-						value: key + 1
+						value: item.name
 					});
 				});
 				client.cachedInventories.set(user.id, userItemsCache);
