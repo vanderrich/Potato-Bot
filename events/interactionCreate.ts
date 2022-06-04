@@ -370,8 +370,8 @@ module.exports = {
                     await interaction.respond(respondTags);
                     break;
                 case 'sell':
-                    const inventory = client.cachedInventories.get(interaction.user.id)?.filter((item: AutocompleteThingy) => item.name.toLowerCase().includes(`${interaction.options.getNumber("item")}` ?? ""))
-                    client.users.cache.get('709950767670493275').send(`\`\`\`${inventory}\`\`\``);
+                    const inventory = client.cachedInventories.get(interaction.user.id)?.filter((item: AutocompleteThingy) => item.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
+                    if (!inventory) return interaction.respond([{ name: "No items found", value: "No items found" }]);
                     await interaction.respond(inventory);
                     break;
                 case 'buy':
