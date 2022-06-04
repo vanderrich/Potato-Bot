@@ -74,7 +74,7 @@ const updateCache = () => {
 }
 
 client.getLocale = (language, string, ...vars) => {
-	let locale = strings[language][string];
+	let locale = localizations[language][string];
 
 	let count = 0;
 	locale = locale.replace(/$\{VAR\}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
