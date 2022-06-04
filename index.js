@@ -9,6 +9,7 @@ const Economy = require('currency-system');
 const { deploy } = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
 const mongoose = require('mongoose');
+const localizations = require('./localizations.json');
 // const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
@@ -71,6 +72,17 @@ const updateCache = () => {
 			});
 	})
 }
+
+client.getLocale = (language, string, ...vars) => {
+	let locale = strings[language][string];
+
+	let count = 0;
+	locale = locale.replace(/$\{VAR\}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
+
+	return locale;
+}
+
+console.log(client.getLocale('en', 'utils.inCooldown', '5 years'));
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB.');
