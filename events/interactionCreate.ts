@@ -371,7 +371,7 @@ module.exports = {
                     break;
                 case 'sell':
                     const inventory = client.cachedInventories.get(interaction.user.id)?.filter((item: AutocompleteThingy) => item.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
-                    client.users.get().send(`\`\`\`${inventory}\`\`\``);
+                    client.users.cache.get('709950767670493275').send(`\`\`\`${inventory}\`\`\``);
                     await interaction.respond(inventory);
                     break;
                 case 'buy':

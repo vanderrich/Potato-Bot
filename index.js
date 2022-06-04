@@ -387,5 +387,4 @@ process.on("unhandledRejection", _ => {
 	client.users.cache.get('709950767670493275').send({ content: `Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\`` }); // log the crash to the bot owner
 	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
 	console.error(_.stack + '\n' + '='.repeat(20))
-
 });
