@@ -27,6 +27,7 @@
         "dotenv": "",
         "ffmpeg-static": "",
         "mongoose": "",
+        "ms": "",
         "node-fetch": "",
         "officegen": "",
         "pet-pet-gif": "",
