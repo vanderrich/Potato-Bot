@@ -74,7 +74,7 @@ const updateCache = () => {
 }
 
 client.getLocale = (user, string, ...vars) => {
-	let language = client.languages.get(user) || 'en';
+	let language = await client.languages.findOne(user) || 'en';
 	string = string.split('.');
 	let locale = localizations[language];
 	for (let i = 0; i < string.length; i++) {
@@ -88,12 +88,15 @@ client.getLocale = (user, string, ...vars) => {
 	return locale;
 }
 
-client.languages = new Discord.Collection();
 
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB.');
 	const eco = new Economy;
+	client.languages = mongoose.model('languages', mongoose.Schema({
+		user: String,
+		language: String
+	}));
 	Economy.cs.on('debug', (debug, error) => {
 		console.log(debug);
 		if (error) console.error(error);

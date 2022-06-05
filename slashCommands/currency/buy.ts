@@ -61,6 +61,6 @@ module.exports = {
         if (results[0].error) {
             if (results[0].type === 'No-Item' || results[0].type === 'Invalid-Item') return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.noItem"));
             if (results[0].type === 'low-money') return interaction.editReply(`You're too broke to buy this item.`);
-        } else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.success", amount, results[0].item.name, results[0].item.price * amount));
+        } else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.success", amount, results[0].inventory.name, results[0].inventory.price * amount));
     }
 }
