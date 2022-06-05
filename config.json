@@ -182,9 +182,14 @@
         {
             "name": "Dont Ask To Ask",
             "value": "data"
+        },
+        {
+            "name": "Suicide",
+            "value": "suicide"
         }
     ],
     "tagDescriptions": {
-        "data": "https://dontasktoask.com/"
+        "data": "https://dontasktoask.com/",
+        "suicide": "please go to [suicide.org](http://suicide.org/) :)"
     }
 }

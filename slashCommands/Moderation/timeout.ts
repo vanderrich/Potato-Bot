@@ -18,6 +18,8 @@ module.exports = {
             .setName("reason")
             .setRequired(false)
             .setDescription("The reason for the timeout.")),
+    permissions: "TIMEOUT_MEMBERS",
+    category: "Moderation",
     execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const member = interaction.options.getMember("member");
         const time = Date.now() - ms(interaction.options.getString("time"));
@@ -27,5 +29,6 @@ module.exports = {
         if (member.id === client.user.id) return interaction.reply("I can't timeout myself!");
 
         member.timeout(time, reason);
+        interaction.reply(`Success`);
     }
 }

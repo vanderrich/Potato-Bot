@@ -1,26 +1,13 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 
-const filterLevels = {
-    DISABLED: 'Off',
-    MEMBERS_WITHOUT_ROLES: 'No Role',
-    ALL_MEMBERS: 'Everyone'
-};
-
-const verificationLevels = {
-    NONE: 'None',
-    LOW: 'Low',
-    MEDIUM: 'Medium',
-    HIGH: '(╯°□°）╯︵ ┻━┻',
-    VERY_HIGH: '┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
-};
-
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('serverinfo')
         .setDescription('Information about the server'),
     category: 'Info',
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         if (!interaction.guild) return interaction.reply('This command can only be used in a server.');
         //variables
@@ -28,10 +15,12 @@ module.exports = {
         const members = interaction.guild.members.cache;
         const channels = interaction.guild.channels.cache;
         const emojis = interaction.guild.emojis.cache;
+        const verificationLevels = client.getLocale(interaction.user.id, 'commands.info.serverinfo.verificationLevels');
+        const filterLevels = client.getLocale(interaction.user.id, 'commands.info.serverinfo.filterLevels');
 
         //embed
         const embed = new MessageEmbed()
-            .setDescription(`**Server Info**`)
+            .setDescription(client.getLocale(interaction.user.id, 'commands.info.serverinfo.embedTitle'))
             .setColor('RANDOM')
             .addField('General', `
                 **Name:** ${interaction.guild.name}

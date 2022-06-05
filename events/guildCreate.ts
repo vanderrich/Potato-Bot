@@ -17,9 +17,6 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
             welcomeChannel.send({ embeds: [embed] })
-            if (!guild.me?.permissions.has("ADMINISTRATOR")) {
-                welcomeChannel.send('Warning: I dont have administrator permissions in this guild. Please give me administrator permissions to use this bot the intended way.')
-            }
         }
     }
 };

@@ -13,6 +13,7 @@ module.exports = {
         ),
     permissions: "MANAGE_MESSAGES",
     category: "Moderation",
+    guildOnly: true,
     execute(interaction: CommandInteraction) {
         let amount = interaction.options.getInteger("amount");
         if (!amount || isNaN(amount) || amount < 0) return interaction.reply("Please enter a valid amount to delete");

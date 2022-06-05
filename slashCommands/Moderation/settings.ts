@@ -72,6 +72,7 @@ module.exports = {
         ),
     category: "Moderation",
     permissions: "MANAGE_GUILD",
+    guildOnly: true,
     execute(interaction: CommandInteraction, client: any, footers: string) {
         require("./" + interaction.options.getSubcommand()).execute(interaction, client, footers);
     }

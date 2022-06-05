@@ -11,7 +11,9 @@ module.exports = {
             .setDescription("The ID of the backup to load")
             .setRequired(true)),
     permissions: "ADMINISTRATOR",
+    botPermissions: "ADMINISTRATOR",
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction) {
         if (!interaction.guild) return interaction.reply("This command can only be used in a guild.");
         await interaction.deferReply();

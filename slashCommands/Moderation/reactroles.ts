@@ -37,6 +37,7 @@ module.exports = {
         .addRoleOption(option => option.setName("option4role").setDescription("The role of the fourth option of the reaction role")),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: Discord.CommandInteraction, client: any, Discord: any, footers: Array<string>) {
         let title = interaction.options.getString("title");
         let description = interaction.options.getString("description");

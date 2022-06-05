@@ -30,7 +30,7 @@ module.exports = {
             .setDescription("The category to put the closed tickets.")
             .setRequired(true)
         ),
-    permission: 'MANAGE_MESSAGES',
+    permissions: 'ADMINISTRATOR',
     category: "Moderation",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         let title = interaction.options.getString("name");

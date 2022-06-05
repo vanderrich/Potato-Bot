@@ -19,6 +19,7 @@ module.exports = {
         ),
     permissions: 'BAN_MEMBERS',
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any) {
         if (!interaction.guild) return interaction.reply("This command can only be used in a guild.");
         //initialize
