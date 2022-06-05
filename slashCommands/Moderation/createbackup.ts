@@ -8,6 +8,7 @@ module.exports = {
         .setDescription("Create a backup of the server"),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction) {
         interaction.deferReply();
         if (!interaction.guild) return interaction.reply("You can't use this command in a DM!");

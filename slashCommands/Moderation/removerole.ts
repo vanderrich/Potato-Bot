@@ -19,6 +19,7 @@ module.exports = {
         ),
     permissions: "MANAGE_ROLES",
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction) {
         const targetuser = interaction.options.getMember("target");
         const role = interaction.options.getRole("role");

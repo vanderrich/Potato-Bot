@@ -17,8 +17,9 @@ module.exports = {
                 .setDescription("The role to give the user.")
                 .setRequired(true)
         ),
-    permission: 'MANAGE_MEMBERS',
+    permissions: 'MANAGE_MEMBERS',
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction) {
         //variables
         const targetMember = interaction.options.getMember("target");

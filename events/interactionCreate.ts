@@ -17,11 +17,11 @@ module.exports = {
 
             if (!command) return;
 
+            if (command.guildOnly && (!interaction.guild)) return interaction.reply({ content: "You can't use this command in DM!", ephemeral: true });
             if (command.permissions) {
                 if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(command.permissions)) return interaction.reply({ content: "You don't have permission to use this command!", ephemeral: true });
             }
 
-            if (command.guildOnly && (!interaction.guild || !(interaction.guild instanceof Discord.Guild))) return interaction.reply({ content: "You can't use this command in DM!", ephemeral: true });
 
             try {
                 client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${interaction.user.username} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}`)}\`` : ""}`); // log the command

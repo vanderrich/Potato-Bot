@@ -12,6 +12,7 @@ module.exports = {
             .setRequired(true)),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction) {
         interaction.deferReply();
         const backupID = interaction.options.getString("id");

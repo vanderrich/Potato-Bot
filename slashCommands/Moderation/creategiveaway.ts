@@ -27,6 +27,7 @@ module.exports = {
         ),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
+    guildOnly: true,
     execute(interaction: CommandInteraction, client: any) {
         let duration = interaction.options.getString("duration");
         let winners = interaction.options.getInteger("winners");

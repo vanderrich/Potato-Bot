@@ -8,6 +8,7 @@ module.exports = {
         .setDescription("List all backups"),
     permissions: "ADMINISTRATOR",
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const backups = await backup.list();
         const embed = new MessageEmbed()
