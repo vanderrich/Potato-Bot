@@ -29,12 +29,12 @@ module.exports = {
             let inv = items.inventory.concat(globalItems.inventory);
 
             let embed = new MessageEmbed()
-                .setTitle("Store")
+                .setTitle(client.getLocale(interaction.user.id, "commands.currency.buy.storeTitle"))
                 .setColor("RANDOM")
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
             for (let key in inv) {
-                embed.addField(`${parseInt(key) + 1} - Price: $${inv[key].price} - **${inv[key].name}:**`, inv[key].description)
+                embed.addField(client.getLocale(interaction.user.id, "commands.buy.storeItem"), inv[key].description)
             }
             return interaction.reply({ embeds: [embed] });
         }
@@ -43,23 +43,24 @@ module.exports = {
             let items = await client.eco.getShopItems({ guild: interaction.guildId });
             let shopItem = items.inventory.find((i: any) => i.id == item?.replace("_local", ""));
             if (!shopItem) {
-                return interaction.editReply("Item not found!");
+                return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.noItem"));
             }
             if (shopItem.price * amount > await client.eco.balance({ user: interaction.user.id })) {
-                return interaction.editReply("You don't have enough money!");
+                return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.noMoney"));
             }
             await client.eco.addMoney({ user: interaction.user.id, amount: shopItem.price * amount, whereToPutMoney: "wallet" });
         }
-        let result = await client.eco.addUserItem({
-            user: interaction.user.id,
-            guild: local ? interaction.guild : undefined,
-            item: local ? parseInt(item.replace("_local", "")) : parseInt(item),
-        });
-        console.log(result);
-        if (result.error) {
-            if (result.type === 'No-Item') return interaction.editReply('Please provide valid item number');
-            if (result.type === 'Invalid-Item') return interaction.editReply('Item does not exist');
-            if (result.type === 'low-money') return interaction.editReply(`You're too broke to buy this item.`);
-        } else return interaction.editReply(`Successfully bought **${result.inventory.name}** for $${result.inventory.price}`)
+        let results = [];
+        for (let i = 0; i < amount; i++) {
+            results.push(await client.eco.addUserItem({
+                user: interaction.user.id,
+                guild: local ? interaction.guild : undefined,
+                item: local ? parseInt(item.replace("_local", "")) : parseInt(item),
+            }));
+        }
+        if (results[0].error) {
+            if (results[0].type === 'No-Item' || results[0].type === 'Invalid-Item') return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.noItem"));
+            if (results[0].type === 'low-money') return interaction.editReply(`You're too broke to buy this item.`);
+        } else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.success", amount, results[0].item.name, results[0].item.price * amount));
     }
 }

@@ -7,16 +7,9 @@ module.exports = {
         .setDescription("Beg for money!"),
     category: "Currency",
     async execute(interaction: CommandInteraction, client: any) {
-        let users = [
-            "A Stranger",
-            "A Potato",
-            "A Living being",
-            "I forgor :skull:",
-            "Someone:tm:",
-            "Something:tm:",
-        ];
+        let users = client.getLocale(interaction.user.id, "commands.currency.beg.users");
         let result = await client.eco.beg({ user: interaction.user.id, minAmount: 1, maxAmount: 5 })
-        if (result.error) return interaction.reply(`You have begged recently Try again in ${result.time}`);
-        return interaction.reply(`**${users[Math.floor(Math.random() * users.length)]}** donated you **${result.amount}** 💸.`);
+        if (result.error) return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.beg.cooldown"));
+        return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.beg.success", users[Math.floor(Math.random() * users.length)], result.amount));
     }
 }

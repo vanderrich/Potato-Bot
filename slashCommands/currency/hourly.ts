@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any) {
         let amount = Math.floor(Math.random() * 2.0833333333333335 + 1.5166666666666667);
         let addMoney = await client.eco.hourly({ user: interaction.user.id, amount });
-        if (addMoney.error) return interaction.reply(`You have already claimed your hourly credit. Come back in ${addMoney.time} to claim it again.`);
-        else return interaction.reply(`You have claimed **$${addMoney.amount}** as your hourly credit, You now have **$${addMoney.rawData.wallet}** in your wallet.`);
+        if (addMoney.error) return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.rewards.cooldown", client.getLocale(interaction.user.id, "commands.currency.rewards.hourly"), addMoney.time));
+        else return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.rewards.success", amount, addMoney.rawData.wallet));
     }
 }

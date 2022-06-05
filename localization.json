@@ -39,8 +39,8 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
-                    "success": "You have claimed ${VAR} as your ${VAR} credit, you now have ${VAR} in your wallet!",
+                    "cooldown": "You have claimed your **${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
                     "weekly": "weekly",
@@ -73,7 +73,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Dompet: ${VAR} - Bank: ${VAR} - Total: ${VAR}"
+                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
@@ -85,7 +85,7 @@
                     "sendToSelf": "You can't transfer money to yourself!",
                     "invalidAmount": "Invalid Amount!",
                     "lowAmount": "You don't have that much money!",
-                    "success": "Successfully transferred **${VAR}** to **${VAR}**!"
+                    "success": "Successfully transferred **$${VAR}** to **$${VAR}**!"
                 },
                 "work": {
                     "users": [
@@ -115,8 +115,8 @@
                 },
                 "slots": {
                     "embedTitle": "Slots",
-                    "win": "${VAR} won $${VAR}!",
-                    "lose": "You lost $${VAR}!",
+                    "win": "${VAR} won **$${VAR}**!",
+                    "lose": "You lost **$${VAR}**!",
                     "noBet": "You must specify a bet amount!",
                     "invalidBet": "Invalid bet amount!",
                     "noMoneyBet": "You don't have that much money in your wallet!"
@@ -402,7 +402,7 @@
                 },
                 "bal": {
                     "title": "Saldo ${VAR}",
-                    "wallet": "Dompet: ${VAR}",
+                    "wallet": "Dompet  : ${VAR}",
                     "bank": "Bank: ${VAR}",
                     "total": "Total: ${VAR}"
                 },
@@ -416,7 +416,7 @@
                         "Sesuatu™️"
                     ],
                     "cooldown": "Anda telah mengemis baru baru ini, Coba lagi dalam ${VAR}",
-                    "success": "**${VAR}** memberikan anda **${VAR}**!"
+                    "success": "**${VAR}** memberikan anda **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Toko",
@@ -638,6 +638,780 @@
                 "language": {
                     "noLanguage": "Anda harus menentukan sebuah bahasa!",
                     "success": "Bahasa berhasil diubah!"
+                }
+            },
+            "moderation": {
+                "modActions": {
+                    "defaultReason": "No reason given",
+                    "noModChannel": "Couldn't find a mod channel!",
+                    "reason": "Reason",
+                    "noMember": "Provide a valid member!",
+                    "ban": {
+                        "title": "Ban",
+                        "bannedMember": "Banned member",
+                        "footer": "Banned by ${VAR}"
+                    },
+                    "kick": {
+                        "title": "Kick",
+                        "kickedMemberFieldTitle": "Kicked member",
+                        "footer": "Kicked by ${VAR}"
+                    },
+                    "mute": {
+                        "title": "Mute",
+                        "mutedMember": "Muted member",
+                        "footer": "Muted by ${VAR}"
+                    },
+                    "timeout": {
+                        "title": "Timeout",
+                        "timeoutMember": "Timeout member",
+                        "footer": "Timeouted by ${VAR}"
+                    },
+                    "unban": {
+                        "title": "Unban",
+                        "unbannedMember": "Unbanned member",
+                        "footer": "Unbanned by ${VAR}"
+                    },
+                    "bulkDelete": {
+                        "invalidAmount": "Enter a valid amount of messages to delete!",
+                        "messagesDeleted": "Messages deleted!"
+                    }
+                },
+                "createGiveaway": {
+                    "success": "Giveaway created!"
+                },
+                "backups": {
+                    "backups": "Backups",
+                    "noBackupID": "No backup ID provided!",
+                    "loadSuccess": "Backup loaded!",
+                    "removeSuccess": "Backup removed!",
+                    "createSuccess": "Backup created!"
+                },
+                "settings": {
+                    "updated": "Settings updated!",
+                    "badwords": {
+                        "noCustomWords": "You must specify the custom words to use!",
+                        "setWordsCustom": "Set custom bad words to ${VAR}",
+                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    },
+                    "tags": {
+                        "noArgs": "You must provide a tag, customid, and value.",
+                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
+                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
+                    }
+                },
+                "reactroles": {
+                    "noTextChannel": "You must specify a text channel!",
+                    "noPerms": "I don't have permissions to manage the roles!",
+                    "invalidEmoji": "Invalid emoji!",
+                    "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
+                    "success": "Reaction roles created!"
+                },
+                "createticket": {
+                    "noName": "You must specify a name for the ticket!",
+                    "noDesc": "You must specify a description for the ticket!",
+                    "categoryNotCategory": "The category must be a guild category!",
+                    "channelNotChannel": "The channel must be a guild text channel!",
+                    "success": "Ticket created!"
+                }
+            },
+            "music": {
+                "noMusicPlaying": "No music currently playing!",
+                "noMusicBefore": "You must have music playing before you can use this command!",
+                "noFilter": "I couldn't find that filter.\n`bassboost, 8D, nightcore`",
+                "noIndex": "Specify a valid index!",
+                "noNegativeIndex": "Index must be greater than 0!",
+                "backSuccess": "Playing the previous song successfully.",
+                "clearSuccess": "Cleared the queue successfully.",
+                "filterSuccess": "Applied: **${VAR}**, Filter Status: **${VAR}** \n **If the music is long, the filter application time may be longer accordingly.**",
+                "skipSuccess": "Skipped tracks!",
+                "loopType": {
+                    "off": "Off",
+                    "track": "Looping Track 🔂",
+                    "queue": "Looping Queue 🔁",
+                    "autoplay": "Autoplaying 🔊"
+                },
+                "nowplayingMethods": [
+                    "disabled",
+                    "track",
+                    "queue"
+                ],
+                "nowplayingDesc": "Audio **%${VAR}**\nDuration **${VAR}**\nLoop Mode **${VAR}**\n${VAR}",
+                "saveButtonLabel": "Save Track",
+                "pauseSuccess": "Paused the music successfully!",
+                "areYouSurePlayNotYT": "The package we use to play music (discord-player) does not support spotify and will search youtube for it, Are you sure you want to continue? (yes if yes and anything else for no)",
+                "cancel": "Cancelled!",
+                "timeout": "Timeout",
+                "noResults": "No results found!",
+                "cantJoin": "I can't join the voice channel, try joining a channel or change the permissions of the channel!",
+                "playSuccess": "Added ${VAR} to the queue!",
+                "liveStream": "This track is live streaming, no duration data to display!",
+                "serverQueue": "Server Queue",
+                "noTracks": "No track in the queue.",
+                "queueSettings": "Volume: ${VAR}%, Loop Type: ${VAR}",
+                "nowplaying": "Now Playing: ${VAR}",
+                "noMoreTracks": "No more tracks in the queue.",
+                "removeSuccess": "Removed track from the queue!",
+                "resumeSuccess": "Resumed the current track **${VAR}** successfully!",
+                "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
+                "saveSuccess": "Saved track to your dms successfully!",
+                "searchEmbedTitle": "Search Results for ${VAR}",
+                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "shuffleSuccess": "Shuffled the queue successfully!",
+                "stopSuccess": "Stopped the music playing successfully!",
+                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
+                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+            }
+        },
+        "utils": {
+            "inCooldown": "You are in cooldown for ${VAR}!",
+            "noPerms": "You don't have the required permissions to use this command!",
+            "botNoPerms": "I don't have the required permissions to use this command!",
+            "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
+            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+        }
+    },
+    "nl": {
+        "name": "Dutch",
+        "native": "",
+        "locale": "nl_NL",
+        "commands": {
+            "currency": {
+                "addshopitem": {
+                    "noPrice": "You can't add an item for less than $1!",
+                    "noItemName": "You must specify an item name!",
+                    "invalidPrice": "Invalid Price!",
+                    "noInvPrice": "You must specify an inventory price!",
+                    "noInv": "No Data Received!",
+                    "success": "Successfully added the item ${VAR} to the shop!"
+                },
+                "bal": {
+                    "title": "${VAR}'s Balance",
+                    "wallet": "Wallet: ${VAR}",
+                    "bank": "Bank: ${VAR}",
+                    "total": "Total: ${VAR}"
+                },
+                "beg": {
+                    "users": [
+                        "A Stranger",
+                        "A Potato",
+                        "A Living being",
+                        "I forgor 💀",
+                        "Someone™️",
+                        "Something™️"
+                    ],
+                    "cooldown": "You have begged recently, Try again in ${VAR}",
+                    "success": "**${VAR}** donated you **${VAR}**!"
+                },
+                "buy": {
+                    "storeTitle": "Store",
+                    "storeItem": "${VAR} - Price: $${VAR} - **${VAR}:**`",
+                    "noItem": "Item not found!",
+                    "noMoney": "You're too broke to buy that item!",
+                    "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
+                },
+                "rewards": {
+                    "cooldown": "You have claimed your **${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
+                    "hourly": "hourly",
+                    "daily": "daily",
+                    "weekly": "weekly",
+                    "monthly": "monthly"
+                },
+                "deposit": {
+                    "money": "Specify an amount to deposit!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "noMoney": "You don't have any money to deposit!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
+                    "success": "Successfully deposited ${VAR} into your bank!, you now have**$${VAR}**in your bank!"
+                },
+                "find": {
+                    "places": [
+                        "Potato Peelers",
+                        "Potato Street",
+                        "Potato Town",
+                        "Mount Everest"
+                    ],
+                    "cooldown": "You have already searched recently, Try again in ${VAR}",
+                    "success": "**${VAR}** was somewhat profitable, you found **$${VAR}**."
+                },
+                "inv": {
+                    "title": "Inventory of ${VAR}",
+                    "noItems": "No items in inventory!",
+                    "moreItems": "...${VAR} more item(s)"
+                },
+                "lb": {
+                    "title": "Leaderboard",
+                    "empty": "Empty Leaderboard!",
+                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                },
+                "sell": {
+                    "invalidItem": "Invalid Item!",
+                    "unknownItem": "Item doesn't exist!",
+                    "success": "Successfully sold **${VAR} ${VAR}** for **$${VAR}**!"
+                },
+                "transfer": {
+                    "invalidUser": "Invalid User!",
+                    "sendToSelf": "You can't transfer money to yourself!",
+                    "invalidAmount": "Invalid Amount!",
+                    "lowAmount": "You don't have that much money!",
+                    "success": "Successfully transferred **$${VAR}** to **$${VAR}**!"
+                },
+                "work": {
+                    "users": [
+                        "Potato Peeler",
+                        "Janitor",
+                        "Rice Cooker",
+                        "Potato Baker",
+                        "Baker",
+                        "Carpenter",
+                        "Lumberjack",
+                        "Miner",
+                        "Farmer"
+                    ],
+                    "cooldown": "You're too tired, try again in ${VAR}",
+                    "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                }
+            },
+            "fun": {
+                "say_embed": {
+                    "enterDesc": "Enter a description, wait 30 seconds to leave it empty.",
+                    "specifyTitle": "Specify a title!"
+                },
+                "say": {
+                    "noText": "You must specify some text to say!",
+                    "textTooLong": "Your text is too long!",
+                    "noPerms": "You don't have the required permissions to ping everyone or here!"
+                },
+                "slots": {
+                    "embedTitle": "Slots",
+                    "win": "${VAR} won **$${VAR}**!",
+                    "lose": "You lost **$${VAR}**!",
+                    "noBet": "You must specify a bet amount!",
+                    "invalidBet": "Invalid bet amount!",
+                    "noMoneyBet": "You don't have that much money in your wallet!"
+                },
+                "tictactoe": {
+                    "playSelf": "You can't play against yourself!",
+                    "playClient": "You can't play against me!",
+                    "playBot": "You can't play against a bot!",
+                    "firstTurn": "${VAR}'s turn"
+                }
+            },
+            "info": {
+                "help": {
+                    "categories": [
+                        "Currency",
+                        "Fun",
+                        "Info",
+                        "Moderation",
+                        "Music",
+                        "Bot Admin Only"
+                    ],
+                    "noCategory": "No category found with that name",
+                    "noCommand": "No command found with that name",
+                    "embedTitle": "Commands",
+                    "embedDesc": "Do /help and assign the parameters to get help for a specific command or category.\n\nFor example: `/help category:Currency`",
+                    "commandsInCategory": "${VAR} commands in that category"
+                },
+                "links": {
+                    "embedTitle": "Links",
+                    "github": "GitHub",
+                    "discServer": "Discord Server",
+                    "invite": "Invite",
+                    "trello": "Trello"
+                },
+                "ping": {
+                    "embedTitle": "Pong!",
+                    "embedDesc": "Ping is ${VAR}ms, API is ${VAR}ms",
+                    "fieldMsg": {
+                        "<0": "How much caffeine did i drink",
+                        "<1": "Lightning Fast",
+                        "<5": "Very Fast",
+                        "<10": "Fast",
+                        "<15": "Quite Fast",
+                        "<50": "Moderately Fast",
+                        "<100": "Faster than normal",
+                        "<500": "Normal",
+                        "<1000": "Slower than normal",
+                        "<2500": "Quite Slow",
+                        "<5000": "Slow",
+                        "<10000": "Insanely Slow",
+                        "else": "Is the bot dead????",
+                        "title": "In words"
+                    }
+                },
+                "poll": {
+                    "invalidDuration": "Invalid duration!",
+                    "embedDesc": "This poll will end in ${VAR}",
+                    "newPoll": "New poll!"
+                },
+                "userInfo": {
+                    "bot?": "Bot?",
+                    "createAt": "Created at",
+                    "discrim": "Discriminator",
+                    "clientID": "Client ID",
+                    "clientTag": "Client Tag",
+                    "uname": "Username",
+                    "title": "About the user ${VAR}"
+                },
+                "serverInfo": {
+                    "filterLevels": {
+                        "DISABLED": "Off",
+                        "MEMBER_WITHOUT_ROLES": "No Role",
+                        "ALL_MEMBERS": "Everyone"
+                    },
+                    "verificationLevels": {
+                        "NONE": "None",
+                        "LOW": "Low",
+                        "MEDIUM": "Medium",
+                        "HIGH": "(╯°□°）╯︵ ┻━┻",
+                        "VERY_HIGH": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻"
+                    },
+                    "embedTitle": "**Server Info**",
+                    "general": "General",
+                    "name": "**Name**",
+                    "ID": "**ID**",
+                    "boostTier": "**Boost Tier**",
+                    "tier": "Tier ${VAR}",
+                    "noTier": "None",
+                    "explicitFilter": "**Explicit Filter**",
+                    "verificationLevel": "**Verification Level**",
+                    "statistics": "Statistics",
+                    "roleCount": "**Role Count**",
+                    "emojiCount": "**Emoji Count**",
+                    "regEmojiCount": "**Regular Emoji Count**",
+                    "animEmojiCount": "**Animated Emoji Count**",
+                    "memberCount": "**Member Count**",
+                    "botCount": "**Bot Count**",
+                    "textChannelCount": "**Text Channel Count**",
+                    "voiceChannelCount": "**Voice Channel Count**",
+                    "boostCount": "**Boost Count**",
+                    "presense": "Presence",
+                    "online": "**Online**",
+                    "idle": "**Idle**",
+                    "dnd": "**Do Not Disturb**",
+                    "offline": "**Offline**",
+                    "roles": "Roles [${VAR}]"
+                },
+                "suggest": {
+                    "embedTitle": "Suggestion",
+                    "noChannel": "You must specify a channel!",
+                    "noSuggestion": "You must specify a suggestion!",
+                    "channelNotText": "The channel must be a text channel!",
+                    "success": "Suggestion sent!"
+                },
+                "birthday": {
+                    "invalidBdate": "Invalid birthdate!",
+                    "noBdate": "You must specify a birthdate!",
+                    "setSuccess": "Birthday set!",
+                    "updateSuccess": "Birthday updated!",
+                    "noBdays": "No birthdays set!",
+                    "listEmbedTitle": "Birthdays for ${VAR}",
+                    "nextBday": "${VAR}'s birthday is next on ${VAR}",
+                    "channelNotText": "The channel must be a text channel!",
+                    "setupSuccess": "Settings saved!",
+                    "removeSuccess": "Birthday removed!"
+                },
+                "tag": {
+                    "noTag": "You must specify a tag!",
+                    "tagNotFound": "Tag not found!",
+                    "pingUser": "*Tag suggestion for ${VAR}*"
+                },
+                "language": {
+                    "noLanguage": "You must specify a language!",
+                    "success": "Language set to ${VAR}!"
+                }
+            },
+            "moderation": {
+                "modActions": {
+                    "defaultReason": "No reason given",
+                    "noModChannel": "Couldn't find a mod channel!",
+                    "reason": "Reason",
+                    "noMember": "Provide a valid member!",
+                    "ban": {
+                        "title": "Ban",
+                        "bannedMember": "Banned member",
+                        "footer": "Banned by ${VAR}"
+                    },
+                    "kick": {
+                        "title": "Kick",
+                        "kickedMemberFieldTitle": "Kicked member",
+                        "footer": "Kicked by ${VAR}"
+                    },
+                    "mute": {
+                        "title": "Mute",
+                        "mutedMember": "Muted member",
+                        "footer": "Muted by ${VAR}"
+                    },
+                    "timeout": {
+                        "title": "Timeout",
+                        "timeoutMember": "Timeout member",
+                        "footer": "Timeouted by ${VAR}"
+                    },
+                    "unban": {
+                        "title": "Unban",
+                        "unbannedMember": "Unbanned member",
+                        "footer": "Unbanned by ${VAR}"
+                    },
+                    "bulkDelete": {
+                        "invalidAmount": "Enter a valid amount of messages to delete!",
+                        "messagesDeleted": "Messages deleted!"
+                    }
+                },
+                "createGiveaway": {
+                    "success": "Giveaway created!"
+                },
+                "backups": {
+                    "backups": "Backups",
+                    "noBackupID": "No backup ID provided!",
+                    "loadSuccess": "Backup loaded!",
+                    "removeSuccess": "Backup removed!",
+                    "createSuccess": "Backup created!"
+                },
+                "settings": {
+                    "updated": "Settings updated!",
+                    "badwords": {
+                        "noCustomWords": "You must specify the custom words to use!",
+                        "setWordsCustom": "Set custom bad words to ${VAR}",
+                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    },
+                    "tags": {
+                        "noArgs": "You must provide a tag, customid, and value.",
+                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
+                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
+                    }
+                },
+                "reactroles": {
+                    "noTextChannel": "You must specify a text channel!",
+                    "noPerms": "I don't have permissions to manage the roles!",
+                    "invalidEmoji": "Invalid emoji!",
+                    "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
+                    "success": "Reaction roles created!"
+                },
+                "createticket": {
+                    "noName": "You must specify a name for the ticket!",
+                    "noDesc": "You must specify a description for the ticket!",
+                    "categoryNotCategory": "The category must be a guild category!",
+                    "channelNotChannel": "The channel must be a guild text channel!",
+                    "success": "Ticket created!"
+                }
+            },
+            "music": {
+                "noMusicPlaying": "No music currently playing!",
+                "noMusicBefore": "You must have music playing before you can use this command!",
+                "noFilter": "I couldn't find that filter.\n`bassboost, 8D, nightcore`",
+                "noIndex": "Specify a valid index!",
+                "noNegativeIndex": "Index must be greater than 0!",
+                "backSuccess": "Playing the previous song successfully.",
+                "clearSuccess": "Cleared the queue successfully.",
+                "filterSuccess": "Applied: **${VAR}**, Filter Status: **${VAR}** \n **If the music is long, the filter application time may be longer accordingly.**",
+                "skipSuccess": "Skipped tracks!",
+                "loopType": {
+                    "off": "Off",
+                    "track": "Looping Track 🔂",
+                    "queue": "Looping Queue 🔁",
+                    "autoplay": "Autoplaying 🔊"
+                },
+                "nowplayingMethods": [
+                    "disabled",
+                    "track",
+                    "queue"
+                ],
+                "nowplayingDesc": "Audio **%${VAR}**\nDuration **${VAR}**\nLoop Mode **${VAR}**\n${VAR}",
+                "saveButtonLabel": "Save Track",
+                "pauseSuccess": "Paused the music successfully!",
+                "areYouSurePlayNotYT": "The package we use to play music (discord-player) does not support spotify and will search youtube for it, Are you sure you want to continue? (yes if yes and anything else for no)",
+                "cancel": "Cancelled!",
+                "timeout": "Timeout",
+                "noResults": "No results found!",
+                "cantJoin": "I can't join the voice channel, try joining a channel or change the permissions of the channel!",
+                "playSuccess": "Added ${VAR} to the queue!",
+                "liveStream": "This track is live streaming, no duration data to display!",
+                "serverQueue": "Server Queue",
+                "noTracks": "No track in the queue.",
+                "queueSettings": "Volume: ${VAR}%, Loop Type: ${VAR}",
+                "nowplaying": "Now Playing: ${VAR}",
+                "noMoreTracks": "No more tracks in the queue.",
+                "removeSuccess": "Removed track from the queue!",
+                "resumeSuccess": "Resumed the current track **${VAR}** successfully!",
+                "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
+                "saveSuccess": "Saved track to your dms successfully!",
+                "searchEmbedTitle": "Search Results for ${VAR}",
+                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "shuffleSuccess": "Shuffled the queue successfully!",
+                "stopSuccess": "Stopped the music playing successfully!",
+                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
+                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+            }
+        },
+        "utils": {
+            "inCooldown": "You are in cooldown for ${VAR}!",
+            "noPerms": "You don't have the required permissions to use this command!",
+            "botNoPerms": "I don't have the required permissions to use this command!",
+            "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
+            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+        }
+    },
+    "tl": {
+        "name": "Tagalog",
+        "native": "",
+        "locale": "tl-PH",
+        "commands": {
+            "currency": {
+                "addshopitem": {
+                    "noPrice": "You can't add an item for less than $1!",
+                    "noItemName": "You must specify an item name!",
+                    "invalidPrice": "Invalid Price!",
+                    "noInvPrice": "You must specify an inventory price!",
+                    "noInv": "No Data Received!",
+                    "success": "Successfully added the item ${VAR} to the shop!"
+                },
+                "bal": {
+                    "title": "${VAR}'s Balance",
+                    "wallet": "Wallet: ${VAR}",
+                    "bank": "Bank: ${VAR}",
+                    "total": "Total: ${VAR}"
+                },
+                "beg": {
+                    "users": [
+                        "A Stranger",
+                        "A Potato",
+                        "A Living being",
+                        "I forgor 💀",
+                        "Someone™️",
+                        "Something™️"
+                    ],
+                    "cooldown": "You have begged recently, Try again in ${VAR}",
+                    "success": "**${VAR}** donated you **${VAR}**!"
+                },
+                "buy": {
+                    "storeTitle": "Store",
+                    "storeItem": "${VAR} - Price: $${VAR} - **${VAR}:**`",
+                    "noItem": "Item not found!",
+                    "noMoney": "You're too broke to buy that item!",
+                    "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
+                },
+                "rewards": {
+                    "cooldown": "You have claimed your **${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
+                    "hourly": "hourly",
+                    "daily": "daily",
+                    "weekly": "weekly",
+                    "monthly": "monthly"
+                },
+                "deposit": {
+                    "money": "Specify an amount to deposit!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "noMoney": "You don't have any money to deposit!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
+                    "success": "Successfully deposited ${VAR} into your bank!, you now have**$${VAR}**in your bank!"
+                },
+                "find": {
+                    "places": [
+                        "Potato Peelers",
+                        "Potato Street",
+                        "Potato Town",
+                        "Mount Everest"
+                    ],
+                    "cooldown": "You have already searched recently, Try again in ${VAR}",
+                    "success": "**${VAR}** was somewhat profitable, you found **$${VAR}**."
+                },
+                "inv": {
+                    "title": "Inventory of ${VAR}",
+                    "noItems": "No items in inventory!",
+                    "moreItems": "...${VAR} more item(s)"
+                },
+                "lb": {
+                    "title": "Leaderboard",
+                    "empty": "Empty Leaderboard!",
+                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                },
+                "sell": {
+                    "invalidItem": "Invalid Item!",
+                    "unknownItem": "Item doesn't exist!",
+                    "success": "Successfully sold **${VAR} ${VAR}** for **$${VAR}**!"
+                },
+                "transfer": {
+                    "invalidUser": "Invalid User!",
+                    "sendToSelf": "You can't transfer money to yourself!",
+                    "invalidAmount": "Invalid Amount!",
+                    "lowAmount": "You don't have that much money!",
+                    "success": "Successfully transferred **$${VAR}** to **$${VAR}**!"
+                },
+                "work": {
+                    "users": [
+                        "Potato Peeler",
+                        "Janitor",
+                        "Rice Cooker",
+                        "Potato Baker",
+                        "Baker",
+                        "Carpenter",
+                        "Lumberjack",
+                        "Miner",
+                        "Farmer"
+                    ],
+                    "cooldown": "You're too tired, try again in ${VAR}",
+                    "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                }
+            },
+            "fun": {
+                "say_embed": {
+                    "enterDesc": "Enter a description, wait 30 seconds to leave it empty.",
+                    "specifyTitle": "Specify a title!"
+                },
+                "say": {
+                    "noText": "You must specify some text to say!",
+                    "textTooLong": "Your text is too long!",
+                    "noPerms": "You don't have the required permissions to ping everyone or here!"
+                },
+                "slots": {
+                    "embedTitle": "Slots",
+                    "win": "${VAR} won **$${VAR}**!",
+                    "lose": "You lost **$${VAR}**!",
+                    "noBet": "You must specify a bet amount!",
+                    "invalidBet": "Invalid bet amount!",
+                    "noMoneyBet": "You don't have that much money in your wallet!"
+                },
+                "tictactoe": {
+                    "playSelf": "You can't play against yourself!",
+                    "playClient": "You can't play against me!",
+                    "playBot": "You can't play against a bot!",
+                    "firstTurn": "${VAR}'s turn"
+                }
+            },
+            "info": {
+                "help": {
+                    "categories": [
+                        "Currency",
+                        "Fun",
+                        "Info",
+                        "Moderation",
+                        "Music",
+                        "Bot Admin Only"
+                    ],
+                    "noCategory": "No category found with that name",
+                    "noCommand": "No command found with that name",
+                    "embedTitle": "Commands",
+                    "embedDesc": "Do /help and assign the parameters to get help for a specific command or category.\n\nFor example: `/help category:Currency`",
+                    "commandsInCategory": "${VAR} commands in that category"
+                },
+                "links": {
+                    "embedTitle": "Links",
+                    "github": "GitHub",
+                    "discServer": "Discord Server",
+                    "invite": "Invite",
+                    "trello": "Trello"
+                },
+                "ping": {
+                    "embedTitle": "Pong!",
+                    "embedDesc": "Ping is ${VAR}ms, API is ${VAR}ms",
+                    "fieldMsg": {
+                        "<0": "How much caffeine did i drink",
+                        "<1": "Lightning Fast",
+                        "<5": "Very Fast",
+                        "<10": "Fast",
+                        "<15": "Quite Fast",
+                        "<50": "Moderately Fast",
+                        "<100": "Faster than normal",
+                        "<500": "Normal",
+                        "<1000": "Slower than normal",
+                        "<2500": "Quite Slow",
+                        "<5000": "Slow",
+                        "<10000": "Insanely Slow",
+                        "else": "Is the bot dead????",
+                        "title": "In words"
+                    }
+                },
+                "poll": {
+                    "invalidDuration": "Invalid duration!",
+                    "embedDesc": "This poll will end in ${VAR}",
+                    "newPoll": "New poll!"
+                },
+                "userInfo": {
+                    "bot?": "Bot?",
+                    "createAt": "Created at",
+                    "discrim": "Discriminator",
+                    "clientID": "Client ID",
+                    "clientTag": "Client Tag",
+                    "uname": "Username",
+                    "title": "About the user ${VAR}"
+                },
+                "serverInfo": {
+                    "filterLevels": {
+                        "DISABLED": "Off",
+                        "MEMBER_WITHOUT_ROLES": "No Role",
+                        "ALL_MEMBERS": "Everyone"
+                    },
+                    "verificationLevels": {
+                        "NONE": "None",
+                        "LOW": "Low",
+                        "MEDIUM": "Medium",
+                        "HIGH": "(╯°□°）╯︵ ┻━┻",
+                        "VERY_HIGH": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻"
+                    },
+                    "embedTitle": "**Server Info**",
+                    "general": "General",
+                    "name": "**Name**",
+                    "ID": "**ID**",
+                    "boostTier": "**Boost Tier**",
+                    "tier": "Tier ${VAR}",
+                    "noTier": "None",
+                    "explicitFilter": "**Explicit Filter**",
+                    "verificationLevel": "**Verification Level**",
+                    "statistics": "Statistics",
+                    "roleCount": "**Role Count**",
+                    "emojiCount": "**Emoji Count**",
+                    "regEmojiCount": "**Regular Emoji Count**",
+                    "animEmojiCount": "**Animated Emoji Count**",
+                    "memberCount": "**Member Count**",
+                    "botCount": "**Bot Count**",
+                    "textChannelCount": "**Text Channel Count**",
+                    "voiceChannelCount": "**Voice Channel Count**",
+                    "boostCount": "**Boost Count**",
+                    "presense": "Presence",
+                    "online": "**Online**",
+                    "idle": "**Idle**",
+                    "dnd": "**Do Not Disturb**",
+                    "offline": "**Offline**",
+                    "roles": "Roles [${VAR}]"
+                },
+                "suggest": {
+                    "embedTitle": "Suggestion",
+                    "noChannel": "You must specify a channel!",
+                    "noSuggestion": "You must specify a suggestion!",
+                    "channelNotText": "The channel must be a text channel!",
+                    "success": "Suggestion sent!"
+                },
+                "birthday": {
+                    "invalidBdate": "Invalid birthdate!",
+                    "noBdate": "You must specify a birthdate!",
+                    "setSuccess": "Birthday set!",
+                    "updateSuccess": "Birthday updated!",
+                    "noBdays": "No birthdays set!",
+                    "listEmbedTitle": "Birthdays for ${VAR}",
+                    "nextBday": "${VAR}'s birthday is next on ${VAR}",
+                    "channelNotText": "The channel must be a text channel!",
+                    "setupSuccess": "Settings saved!",
+                    "removeSuccess": "Birthday removed!"
+                },
+                "tag": {
+                    "noTag": "You must specify a tag!",
+                    "tagNotFound": "Tag not found!",
+                    "pingUser": "*Tag suggestion for ${VAR}*"
+                },
+                "language": {
+                    "noLanguage": "You must specify a language!",
+                    "success": "Language set to ${VAR}!"
                 }
             },
             "moderation": {

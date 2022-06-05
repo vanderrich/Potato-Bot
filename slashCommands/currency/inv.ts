@@ -21,12 +21,12 @@ module.exports = {
         const user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
 
         const embed = new MessageEmbed()
-            .setAuthor({ name: `Inventory of ${interaction.user.tag}` })
+            .setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title"), iconURL: user.displayAvatarURL() })
             .setColor("RANDOM")
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         const invPure = await client.eco.getUserItems({ user });
         if (!invPure) {
-            embed.setDescription(`No items in the inventory.`);
+            embed.setDescription(client.getLocale(interaction.user.id, "commands.currency.inv.noItems"));
             return interaction.reply({ embeds: [embed] })
         }
         else {
@@ -45,9 +45,9 @@ module.exports = {
                 });
                 if (items.length) {
                     const embed = new MessageEmbed();
-                    embed.setAuthor({ name: `Inventory of ${interaction.user.tag}` })
+                    embed.setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title", user.username), iconURL: user.displayAvatarURL() })
                     embed.setDescription(`${items.join('\n')}${inv.length > pageEnd
-                        ? `\n... ${inv.length - pageEnd} more item(s)`
+                        ? `\n${client.getLocale(interaction.user.id, "commands.currency.inv.moreItems", pageEnd - inv.length)}`
                         : ''
                         } `);
                     embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
@@ -60,9 +60,9 @@ module.exports = {
                     emptypage = true;
                     if (page === 1) {
                         const embed = new MessageEmbed()
-                            .setAuthor({ name: `Inventory of ${interaction.user.tag}` })
+                            .setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title", user.username), iconURL: user.displayAvatarURL() })
                             .setColor('RANDOM')
-                            .setDescription(`No more items in the inventory.`)
+                            .setDescription(client.getLocale(interaction.user.id, "commands.currency.inv.noItems"))
                             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                         return interaction.reply({ embeds: [embed] });
                     }

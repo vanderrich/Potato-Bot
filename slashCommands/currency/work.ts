@@ -11,10 +11,10 @@ module.exports = {
         let result = await client.eco.work({
             user: interaction.guild?.id,
             maxAmount: 100,
-            replies: ['Potato Peeler', 'Janitor', 'Rice Cooker', 'Baker', 'Carpenter', 'Lumberjack', 'Miner', 'Farmer'],
+            replies: client.getLocale(interaction.user.id, "commands.currency.work.users"),
             cooldown: 25
         });
-        if (result.error) return interaction.reply(`You're too tired, Try again in ${result.time}`);
-        else interaction.reply(`You worked as a ${result.workType} and earned **$${result.amount}**.`)
+        if (result.error) return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.work.cooldown", result.time));
+        else interaction.reply(client.getLocale(interaction.user.id, "commands.currency.work.success", result.workType, result.amount));
     }
 }
