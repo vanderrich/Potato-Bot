@@ -18,8 +18,9 @@ module.exports = {
         ),
     category: 'Music',
     isSubcommand: true,
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any) {
-        if (!interaction.guild || !(interaction.member instanceof GuildMember)) return interaction.reply('You must be in a guild to use this command.');
+        if (!(interaction.member instanceof GuildMember)) return
         await interaction.deferReply()
         const res = await client.player.search(interaction.options.getString('track'), {
             requestedBy: interaction.member,
@@ -54,12 +55,12 @@ module.exports = {
         try {
             if (!queue.connection) await queue.connect(interaction.member?.voice.channel);
         } catch {
-            await client.player.deleteQueue(interaction.guild.id);
+            await client.player.deleteQueue(interaction.guild!.id);
             return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);
         }
 
 
-        res.playlist ? queue.addTracks(res.tracks) : index ? queue.insert(res.tracks[0], index - 1) : queue.addTracks(res.tracks);
+        res.playlist ? queue.addTracks(res.tracks) : index ? queue.insert(res.tracks[0], index - 1) : queue.addTrack(res.tracks[0]);
 
         if (!queue.playing) await queue.play();
 

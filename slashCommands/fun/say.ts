@@ -19,4 +19,4 @@ module.exports = {
         if (text.includes("@everyone") || text.includes("@here") && !interaction.memberPermissions?.has('MENTION_EVERYONE')) return interaction.reply("You dont have the permission ping everyone or here!");
         interaction.reply(text);
     }
-} 
+}

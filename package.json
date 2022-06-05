@@ -28,12 +28,12 @@
         "ffmpeg-static": "",
         "mongoose": "",
         "ms": "",
-        "node-fetch": "",
         "officegen": "",
         "pet-pet-gif": "",
         "play-dl": "",
         "tenorjs": "",
         "typescript": "",
+        "undici": "^5.4.0",
         "ytdl-core": ""
     }
 }

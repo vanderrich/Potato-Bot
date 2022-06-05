@@ -17,7 +17,7 @@ module.exports = {
         const birthdate = interaction.options.getString("birthdate");
         const user = interaction.user;
 
-        if (!birthdate) return interaction.editReply("You need to specify your birthdate and timezone!");
+        if (!birthdate) return interaction.editReply("You need to specify your birthdate!");
 
         let birthdateArray = birthdate.split("/");
         if (birthdateArray.length != 2) return interaction.editReply("Invalid birthdate!");

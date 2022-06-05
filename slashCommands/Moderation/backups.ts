@@ -12,12 +12,8 @@ module.exports = {
         const backups = await backup.list();
         const embed = new MessageEmbed()
             .setTitle("Backups")
-            .setDescription("Here are all the backups of this server")
+            .setDescription(backups.map(backup => `ID: ${backup}`).join("\n"))
             .setColor('RANDOM')
-            .addFields(backups.map(backupID => ({
-                name: `Backup ${backupID}`,
-                value: '<insert placeholder here>',
-            })))
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         interaction.reply({ embeds: [embed] });
     }
