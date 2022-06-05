@@ -20,6 +20,10 @@
           <li>Reaction Roles</li>
           <li>Moderation</li>
           <li>Music</li>
+          <li>Playlists</li>
+          <li>Image Stuff</li>
+          <li>Polls</li>
+          <li>Tickets</li>
           <li>Backups</li>
           <li>Giveaways</li>
           <li>Lots more</li>
