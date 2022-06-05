@@ -22,14 +22,14 @@ module.exports = {
         let description: string | null = interaction.options.getString("description");
         if (!description) {
             await interaction.deferReply();
-            const message = await interaction.channel?.send("Enter a description, wait for 30 seconds to leave it empty.");
+            const message = await interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.say_embed.enterDesc"));
             const descriptionThingy = await interaction.channel?.awaitMessages({ filter: (m: Message) => m.author.id === interaction.user.id, max: 1, time: 30000 });
             description = descriptionThingy?.first()?.content || "";
             message?.delete();
             descriptionThingy?.first()?.delete();
         }
 
-        if (!title) return interaction.reply("Please specify a title!");
+        if (!title) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.say_embed.specifyTitle"));
 
         const embed = new MessageEmbed()
             .setColor('RANDOM')

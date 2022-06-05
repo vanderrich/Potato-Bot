@@ -9,10 +9,11 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const embed = new MessageEmbed()
         const ping = Date.now() - interaction.createdTimestamp
-        const fieldMessage = (ping < 0) ? "How much caffeine did i drink?" : (ping < 1) ? "Lightning Fast" : (ping < 5) ? "Very Fast" : (ping < 10) ? "Quite Fast" : (ping < 15) ? "Fast" : (ping < 50) ? "Moderately Fast" : (ping < 100) ? "Faster than normal" : (ping < 500) ? "Normal" : (ping < 1000) ? "Slower than normal" : (ping < 2500) ? "Quite Slow" : (ping < 5000) ? "Very Slow" : (ping < 10000) ? "Insanely Slow" : "Is the bot dead???"
+        const fieldMessages = client.getLocale(interaction.user.id, "commands.info.ping.fieldMsg")
+        const fieldMessage = (ping < 0) ? fieldMessages["<0"] : (ping < 1) ? fieldMessages["<1"] : (ping < 5) ? fieldMessages["<5"] : (ping < 10) ? fieldMessages["<10"] : (ping < 15) ? fieldMessages["<15"] : (ping < 50) ? fieldMessages["<50"] : (ping < 100) ? fieldMessages["<100"] : (ping < 500) ? fieldMessages["<500"] : (ping < 1000) ? fieldMessages["<1000"] : (ping < 2500) ? fieldMessages["<2500"] : (ping < 5000) ? fieldMessages["<5000"] : (ping < 10000) ? fieldMessages["<10000"] : fieldMessages["else"]
         embed.setTitle("Pong!")
-        embed.setDescription(`**Ping is ${ping}ms. API Latency is ${Math.round(client.ws.ping)}ms**`);
-        embed.addField("In words", `${fieldMessage}`, true)
+        embed.setDescription(client.getLocale(interaction.user.id, "commands.info.ping.embedDesc", ping, client.ws.ping));
+        embed.addField(fieldMessages.title, `${fieldMessage}`, true)
         embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [embed] });
     },

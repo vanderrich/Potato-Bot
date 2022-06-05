@@ -73,7 +73,8 @@ const updateCache = () => {
 	})
 }
 
-client.getLocale = (language, string, ...vars) => {
+client.getLocale = (user, string, ...vars) => {
+	let language = client.languages.get(user) || 'en';
 	string = string.split('.');
 	let locale = localizations[language];
 	for (let i = 0; i < string.length; i++) {
@@ -82,13 +83,12 @@ client.getLocale = (language, string, ...vars) => {
 	}
 
 	let count = 0;
-	locale = locale.replace(/\${VAR}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
+	if (locale instanceof string) locale = locale.replace(/\${VAR}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
 
 	return locale;
 }
 
 client.languages = new Discord.Collection();
-// console.log(client.getLocale("en", "utils.inCooldown", "5"));
 
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', async () => {

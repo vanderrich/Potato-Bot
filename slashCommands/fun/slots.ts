@@ -5,9 +5,19 @@ import { CommandInteraction, GuildEmoji, Message, MessageEmbed } from "discord.j
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("slots")
-        .setDescription("Spin the slots!"),
+        .setDescription("Spin the slots!")
+        .addNumberOption(option =>
+            option
+                .setName("bet")
+                .setDescription("The amount of money you want to bet")
+                .setRequired(true)
+        ),
     category: "Fun",
-    execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+        const bet = interaction.options.getNumber("bet");
+        if (bet == null || bet < 0) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));
+        const userWallet = await client.eco.balance({ user: interaction.user.id });
+        if (bet > userWallet.wallet) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noMoneyBet"));
         const footer = footers[Math.floor(Math.random() * footers.length)]
         let messages: MessageEmbed[] = [];
         let win = true;
@@ -40,7 +50,7 @@ module.exports = {
                         }
                     }
                     messages.unshift(new MessageEmbed()
-                        .setTitle('Slots')
+                        .setTitle(client.getLocale(interaction.user.id, "commands.fun.slots.embedTitle"))
                         .setDescription(slotdisplay.join('')))
 
                     //check if the player won
@@ -57,12 +67,13 @@ module.exports = {
                 //sends the result
                 if (win) {
                     setTimeout(async function () {
-                        interaction.channel?.send(`${interaction.user} won 50 💸!`);
-                        await client.eco.addMoney({ user: interaction.user.id, amount: 50, whereToPutMoney: "wallet" })
+                        interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.slots.win", interaction.user, bet));
+                        await client.eco.addMoney({ user: interaction.user.id, amount: bet, whereToPutMoney: "wallet" })
                     }, messages.length * 1000)
                 } else {
                     setTimeout(async function () {
-                        interaction.channel?.send(`You lost, try again next time`)
+                        interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.slots.lose", bet));
+                        await client.eco.removeMoney({ user: interaction.user.id, amount: bet, whereToGetMoney: "wallet" })
                     }, messages.length * 1000)
                 }
             }

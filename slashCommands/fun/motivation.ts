@@ -7,7 +7,9 @@ const gifs = [
     "https://tenor.com/view/monday-motivation-positive-bunny-gif-12327682",
     "https://tenor.com/view/keep-it-up-gif-21565880",
     "https://tenor.com/view/motivational-toast-toast-motivation-gif-15373786",
-    "https://tenor.com/view/penguin-motivation-you-can-do-it-dont-give-up-gif-16922392"
+    "https://tenor.com/view/penguin-motivation-you-can-do-it-dont-give-up-gif-16922392",
+    "https://tenor.com/view/snail-encouragement-you-can-do-it-you-got-this-gif-5674505",
+    "https://tenor.com/view/motivational-squirrel-motivational-squirrel-go-you-can-do-it-dance-gif-15538524"
 ]
 
 module.exports = {

@@ -44,7 +44,6 @@ module.exports = {
             }
 
             if (await client.guildSettings.findOne({ guildID: interaction.guild.id })) {
-                console.log("found settings");
                 await client.guildSettings.updateOne({ guildID: interaction.guild.id }, { $set: { badWords: badWords } });
             }
             else {
@@ -68,10 +67,7 @@ module.exports = {
             else {
                 const newSettings = new client.guildSettings({
                     guildID: interaction.guild.id,
-                    badWords: badWordPresets[badWordPresetTyped],
-                    welcomeMessage: "",
-                    welcomeChannel: "",
-                    welcomeRole: ""
+                    badWords: badWordPresets[badWordPresetTyped]
                 });
                 newSettings.save();
             }
