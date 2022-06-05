@@ -108,6 +108,11 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("remove")
             .setDescription("Remove a track from the queue.")
+            .addStringOption(option => option
+                .setName('index')
+                .setDescription('The index of the track to remove')
+                .setRequired(true)
+            )
         )
         .addSubcommand(subcommand => subcommand
             .setName("save")
@@ -116,10 +121,20 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("search")
             .setDescription("Search for a track.")
+            .addStringOption(option => option
+                .setName('query')
+                .setDescription('The query to search for')
+                .setRequired(true)
+            )
         )
         .addSubcommand(subcommand => subcommand
             .setName("seek")
             .setDescription("Seek to a specific time in the current track.")
+            .addIntegerOption(option => option
+                .setName("pos")
+                .setDescription("The position to seek to.")
+                .setRequired(true)
+            )
         )
         .addSubcommandGroup(subcommandGroup => subcommandGroup
             .setName("playlist")

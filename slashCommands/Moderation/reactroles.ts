@@ -41,8 +41,7 @@ module.exports = {
         let title = interaction.options.getString("title");
         let description = interaction.options.getString("description");
         let channel: any = interaction.options.getChannel("channel");
-        if (!channel) return interaction.reply("Please specify channel!");
-        if (!(channel instanceof Discord.TextChannel)) return interaction.reply("Please specify a text channel!");
+        if (!channel || (!(channel instanceof Discord.TextChannel))) return interaction.reply("Please specify a text channel!");
         let options: Array<string> = [];
         let reactionRoles: Array<any> = [];
         let reactions: Array<Discord.GuildEmoji | string> = [];

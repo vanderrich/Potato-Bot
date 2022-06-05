@@ -46,7 +46,7 @@ module.exports = {
             time: 15000,
             filter: m => m.author.id === interaction.user.id
         });
-        if (!collector) return interaction.reply(`${interaction.user}, Timeout.`);
+        if (!collector) return interaction.reply(`Timeout.`);
 
         collector.on('collect', async (query: any) => {
             if (!interaction.guild || !interaction.member || !(interaction.member instanceof Discord.GuildMember)) {
@@ -83,7 +83,7 @@ module.exports = {
 
             queue.addTrack(res.tracks[Number(query.content) - 1]);
             if (!queue.playing) await queue.play();
-
+            interaction.followUp(`${interaction.user}, Added track to queue. ✅`);
         });
 
         collector.on('end', () => {

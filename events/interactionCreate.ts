@@ -1,5 +1,5 @@
 import { tags, footers, admins } from './../config.json'
-import Discord, { DiscordAPIError } from 'discord.js'
+import Discord from 'discord.js'
 import fs from 'fs'
 import updateGrid from '../Util/tictactoe'
 import officegen from 'officegen'
@@ -21,10 +21,12 @@ module.exports = {
                 if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(command.permissions)) return interaction.reply({ content: "You don't have permission to use this command!", ephemeral: true });
             }
 
+            if (command.guildOnly && (!interaction.guild || !(interaction.guild instanceof Discord.GuildMember))) return interaction.reply({ content: "You can't use this command in DM!", ephemeral: true });
+
             try {
                 client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`${interaction.user.username} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}`)}\`` : ""}`); // log the command
                 await command.execute(interaction, client, footers);
-            } catch (error: DiscordAPIError | any | Error) {
+            } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
                 await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}` }); // log the error to the bot owner
                 await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}` }); // log the error to the bot logs channel
@@ -369,9 +371,11 @@ module.exports = {
                     }
                     await interaction.respond(respondTags);
                     break;
-                case 'buy':
                 case 'sell':
-                    console.log(client.cachedShopItems.get(interaction.guildId), client.globalShopItems)
+                    const inventory = client.cachedInventories.get(interaction.user.id)?.filter((item: AutocompleteThingy) => item.name.toLowerCase().includes(`${interaction.options.getNumber("item")}` ?? ""))
+                    await interaction.respond(inventory);
+                    break;
+                case 'buy':
                     const guildItems = client.cachedShopItems.get(interaction.guildId)?.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""))
                     const globalItems = client.globalShopItems.filter((buy: AutocompleteThingy) => buy.name.toLowerCase().includes(interaction.options.getString("item") ?? ""));
                     const respondItems = [...globalItems];

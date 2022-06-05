@@ -25,19 +25,15 @@
         "discord-player": "",
         "discord.js": "",
         "dotenv": "",
-        "ffmpeg": "",
         "ffmpeg-static": "",
-        "libsodium-wrappers": "",
-        "mongodb": "",
         "mongoose": "",
-        "node-fetch": "",
+        "ms": "",
         "officegen": "",
         "pet-pet-gif": "",
         "play-dl": "",
-        "rss-parser": "",
         "tenorjs": "",
         "typescript": "",
-        "yt-search": "",
+        "undici": "^5.4.0",
         "ytdl-core": ""
     }
 }

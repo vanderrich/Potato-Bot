@@ -22,15 +22,15 @@ module.exports = {
         ),
     category: "Currency",
     permissions: "ADMINISTRATOR",
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         const name = interaction.options.getString("name");
         const description = interaction.options.getString("description");
         const price = interaction.options.getNumber("price");
 
-        if (!price) return interaction.reply("You can't add an item for less than 1$!");
-        if (!interaction.guild) return interaction.reply("You can't add an item in a DM!");
+        if (!price) return interaction.reply(client.getLocale("en", "currency.addshopitem.noPrice"));
         let result = await client.eco.addItem({
-            guild: interaction.guild.id,
+            guild: interaction.guild!.id,
             inventory: {
                 name: name,
                 price: price,
@@ -38,10 +38,10 @@ module.exports = {
             }
         });
         if (result.error) {
-            if (result.type == 'No-Inventory-Name') return interaction.reply('Enter item name to add!')
-            if (result.type == 'Invalid-Inventory-Price') return interaction.reply('Invalid price!')
-            if (result.type == 'No-Inventory-Price') return interaction.reply('You didnt specify the price!')
-            if (result.type == 'No-Inventory') return interaction.reply('No data received!')
-        } else return interaction.reply('Successfully added `' + name + '` to the shop!')
+            if (result.type == 'No-Inventory-Name') return interaction.reply(client.getLocale("en", "currency.addshopitem.noItemName"));
+            if (result.type == 'Invalid-Inventory-Price') return interaction.reply(client.getLocale("en", "currency.addshopitem.invalidPrice"));
+            if (result.type == 'No-Inventory-Price') return interaction.reply(client.getLocale("en", "currency.addshopitem.noInvPrice"));
+            if (result.type == 'No-Inventory') return interaction.reply(client.getLocale("en", "currency.addshopitem.noInv"));
+        } else return interaction.reply(client.getLocale("en", "currency.addshopitem.success", name));
     }
 }

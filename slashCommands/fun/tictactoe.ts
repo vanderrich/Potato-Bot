@@ -18,8 +18,8 @@ module.exports = {
     category: "Fun",
     async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any) {
         const opponent = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
-        if (interaction.user.id == opponent) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
-        if (opponent == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
+        if (interaction.user.id == opponent.id) return interaction.reply({ content: "You can't play against yourself!", ephemeral: true });
+        if (opponent.id == client.user.id) return interaction.reply({ content: "You can't play against me!", ephemeral: true });
         if (opponent.bot) interaction.channel?.send('Have fun playing with a bot lol')
 
         const game = await interaction.reply({

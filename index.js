@@ -9,6 +9,7 @@ const Economy = require('currency-system');
 const { deploy } = require('./deploy-commands.js');
 const { GiveawaysManager } = require('discord-giveaways');
 const mongoose = require('mongoose');
+const localizations = require('./localization.json');
 // const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 client.cachedTags = new Discord.Collection();
 client.cachedShopItems = new Discord.Collection();
+client.cachedInventories = new Discord.Collection();
 client.globalShopItems = [];
 
 const updateCache = () => {
@@ -49,13 +51,45 @@ const updateCache = () => {
 				items.inventory.forEach((item, key) => {
 					shopItemsCache.push({
 						name: item.name,
-						value: `${key}_local`
+						value: `${key + 1}_local`
 					});
 				});
 				client.cachedShopItems.set(guild.id, shopItemsCache);
 			});
 	});
+
+	client.users.cache.forEach(user => {
+		client.eco.getUserItems({ user: user.id })
+			.then(items => {
+				const userItemsCache = []
+				items.inventory.forEach((item, key) => {
+					userItemsCache.push({
+						name: item.name,
+						value: key + 1
+					});
+				});
+				client.cachedInventories.set(user.id, userItemsCache);
+			});
+	})
 }
+
+client.getLocale = (language, string, ...vars) => {
+	string = string.split('.');
+	let locale = localizations[language];
+	for (let i = 0; i < string.length; i++) {
+		locale = locale[string[i]];
+		if (locale === undefined) return undefined;
+	}
+
+	let count = 0;
+	locale = locale.replace(/\${VAR}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
+
+	return locale;
+}
+
+client.languages = new Discord.Collection();
+// console.log(client.getLocale("en", "utils.inCooldown", "5"));
+
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB.');
@@ -238,7 +272,7 @@ mongoose.connection.once('open', async () => {
 			items.inventory.forEach((item, key) => {
 				client.globalShopItems.push({
 					name: item.name,
-					value: key.toString()
+					value: (key + 1).toString()
 				});
 			});
 		});
@@ -372,5 +406,4 @@ process.on("unhandledRejection", _ => {
 	client.users.cache.get('709950767670493275').send({ content: `Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\`` }); // log the crash to the bot owner
 	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
 	console.error(_.stack + '\n' + '='.repeat(20))
-
 });

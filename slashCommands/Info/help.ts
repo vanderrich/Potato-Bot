@@ -21,8 +21,7 @@ module.exports = {
                     { name: "Fun", value: "Fun" },
                     { name: "Info", value: "Info" },
                     { name: "Moderation", value: "Moderation" },
-                    { name: "Music", value: "Music" },
-                    { name: "Bot Admin Only", value: "Bot Admin Only" },
+                    { name: "Music", value: "Music" }
                 )
         )
         .addStringOption(option =>

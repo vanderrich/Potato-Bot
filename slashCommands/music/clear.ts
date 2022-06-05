@@ -12,8 +12,6 @@ module.exports = {
 
         if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, No music currently playing. ❌`);
 
-        if (!queue.tracks[0]) return interaction.reply(`${interaction.user}, There is already no music in queue after the current one ❌`);
-
         await queue.clear();
 
         interaction.reply(`The queue has just been cleared. 🗑️`);

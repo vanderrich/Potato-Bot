@@ -9,6 +9,7 @@ module.exports = {
             option
                 .setName("item")
                 .setDescription("The item you want to sell")
+                .setAutocomplete(true)
                 .setRequired(true)
         ),
     category: "Currency",
@@ -25,7 +26,7 @@ module.exports = {
             let shopItem = await client.eco.getShopItems({ user: interaction.user.id });
             let item = shopItem.inventory.find((item: any) => item.name === result.inventory.name);
             if (item) {
-                client.eco.removeMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
+                client.eco.addMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
                 return interaction.reply(`You have sold **${result.inventory.name}** for **$${item.price}**`);
             }
             else {
