@@ -17,17 +17,19 @@ module.exports = {
         .setType(ApplicationCommandType.User),
     category: "Currency",
     async execute(interaction: ContextMenuInteraction | CommandInteraction, client: any, footers: Array<string>) {
+        await interaction.deferReply();
+
         let user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
         let userInfo = await client.eco.balance({ user: user.id });
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction.user.id, "commands.currency.bal.title", user.username))
-            .addField(client.getLocale(interaction.user.id, "commands.currency.bal.wallet"), `${userInfo.wallet}`)
-            .addField(client.getLocale(interaction.user.id, "commands.currency.bal.bank"), `${userInfo.bank}`)
-            .addField(client.getLocale(interaction.user.id, "commands.currency.bal.total"), `${userInfo.networth}`)
+            .setDescription(`${client.getLocale(interaction.user.id, "commands.currency.bal.wallet", userInfo.wallet)}\n
+            ${client.getLocale(interaction.user.id, "commands.currency.bal.bank", `${userInfo.bank}`)}\n
+            ${client.getLocale(interaction.user.id, "commands.currency.bal.total", `${userInfo.networth}`)}`)
             .setColor("RANDOM")
             .setThumbnail(user.displayAvatarURL)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             .setTimestamp()
-        return interaction.reply({ embeds: [embed] })
+        return interaction.editReply({ embeds: [embed] })
     }
 }

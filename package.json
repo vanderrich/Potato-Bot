@@ -23,7 +23,7 @@
         "discord-backup": "",
         "discord-giveaways": "",
         "discord-player": "",
-        "discord.js": "",
+        "discord.js": "^13.8.0",
         "dotenv": "",
         "ffmpeg-static": "",
         "mongoose": "",
@@ -33,7 +33,7 @@
         "play-dl": "",
         "tenorjs": "",
         "typescript": "",
-        "undici": "^5.4.0",
+        "undici": "",
         "ytdl-core": ""
     }
 }

@@ -15,10 +15,15 @@ module.exports = {
             .setRequired(true)
         ),
     category: "Info",
-    execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         let language = interaction.options.getString("language");
         if (!language) return interaction.reply(client.getLocale(interaction.user.id, "commands.info.language.noLanguage"));
-        client.languages.set(interaction.user.id, language);
+        let languageDoc = client.languages.findOne({ user: interaction.user.id });
+        if (!languageDoc)
+            languageDoc = new client.languages({ user: interaction.user.id, language: language });
+        else
+            languageDoc.language = language;
+        await languageDoc.save();
         return interaction.reply(client.getLocale(interaction.user.id, "commands.info.language.success", language));
     }
 }

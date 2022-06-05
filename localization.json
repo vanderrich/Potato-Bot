@@ -39,7 +39,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -53,7 +53,7 @@
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
                     "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited ${VAR} into your bank!, you now have**$${VAR}**in your bank!"
+                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
@@ -426,8 +426,8 @@
                     "success": "Berhasil membeli **${VAR} ${VAR}** dengan **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "Anda sudah mengklaim kredit ${VAR} anda. Kembali dalam ${VAR} untuk mengklaimnya lagi!",
-                    "success": "Anda telah mengklaim ${VAR} sebagai kredit ${VAR} anda, anda sekarang ada ${VAR} di dompet!",
+                    "cooldown": "Anda sudah mengklaim kredit **$${VAR}** anda. Kembali dalam ${VAR} untuk mengklaimnya lagi!",
+                    "success": "Anda telah mengklaim **$${VAR}** sebagai kredit ${VAR} anda, anda sekarang ada ${VAR} di dompet!",
                     "hourly": "per jam",
                     "daily": "harian",
                     "weekly": "mingguan",
@@ -512,18 +512,18 @@
                     "playSelf": "Anda tidak dapat bermain dengan diri sendiri!",
                     "playClient": "Anda tidak dapat bermain denganku!",
                     "playBot": "Anda tidak dapat bermain dengan sebuah bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "firstTurn": "giliran ${VAR}"
                 }
             },
             "info": {
                 "help": {
                     "categories": [
-                        "Currency",
-                        "Fun",
+                        "Ekonomi",
+                        "Seru",
                         "Info",
-                        "Moderation",
-                        "Music",
-                        "Bot Admin Only"
+                        "Moderasi",
+                        "Musik",
+                        "Pemunya Admin Bot"
                     ],
                     "noCategory": "No category found with that name",
                     "noCommand": "No command found with that name",
@@ -813,7 +813,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -827,7 +827,7 @@
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
                     "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited ${VAR} into your bank!, you now have**$${VAR}**in your bank!"
+                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
@@ -1200,7 +1200,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -1214,7 +1214,7 @@
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
                     "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited ${VAR} into your bank!, you now have**$${VAR}**in your bank!"
+                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
