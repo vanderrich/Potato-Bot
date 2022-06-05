@@ -8,8 +8,12 @@ module.exports = {
     category: "Info",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const embed = new MessageEmbed()
-            .setTitle("Links")
-            .setDescription(`[**Github**](https://github.com/vanderrich/Potato-Bot)\n[**Discord Server**](https://discord.gg/cHj7nErGBa)\n[**Invite**](https://discord.com/api/oauth2/authorize?client_id=894060283373449317&permissions=8&scope=bot%20applications.commands)\n[**Trello**](https://trello.com/b/65PWS20u)`)
+            .setTitle(client.getLocale(interaction.user.id, "commands.info.links.embedTitle"))
+            .setDescription(`
+            [**${client.getLocale(interaction.user.id, "commands.info.links.github")}**](https://github.com/vanderrich/Potato-Bot)\n
+            [**${client.getLocale(interaction.user.id, "commands.info.links.discServer")}**](https://discord.gg/cHj7nErGBa)\n
+            [**${client.getLocale(interaction.user.id, "commands.info.links.invite")}**](https://discord.com/api/oauth2/authorize?client_id=894060283373449317&permissions=8&scope=bot%20applications.commands)\n
+            [**${client.getLocale(interaction.user.id, "commands.info.links.trello")}**](https://trello.com/b/65PWS20u)`)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [embed] });
     },
