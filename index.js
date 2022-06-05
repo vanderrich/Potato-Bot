@@ -83,7 +83,7 @@ client.getLocale = (user, string, ...vars) => {
 	}
 
 	let count = 0;
-	if (locale instanceof string) locale = locale.replace(/\${VAR}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
+	if (typeof locale == "string") locale = locale.replace(/\${VAR}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
 
 	return locale;
 }
