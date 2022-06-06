@@ -73,7 +73,7 @@ const updateCache = () => {
 		client.languages.findOne({ user: user.id }, (err, doc) => {
 			if (err) return console.log(err);
 			if (!doc) return;
-			client.cachedLanguages.set(user.id, doc.language);
+			languagesCache.set(user.id, doc.language);
 		});
 	});
 }
