@@ -383,7 +383,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     },
     "id": {
@@ -525,29 +530,29 @@
                         "Musik",
                         "Pemunya Admin Bot"
                     ],
-                    "noCategory": "No category found with that name",
-                    "noCommand": "No command found with that name",
-                    "embedTitle": "Commands",
+                    "noCategory": "Kategori tidak dapat ditemukan!",
+                    "noCommand": "Perintah tidak dapat ditemukan!",
+                    "embedTitle": "Perintah",
                     "embedDesc": "Do /help and assign the parameters to get help for a specific command or category.\n\nFor example: `/help category:Currency`",
-                    "commandsInCategory": "${VAR} commands in that category"
+                    "commandsInCategory": "${VAR} perintah dalam kategori itu"
                 },
                 "links": {
-                    "embedTitle": "Links",
+                    "embedTitle": "Link",
                     "github": "GitHub",
-                    "discServer": "Discord Server",
-                    "invite": "Invite",
+                    "discServer": "Server Discord",
+                    "invite": "Invitasi",
                     "trello": "Trello"
                 },
                 "ping": {
                     "embedTitle": "Pong!",
-                    "embedDesc": "Ping is ${VAR}ms, API is ${VAR}ms",
+                    "embedDesc": "Ping adalah ${VAR}ms, API adalah ${VAR}ms",
                     "fieldMsg": {
-                        "<0": "How much caffeine did i drink",
-                        "<1": "Lightning Fast",
-                        "<5": "Very Fast",
-                        "<10": "Fast",
-                        "<15": "Quite Fast",
-                        "<50": "Moderately Fast",
+                        "<0": "Berapa banyak kafein yang saya minum?",
+                        "<1": "Secepat Kilat",
+                        "<5": "Sangat Cepat",
+                        "<10": "Cepat",
+                        "<15": "Agak Cepat",
+                        "<50": "Cukup Cepat",
                         "<100": "Faster than normal",
                         "<500": "Normal",
                         "<1000": "Slower than normal",
@@ -770,7 +775,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     },
     "nl": {
@@ -1157,7 +1167,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     },
     "tl": {
@@ -1544,7 +1559,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     }
 }

@@ -15,7 +15,10 @@ module.exports = {
                 .addField("Sender", message.author.toString())
                 .addField("Pinged user(s)", `${user.map(u => u.toString()).join(", ")}, ${roles.map(r => r.toString()).join(", ")}, ${everyone ? " @everyone" : ""}`)
                 .addField("Message", message.content)
-            message.channel.send({ embeds: [embed] });
+                .setFooter({ text: "To turn this off go to the settings use /settings" })
+            try {
+                message.channel.send({ embeds: [embed] });
+            } catch (e) { }
         }
     }
 }

@@ -18,7 +18,7 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         let language = interaction.options.getString("language");
         if (!language) return interaction.reply(await client.getLocale(interaction.user.id, "commands.info.language.noLanguage"));
-        let languageDoc = client.languages.findOne({ user: interaction.user.id });
+        let languageDoc = await client.languages.findOne({ user: interaction.user.id });
         if (!languageDoc)
             languageDoc = new client.languages({ user: interaction.user.id, language: language });
         else

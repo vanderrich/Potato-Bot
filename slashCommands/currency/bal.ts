@@ -23,8 +23,8 @@ module.exports = {
         let userInfo = await client.eco.balance({ user: user.id });
         const embed = new MessageEmbed()
             .setTitle(await client.getLocale(interaction.user.id, "commands.currency.bal.title", user.username))
-            .setDescription(`${await client.getLocale(interaction.user.id, "commands.currency.bal.wallet", userInfo.wallet)}\n
-            ${await client.getLocale(interaction.user.id, "commands.currency.bal.bank", `${userInfo.bank}`)}\n
+            .setDescription(`${await client.getLocale(interaction.user.id, "commands.currency.bal.wallet", userInfo.wallet)}
+            ${await client.getLocale(interaction.user.id, "commands.currency.bal.bank", `${userInfo.bank}`)}
             ${await client.getLocale(interaction.user.id, "commands.currency.bal.total", `${userInfo.networth}`)}`)
             .setColor("RANDOM")
             .setThumbnail(user.displayAvatarURL)
