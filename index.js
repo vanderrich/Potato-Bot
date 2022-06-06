@@ -73,8 +73,8 @@ const updateCache = () => {
 	})
 }
 
-client.getLocale = (user, string, ...vars) => {
-	let language = await client.languages.findOne(user) || 'en';
+client.getLocale = async (user, string, ...vars) => {
+	let language = await client.languages.findOne({ user: user }) || 'en';
 	string = string.split('.');
 	let locale = localizations[language];
 	for (let i = 0; i < string.length; i++) {
