@@ -22,10 +22,10 @@ module.exports = {
         let user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
         let userInfo = await client.eco.balance({ user: user.id });
         const embed = new MessageEmbed()
-            .setTitle(client.getLocale(interaction.user.id, "commands.currency.bal.title", user.username))
-            .setDescription(`${client.getLocale(interaction.user.id, "commands.currency.bal.wallet", userInfo.wallet)}\n
-            ${client.getLocale(interaction.user.id, "commands.currency.bal.bank", `${userInfo.bank}`)}\n
-            ${client.getLocale(interaction.user.id, "commands.currency.bal.total", `${userInfo.networth}`)}`)
+            .setTitle(await client.getLocale(interaction.user.id, "commands.currency.bal.title", user.username))
+            .setDescription(`${await client.getLocale(interaction.user.id, "commands.currency.bal.wallet", userInfo.wallet)}\n
+            ${await client.getLocale(interaction.user.id, "commands.currency.bal.bank", `${userInfo.bank}`)}\n
+            ${await client.getLocale(interaction.user.id, "commands.currency.bal.total", `${userInfo.networth}`)}`)
             .setColor("RANDOM")
             .setThumbnail(user.displayAvatarURL)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })

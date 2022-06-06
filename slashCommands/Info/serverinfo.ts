@@ -15,12 +15,12 @@ module.exports = {
         const members = interaction.guild.members.cache;
         const channels = interaction.guild.channels.cache;
         const emojis = interaction.guild.emojis.cache;
-        const verificationLevels = client.getLocale(interaction.user.id, 'commands.info.serverinfo.verificationLevels');
-        const filterLevels = client.getLocale(interaction.user.id, 'commands.info.serverinfo.filterLevels');
+        const verificationLevels = await client.getLocale(interaction.user.id, 'commands.info.serverinfo.verificationLevels');
+        const filterLevels = await client.getLocale(interaction.user.id, 'commands.info.serverinfo.filterLevels');
 
         //embed
         const embed = new MessageEmbed()
-            .setDescription(client.getLocale(interaction.user.id, 'commands.info.serverinfo.embedTitle'))
+            .setDescription(await client.getLocale(interaction.user.id, 'commands.info.serverinfo.embedTitle'))
             .setColor('RANDOM')
             .addField('General', `
                 **Name:** ${interaction.guild.name}

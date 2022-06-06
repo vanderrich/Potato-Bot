@@ -15,9 +15,9 @@ module.exports = {
     category: "Fun",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const bet = interaction.options.getNumber("bet");
-        if (bet == null || bet < 0) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));
+        if (bet == null || bet < 0) return interaction.reply(await client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));
         const userWallet = await client.eco.balance({ user: interaction.user.id });
-        if (bet > userWallet.wallet) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noMoneyBet"));
+        if (bet > userWallet.wallet) return interaction.reply(await client.getLocale(interaction.user.id, "commands.fun.slots.noMoneyBet"));
         const footer = footers[Math.floor(Math.random() * footers.length)]
         let messages: MessageEmbed[] = [];
         let win = true;
@@ -31,7 +31,7 @@ module.exports = {
             .setFooter({ text: footer })
 
         //sends the embed message and reacts to it
-        interaction.reply({ embeds: [embed], fetchReply: true }).then((msg) => {
+        interaction.reply({ embeds: [embed], fetchReply: true }).then(async (msg) => {
             if (msg instanceof Message) {
                 var frameCount = Math.floor(Math.random() * 5) + 5
                 for (let i = 0; i < frameCount; i++) {
@@ -50,7 +50,7 @@ module.exports = {
                         }
                     }
                     messages.unshift(new MessageEmbed()
-                        .setTitle(client.getLocale(interaction.user.id, "commands.fun.slots.embedTitle"))
+                        .setTitle(await client.getLocale(interaction.user.id, "commands.fun.slots.embedTitle"))
                         .setDescription(slotdisplay.join('')))
 
                     //check if the player won
@@ -67,12 +67,12 @@ module.exports = {
                 //sends the result
                 if (win) {
                     setTimeout(async function () {
-                        interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.slots.win", interaction.user, bet));
+                        interaction.channel?.send(await client.getLocale(interaction.user.id, "commands.fun.slots.win", interaction.user, bet));
                         await client.eco.addMoney({ user: interaction.user.id, amount: bet, whereToPutMoney: "wallet" })
                     }, messages.length * 1000)
                 } else {
                     setTimeout(async function () {
-                        interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.slots.lose", bet));
+                        interaction.channel?.send(await client.getLocale(interaction.user.id, "commands.fun.slots.lose", bet));
                         await client.eco.removeMoney({ user: interaction.user.id, amount: bet, whereToGetMoney: "wallet" })
                     }, messages.length * 1000)
                 }

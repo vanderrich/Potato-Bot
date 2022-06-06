@@ -12,11 +12,11 @@ module.exports = {
                 .setRequired(true),
         ),
     category: "Fun",
-    execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: any) {
         let text = interaction.options.getString("text");
-        if (!text) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.say.noText"));
-        if (text.length > 2000) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.say.textTooLong"));
-        if (text.includes("@everyone") || text.includes("@here") && !interaction.memberPermissions?.has('MENTION_EVERYONE')) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.say.noPerms"));
+        if (!text) return interaction.reply(await client.getLocale(interaction.user.id, "commands.fun.say.noText"));
+        if (text.length > 2000) return interaction.reply(await client.getLocale(interaction.user.id, "commands.fun.say.textTooLong"));
+        if (text.includes("@everyone") || text.includes("@here") && !interaction.memberPermissions?.has('MENTION_EVERYONE')) return interaction.reply(await client.getLocale(interaction.user.id, "commands.fun.say.noPerms"));
         interaction.reply(text);
     }
 }
