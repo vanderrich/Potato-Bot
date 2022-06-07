@@ -5,7 +5,7 @@ module.exports = {
     execute(message: Discord.Message, client: any) {
         //ghost ping detection
         if (message.mentions?.users.size > 0 || message.mentions?.roles.size > 0 || message?.mentions.everyone) {
-            if (message.author.bot || message.channel.type === "DM" || !message.guild!.me?.permissions || message.channel.permissionsFor(message.guild!.me).has("SEND_MESSAGES")) return;
+            if (message.author.bot || message.channel.type === "DM" || !message.guild!.me?.permissions || !message.channel.permissionsFor(message.guild!.me).has("SEND_MESSAGES") && message.channel.permissionsFor(message.guild!.me).has("VIEW_CHANNEL")) return;
             let user = message.mentions.users
             let roles = message.mentions.roles
             let everyone = message.mentions.everyone
