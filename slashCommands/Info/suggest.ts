@@ -1,5 +1,18 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import { CommandInteraction, GuildTextBasedChannel, MessageEmbed } from "discord.js";
+
+
+type GuildSettings = {
+    guildId: string,
+    badWords: string[],
+    autoPublishChannels: string[],
+    welcomeMessage: string,
+    welcomeChannel: string,
+    welcomeRole: string,
+    suggestionChannel: string,
+    tags: { name: String, value: String }[],
+    tagDescriptions: Object,
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,28 +23,23 @@ module.exports = {
                 .setName("suggestion")
                 .setDescription("The suggestion")
                 .setRequired(true)
-        )
-        .addChannelOption(option =>
-            option
-                .setName("channel")
-                .setDescription("The channel to send the suggestion in")
-                .setRequired(true)
         ),
     category: "Info",
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
-        const channel = interaction.options.getChannel("channel");
+        const guildSettings: GuildSettings | undefined = await client.guildSettings.findOne(interaction.guild!.id);
+        if (!guildSettings?.suggestionChannel) return interaction.reply(client.getLocales(interaction.user.id, "commands.info.suggest.noChannel"));
+        const channel: GuildTextBasedChannel = client.channels.cache.get(guildSettings.suggestionChannel);
         const suggestion = interaction.options.getString("suggestion");
-        if (!channel) return interaction.editReply("You need to specify a channel!");
-        if (!suggestion) return interaction.editReply("You need to specify a suggestion!");
-        if (channel.type !== "GUILD_TEXT") return interaction.editReply("That channel is not a text channel!");
+        if (!suggestion) return interaction.reply(client.getLocales(interaction.user.id, "commands.info.suggest.noSuggestion"));
         const embed = new MessageEmbed()
             .setColor("#0099ff")
-            .setTitle("Suggestion")
+            .setTitle(client.getLocales(interaction.user.id, "commands.info.suggest.embedTitle"))
             .setDescription(suggestion)
             .setTimestamp()
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             .setThumbnail(client.user.displayAvatarURL({ format: "png" }))
         await channel.send({ embeds: [embed] });
-        interaction.editReply("Your suggestion has been sent!");
+        interaction.reply(client.getLocales(interaction.user.id, "commands.info.suggest.success"));
     }
 }

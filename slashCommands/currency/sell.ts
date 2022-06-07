@@ -29,15 +29,15 @@ module.exports = {
             }));
         }
         if (results[0].error) {
-            if (results[0].type == 'Invalid-Item-Number') return interaction.reply(await client.getLocale(interaction.user.id, "commands.currency.sell.invalidItem"));
-            if (results[0].type == 'Unknown-Item') return interaction.reply(await client.getLocale(interaction.user.id, "commands.currency.sell.unknownItem"));
+            if (results[0].type == 'Invalid-Item-Number') return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.sell.invalidItem"));
+            if (results[0].type == 'Unknown-Item') return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.sell.unknownItem"));
         }
         else {
             let shopItem = await client.eco.getShopItems({ user: interaction.user.id });
             let item = shopItem.inventory.find((item: any) => item.name === results[0].inventory.name);
             if (item) {
                 client.eco.addMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
-                return interaction.reply(await client.getLocale(interaction.user.id, "commands.currency.sell.success", amount, item.name, item.price));
+                return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.sell.success", amount, item.name, item.price));
             }
             else {
                 return interaction.reply('The item doesn\'t exist!');

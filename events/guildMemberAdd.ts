@@ -1,5 +1,6 @@
 import { footers } from '../config.json'
 import Discord from "discord.js"
+import { channel } from 'diagnostics_channel'
 module.exports = {
     name: 'guildMemberAdd',
     async execute(newMember: Discord.GuildMember, client: any) {
@@ -12,7 +13,7 @@ module.exports = {
             .setDescription(`${newMember.user}`)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: newMember.user.displayAvatarURL({ dynamic: true }) ? newMember.user.displayAvatarURL({ dynamic: true }) : undefined });
         newMember.user.avatarURL() ? embed.setThumbnail(newMember.user.displayAvatarURL({ dynamic: true })) : "";
-        if (welcomeChannel.isText()) welcomeChannel.send({ embeds: [embed] })
+        if (welcomeChannel.isText() && newMember.guild.me && welcomeChannel.permissionsFor(newMember.guild!.me).has("SEND_MESSAGES")) welcomeChannel.send({ embeds: [embed] })
         if (guildSettings?.welcomeRole) {
             const role = newMember.guild.roles.cache.get(guildSettings.welcomeRole)
             if (role == undefined) return;

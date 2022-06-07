@@ -13,6 +13,10 @@
                     "noInv": "No Data Received!",
                     "success": "Successfully added the item ${VAR} to the shop!"
                 },
+                "removeshopitem": {
+                    "noItem": "You must specify an item!",
+                    "success": "Successfully removed the item ${VAR} to the shop!"
+                },
                 "bal": {
                     "title": "${VAR}'s Balance",
                     "wallet": "Wallet: ${VAR}",
@@ -228,7 +232,7 @@
                     "embedTitle": "Suggestion",
                     "noChannel": "You must specify a channel!",
                     "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
+                    "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
                 },
                 "birthday": {
@@ -405,9 +409,13 @@
                     "noInv": "Tidak ada data diterima!",
                     "success": "Berhasil menambahkan item ${VAR} ke toko!"
                 },
+                "removeshopitem": {
+                    "noItem": "Tidak ada item dengan nama itu!",
+                    "success": "Berhasil menghapuskan item ${VAR} dari toko!"
+                },
                 "bal": {
                     "title": "Saldo ${VAR}",
-                    "wallet": "Dompet  : ${VAR}",
+                    "wallet": "Dompet: ${VAR}",
                     "bank": "Bank: ${VAR}",
                     "total": "Total: ${VAR}"
                 },
@@ -619,12 +627,12 @@
                 "suggest": {
                     "embedTitle": "Saran",
                     "noChannel": "Anda harus menentukan salah satu channel untuk mengirimkan saran!",
-                    "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
-                    "success": "Suggestion sent!"
+                    "noSuggestion": "Anda harus menentukan sebuah saran!",
+                    "noGuildSettings": "Pengaturan server tidak dapat ditemukan!",
+                    "success": "Saran telah dikirim!"
                 },
                 "birthday": {
-                    "invalidBdate": "Invalid birthdate!",
+                    "invalidBdate": "Tanggal lahir tidak valid!",
                     "noBdate": "You must specify a birthdate!",
                     "setSuccess": "Birthday set!",
                     "updateSuccess": "Birthday updated!",
@@ -796,6 +804,10 @@
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
                     "success": "Successfully added the item ${VAR} to the shop!"
+                },
+                "removeshopitem": {
+                    "noItem": "You must specify an item!",
+                    "success": "Successfully removed the item ${VAR} to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
@@ -1012,7 +1024,7 @@
                     "embedTitle": "Suggestion",
                     "noChannel": "You must specify a channel!",
                     "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
+                    "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
                 },
                 "birthday": {
@@ -1189,6 +1201,10 @@
                     "noInv": "No Data Received!",
                     "success": "Successfully added the item ${VAR} to the shop!"
                 },
+                "removeshopitem": {
+                    "noItem": "You must specify an item!",
+                    "success": "Successfully removed the item ${VAR} to the shop!"
+                },
                 "bal": {
                     "title": "${VAR}'s Balance",
                     "wallet": "Wallet: ${VAR}",
@@ -1404,7 +1420,7 @@
                     "embedTitle": "Suggestion",
                     "noChannel": "You must specify a channel!",
                     "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
+                    "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
                 },
                 "birthday": {

@@ -262,6 +262,7 @@ mongoose.connection.once('open', async () => {
 		welcomeChannel: { type: String, default: "" },
 		welcomeRole: { type: String, default: "" },
 		tags: { type: [{ name: String, value: String }], default: [] },
+		suggestionChannel: { type: String, default: "" },
 		tagDescriptions: { type: Object, default: {} },
 	}));
 

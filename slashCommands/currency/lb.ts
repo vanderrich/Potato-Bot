@@ -8,10 +8,10 @@ module.exports = {
     category: "Currency",
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         let leaderboard = await client.eco.globalLeaderboard();
-        if (!leaderboard || leaderboard.length < 1) return interaction.reply(await client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
+        if (!leaderboard || leaderboard.length < 1) return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()
-            .setTitle(await client.getLocale(interaction.user.id, "commands.currency.leaderboard.title"))
+            .setTitle(client.getLocale(interaction.user.id, "commands.currency.leaderboard.title"))
             .setColor("RANDOM")
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
@@ -21,7 +21,7 @@ module.exports = {
             pos++
             embed.addField(
                 `${pos} - **${client.users.cache.get(user.userID).username}**`,
-                await client.getLocale(interaction.user.id, "commands.currency.leaderboard.userDesc", user.wallet, user.bank)
+                client.getLocale(interaction.user.id, "commands.currency.leaderboard.userDesc", user.wallet, user.bank)
             );
 
             return interaction.reply({ embeds: [embed] })

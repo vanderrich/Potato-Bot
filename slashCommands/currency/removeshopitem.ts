@@ -38,10 +38,7 @@ module.exports = {
             }
         });
         if (result.error) {
-            if (result.type == 'No-Inventory-Name') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noItemName"));
-            if (result.type == 'Invalid-Inventory-Price') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.invalidPrice"));
-            if (result.type == 'No-Inventory-Price') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noInvPrice"));
-            if (result.type == 'No-Inventory') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noInv"));
+            if (result.type == 'Invalid-Item-Number' || result.type == "Unknown-Item") return interaction.reply(client.getLocale(interaction.user.id, "currency.buy.noItem"));
         } else return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.success", name));
     }
 }

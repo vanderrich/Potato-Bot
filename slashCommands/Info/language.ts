@@ -17,13 +17,13 @@ module.exports = {
     category: "Info",
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
         let language = interaction.options.getString("language");
-        if (!language) return interaction.reply(await client.getLocale(interaction.user.id, "commands.info.language.noLanguage"));
+        if (!language) return interaction.reply(client.getLocale(interaction.user.id, "commands.info.language.noLanguage"));
         let languageDoc = await client.languages.findOne({ user: interaction.user.id });
         if (!languageDoc)
             languageDoc = new client.languages({ user: interaction.user.id, language: language });
         else
             languageDoc.language = language;
         await languageDoc.save();
-        return interaction.reply(await client.getLocale(interaction.user.id, "commands.info.language.success", language));
+        return interaction.reply(client.getLocale(interaction.user.id, "commands.info.language.success", language));
     }
 }
