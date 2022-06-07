@@ -18,10 +18,10 @@ module.exports = {
         ),
     category: "Fun",
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+        await interaction.deferReply();
         const title: string | null = interaction.options.getString("title");
         let description: string | null = interaction.options.getString("description");
         if (!description) {
-            await interaction.deferReply();
             const message = await interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.say_embed.enterDesc"));
             const descriptionThingy = await interaction.channel?.awaitMessages({ filter: (m: Message) => m.author.id === interaction.user.id, max: 1, time: 30000 });
             description = descriptionThingy?.first()?.content || "";
@@ -29,7 +29,7 @@ module.exports = {
             descriptionThingy?.first()?.delete();
         }
 
-        if (!title) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.say_embed.specifyTitle"));
+        if (!title) return interaction.editReply(client.getLocale(interaction.user.id, "commands.fun.say_embed.specifyTitle"));
 
         const embed = new MessageEmbed()
             .setColor('RANDOM')
