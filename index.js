@@ -81,7 +81,8 @@ const updateCache = () => {
 const languagesCache = new Discord.Collection();
 
 client.getLocale = (user, string, ...vars) => {
-	let language = languagesCache.get(user) || 'en';
+	let language = languagesCache.get(user) || client.users.cache.get(user).locale || 'en';
+	if (!localizations[language]) language = 'en';
 	string = string.split('.');
 	let locale = localizations[language];
 	for (let i = 0; i < string.length; i++) {
@@ -264,6 +265,7 @@ mongoose.connection.once('open', async () => {
 		tags: { type: [{ name: String, value: String }], default: [] },
 		suggestionChannel: { type: String, default: "" },
 		tagDescriptions: { type: Object, default: {} },
+		ghostPing: { type: Boolean, default: true },
 	}));
 
 	client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
