@@ -70,11 +70,16 @@ const updateCache = () => {
 				});
 				client.cachedInventories.set(user.id, userItemsCache);
 			});
+		client.languages.findOne({ user: user.id }, (err, doc) => {
+			if (err) return console.log(err);
+			if (!doc) return;
+			client.cachedLanguages.set(user.id, doc.language);
+		})
 	})
 }
 
 client.getLocale = (user, string, ...vars) => {
-	let language = await client.languages.findOne(user) || 'en';
+	let language = client.cachedLanguages.get(user) || 'en';
 	string = string.split('.');
 	let locale = localizations[language];
 	for (let i = 0; i < string.length; i++) {
