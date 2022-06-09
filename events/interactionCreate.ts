@@ -28,8 +28,8 @@ module.exports = {
                 await command.execute(interaction, client, footers);
             } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
-                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}` }); // log the error to the bot owner
-                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}` }); // log the error to the bot logs channel
+                await client.users.cache.get('709950767670493275').send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot owner
+                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
                 try {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
@@ -315,6 +315,18 @@ module.exports = {
                 }
                 modal.addComponents(...fields);
                 return await interaction.showModal(modal);
+            } else if (interaction.customId.startsWith("giverole-")) {
+                if (!interaction.member || !interaction.guild || !(interaction.member.roles instanceof Discord.GuildMemberRoleManager)) return interaction.reply("you are not in a guild! (no idea how this happened)");
+                const role = interaction.customId.split("-")[1];
+                const roleInfo = await interaction.guild.roles.fetch(role);
+                if (!roleInfo) return interaction.reply("Role not found!");
+                if (interaction.member.roles.cache.has(roleInfo.id)) {
+                    await interaction.member.roles.remove(roleInfo.id);
+                    return interaction.reply({ content: "Removed Role!", ephemeral: true });
+                } else {
+                    await interaction.member.roles.add(roleInfo);
+                    return interaction.reply({ content: "Added Role!", ephemeral: true });
+                }
             }
             return
             // switch (interaction.customId) {

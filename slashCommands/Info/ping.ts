@@ -15,6 +15,7 @@ module.exports = {
         embed.setDescription(client.getLocale(interaction.user.id, "commands.info.ping.embedDesc", ping, client.ws.ping));
         embed.addField(fieldMessages.title, `${fieldMessage}`, true)
         embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
+        embed.setColor("RANDOM")
         interaction.reply({ embeds: [embed] });
     },
 };

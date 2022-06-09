@@ -11,45 +11,46 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         if (!interaction.guild) return interaction.reply('This command can only be used in a server.');
         //variables
+        const locales = client.getLocale(interaction.user.id, 'commands.info.serverinfo')
         const roles = interaction.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         const members = interaction.guild.members.cache;
         const channels = interaction.guild.channels.cache;
         const emojis = interaction.guild.emojis.cache;
-        const verificationLevels = client.getLocale(interaction.user.id, 'commands.info.serverinfo.verificationLevels');
-        const filterLevels = client.getLocale(interaction.user.id, 'commands.info.serverinfo.filterLevels');
+        const verificationLevels = locales.verificationLevels;
+        const filterLevels = locales.filterLevels;
 
         //embed
         const embed = new MessageEmbed()
-            .setDescription(client.getLocale(interaction.user.id, 'commands.info.serverinfo.embedTitle'))
+            .setDescription(locales.embedTitle)
             .setColor('RANDOM')
-            .addField('General', `
-                **Name:** ${interaction.guild.name}
-                **ID:** ${interaction.guild.id}
-                **Boost Tier:** ${interaction.guild.premiumTier == 'NONE' ? `Tier ${interaction.guild.premiumTier}` : 'None'}
-                **Explicit Filter:** ${filterLevels[interaction.guild.explicitContentFilter]}
-                **Verification Level:** ${verificationLevels[interaction.guild.verificationLevel]}
+            .addField(locales.general, `
+                ${locales.name}: ${interaction.guild.name}
+                ${locales.id}: ${interaction.guild.id}
+                ${locales.boostTier}: ${interaction.guild.premiumTier == 'NONE' ? client.getLocale(interaction.user.id, "commands.info.serverinfo.tier", interaction.guild.premiumTier) : 'None'}
+                ${locales.explicitFilter}: ${filterLevels[interaction.guild.explicitContentFilter]}
+                ${locales.verificationLevel}: ${verificationLevels[interaction.guild.verificationLevel]}
                 \n\u200b
             `)
-            .addField('Statistics', `
-                **Role Count:** ${roles.length}
-                **Emoji Count:** ${emojis.size}
-                **Regular Emoji Count:** ${emojis.filter(emoji => !emoji.animated).size}
-                **Animated Emoji Count:** ${emojis.filter(emoji => !(!emoji.animated)).size}
-                **Member Count:** ${interaction.guild.memberCount}
-                **Bots:** ${members.filter(member => member.user.bot).size}
-                **Text Channels:** ${channels.filter(channel => channel.isText()).size}
-                ** Voice Channels:** ${channels.filter(channel => channel.isVoice()).size}
-                **Boost Count:** ${interaction.guild.premiumSubscriptionCount || '0'}
+            .addField(locales.statistics, `
+                ${locales.roleCount}: ${roles.length}
+                ${locales.emojiCount}: ${emojis.size}
+                ${locales.regEmojiCount}: ${emojis.filter(emoji => !emoji.animated).size}
+                ${locales.animEmojiCount}: ${emojis.filter(emoji => !(!emoji.animated)).size}
+                ${locales.memberCount}: ${interaction.guild.memberCount}
+                ${locales.botCount}: ${members.filter(member => member.user.bot).size}
+                ${locales.textChannelCount}: ${channels.filter(channel => channel.isText()).size}
+                ${locales.voiceChannelCount}: ${channels.filter(channel => channel.isVoice()).size}
+                ${locales.boostCount}: ${interaction.guild.premiumSubscriptionCount || '0'}
                 \u200b
             `)
-            .addField('Presence', `
-                **Online:** ${members.filter(member => member.presence?.status == 'online').size}
-                **Idle:** ${members.filter(member => member.presence?.status == 'idle').size}
-                **Do Not Disturb:** ${members.filter(member => member.presence?.status == 'dnd').size}
-                **Offline:** ${members.filter(member => member.presence == null).size}
+            .addField(locales.presence, `
+                ${locales.online}: ${members.filter(member => member.presence?.status == 'online').size}
+                ${locales.idle}: ${members.filter(member => member.presence?.status == 'idle').size}
+                ${locales.dnd}: ${members.filter(member => member.presence?.status == 'dnd').size}
+                ${locales.offline}: ${members.filter(member => member.presence == null).size}
                 \u200b
             `)
-            .addField(`Roles [${roles.length - 1}]`, roles.join(', '))
+            .addField(client.getLocale(interaction.user.id, "commands.info.serverinfo.roles", roles.length - 1), roles.join(', '))
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [embed] });
     }

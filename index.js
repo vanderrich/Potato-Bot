@@ -73,13 +73,16 @@ const updateCache = () => {
 		client.languages.findOne({ user: user.id }, (err, doc) => {
 			if (err) return console.log(err);
 			if (!doc) return;
-			client.cachedLanguages.set(user.id, doc.language);
-		})
-	})
+			languagesCache.set(user.id, doc.language);
+		});
+	});
 }
 
+const languagesCache = new Discord.Collection();
+
 client.getLocale = (user, string, ...vars) => {
-	let language = client.cachedLanguages.get(user) || 'en';
+	let language = languagesCache.get(user) || client.users.cache.get(user).locale || 'en';
+	if (!localizations[language]) language = 'en';
 	string = string.split('.');
 	let locale = localizations[language];
 	for (let i = 0; i < string.length; i++) {
@@ -88,7 +91,10 @@ client.getLocale = (user, string, ...vars) => {
 	}
 
 	let count = 0;
-	if (typeof locale == "string") locale = locale.replace(/\${VAR}/g, () => vars[count] !== null ? vars[count] : "${VAR}");
+	if (typeof locale == "string") locale = locale.replace(/\${VAR}/g, () => {
+		count++
+		return vars[count - 1] !== null ? vars[count - 1] : "${VAR}";
+	})
 
 	return locale;
 }
@@ -99,8 +105,8 @@ mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB.');
 	const eco = new Economy;
 	client.languages = mongoose.model('languages', mongoose.Schema({
-		user: String,
-		language: String
+		user: { type: String, required: true },
+		language: { type: String, required: true },
 	}));
 	Economy.cs.on('debug', (debug, error) => {
 		console.log(debug);
@@ -257,7 +263,9 @@ mongoose.connection.once('open', async () => {
 		welcomeChannel: { type: String, default: "" },
 		welcomeRole: { type: String, default: "" },
 		tags: { type: [{ name: String, value: String }], default: [] },
+		suggestionChannel: { type: String, default: "" },
 		tagDescriptions: { type: Object, default: {} },
+		ghostPing: { type: Boolean, default: true },
 	}));
 
 	client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {

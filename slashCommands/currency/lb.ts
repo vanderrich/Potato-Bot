@@ -16,7 +16,7 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
         let pos = 0;
-        leaderboard.slice(0, 10).map((user: any) => {
+        leaderboard.slice(0, 10).map(async (user: any) => {
             if (!client.users.cache.get(user.userID)) return;
             pos++
             embed.addField(

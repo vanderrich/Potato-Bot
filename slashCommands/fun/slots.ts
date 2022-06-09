@@ -31,7 +31,7 @@ module.exports = {
             .setFooter({ text: footer })
 
         //sends the embed message and reacts to it
-        interaction.reply({ embeds: [embed], fetchReply: true }).then((msg) => {
+        interaction.reply({ embeds: [embed], fetchReply: true }).then(async (msg) => {
             if (msg instanceof Message) {
                 var frameCount = Math.floor(Math.random() * 5) + 5
                 for (let i = 0; i < frameCount; i++) {

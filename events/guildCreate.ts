@@ -1,5 +1,4 @@
-import { Client, Guild, MessageEmbed } from "discord.js"
-import { footers } from "../config.json"
+import { Client, Guild } from "discord.js"
 
 module.exports = {
     name: 'guildCreate',
@@ -8,15 +7,5 @@ module.exports = {
         if (channel?.type == "GUILD_TEXT")
             channel.send(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
         client?.user?.setActivity(`Serving ${client.guilds.cache.size} servers`);
-        const welcomeChannel = guild.channels.cache.find(channel => channel.name.includes('welcome')) || guild.channels.cache.find(channel => channel.name.includes('general'))
-        if (welcomeChannel?.isText()) {
-            const embed = new MessageEmbed()
-                .setTitle("Hi!")
-                .setDescription("I'm a general purpose bot created by <@!709950767670493275>. Do /help for a list of commands.")
-                .setColor("RANDOM")
-                .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-
-            welcomeChannel.send({ embeds: [embed] })
-        }
     }
 };

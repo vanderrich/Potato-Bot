@@ -13,6 +13,10 @@
                     "noInv": "No Data Received!",
                     "success": "Successfully added the item ${VAR} to the shop!"
                 },
+                "removeshopitem": {
+                    "noItem": "You must specify an item!",
+                    "success": "Successfully removed the item ${VAR} to the shop!"
+                },
                 "bal": {
                     "title": "${VAR}'s Balance",
                     "wallet": "Wallet: ${VAR}",
@@ -228,7 +232,7 @@
                     "embedTitle": "Suggestion",
                     "noChannel": "You must specify a channel!",
                     "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
+                    "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
                 },
                 "birthday": {
@@ -383,7 +387,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     },
     "id": {
@@ -400,9 +409,13 @@
                     "noInv": "Tidak ada data diterima!",
                     "success": "Berhasil menambahkan item ${VAR} ke toko!"
                 },
+                "removeshopitem": {
+                    "noItem": "Tidak ada item dengan nama itu!",
+                    "success": "Berhasil menghapuskan item ${VAR} dari toko!"
+                },
                 "bal": {
                     "title": "Saldo ${VAR}",
-                    "wallet": "Dompet  : ${VAR}",
+                    "wallet": "Dompet: ${VAR}",
                     "bank": "Bank: ${VAR}",
                     "total": "Total: ${VAR}"
                 },
@@ -525,101 +538,101 @@
                         "Musik",
                         "Pemunya Admin Bot"
                     ],
-                    "noCategory": "No category found with that name",
-                    "noCommand": "No command found with that name",
-                    "embedTitle": "Commands",
+                    "noCategory": "Kategori tidak dapat ditemukan!",
+                    "noCommand": "Perintah tidak dapat ditemukan!",
+                    "embedTitle": "Perintah",
                     "embedDesc": "Do /help and assign the parameters to get help for a specific command or category.\n\nFor example: `/help category:Currency`",
-                    "commandsInCategory": "${VAR} commands in that category"
+                    "commandsInCategory": "${VAR} perintah dalam kategori itu"
                 },
                 "links": {
-                    "embedTitle": "Links",
+                    "embedTitle": "Link",
                     "github": "GitHub",
-                    "discServer": "Discord Server",
-                    "invite": "Invite",
+                    "discServer": "Server Discord",
+                    "invite": "Invitasi",
                     "trello": "Trello"
                 },
                 "ping": {
                     "embedTitle": "Pong!",
-                    "embedDesc": "Ping is ${VAR}ms, API is ${VAR}ms",
+                    "embedDesc": "Ping adalah ${VAR}ms, API adalah ${VAR}ms",
                     "fieldMsg": {
-                        "<0": "How much caffeine did i drink",
-                        "<1": "Lightning Fast",
-                        "<5": "Very Fast",
-                        "<10": "Fast",
-                        "<15": "Quite Fast",
-                        "<50": "Moderately Fast",
-                        "<100": "Faster than normal",
+                        "<0": "Berapa banyak kafein yang saya minum?",
+                        "<1": "Secepat Kilat",
+                        "<5": "Sangat Cepat",
+                        "<10": "Cepat",
+                        "<15": "Agak Cepat",
+                        "<50": "Cukup Cepat",
+                        "<100": "Lebih cepat dari normal",
                         "<500": "Normal",
-                        "<1000": "Slower than normal",
-                        "<2500": "Quite Slow",
-                        "<5000": "Slow",
-                        "<10000": "Insanely Slow",
-                        "else": "Is the bot dead????",
-                        "title": "In words"
+                        "<1000": "Lebih lambat dari normal",
+                        "<2500": "Agak Lambat",
+                        "<5000": "Lambat",
+                        "<10000": "Sangat Lambat",
+                        "else": "Apakah botnya mati????",
+                        "title": "Dalam Kata Kata"
                     }
                 },
                 "poll": {
-                    "invalidDuration": "Invalid duration!",
-                    "embedDesc": "This poll will end in ${VAR}",
-                    "newPoll": "New poll!"
+                    "invalidDuration": "Durasi tidak valid!",
+                    "embedDesc": "Poll ini akan berakhir ${VAR}",
+                    "newPoll": "Poll baru!"
                 },
                 "userInfo": {
                     "bot?": "Bot?",
-                    "createAt": "Created at",
-                    "discrim": "Discriminator",
-                    "clientID": "Client ID",
-                    "clientTag": "Client Tag",
+                    "createAt": "Dibuat saat",
+                    "discrim": "Diskriminator",
+                    "clientID": "ID Client",
+                    "clientTag": "Tag Client",
                     "uname": "Username",
-                    "title": "About the user ${VAR}"
+                    "title": "Tentang user ${VAR}"
                 },
                 "serverInfo": {
                     "filterLevels": {
                         "DISABLED": "Off",
-                        "MEMBER_WITHOUT_ROLES": "No Role",
-                        "ALL_MEMBERS": "Everyone"
+                        "MEMBER_WITHOUT_ROLES": "Tanpa Peran",
+                        "ALL_MEMBERS": "Semuanya"
                     },
                     "verificationLevels": {
-                        "NONE": "None",
-                        "LOW": "Low",
-                        "MEDIUM": "Medium",
+                        "NONE": "Tidak ada",
+                        "LOW": "Rendah",
+                        "MEDIUM": "Sedang",
                         "HIGH": "(╯°□°）╯︵ ┻━┻",
                         "VERY_HIGH": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻"
                     },
-                    "embedTitle": "**Server Info**",
-                    "general": "General",
-                    "name": "**Name**",
+                    "embedTitle": "**Info Server**",
+                    "general": "Umum",
+                    "name": "**Nama**",
                     "ID": "**ID**",
-                    "boostTier": "**Boost Tier**",
-                    "tier": "Tier ${VAR}",
-                    "noTier": "None",
-                    "explicitFilter": "**Explicit Filter**",
-                    "verificationLevel": "**Verification Level**",
-                    "statistics": "Statistics",
-                    "roleCount": "**Role Count**",
-                    "emojiCount": "**Emoji Count**",
-                    "regEmojiCount": "**Regular Emoji Count**",
-                    "animEmojiCount": "**Animated Emoji Count**",
-                    "memberCount": "**Member Count**",
-                    "botCount": "**Bot Count**",
-                    "textChannelCount": "**Text Channel Count**",
-                    "voiceChannelCount": "**Voice Channel Count**",
-                    "boostCount": "**Boost Count**",
+                    "boostTier": "**Tingkatan Boost**",
+                    "tier": "Tingkatan ${VAR}",
+                    "noTier": "Tidak ada",
+                    "explicitFilter": "**Filter Eksplisit**",
+                    "verificationLevel": "**Level Verifikasi**",
+                    "statistics": "Statistik",
+                    "roleCount": "**Jumlah Peran**",
+                    "emojiCount": "**Jumlah Emoji**",
+                    "regEmojiCount": "**Jumlah Emoji Reguler**",
+                    "animEmojiCount": "**Jumlah Emoji Animasi**",
+                    "memberCount": "**Jumlah Anggota**",
+                    "botCount": "**Jumlah Bot**",
+                    "textChannelCount": "**Jumlah Channel Teks**",
+                    "voiceChannelCount": "**Jumlah Channel Suara**",
+                    "boostCount": "**Jumlah Boost**",
                     "presense": "Presence",
                     "online": "**Online**",
                     "idle": "**Idle**",
                     "dnd": "**Do Not Disturb**",
                     "offline": "**Offline**",
-                    "roles": "Roles [${VAR}]"
+                    "roles": "Peran [${VAR}]"
                 },
                 "suggest": {
-                    "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
-                    "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
-                    "success": "Suggestion sent!"
+                    "embedTitle": "Saran",
+                    "noChannel": "Anda harus menentukan salah satu channel untuk mengirimkan saran!",
+                    "noSuggestion": "Anda harus menentukan sebuah saran!",
+                    "noGuildSettings": "Pengaturan server tidak dapat ditemukan!",
+                    "success": "Saran telah dikirim!"
                 },
                 "birthday": {
-                    "invalidBdate": "Invalid birthdate!",
+                    "invalidBdate": "Tanggal lahir tidak valid!",
                     "noBdate": "You must specify a birthdate!",
                     "setSuccess": "Birthday set!",
                     "updateSuccess": "Birthday updated!",
@@ -770,7 +783,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     },
     "nl": {
@@ -787,6 +805,10 @@
                     "noInv": "No Data Received!",
                     "success": "Successfully added the item ${VAR} to the shop!"
                 },
+                "removeshopitem": {
+                    "noItem": "You must specify an item!",
+                    "success": "Successfully removed the item ${VAR} to the shop!"
+                },
                 "bal": {
                     "title": "${VAR}'s Balance",
                     "wallet": "Wallet: ${VAR}",
@@ -1002,7 +1024,7 @@
                     "embedTitle": "Suggestion",
                     "noChannel": "You must specify a channel!",
                     "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
+                    "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
                 },
                 "birthday": {
@@ -1157,7 +1179,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     },
     "tl": {
@@ -1174,6 +1201,10 @@
                     "noInv": "No Data Received!",
                     "success": "Successfully added the item ${VAR} to the shop!"
                 },
+                "removeshopitem": {
+                    "noItem": "You must specify an item!",
+                    "success": "Successfully removed the item ${VAR} to the shop!"
+                },
                 "bal": {
                     "title": "${VAR}'s Balance",
                     "wallet": "Wallet: ${VAR}",
@@ -1389,7 +1420,7 @@
                     "embedTitle": "Suggestion",
                     "noChannel": "You must specify a channel!",
                     "noSuggestion": "You must specify a suggestion!",
-                    "channelNotText": "The channel must be a text channel!",
+                    "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
                 },
                 "birthday": {
@@ -1544,7 +1575,12 @@
             "noPerms": "You don't have the required permissions to use this command!",
             "botNoPerms": "I don't have the required permissions to use this command!",
             "errorCmd": "There was an error while executing this command!\nError: ${VAR}\n\nSuccessfully DMed the owner about this error.",
-            "error": "There was an error while ${VAR}!\nError: ${VAR}"
+            "error": "There was an error while ${VAR}!\nError: ${VAR}",
+            "ghostPing": "Ghost Ping Detected!",
+            "sender": "Sender",
+            "pingedUser": "Pinged User(s)",
+            "message": "Message",
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
         }
     }
 }

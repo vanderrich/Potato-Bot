@@ -29,7 +29,7 @@ module.exports = {
                 .setDescription("The command to get help for.")
         ),
     category: "Info",
-    execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const commands = client.slashCommands;
         const categories = client.getLocale(interaction.user.id, "commands.info.help.categories");
         let category = interaction.options.getString("category")

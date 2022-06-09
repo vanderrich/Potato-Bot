@@ -38,11 +38,12 @@ module.exports = {
     permissions: "ADMINISTRATOR",
     category: "Moderation",
     guildOnly: true,
-    async execute(interaction: Discord.CommandInteraction, client: any, Discord: any, footers: Array<string>) {
+    async execute(interaction: Discord.CommandInteraction, client: any, footers: Array<string>) {
         let title = interaction.options.getString("title");
         let description = interaction.options.getString("description");
         let channel: any = interaction.options.getChannel("channel");
-        if (!channel || (!(channel instanceof Discord.TextChannel))) return interaction.reply("Please specify a text channel!");
+        if (!title) return interaction.reply("You must specify a title for the reaction role");
+        if (!channel || !channel.isText()) return interaction.reply("Please specify a text channel!");
         let options: Array<string> = [];
         let reactionRoles: Array<any> = [];
         let reactions: Array<Discord.GuildEmoji | string> = [];
@@ -66,15 +67,24 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
             .setTitle(title)
-            .setDescription(description)
-            .setFooter({
-                text: footers[Math.floor(Math.random() * footers.length)],
-                iconURL: interaction.user.avatarURL({ dynamic: true })
-            })
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
+        if (description) embed.setDescription(description);
         for (const i in reactions) {
-            embed.addField(reactions[i], String(reactionRoles[i]));
+            embed.addField(reactions[i].toString(), reactionRoles[i].toString());
         }
-        channel.send({ embeds: [embed], fetchReply: true }).then((m: Discord.Message) => {
+
+        const messageActionRow = new Discord.MessageActionRow();
+        const messageActionRowComponents = []
+        for (const i in reactions) {
+            messageActionRowComponents.push(
+                new Discord.MessageButton()
+                    .setEmoji(reactions[i])
+                    .setLabel(reactionRoles[i].name)
+                    .setStyle("PRIMARY")
+                    .setCustomId(`giverole-${reactionRoles[i].id}`));
+        }
+        messageActionRow.addComponents(messageActionRowComponents);
+        channel.send({ embeds: [embed], components: [messageActionRow] }).then((m: Discord.Message) => {
             const rr = new client.rr({
                 messageId: m.id,
                 channelId: channel.id,
@@ -89,9 +99,6 @@ module.exports = {
                 .catch((err: any) => {
                     console.log(err);
                 })
-            for (const i in reactions) {
-                m.react(reactions[i])
-            }
         })
         interaction.reply({ content: 'Reaction Role created!', ephemeral: true });
     }
