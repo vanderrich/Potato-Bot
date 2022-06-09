@@ -153,7 +153,10 @@
                     "github": "GitHub",
                     "discServer": "Discord Server",
                     "invite": "Invite",
-                    "trello": "Trello"
+                    "trello": "Trello",
+                    "topgg": "Top.gg",
+                    "discBots": "Discord Bots",
+                    "discBotList": "Discord Bot List"
                 },
                 "ping": {
                     "embedTitle": "Pong!",
@@ -549,7 +552,10 @@
                     "github": "GitHub",
                     "discServer": "Server Discord",
                     "invite": "Invitasi",
-                    "trello": "Trello"
+                    "trello": "Trello",
+                    "topgg": "Top.gg",
+                    "discBots": "Discord Bots",
+                    "discBotList": "List Bot Discord"
                 },
                 "ping": {
                     "embedTitle": "Pong!",
