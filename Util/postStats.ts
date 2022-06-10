@@ -11,7 +11,7 @@ export default function postStats(client: Client): void {
         body: JSON.stringify({
             "guildCount": client.guilds.cache.size
         })
-    }, (err: any) => { console.error(err) });
+    }, (err: any, res: any, body: any) => { if (err) console.error(err); console.log(res, body) });
     request.post({
         url: `https://top.gg/api/bots/${client.user!.id}/stats`,
         headers: {
@@ -21,7 +21,7 @@ export default function postStats(client: Client): void {
         body: JSON.stringify({
             "server_count": client.guilds.cache.size
         })
-    }, (err: any) => { console.error(err) });
+    }, (err: any, res: any, body: any) => { if (err) console.error(err) });
     request.post({
         url: `https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`,
         headers: {
@@ -32,5 +32,5 @@ export default function postStats(client: Client): void {
             "guilds": client.guilds.cache.size,
             "users": client.users.cache.size
         })
-    }, (err: any) => { console.error(err) });
+    }, (err: any, res: any, body: any) => { if (err) console.error(err) });
 }
