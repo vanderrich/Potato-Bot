@@ -19,7 +19,9 @@ export default function postStats(client: Client): void {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "server_count": client.guilds.cache.size
+            "server_count": client.guilds.cache.size,
+            "shards": [],
+            "shard_count": 1
         })
     }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
     request.post({
@@ -30,7 +32,9 @@ export default function postStats(client: Client): void {
         },
         body: JSON.stringify({
             "guilds": client.guilds.cache.size,
-            "users": client.users.cache.size
+            "users": client.users.cache.size,
+            "voice_connections": client.voice.adapters.size,
+            "shard_id": 0,
         })
     }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
 }
