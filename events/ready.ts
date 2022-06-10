@@ -1,4 +1,5 @@
 import { User } from "discord.js"
+import postStats from "../Util/postStats";
 
 module.exports = {
     name: 'ready',
@@ -28,6 +29,7 @@ module.exports = {
                     }
                 })
             }
-        })
+        });
+        postStats(client);
     }
 }
