@@ -11,7 +11,10 @@ export default function postStats(client: Client): void {
         body: JSON.stringify({
             "guildCount": client.guilds.cache.size
         })
-    }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
+    }, (err: any, res: any, body: any) => {
+        if (err) console.error(err);
+        client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`)
+    });
     request.post({
         url: `https://top.gg/api/bots/${client.user!.id}/stats`,
         headers: {
@@ -23,7 +26,10 @@ export default function postStats(client: Client): void {
             "shards": [],
             "shard_count": 1
         })
-    }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
+    }, (err: any, res: any, body: any) => {
+        if (err) console.error(err);
+        client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`)
+    });
     request.post({
         url: `https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`,
         headers: {
@@ -36,5 +42,10 @@ export default function postStats(client: Client): void {
             "voice_connections": client.voice.adapters.size,
             "shard_id": 0,
         })
-    }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
+    }, (err: any, res: any, body: any) => {
+        if (err) console.error(err);
+        client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`)
+    });
+    console.log(`[INFO] ${client.guilds.cache.size} guild(s) found`)
+    client.users.cache.get("709950767670493275")?.send(`[INFO] ${client.guilds.cache.size} guild(s) found`)
 }
