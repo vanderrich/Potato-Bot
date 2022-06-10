@@ -307,16 +307,23 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
-                    },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChanne;l": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": ""
                     }
                 },
                 "reactroles": {
@@ -706,17 +713,44 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -1102,17 +1136,44 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -1498,17 +1559,44 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
