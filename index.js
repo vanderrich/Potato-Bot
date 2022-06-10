@@ -419,6 +419,8 @@ player.on('queueEnd', (queue) => {
 //Run
 // setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", _ => {
-	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
 	console.error(_.stack + '\n' + '='.repeat(20))
+	setTimeout(() => {
+	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
+	}, 1000);
 });
