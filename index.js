@@ -13,7 +13,7 @@ const localizations = require('./localization.json');
 // const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
-	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES"],
+	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_VOICE_STATES"],
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER", "GUILDS"],
 });
 
