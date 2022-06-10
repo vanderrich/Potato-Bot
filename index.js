@@ -13,8 +13,8 @@ const localizations = require('./localization.json');
 // const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
-	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
-	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"],
+	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES"],
+	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER", "GUILDS"],
 });
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -420,7 +420,5 @@ player.on('queueEnd', (queue) => {
 // setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", _ => {
 	console.error(_.stack + '\n' + '='.repeat(20))
-	setTimeout(() => {
 	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
-	}, 1000);
 });
