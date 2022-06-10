@@ -31,6 +31,5 @@ module.exports = {
             }
         });
         postStats(client);
-        client.users.cache.get("709950767670493275")?.send(`[INFO] ${client.guilds.cache.size} guild(s) found`)
     }
 }

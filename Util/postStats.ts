@@ -1,5 +1,6 @@
-import { CategoryChannel, Client, DiscordAPIError, TextChannel } from 'discord.js';
+import { Client } from 'discord.js';
 import request from 'request';
+import { AutoPoster } from 'topgg-autoposter';
 
 export default function postStats(client: Client): void {
     request.post({
@@ -15,20 +16,9 @@ export default function postStats(client: Client): void {
         if (err) console.error(err);
         client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`)
     });
-    request.post({
-        url: `https://top.gg/api/bots/${client.user!.id}/stats`,
-        headers: {
-            "Authorization": process.env.TOPGG_API_TOKEN,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "server_count": client.guilds.cache.size,
-            "shards": [],
-            "shard_count": 1
-        })
-    }, (err: any, res: any, body: any) => {
-        if (err) console.error(err);
-        client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`)
+    const autoposter = AutoPoster(process.env.TOPGG_API_KEY!, client)
+    autoposter.on('posted', (posted: any) => {
+        console.log(`[INFO] Posted to top.gg: ${posted.title}`)
     });
     request.post({
         url: `https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`,
