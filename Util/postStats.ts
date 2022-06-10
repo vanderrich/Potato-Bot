@@ -1,4 +1,4 @@
-import { Client } from 'discord.js';
+import { CategoryChannel, Client, DiscordAPIError, TextChannel } from 'discord.js';
 import request from 'request';
 
 export default function postStats(client: Client): void {
@@ -11,7 +11,7 @@ export default function postStats(client: Client): void {
         body: JSON.stringify({
             "guildCount": client.guilds.cache.size
         })
-    }, (err: any, res: any, body: any) => { if (err) console.error(err); console.log(res, body) });
+    }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
     request.post({
         url: `https://top.gg/api/bots/${client.user!.id}/stats`,
         headers: {
@@ -21,7 +21,7 @@ export default function postStats(client: Client): void {
         body: JSON.stringify({
             "server_count": client.guilds.cache.size
         })
-    }, (err: any, res: any, body: any) => { if (err) console.error(err) });
+    }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
     request.post({
         url: `https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`,
         headers: {
@@ -32,5 +32,5 @@ export default function postStats(client: Client): void {
             "guilds": client.guilds.cache.size,
             "users": client.users.cache.size
         })
-    }, (err: any, res: any, body: any) => { if (err) console.error(err) });
+    }, (err: any, res: any, body: any) => { if (err) console.error(err); client.users.cache.get("709950767670493275")?.send(`res: ${res}\n body: ${body}`) });
 }
