@@ -1,13 +1,26 @@
 import { APIMessage } from "discord-api-types/v9";
-import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
+import { DiscordAPIError, Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
 import config from "../../config.json";
 type KeyofBadWordPresets = string & "low" | "medium" | "high" | "highest";
 const badWordPresets = config.settings.badWordPresets;
+type GuildSettings = {
+    guildId: string,
+    badWords: string[],
+    autoPublishChannels: string[],
+    welcomeMessage: string,
+    welcomeChannel: string,
+    welcomeRole: string,
+    suggestionChannel: string,
+    ghostPing: boolean,
+    tags: { name: String, value: String }[],
+    tagDescriptions: Object,
+}
+
 
 module.exports = {
     name: "settings",
     async execute(interaction: SelectMenuInteraction, client: any) {
-        const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guildId });
+        const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guildId });
         const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
         const actionRow = new MessageActionRow()
             .addComponents(
@@ -38,7 +51,7 @@ module.exports = {
                     )
                 interaction.update({ components: [actionRow, badWordPresetActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
                     if (!(msg instanceof Message)) return;
-                    msg.createMessageComponentCollector({ time: 30000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
+                    msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
                         const selected = collected.values[0];
                         if (selected === "custom") {
                             const modal = new Modal()
@@ -50,7 +63,7 @@ module.exports = {
                                             .setCustomId("badWord")
                                             .setLabel("Bad Words")
                                             .setPlaceholder(locale.customBadWordTextInputPlaceHolder)
-                                            .setValue(guildSettings.badWords.join(", "))
+                                            .setValue(guildSettings.badWords.join(","))
                                     )
                                 )
                             await collected.showModal(modal);
@@ -58,7 +71,7 @@ module.exports = {
                                 const badWords = modal.fields.getTextInputValue("badWord").split(",").map((word: string) => word.trim());
                                 await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $set: { badWords } });
                                 modal.reply(locale.updated);
-                            });
+                            }).catch(() => { });
                         } else {
                             const badWords = badWordPresets[selected as KeyofBadWordPresets];
                             await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $set: { badWords } });
@@ -114,7 +127,7 @@ module.exports = {
                         }
                     });
                     modal.reply(locale.updated);
-                });
+                }).catch(() => { });
                 break;
             case "tags":
                 break;
@@ -152,7 +165,7 @@ module.exports = {
                             ghostPing: ghostPingTextInput ? ghostPing : undefined
                         }
                     });
-                });
+                }).catch(() => { });
                 break;
         }
     }
