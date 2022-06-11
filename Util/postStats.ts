@@ -11,7 +11,7 @@ export default async function postStats(client: Client): Promise<void> {
             "Content-Type": "application/json"
         },
     });
-    const autoposter = AutoPoster(process.env.TOPGG_API_KEY!, client)
+    AutoPoster(process.env.TOPGG_API_KEY!, client)
     await axios.post(`https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`, {
         "guilds": client.guilds.cache.size,
         "users": undefined,

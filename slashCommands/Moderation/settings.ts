@@ -27,7 +27,7 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any, footers: string) {
         await interaction.deferReply()
         const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
-        const locale = client.locale.get(interaction.user.id, "commands.moderation.settings");
+        const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction.user.id, "commands.moderation.settings.settings", interaction.guild!.name))
             .addField(locale.badWords,
