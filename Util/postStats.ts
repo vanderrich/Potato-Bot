@@ -7,13 +7,9 @@ export default async function postStats(client: Client): Promise<void> {
         "guildCount": client.guilds.cache.size
     }, {
         headers: {
-            "Authorization": process.env.DBOTS_API_TOKEN!,
+            "Authorization": process.env.DBOTS_API_KEY!,
             "Content-Type": "application/json"
         },
-    }).then(() => {
-        client.users.cache.get("709950767670493275")?.send("[INFO] Posted to discord.bots.gg!");
-    }).catch((err: any) => {
-        console.error(err);
     });
     const autoposter = AutoPoster(process.env.TOPGG_API_KEY!, client)
     autoposter.on('posted', (posted: any) => {
@@ -29,12 +25,8 @@ export default async function postStats(client: Client): Promise<void> {
         "shard_id": 0,
     }, {
         headers: {
-            "Authorization": process.env.DBOTLIST_API_TOKEN!,
+            "Authorization": process.env.DBOTLIST_API_KEY!,
             "Content-Type": "application/json"
         }
-    }).then(() => {
-        client.users.cache.get("709950767670493275")?.send("[INFO] Posted to discordbotlist.com!");
-    }).catch((err: any) => {
-        console.error(err);
     });
 }
