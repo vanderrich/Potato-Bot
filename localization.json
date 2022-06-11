@@ -310,7 +310,7 @@
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
-                    "welcomeChanne;l": "Welcome Channel",
+                    "welcomeChannel": "Welcome Channel",
                     "welcomeMessage": "Welcome Message",
                     "welcomeRole": "Welcome Role",
                     "tags": "Tags",
@@ -323,11 +323,31 @@
                         "medium": "Medium (recommended)",
                         "high": "High (recommended)",
                         "highest": "Highest (not recommended)",
-                        "superHigh": ""
-                    }
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
+                    },
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
-                    "noTextChannel": "You must specify a text channel!",
+                    "noReactRole": "No react role set!",
                     "noPerms": "I don't have permissions to manage the roles!",
                     "invalidEmoji": "Invalid emoji!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
