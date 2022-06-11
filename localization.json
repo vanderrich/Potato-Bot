@@ -43,7 +43,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -469,7 +469,7 @@
                     "success": "Berhasil membeli **${VAR} ${VAR}** dengan **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "Anda sudah mengklaim kredit **$${VAR}** anda. Kembali dalam ${VAR} untuk mengklaimnya lagi!",
+                    "cooldown": "Anda sudah mengklaim kredit ${VAR} anda. Kembali dalam ${VAR} untuk mengklaimnya lagi!",
                     "success": "Anda telah mengklaim **$${VAR}** sebagai kredit ${VAR} anda, anda sekarang ada ${VAR} di dompet!",
                     "hourly": "per jam",
                     "daily": "harian",
@@ -895,7 +895,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -1318,7 +1318,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",

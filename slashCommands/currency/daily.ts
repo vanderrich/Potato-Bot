@@ -12,6 +12,6 @@ module.exports = {
         let amount = Math.floor(Math.random() * 50) + 10;
         let addMoney = await client.eco.daily({ user: interaction.user.id, amount });
         if (addMoney.error) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.cooldown", client.getLocale(interaction.user.id, "commands.currency.rewards.daily"), addMoney.time));
-        else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.success", amount, addMoney.rawData.wallet));
+        else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.success", amount, client.getLocale(interaction.user.id, "commands.currency.rewards.daily"), addMoney.rawData.wallet));
     }
 }

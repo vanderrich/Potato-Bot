@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, Message, MessageActionRow, MessageEmbed, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
+import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from "discord.js";
 
 type GuildSettings = {
     guildId: string,
