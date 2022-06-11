@@ -19,6 +19,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any, footers: Array<string>) {
         const user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
+        await interaction.deferReply();
 
         const embed = new MessageEmbed()
             .setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title"), iconURL: user.displayAvatarURL() })
@@ -27,7 +28,7 @@ module.exports = {
         const invPure = await client.eco.getUserItems({ user });
         if (!invPure) {
             embed.setDescription(client.getLocale(interaction.user.id, "commands.currency.inv.noItems"));
-            return interaction.reply({ embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         }
         else {
             // const arrayToObject = invPure.reduce((itemsobj, x) => {
@@ -64,10 +65,10 @@ module.exports = {
                             .setColor('RANDOM')
                             .setDescription(client.getLocale(interaction.user.id, "commands.currency.inv.noItems"))
                             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
-                        return interaction.reply({ embeds: [embed] });
+                        return interaction.editReply({ embeds: [embed] });
                     }
                     if (page === 2) {
-                        return interaction.reply({ embeds: [pages[0]] });
+                        return interaction.editReply({ embeds: [pages[0]] });
                     }
                 }
             } while (!emptypage);
