@@ -11,7 +11,7 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         if (!interaction.guild) return interaction.reply('This command can only be used in a server.');
         //variables
-        const locales = client.getLocale(interaction.user.id, 'commands.info.serverinfo')
+        const locales = client.getLocale(interaction.user.id, 'commands.info.serverInfo')
         const roles = interaction.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         const members = interaction.guild.members.cache;
         const channels = interaction.guild.channels.cache;
@@ -50,7 +50,7 @@ module.exports = {
                 ${locales.offline}: ${members.filter(member => member.presence == null).size}
                 \u200b
             `)
-            .addField(client.getLocale(interaction.user.id, "commands.info.serverinfo.roles", roles.length - 1), roles.join(', '))
+            .addField(client.getLocale(interaction.user.id, "commands.info.serverInfo.roles", roles.length - 1), roles.join(', '))
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [embed] });
     }
