@@ -258,6 +258,13 @@
                 "language": {
                     "noLanguage": "You must specify a language!",
                     "success": "Language set to ${VAR}!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {
@@ -684,7 +691,14 @@
                 "language": {
                     "noLanguage": "Anda harus menentukan sebuah bahasa!",
                     "success": "Bahasa berhasil diubah!"
-                }
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
+                                }
             },
             "moderation": {
                 "modActions": {
@@ -1107,6 +1121,13 @@
                 "language": {
                     "noLanguage": "You must specify a language!",
                     "success": "Language set to ${VAR}!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {
@@ -1530,6 +1551,13 @@
                 "language": {
                     "noLanguage": "You must specify a language!",
                     "success": "Language set to ${VAR}!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {

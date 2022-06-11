@@ -2,7 +2,7 @@
 const { Player } = require('discord-player');
 const fs = require('fs')
 const Discord = require('discord.js');
-const { shop, settings, tags, tagDescriptions } = require('./config.json');
+const { shop, settings } = require('./config.json');
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const Economy = require('currency-system');

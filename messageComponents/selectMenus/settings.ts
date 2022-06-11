@@ -20,23 +20,23 @@ type GuildSettings = {
 module.exports = {
     name: "settings",
     async execute(interaction: SelectMenuInteraction, client: any) {
+        if (interaction.replied) return;
         const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guildId });
         const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
-        const actionRow = new MessageActionRow()
-            .addComponents(
-                new MessageSelectMenu()
-                    .setCustomId("settings")
-                    .addOptions([
-                        { label: locale.badWords, value: "badWords" },
-                        { label: locale.welcome, value: "welcome" },
-                        { label: locale.tags, value: "tags" },
-                        { label: locale.misc, value: "misc" }
-                    ])
-            )
-
         const selected = interaction.values[0];
         switch (selected) {
             case "badWords":
+                const actionRow = new MessageActionRow()
+                    .addComponents(
+                        new MessageSelectMenu()
+                            .setCustomId("settings")
+                            .addOptions([
+                                { label: locale.badWords, value: "badWords", default: true },
+                                { label: locale.welcome, value: "welcome" },
+                                { label: locale.tags, value: "tags" },
+                                { label: locale.misc, value: "misc" }
+                            ])
+                    )
                 const badWordPresetActionRow = new MessageActionRow()
                     .addComponents(
                         new MessageSelectMenu()
