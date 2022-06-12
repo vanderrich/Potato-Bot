@@ -43,7 +43,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -153,7 +153,10 @@
                     "github": "GitHub",
                     "discServer": "Discord Server",
                     "invite": "Invite",
-                    "trello": "Trello"
+                    "trello": "Trello",
+                    "topgg": "Top.gg",
+                    "discBots": "Discord Bots",
+                    "discBotList": "Discord Bot List"
                 },
                 "ping": {
                     "embedTitle": "Pong!",
@@ -255,6 +258,13 @@
                 "language": {
                     "noLanguage": "You must specify a language!",
                     "success": "Language set to ${VAR}!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {
@@ -304,20 +314,47 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
-                    "noTextChannel": "You must specify a text channel!",
+                    "noReactRole": "No react role set!",
                     "noPerms": "I don't have permissions to manage the roles!",
                     "invalidEmoji": "Invalid emoji!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
@@ -439,7 +476,7 @@
                     "success": "Berhasil membeli **${VAR} ${VAR}** dengan **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "Anda sudah mengklaim kredit **$${VAR}** anda. Kembali dalam ${VAR} untuk mengklaimnya lagi!",
+                    "cooldown": "Anda sudah mengklaim kredit ${VAR} anda. Kembali dalam ${VAR} untuk mengklaimnya lagi!",
                     "success": "Anda telah mengklaim **$${VAR}** sebagai kredit ${VAR} anda, anda sekarang ada ${VAR} di dompet!",
                     "hourly": "per jam",
                     "daily": "harian",
@@ -549,7 +586,10 @@
                     "github": "GitHub",
                     "discServer": "Server Discord",
                     "invite": "Invitasi",
-                    "trello": "Trello"
+                    "trello": "Trello",
+                    "topgg": "Top.gg",
+                    "discBots": "Discord Bots",
+                    "discBotList": "List Bot Discord"
                 },
                 "ping": {
                     "embedTitle": "Pong!",
@@ -651,6 +691,13 @@
                 "language": {
                     "noLanguage": "Anda harus menentukan sebuah bahasa!",
                     "success": "Bahasa berhasil diubah!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {
@@ -700,17 +747,44 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -835,7 +909,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -1047,6 +1121,13 @@
                 "language": {
                     "noLanguage": "You must specify a language!",
                     "success": "Language set to ${VAR}!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {
@@ -1096,17 +1177,44 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -1231,7 +1339,7 @@
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
                 },
                 "rewards": {
-                    "cooldown": "You have claimed your **$${VAR}** credit. Come back in ${VAR} to claim it again!",
+                    "cooldown": "You have claimed your ${VAR} credit. Come back in ${VAR} to claim it again!",
                     "success": "You have claimed **$${VAR}** as your ${VAR} credit, you now have **$${VAR}** in your wallet!",
                     "hourly": "hourly",
                     "daily": "daily",
@@ -1443,6 +1551,13 @@
                 "language": {
                     "noLanguage": "You must specify a language!",
                     "success": "Language set to ${VAR}!"
+                },
+                "dictionary": {
+                    "noWord": "Word Not Found!",
+                    "offensive": "Offensive?",
+                    "stems": "Stems",
+                    "topDefs": "Top Definitions",
+                    "examples": "Examples"
                 }
             },
             "moderation": {
@@ -1492,17 +1607,44 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
-                    "updated": "Settings updated!",
-                    "badwords": {
-                        "noCustomWords": "You must specify the custom words to use!",
-                        "setWordsCustom": "Set custom bad words to ${VAR}",
-                        "setWordsPreset": "Set the bad words preset to ${VAR}"
+                    "badWords": "Bad Words",
+                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "welcome": "Welcome",
+                    "welcomeChannel": "Welcome Channel",
+                    "welcomeMessage": "Welcome Message",
+                    "welcomeRole": "Welcome Role",
+                    "tags": "Tags",
+                    "tagDescriptions": "Tag Descriptions",
+                    "misc": "Misc",
+                    "suggestionChannel": "Suggestion Channel",
+                    "ghostPing": "Ghost Ping Detection?",
+                    "badWordPresetNames": {
+                        "low": "Low (default)",
+                        "medium": "Medium (recommended)",
+                        "high": "High (recommended)",
+                        "highest": "Highest (not recommended)",
+                        "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
+                        "custom": "Custom"
                     },
-                    "tags": {
-                        "noArgs": "You must provide a tag, customid, and value.",
-                        "settingCreateSuccess": "Created setting with the tag **${VAR}** with custom id **${VAR}** and value **${VAR}**",
-                        "settingUpdateSuccess": "Successfully ${VAR} the tag **${VAR}** with the custom id **${VAR}** ${VAR}"
-                    }
+                    "customBadWords": "Custom Bad Words",
+                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
+                    "updated": "Settings Updated!",
+                    "welcomeSettings": "Welcome Settings",
+                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
+                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
+                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
+                    "invalidChannel": "Invalid Channel!",
+                    "invalidRole": "Invalid Role!",
+                    "miscSettings": "Misc Settings",
+                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
+                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "yes": [
+                        "y",
+                        "yes",
+                        "true",
+                        "1"
+                    ],
+                    "settings": "Settings For ${VAR}"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",

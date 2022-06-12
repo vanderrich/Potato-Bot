@@ -2,7 +2,7 @@
 const { Player } = require('discord-player');
 const fs = require('fs')
 const Discord = require('discord.js');
-const { shop, settings, tags, tagDescriptions } = require('./config.json');
+const { shop, settings } = require('./config.json');
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const Economy = require('currency-system');
@@ -13,8 +13,8 @@ const localizations = require('./localization.json');
 // const setupSubscriptions = require('./Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
-	intents: ["GUILDS", "GUILD_BANS", "GUILD_EMOJIS_AND_STICKERS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING", "GUILD_PRESENCES", "GUILD_SCHEDULED_EVENTS", "GUILD_VOICE_STATES", "GUILD_WEBHOOKS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
-	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "GUILD_SCHEDULED_EVENT", "REACTION", "USER", "GUILDS"],
+	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_VOICE_STATES"],
+	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER", "GUILDS"],
 });
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -23,6 +23,7 @@ mongoose.connect(process.env.MONGO_URI, {
 	autoIndex: false
 });
 
+//caches
 client.cachedTags = new Discord.Collection();
 client.cachedShopItems = new Discord.Collection();
 client.cachedInventories = new Discord.Collection();
@@ -77,6 +78,7 @@ const updateCache = () => {
 		});
 	});
 }
+client.updateCache = updateCache;
 
 const languagesCache = new Discord.Collection();
 
@@ -300,6 +302,7 @@ client.slashCommands = new Discord.Collection();
 client.buttons = new Discord.Collection();
 client.contextMenus = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
+client.selectMenus = new Discord.Collection();
 client.player = new Player(client, {
 	ytdlOptions: {
 		quality: 'highestaudio', //Please don't touch
@@ -352,18 +355,24 @@ for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args, client));
-	} else { 
+	} else {
 		client.on(event.name, (...args) => event.execute(...args, client, client.commands));
 	}
 }
 
-//initialize buttons
-const buttonFiles = fs.readdirSync('./buttons').filter(file => file.endsWith('.js'));
+//initialize message component stuff
+const buttonFiles = fs.readdirSync('./messageComponents/buttons').filter(file => file.endsWith('.js'));
 for (const file of buttonFiles) {
-	//loops through all folders of commandFolders
-	const button = require(`./buttons/${file}`);
+	const button = require(`./messageComponents/buttons/${file}`);
 	client.buttons.set(button.name, button);
 }
+
+const selectMenuFiles = fs.readdirSync('./messageComponents/selectMenus').filter(file => file.endsWith('.js'));
+for (const file of selectMenuFiles) {
+	const selectMenu = require(`./messageComponents/selectMenus/${file}`);
+	client.selectMenus.set(selectMenu.name, selectMenu);
+}
+
 const logs = [],
 	hook_stream = function (_stream, fn) {
 		// Reference default write method
@@ -419,7 +428,6 @@ player.on('queueEnd', (queue) => {
 //Run
 // setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", _ => {
-	client.users.cache.get('709950767670493275').send({ content: `Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\`` }); // log the crash to the bot owner
-	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`Bot Crashed!\n\`\`\`${_.stack.slice(0, 2000)}\`\`\``); // log the crash to the bot logs channel
 	console.error(_.stack + '\n' + '='.repeat(20))
+	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
 });

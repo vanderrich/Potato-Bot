@@ -8,9 +8,10 @@ module.exports = {
     category: "Currency",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: any) {
+        await interaction.deferReply();
         let amount = Math.floor(Math.random() * 100) + 50;
         let addMoney = await client.eco.weekly({ user: interaction.user.id, amount });
-        if (addMoney.error) return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.rewards.cooldown", client.getLocale(interaction.user.id, "commands.currency.rewards.weekly"), addMoney.time));
-        else return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.rewards.success", amount, addMoney.rawData.wallet));
+        if (addMoney.error) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.cooldown", client.getLocale(interaction.user.id, "commands.currency.rewards.weekly"), addMoney.time));
+        else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.success", amount, client.getLocale(interaction.user.id, "commands.currency.rewards.weekly"), addMoney.rawData.wallet));
     }
 }

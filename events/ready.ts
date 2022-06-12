@@ -1,8 +1,9 @@
 import { User } from "discord.js"
+import postStats from "../Util/postStats";
 
 module.exports = {
     name: 'ready',
-    execute(client: any) {
+    async execute(client: any) {
         console.log('Ready!')
         client.user.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then((birthdays: any) => {
@@ -28,6 +29,7 @@ module.exports = {
                     }
                 })
             }
-        })
+        });
+        await postStats(client);
     }
 }

@@ -7,8 +7,9 @@ module.exports = {
         .setDescription("See the leaderboard!"),
     category: "Currency",
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+        await interaction.deferReply();
         let leaderboard = await client.eco.globalLeaderboard();
-        if (!leaderboard || leaderboard.length < 1) return interaction.reply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
+        if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction.user.id, "commands.currency.leaderboard.title"))
@@ -24,7 +25,7 @@ module.exports = {
                 client.getLocale(interaction.user.id, "commands.currency.leaderboard.userDesc", user.wallet, user.bank)
             );
 
-            return interaction.reply({ embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         })
     }
 }

@@ -13,19 +13,20 @@ module.exports = {
         ),
     category: "Currency",
     async execute(interaction: CommandInteraction, client: any) {
+        await interaction.deferReply();
         let money = interaction.options.getNumber("amount");
         let result = await client.eco.withdraw({
             user: interaction.user.id,
             amount: money
         });
         if (result.error) {
-            if (result.type === 'money') return interaction.reply("Specify an amount to withdraw");
-            if (result.type === 'negative-money') return interaction.reply("Amount must be positive");
-            if (result.type === 'low-money') return interaction.reply("You don't have that much money in your bank.");
-            if (result.type === 'bank-full') return interaction.reply("Your bank is empty.");
+            if (result.type === 'money') return interaction.editReply("Specify an amount to withdraw");
+            if (result.type === 'negative-money') return interaction.editReply("Amount must be positive");
+            if (result.type === 'low-money') return interaction.editReply("You don't have that much money in your bank.");
+            if (result.type === 'bank-full') return interaction.editReply("Your bank is empty.");
         } else {
-            if (result.type === 'all-success') return interaction.reply("You have withdrawn all your money to your bank" + `\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
-            if (result.type === 'success') return interaction.reply(`You have withdrawn **$${result.amount}** to your bank.\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
+            if (result.type === 'all-success') return interaction.editReply("You have withdrawn all your money to your bank" + `\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
+            if (result.type === 'success') return interaction.editReply(`You have withdrawn **$${result.amount}** to your bank.\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
         };
     }
 }

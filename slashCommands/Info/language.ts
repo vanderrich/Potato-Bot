@@ -24,6 +24,7 @@ module.exports = {
         else
             languageDoc.language = language;
         await languageDoc.save();
+        client.updateCache();
         return interaction.reply(client.getLocale(interaction.user.id, "commands.info.language.success", language));
     }
 }

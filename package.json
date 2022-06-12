@@ -18,6 +18,7 @@
         "@discordjs/rest": "",
         "@discordjs/voice": "",
         "@types/mongoose": "",
+        "axios": "^0.27.2",
         "currency-system": "",
         "discord-api-types": "",
         "discord-backup": "",
@@ -31,7 +32,9 @@
         "officegen": "",
         "pet-pet-gif": "",
         "play-dl": "",
+        "request": "^2.88.2",
         "tenorjs": "",
+        "topgg-autoposter": "^2.0.1",
         "typescript": "",
         "undici": "",
         "ytdl-core": ""

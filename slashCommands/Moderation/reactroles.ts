@@ -55,7 +55,7 @@ module.exports = {
             let role = interaction.options.getRole(`option${i}role`);
             if (option && emoji && role) {
                 if (role.position < interaction.guild.me.roles.highest.position) {
-                    if (!emoji.match(/:[a-zA-Z0-9_]+:/g)) return interaction.reply("Invalid emoji!");
+                    if (!client.emojis.cache.get(emoji.replace(/<:[a-z]+:/, "").replace(/>/, "")) && !emoji.match(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/)) return interaction.reply(`The emoji ${emoji} is not valid!`);
                     options.push(option);
                     reactionRoles.push(role);
                     reactions.push(emoji.trim());
@@ -70,7 +70,7 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         if (description) embed.setDescription(description);
         for (const i in reactions) {
-            embed.addField(reactions[i].toString(), reactionRoles[i].toString());
+            embed.addField(`${reactions[i]}: ${options[i]}`, `${reactionRoles[i]}`);
         }
 
         const messageActionRow = new Discord.MessageActionRow();
@@ -79,7 +79,7 @@ module.exports = {
             messageActionRowComponents.push(
                 new Discord.MessageButton()
                     .setEmoji(reactions[i])
-                    .setLabel(reactionRoles[i].name)
+                    .setLabel(options[i])
                     .setStyle("PRIMARY")
                     .setCustomId(`giverole-${reactionRoles[i].id}`));
         }

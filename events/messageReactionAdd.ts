@@ -1,4 +1,4 @@
-import Discord from "discord.js"
+import Discord, { Message } from "discord.js"
 module.exports = {
     name: 'messageReactionAdd',
     async execute(reaction: Discord.MessageReaction, user: Discord.User, client: any) {
@@ -7,6 +7,15 @@ module.exports = {
 
         if (user.bot) return
 
+        if (reaction.emoji.name == '📌') {
+            const embed = new Discord.MessageEmbed()
+                .setColor('#ff0000')
+                .setTitle(`${reaction.message.author?.username} said:`)
+                .setDescription(`${reaction.message.content}\n\n[Jump to message](${reaction.message.url})`)
+                .setFooter({ text: `Pinned from ${reaction.message.guild?.name}`, iconURL: reaction.message.guild?.iconURL()! })
+                .setTimestamp();
+            user.send({ embeds: [embed, ...reaction.message.embeds] })
+        }
         let reactionRole = await client.rr.findOne({ messageId: reaction.message.id })
         let reactionEmojiIndex = reactionRole?.emoji?.indexOf(reaction.emoji.name)
         if (!reactionEmojiIndex || reactionEmojiIndex == -1) return
