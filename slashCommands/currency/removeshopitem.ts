@@ -21,6 +21,7 @@ module.exports = {
             guild: interaction.guildId,
             item: itemNumber
         })
+        client.updateCache();
         if (result.error) {
             if (result.type == 'Invalid-Item-Number' || result.type == "Unknown-Item") return interaction.editReply(client.getLocale(interaction.user.id, "currency.buy.noItem"));
         } else return interaction.editReply(client.getLocale(interaction.user.id, "currency.addshopitem.success", name));

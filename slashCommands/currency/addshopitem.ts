@@ -37,6 +37,7 @@ module.exports = {
                 description: description
             }
         });
+        client.updateCache();
         if (result.error) {
             if (result.type == 'No-Inventory-Name') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noItemName"));
             if (result.type == 'Invalid-Inventory-Price') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.invalidPrice"));

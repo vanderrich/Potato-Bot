@@ -78,6 +78,7 @@ const updateCache = () => {
 		});
 	});
 }
+client.updateCache = updateCache;
 
 const languagesCache = new Discord.Collection();
 

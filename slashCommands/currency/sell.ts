@@ -38,6 +38,7 @@ module.exports = {
             let item = shopItem.inventory.find((item: any) => item.name === results[0].inventory.name);
             if (item) {
                 client.eco.addMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
+                client.updateCache();
                 return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.sell.success", amount, item.name, item.price));
             }
             else {

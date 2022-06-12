@@ -58,6 +58,7 @@ module.exports = {
                 item: local ? parseInt(item.replace("_local", "")) : parseInt(item),
             }));
         }
+        client.updateCache();
         if (results[0].error) {
             if (results[0].type === 'No-Item' || results[0].type === 'Invalid-Item') return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.noItem"));
             if (results[0].type === 'low-money') return interaction.editReply(`You're too broke to buy this item.`);
