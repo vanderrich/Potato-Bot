@@ -11,7 +11,7 @@
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 25px;
   font-family: 'Roboto';
 }
 
@@ -55,4 +55,26 @@ a:hover {
 
 a:visited {
   color: #020122;
+}
+.inviteLink:hover {
+  height: 300px;
+  width: 300px;
+}
+
+#inviteLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  #inviteLinks {
+    flex-direction: column;
+  }
+
+  .topNav {
+    font-size: 15px;
+  }
 }
