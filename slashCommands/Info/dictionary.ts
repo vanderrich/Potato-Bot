@@ -19,9 +19,9 @@ module.exports = {
         const data = response.data[0];
         const locale = client.getLocale(interaction.user.id, "commands.info.dictionary");
 
-        if (response.data.length < 1 || !word) return interaction.reply({ content: client.getLocale(interaction.user.id, "commands.info.dictionary.noWord"), ephemeral: true });
+        if (!data?.meta || !word) return interaction.reply({ content: client.getLocale(interaction.user.id, "commands.info.dictionary.noWord"), ephemeral: true });
         const embed = new MessageEmbed()
-            .setTitle(`${word} - ${data.fl}`)
+            .setTitle(`${data.meta.id} - ${data.fl}`)
             .setColor("RANDOM")
             .setDescription(`${data.hwi.hw} | ${data.hwi.prs[0].mw}\n${locale.offensive}: ${data.meta.offensive}\n${locale.stems}: ${data.meta.stems.join(", ")}`)
             .addField(client.getLocale(interaction.user.id, "commands.info.dictionary.topDefs"), "- " + data.shortdef.join("\n- "))
