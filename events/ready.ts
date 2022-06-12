@@ -1,5 +1,6 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
+import axios from "axios";
 
 module.exports = {
     name: 'ready',
@@ -31,5 +32,8 @@ module.exports = {
             }
         });
         await postStats(client);
+        setInterval(async () => {
+            axios.post('https://potato-bot-api.herokuapp.com/status')
+        }, 4000)
     }
 }

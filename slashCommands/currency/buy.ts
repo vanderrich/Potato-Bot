@@ -34,7 +34,7 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
             for (let key in inv) {
-                embed.addField(client.getLocale(interaction.user.id, "commands.buy.storeItem"), inv[key].description)
+                embed.addField(client.getLocale(interaction.user.id, "commands.buy.storeItem", key, inv[key].price,), inv[key].description)
             }
             return interaction.reply({ embeds: [embed] });
         }

@@ -106,7 +106,7 @@ mongoose.connection.on('error', console.error.bind(console, 'Connection error:')
 mongoose.connection.once('open', async () => {
 	console.log('Connected to MongoDB.');
 	const eco = new Economy;
-	client.languages = mongoose.model('languages', mongoose.Schema({
+	client.languages = mongoose.model('languages', new mongoose.Schema({
 		user: { type: String, required: true },
 		language: { type: String, required: true },
 	}));
