@@ -31,9 +31,12 @@ module.exports = {
                 })
             }
         });
-        await postStats(client);
         setInterval(async () => {
             axios.post('https://potato-bot-api.herokuapp.com/status')
-        }, 4000)
+                .catch(error => {
+                    console.error(error);
+                });
+        }, 15000)
+        await postStats(client);
     }
 }
