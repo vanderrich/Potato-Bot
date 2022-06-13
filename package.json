@@ -38,6 +38,7 @@
         "topgg-autoposter": "^2.0.1",
         "typescript": "",
         "undici": "",
+        "uuid": "^8.3.2",
         "ytdl-core": ""
     }
 }

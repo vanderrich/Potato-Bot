@@ -1,5 +1,7 @@
 import { tags, footers, admins } from './../config.json'
 import Discord from 'discord.js'
+import axios from 'axios';
+import { uuidv4 } from 'uuid';
 type AutocompleteThingy = {
     name: string,
     value: string,
@@ -25,6 +27,16 @@ module.exports = {
             } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
                 await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
+                await axios.post('https://potato-bot-api.herokuapp.com/error', {
+                    name: command.data.name,
+                    type: interaction.isCommand() ? "Slash Command" : "Context Menu Command",
+                    error: error,
+                    stack: error.stack,
+                    code: error.code,
+                    path: error.path,
+                    httpStatus: error.httpStatus,
+                    requestData: error.requestData?.json,
+                });
                 try {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
@@ -45,8 +57,19 @@ module.exports = {
 
                 try {
                     button?.execute(interaction, client, footers);
-                } catch (error) {
+                } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
+                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> Error in button ${button.customId}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
+                    await axios.post('https://potato-bot-api.herokuapp.com/error', {
+                        name: button.customId,
+                        type: "Button",
+                        error: error,
+                        stack: error.stack,
+                        code: error.code,
+                        path: error.path,
+                        httpStatus: error.httpStatus,
+                        requestData: error.requestData?.json,
+                    });
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
@@ -94,8 +117,22 @@ module.exports = {
 
                 try {
                     selectMenu?.execute(interaction, client, footers);
-                } catch (error) {
+                } catch (error: Discord.DiscordAPIError | any | Error) {
+                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> Error in select menu ${selectMenu.customId}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
                     console.error(error);
+                    await axios.post('https://potato-bot-api.herokuapp.com/error', {
+                        name: selectMenu.data.name,
+                        id: uuidv4(),
+                        type: "Select Menu",
+                        error: error.toString(),
+                        stack: error.stack,
+                        code: error.code,
+                        path: error.path,
+                        httpStatus: error.httpStatus,
+                        requestData: error.requestData?.json,
+                    }, { headers: { Authorization: process.env.SUPER_SECRET_KEY! } }).catch(err => console.error(err)).then((res) => {
+                        console.log(res!.data);
+                    });
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
