@@ -69,6 +69,16 @@ a:visited {
   margin-top: 20px;
 }
 
+code {
+  font-family: 'Roboto Mono', monospace;
+  color: #A0A2A5;
+}
+
+.code {
+  background-color: #2F3136;
+  border-radius: 5px;
+  padding: 10px;
+}
 @media screen and (max-width: 800px) {
   #inviteLinks {
     flex-direction: column;
