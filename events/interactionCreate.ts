@@ -26,9 +26,11 @@ module.exports = {
                 await command.execute(interaction, client, footers);
             } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
-                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> Error in command ${command.data.name}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
+                const id = uuidv4();
+                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id})!` }); // log the error to the bot logs channel
                 await axios.post('https://potato-bot-api.herokuapp.com/error', {
                     name: command.data.name,
+                    id,
                     type: interaction.isCommand() ? "Slash Command" : "Context Menu Command",
                     error: error,
                     stack: error.stack,
@@ -59,9 +61,11 @@ module.exports = {
                     button?.execute(interaction, client, footers);
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
-                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> Error in button ${button.customId}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
+                    const id = uuidv4()
+                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id})!` }); // log the error to the bot logs channel
                     await axios.post('https://potato-bot-api.herokuapp.com/error', {
                         name: button.customId,
+                        id,
                         type: "Button",
                         error: error,
                         stack: error.stack,
@@ -118,11 +122,12 @@ module.exports = {
                 try {
                     selectMenu?.execute(interaction, client, footers);
                 } catch (error: Discord.DiscordAPIError | any | Error) {
-                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> Error in select menu ${selectMenu.customId}\n${error}\nError Code: ${error.code}\nHTTP status: ${error.httpStatus}\nPath: ${error.path}\nRequest Data: ${error.requestData?.json}\nStack: \`\`\`${error.stack}\`\`\`` }); // log the error to the bot logs channel
                     console.error(error);
+                    const id = uuidv4()
+                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id})!` }); // log the error to the bot logs channel
                     await axios.post('https://potato-bot-api.herokuapp.com/error', {
                         name: selectMenu.data.name,
-                        id: uuidv4(),
+                        id,
                         type: "Select Menu",
                         error: error.toString(),
                         stack: error.stack,

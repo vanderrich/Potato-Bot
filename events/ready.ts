@@ -22,7 +22,7 @@ module.exports = {
                                 user.send(`Happy Birthday!`)
                                 client.birthdayConfigs.findOne({ guildId: birthday.guildId }).then((config: any) => {
                                     if (config && config.channelId) {
-                                        client.channels.cache.get(config.channelId).send(eval('`' + config.message + '`') || `@everyone its <@${user.id}>'s birthday!`)
+                                        client.channels.cache.get(config.channelId).send(eval('`' + config.message + '`') || `Its <@${user.id}>'s birthday!`)
                                     }
                                 });
                             }
