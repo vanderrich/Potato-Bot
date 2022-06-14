@@ -4,7 +4,7 @@ export default {
   data() {
     return {
       loading: true,
-        status: "",
+      status: "",
       errors: [],
     };
   },
@@ -17,9 +17,9 @@ export default {
         this.loading = false;
       });
     setTimeout(() => {
-        console.log("e");
-        this.$forceUpdate();
-      }, 10000);
+      console.log("e");
+      this.$forceUpdate();
+    }, 10000);
   },
 };
 </script>
@@ -28,14 +28,21 @@ export default {
   <div id="status">
     <h1>Status</h1>
     <p>
-      Status: <span v-if="!loading">{{ status }}</span><span v-else>Loading...</span>
+      Status: <span v-if="!loading">{{ status }}</span
+      ><span v-else>Loading...</span>
     </p>
     <h2>Latest Errors</h2>
     <ul>
       <li v-if="loading">Loading...</li>
-      <li v-else v-for="(error, key) in errors">
-        <a :href="`/status/${error.id}`"><span>{{error.id.slice(0, 4)}}...</span> - <strong>{{ error.error }}</strong></a>
-      </li>
+      <div v-else>
+        <li v-for="(error, key) in errors">
+          <a :href="`/status/${error.id}`"
+            ><span>{{ error.id.slice(0, 4) }}...</span> -
+            <strong>{{ error.error }}</strong></a
+          >
+        </li>
+        <p v-if="errors.length === 0">No Errors, yay!</p>
+      </div>
     </ul>
   </div>
 </template>
