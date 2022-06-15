@@ -6,6 +6,7 @@ export default {
       loading: true,
       status: "",
       errors: [],
+      uptime: "",
     };
   },
   created() {
@@ -14,7 +15,15 @@ export default {
       .then((response) => {
         this.status = response.data.message ? "Online" : "Offline";
         this.errors = response.data.errors;
+        let ms_num = response.data.uptime;
+        let days = Math.floor(ms_num / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((ms_num / 1000 / 60 / 60) % 24);
+        let minutes = Math.floor((ms_num / 1000 / 60) % 60);
+        this.uptime = `${days} days, ${hours} hours, ${minutes} minutes`;
         this.loading = false;
+      })
+      .catch((error) => {
+        console.error(error);
       });
     setTimeout(() => {
       console.log("e");
@@ -29,7 +38,8 @@ export default {
     <h1>Status</h1>
     <p>
       Status: <span v-if="!loading">{{ status }}</span
-      ><span v-else>Loading...</span>
+      ><span v-else>Loading...</span><br />
+      Uptime: <span v-if="!loading">{{ status }} for {{ uptime }}</span><span v-else>Loading...</span>
     </p>
     <h2>Latest Errors</h2>
     <ul>
