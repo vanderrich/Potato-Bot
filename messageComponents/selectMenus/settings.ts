@@ -130,6 +130,45 @@ module.exports = {
                 }).catch(() => { });
                 break;
             case "tags":
+                const tagActionRow = new MessageActionRow()
+                    .addComponents(
+                        new MessageSelectMenu()
+                            .setCustomId("tagaction")
+                            .addOptions([
+                                { label: locale.addTag, value: "add" },
+                                { label: locale.removeTag, value: "remove" }
+                            ])
+                    )
+                interaction.update({ components: [tagActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
+                    if (!(msg instanceof Message)) return;
+                    msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
+                        const selected = collected.values[0];
+                        if (selected === "add") {
+                            const modal = new Modal()
+                                .setTitle(locale.addTag)
+                                .setCustomId("addTag")
+                                .addComponents(new MessageActionRow<TextInputComponent>()
+                                    .addComponents(
+                                        new TextInputComponent()
+                                            .setCustomId("tag")
+                                            .setLabel(locale.tag)
+                                            .setPlaceholder(locale.tagTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                    )
+                                )
+                            await collected.showModal(modal);
+                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const tag = modal.fields.getTextInputValue("tag");
+                                await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $push: { tags: tag } });
+                                modal.reply(locale.updated);
+                            }).catch(() => { });
+                        } else {
+                            const tag = collected.values[1];
+                            await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $pull: { tags: tag } });
+                            collected.reply(locale.updated);
+                        }
+                    });
+                });
                 break;
             case "misc":
                 const miscModal = new Modal()
