@@ -12,6 +12,7 @@ type GuildSettings = {
     ghostPing: boolean,
     tags: { name: String, value: String }[],
     tagDescriptions: Object,
+    statChannels: string[],
 }
 module.exports = {
     data: new SlashCommandBuilder()
@@ -38,7 +39,9 @@ module.exports = {
                 **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")} `)
             .addField("Misc",
                 `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
-                **${locale.ghostPing}**: ${guildSettings.ghostPing || true}`)
+                **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
+                // **${locale.statChannels}**: ${guildSettings.statChannels.map(channel => interaction.guild!.channels.cache.get(channel)?.toString).join(", ")}
+                `)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 
         const actionRow = new MessageActionRow()

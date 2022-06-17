@@ -1,7 +1,7 @@
 import { tags, footers, admins } from './../config.json'
 import Discord from 'discord.js'
 import axios from 'axios';
-import { uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 type AutocompleteThingy = {
     name: string,
     value: string,
@@ -18,8 +18,8 @@ module.exports = {
             if (command.guildOnly && (!interaction.guild)) return interaction.reply({ content: "You can't use this command in DM!", ephemeral: true });
             if (command.permissions) {
                 if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(command.permissions)) return interaction.reply({ content: "You don't have permission to use this command!", ephemeral: true });
+                if ((command.permissions == "BotAdmin" && !interaction.guild!.me!.permissions.has("ADMINISTRATOR")) || (interaction.guild!.me!.permissions.has(command.permissions))) return interaction.reply({ content: "I dont have the permissions to use this command!", ephemeral: true });
             }
-
 
             try {
                 client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `${interaction.user} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command

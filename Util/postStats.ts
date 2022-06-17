@@ -1,6 +1,8 @@
 import { Client } from 'discord.js';
 import axios from 'axios';
 import { AutoPoster } from 'topgg-autoposter';
+import { config } from "dotenv";
+config();
 
 export default async function postStats(client: Client): Promise<void> {
     await axios.post(`https://discord.bots.gg/api/v1/bots/${client.user!.id}/stats/`, {

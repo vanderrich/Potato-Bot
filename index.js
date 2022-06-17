@@ -268,6 +268,7 @@ mongoose.connection.once('open', async () => {
 		suggestionChannel: { type: String, default: "" },
 		tagDescriptions: { type: Object, default: {} },
 		ghostPing: { type: Boolean, default: true },
+		statsChannels: { type: [String], default: "" },
 	}));
 
 	client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {

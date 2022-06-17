@@ -43,7 +43,7 @@ module.exports = {
         var options = [];
         var time = new Date(Date.now() + ms(interaction.options.getString("duration")));
         var ping = interaction.options.getBoolean("ping") || false;
-        if (!time) return interaction.reply(client.getLocale(interaction.user.id, "commands.poll.invalidDuration"));
+        if (!ms(interaction.options.getString("duration"))) return interaction.reply(client.getLocale(interaction.user.id, "commands.poll.invalidDuration"));
         for (var i = 1; i <= 25; i++) {
             if (interaction.options.getString("option" + i) != null) {
                 options.push(interaction.options.getString("option" + i));
@@ -57,7 +57,7 @@ module.exports = {
                 .setColor('RANDOM')
                 .setDescription(timestamp)
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-            if (description != null) embed.setDescription(description)
+            if (description != null) embed.setDescription(description + '\n\n' + timestamp);
 
             interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction.user.id, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(msg => {
                 if (msg instanceof Message) {

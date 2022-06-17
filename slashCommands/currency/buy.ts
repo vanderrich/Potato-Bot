@@ -18,6 +18,7 @@ module.exports = {
         ),
     category: "Currency",
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+        await interaction.deferReply();
         let item = interaction.options.getString("item");
         let amount = interaction.options.getInteger("amount") || 1;
         let local = item?.endsWith("_local");
@@ -36,9 +37,8 @@ module.exports = {
             for (let key in inv) {
                 embed.addField(client.getLocale(interaction.user.id, "commands.buy.storeItem", key, inv[key].price,), inv[key].description)
             }
-            return interaction.reply({ embeds: [embed] });
+            return interaction.editReply({ embeds: [embed] });
         }
-        await interaction.deferReply();
         if (local) {
             let items = await client.eco.getShopItems({ guild: interaction.guildId });
             let shopItem = items.inventory.find((i: any) => i.id == item?.replace("_local", ""));
