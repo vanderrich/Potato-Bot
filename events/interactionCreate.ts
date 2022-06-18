@@ -27,7 +27,7 @@ module.exports = {
             } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
                 const id = uuidv4();
-                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id})!` }); // log the error to the bot logs channel
+                await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                 await axios.post('https://potato-bot-api.herokuapp.com/error', {
                     name: command.data.name,
                     id,
@@ -62,7 +62,7 @@ module.exports = {
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
-                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id})!` }); // log the error to the bot logs channel
+                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                     await axios.post('https://potato-bot-api.herokuapp.com/error', {
                         name: button.customId,
                         id,
@@ -124,7 +124,7 @@ module.exports = {
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
-                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id})!` }); // log the error to the bot logs channel
+                    await client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                     await axios.post('https://potato-bot-api.herokuapp.com/error', {
                         name: selectMenu.data.name,
                         id,
