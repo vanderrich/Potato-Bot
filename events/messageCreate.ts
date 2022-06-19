@@ -1,9 +1,10 @@
-import { prefix, footers, admins, settings } from '../config.json'
+import { prefix } from '../config.json'
 import Discord from 'discord.js'
-const { badWordPresets } = settings
+import { Client } from '../Util/types'
+
 module.exports = {
     name: 'messageCreate',
-    async execute(message: Discord.Message, client: any, clientCommands: any) {
+    async execute(message: Discord.Message, client: Client) {
         let guildSettings = await client.guildSettings.findOne({ guildId: message.guildId })
         for (let i = 0; i < guildSettings?.badWords.length; i++) {
             if (message.channel.type === 'DM') break

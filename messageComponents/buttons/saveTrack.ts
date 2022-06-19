@@ -1,17 +1,18 @@
 import Discord from "discord.js";
+import { Client } from "../../Util/types";
 
 
 module.exports = {
     name: "saveTrack",
-    execute: (interaction: Discord.ButtonInteraction, client: any) => {
-        const queue = client.player.getQueue(interaction.guildId);
+    execute: (interaction: Discord.ButtonInteraction, client: Client) => {
+        const queue = client.player.getQueue(interaction.guildId!);
 
         if (!queue || !queue.playing) return interaction.reply({ content: `No music currently playing. ❌`, ephemeral: true, components: [] });
 
         const embed = new Discord.MessageEmbed()
             .setColor('BLUE')
-            .setTitle(client.user.username + " - Save Track")
-            .setThumbnail(client.user.displayAvatarURL())
+            .setTitle(client.user?.username + " - Save Track")
+            .setThumbnail(client.user?.displayAvatarURL()!)
             .addField(`Track`, `\`${queue.current.title}\``)
             .addField(`Duration`, `\`${queue.current.duration}\``)
             .addField(`URL`, `${queue.current.url}`)

@@ -1,12 +1,13 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
 import axios from "axios";
+import { Client } from "../Util/types";
 
 module.exports = {
     name: 'ready',
-    async execute(client: any) {
+    async execute(client: Client) {
         console.log('Ready!')
-        client.user.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
+        client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then((birthdays: any) => {
             if (birthdays.length > 0) {
                 console.log(`[INFO] ${birthdays.length} birthday(s) found`)
@@ -22,7 +23,9 @@ module.exports = {
                                 user.send(`Happy Birthday!`)
                                 client.birthdayConfigs.findOne({ guildId: birthday.guildId }).then((config: any) => {
                                     if (config && config.channelId) {
-                                        client.channels.cache.get(config.channelId).send(eval('`' + config.message + '`') || `Its <@${user.id}>'s birthday!`)
+                                        const channel = client.channels.cache.get(config.channelId)
+                                        if (!channel || !channel.isText()) return;
+                                        channel.send(eval('`' + config.message + '`') || `Its <@${user.id}>'s birthday!`)
                                     }
                                 });
                             }

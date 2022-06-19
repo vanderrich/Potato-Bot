@@ -1,8 +1,9 @@
 import Discord from "discord.js";
+import { Client } from "../../Util/types";
 
 module.exports = {
     name: "giverole",
-    async execute(interaction: Discord.ButtonInteraction, client: any) {
+    async execute(interaction: Discord.ButtonInteraction, client: Client) {
         if (!interaction.member || !interaction.guild || !(interaction.member.roles instanceof Discord.GuildMemberRoleManager)) return interaction.reply("you are not in a guild! (no idea how this happened)");
         const role = interaction.customId.split("-")[1];
         const roleInfo = await interaction.guild.roles.fetch(role);

@@ -1,7 +1,7 @@
-import Discord, { Message } from "discord.js"
+import Discord from "discord.js"
 module.exports = {
     name: 'messageReactionAdd',
-    async execute(reaction: Discord.MessageReaction, user: Discord.User, client: any) {
+    async execute(reaction: Discord.MessageReaction, user: Discord.User) {
         if (reaction.message.partial) await reaction.message.fetch()
         if (reaction.partial) await reaction.fetch()
 

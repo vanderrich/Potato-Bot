@@ -1,27 +1,15 @@
 import { APIMessage } from "discord-api-types/v9";
-import { DiscordAPIError, Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
+import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
 import config from "../../config.json";
+import { Client, GuildSettings } from "../../Util/types";
 type KeyofBadWordPresets = string & "low" | "medium" | "high" | "highest";
 const badWordPresets = config.settings.badWordPresets;
-type GuildSettings = {
-    guildId: string,
-    badWords: string[],
-    autoPublishChannels: string[],
-    welcomeMessage: string,
-    welcomeChannel: string,
-    welcomeRole: string,
-    suggestionChannel: string,
-    ghostPing: boolean,
-    tags: { name: String, value: String }[],
-    tagDescriptions: Object,
-}
-
 
 module.exports = {
     name: "settings",
-    async execute(interaction: SelectMenuInteraction, client: any) {
+    async execute(interaction: SelectMenuInteraction, client: Client) {
         if (interaction.replied) return;
-        const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guildId });
+        const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
         const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
         const selected = interaction.values[0];
         switch (selected) {
@@ -63,7 +51,7 @@ module.exports = {
                                             .setCustomId("badWord")
                                             .setLabel("Bad Words")
                                             .setPlaceholder(locale.customBadWordTextInputPlaceHolder)
-                                            .setValue(guildSettings.badWords.join(","))
+                                            .setValue(guildSettings!.badWords.join(","))
                                     )
                                 )
                             await collected.showModal(modal);

@@ -1,5 +1,6 @@
-import { Client, Guild } from "discord.js";
+import { Guild } from "discord.js";
 import postStats from "../Util/postStats";
+import { Client } from "../Util/types";
 
 module.exports = {
     name: 'guildDelete',

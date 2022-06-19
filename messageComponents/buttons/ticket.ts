@@ -1,8 +1,9 @@
 import Discord from "discord.js";
+import { Client } from "../../Util/types";
 
 module.exports = {
     name: "ticket",
-    async execute(interaction: Discord.ButtonInteraction, client: any) {
+    async execute(interaction: Discord.ButtonInteraction, client: Client) {
         const ticket = interaction.customId.split("-")[1];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
         if (!ticketInfo) return interaction.reply("Ticket not found!");
@@ -11,7 +12,9 @@ module.exports = {
             .setDescription(`Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**`)
             .setColor('RANDOM')
         const guild = client.guilds.cache.get(ticketInfo.guildId);
-        const category = guild.channels.cache.get(ticketInfo.categoryId);
+        const category = guild?.channels.cache.get(ticketInfo.categoryId)!;
+        if (!category || category.type !== "GUILD_CATEGORY") return interaction.reply("Category not found!");
+        if (!(interaction.member instanceof Discord.GuildMember)) return interaction.reply("you are not in a guild! (no idea how this happened)");
         const channel = await category.createChannel(`${ticketInfo.title}-ticket-${ticketInfo.id}`, {
             permissionOverwrites: [
                 {
@@ -19,11 +22,11 @@ module.exports = {
                     allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                 },
                 {
-                    id: guild.id,
+                    id: guild!.id,
                     deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                 },
                 {
-                    id: client.user.id,
+                    id: client.user!,
                     allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                 }
             ]

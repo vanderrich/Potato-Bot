@@ -1,4 +1,5 @@
 import { Message, MessageActionRow, MessageButton, MessageComponentInteraction } from "discord.js";
+import { Client } from "./types";
 
 function checkWin(board: MessageActionRow<MessageButton>[]) {
     // Check rows
@@ -21,7 +22,7 @@ function checkWin(board: MessageActionRow<MessageButton>[]) {
     return "tie";
 }
 
-export default async (interaction: MessageComponentInteraction, client: any) => {
+export default async (interaction: MessageComponentInteraction, client: Client) => {
     /** @type {Discord.Message} message */
     const message = interaction.message;
     if (!client.tictactoe[message.id]) return;

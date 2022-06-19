@@ -37,7 +37,7 @@
                 },
                 "buy": {
                     "storeTitle": "Store",
-                    "storeItem": "${VAR} - Price: $${VAR} - **${VAR}:**`",
+                    "storeItem": "${VAR} - Price: $${VAR} - **${VAR}:**",
                     "noItem": "Item not found!",
                     "noMoney": "You're too broke to buy that item!",
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"

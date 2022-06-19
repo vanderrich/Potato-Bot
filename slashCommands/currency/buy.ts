@@ -23,7 +23,6 @@ module.exports = {
         let amount = interaction.options.getInteger("amount") || 1;
         let local = item?.endsWith("_local");
 
-        console.log(item, local);
         if (!item) {
             let items = await client.eco.getShopItems({ guild: interaction.guild?.id });
             let globalItems = await client.eco.getShopItems({ user: interaction.user.id });
@@ -35,7 +34,7 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
             for (let key in inv) {
-                embed.addField(client.getLocale(interaction.user.id, "commands.currency.buy.storeItem", key, inv[key].price), inv[key].description)
+                embed.addField(client.getLocale(interaction.user.id, "commands.currency.buy.storeItem", key, inv[key].price, inv[key].name), inv[key].description)
             }
             return interaction.editReply({ embeds: [embed] });
         }

@@ -1,25 +1,26 @@
 //initialize variables
-const { Player } = require('discord-player');
-const fs = require('fs')
-const Discord = require('discord.js');
-const { shop, settings } = require('./config.json');
-require("dotenv").config();
+import { Player, Queue } from 'discord-player'
+import fs from 'fs'
+import Discord from 'discord.js'
+import { shop, settings } from './config.json'
+import Economy from 'currency-system'
+import { deploy } from './deploy-commands.js'
+import { GiveawaysManager } from 'discord-giveaways'
+import mongoose from 'mongoose'
+import localizations from './localization.json'
+import * as Types from './Util/types.js'
+import { config } from "dotenv"
+config();
 const token = process.env.DISCORD_TOKEN;
-const Economy = require('currency-system');
-const { deploy } = require('./deploy-commands.js');
-const { GiveawaysManager } = require('discord-giveaways');
-const mongoose = require('mongoose');
-const localizations = require('./localization.json');
-// const setupSubscriptions = require('./Util/setupSubscriptions.js');
+type languages = keyof typeof localizations;
+// const setupSubscriptions from './Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_VOICE_STATES"],
-	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER", "GUILDS"],
-});
+	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER"],
+}) as Types.Client;
 
-mongoose.connect(process.env.MONGO_URI, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+mongoose.connect(process.env.MONGO_URI!, {
 	autoIndex: false
 });
 
@@ -30,11 +31,11 @@ client.cachedInventories = new Discord.Collection();
 client.globalShopItems = [];
 
 const updateCache = () => {
-	client.guildSettings.find({}, (err, docs) => {
+	client.guildSettings.find({}, (err: any, docs: any) => {
 		if (err) return console.log(err);
-		docs.forEach(guildSetting => {
+		docs.forEach((guildSetting: Types.GuildSettings) => {
 			if (!guildSetting.tags) return;
-			const tags = [];
+			const tags: Types.AutoCompleteValue[] = [];
 			guildSetting.tags.forEach(tag => {
 				tags.push({
 					name: tag.name,
@@ -47,9 +48,9 @@ const updateCache = () => {
 	client.guilds.cache.forEach(guild => {
 		if (!guild.available) return;
 		client.eco.getShopItems({ guild: guild.id })
-			.then(items => {
-				const shopItemsCache = []
-				items.inventory.forEach((item, key) => {
+			.then((items: any) => {
+				const shopItemsCache: Types.AutoCompleteValue[] = []
+				items.inventory.forEach((item: { name: string }, key: number) => {
 					shopItemsCache.push({
 						name: item.name,
 						value: `${key + 1}_local`
@@ -61,9 +62,9 @@ const updateCache = () => {
 
 	client.users.cache.forEach(user => {
 		client.eco.getUserItems({ user: user.id })
-			.then(items => {
-				const userItemsCache = []
-				items.inventory.forEach((item, key) => {
+			.then((items: any) => {
+				const userItemsCache: Types.AutoCompleteValue[] = []
+				items.inventory.forEach((item: { name: string }, key: number) => {
 					userItemsCache.push({
 						name: item.name,
 						value: key + 1
@@ -71,7 +72,7 @@ const updateCache = () => {
 				});
 				client.cachedInventories.set(user.id, userItemsCache);
 			});
-		client.languages.findOne({ user: user.id }, (err, doc) => {
+		client.languages.findOne({ user: user.id }, (err: any, doc: any) => {
 			if (err) return console.log(err);
 			if (!doc) return;
 			languagesCache.set(user.id, doc.language);
@@ -83,12 +84,12 @@ client.updateCache = updateCache;
 const languagesCache = new Discord.Collection();
 
 client.getLocale = (user, string, ...vars) => {
-	let language = languagesCache.get(user) || client.users.cache.get(user).locale || 'en';
-	if (!localizations[language]) language = 'en';
-	string = string.split('.');
-	let locale = localizations[language];
-	for (let i = 0; i < string.length; i++) {
-		locale = locale[string[i]];
+	let language = languagesCache.get(user) || 'en';
+	if (!localizations[language as languages]) language = 'en';
+	let stringArr = string.split('.');
+	let locale = localizations[language as languages] as any;
+	for (let i = 0; i < stringArr.length; i++) {
+		locale = locale[stringArr[i] as keyof typeof locale];
 		if (locale === undefined) return undefined;
 	}
 
@@ -110,7 +111,7 @@ mongoose.connection.once('open', async () => {
 		user: { type: String, required: true },
 		language: { type: String, required: true },
 	}));
-	Economy.cs.on('debug', (debug, error) => {
+	Economy.cs.on('debug', (debug: any, error: any) => {
 		console.log(debug);
 		if (error) console.error(error);
 	});
@@ -134,8 +135,8 @@ mongoose.connection.once('open', async () => {
 			inviteToParticipate: String,
 			drawing: String,
 			dropMessage: String,
-			winMessage: mongoose.Mixed,
-			embedFooter: mongoose.Mixed,
+			winMessage: mongoose.Schema.Types.Mixed,
+			embedFooter: mongoose.Schema.Types.Mixed,
 			noWinner: String,
 			winners: String,
 			endedAt: String,
@@ -144,25 +145,25 @@ mongoose.connection.once('open', async () => {
 		thumbnail: String,
 		hostedBy: String,
 		winnerIds: { type: [String], default: undefined },
-		reaction: mongoose.Mixed,
+		reaction: mongoose.Schema.Types.Mixed,
 		botsCanWin: Boolean,
-		embedColor: mongoose.Mixed,
-		embedColorEnd: mongoose.Mixed,
+		embedColor: mongoose.Schema.Types.Mixed,
+		embedColorEnd: mongoose.Schema.Types.Mixed,
 		exemptPermissions: { type: [], default: undefined },
 		exemptMembers: String,
 		bonusEntries: String,
-		extraData: mongoose.Mixed,
+		extraData: mongoose.Schema.Types.Mixed,
 		lastChance: {
 			enabled: Boolean,
 			content: String,
 			threshold: Number,
-			embedColor: mongoose.Mixed
+			embedColor: mongoose.Schema.Types.Mixed,
 		},
 		pauseOptions: {
 			isPaused: Boolean,
 			content: String,
 			unPauseAfter: Number,
-			embedColor: mongoose.Mixed,
+			embedColor: mongoose.Schema.Types.Mixed,
 			durationAfterPause: Number,
 			infiniteDurationText: String
 		},
@@ -183,7 +184,7 @@ mongoose.connection.once('open', async () => {
 			shuffle: Boolean,
 			volume: Number,
 		}
-	}).index());
+	}));
 	const giveawayModel = mongoose.model('giveaways', giveawaySchema);
 	const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
 		// This function is called when the manager needs to get all giveaways which are stored in the database.
@@ -193,7 +194,7 @@ mongoose.connection.once('open', async () => {
 		}
 
 		// This function is called when a giveaway needs to be saved in the database.
-		async saveGiveaway(messageId, giveawayData) {
+		async saveGiveaway(messageId: string, giveawayData: any) {
 			// Add the new giveaway to the database
 			await giveawayModel.create(giveawayData);
 			// Don't forget to return something!
@@ -201,7 +202,7 @@ mongoose.connection.once('open', async () => {
 		}
 
 		// This function is called when a giveaway needs to be edited in the database.
-		async editGiveaway(messageId, giveawayData) {
+		async editGiveaway(messageId: string, giveawayData: any) {
 			// Find by messageId and update it
 			await giveawayModel.updateOne({ messageId }, giveawayData, { omitUndefined: true }).exec();
 			// Don't forget to return something!
@@ -209,7 +210,7 @@ mongoose.connection.once('open', async () => {
 		}
 
 		// This function is called when a giveaway needs to be deleted from the database.
-		async deleteGiveaway(messageId) {
+		async deleteGiveaway(messageId: string) {
 			// Find by messageId and delete it
 			await giveawayModel.deleteOne({ messageId }).exec();
 			// Don't forget to return something!
@@ -286,9 +287,9 @@ mongoose.connection.once('open', async () => {
 	updateCache();
 	await client.login(token);
 	deploy(client);
-	client.eco.getShopItems({ user: client.user.id })
-		.then(items => {
-			items.inventory.forEach((item, key) => {
+	client.eco.getShopItems({ user: client.user?.id })
+		.then((items: any) => {
+			items.inventory.forEach((item: { name: string }, key: number) => {
 				client.globalShopItems.push({
 					name: item.name,
 					value: (key + 1).toString()
@@ -298,38 +299,29 @@ mongoose.connection.once('open', async () => {
 });
 
 client.shop = shop;
-client.commands = new Discord.Collection();
 client.slashCommands = new Discord.Collection();
 client.buttons = new Discord.Collection();
-client.contextMenus = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
+// client.contextMenus = new Discord.Collection();
+// client.cooldowns = new Discord.Collection();
 client.selectMenus = new Discord.Collection();
 client.player = new Player(client, {
 	ytdlOptions: {
 		quality: 'highestaudio', //Please don't touch
 		filter: 'audioonly', //Please don't touch
 		highWaterMark: 1 << 25 //Please don't touch
-	},
-	leaveOnEmpty: true,
-	leaveOnEnd: true,
-	leaveOnStop: true,
-	autoSelfDeaf: true,
-	leaveOnEmptyCooldown: 5000,
-	initialVolume: 75,
+	}
 });
-client.form = new Map();
-client.settings = settings;
 client.tictactoe = {};
 const player = client.player
 
 // //initialize commands
 // const commandFolders = fs.readdirSync('./commands');
 // for (const folder of commandFolders) {
-	// 	//loops through all folders of commandFolders
-	// 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+// 	//loops through all folders of commandFolders
+// 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
 // 	for (const file of commandFiles) {
-	// 		//loops through all the commandFiles and add them to the client commands collection
-// 		const command = require(`./commands/${folder}/${file}`);
+// 		//loops through all the commandFiles and add them to the client commands collection
+// 		const command from `./commands/${folder}/${file}`);
 // 		client.commands.set(command.name, command);
 // 	}
 // }
@@ -357,7 +349,7 @@ for (const file of eventFiles) {
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args, client));
 	} else {
-		client.on(event.name, (...args) => event.execute(...args, client, client.commands));
+		client.on(event.name, (...args) => event.execute(...args, client));
 	}
 }
 
@@ -374,61 +366,42 @@ for (const file of selectMenuFiles) {
 	client.selectMenus.set(selectMenu.name, selectMenu);
 }
 
-const logs = [],
-	hook_stream = function (_stream, fn) {
-		// Reference default write method
-		var old_write = _stream.write;
-		// _stream now write with our shiny function
-		_stream.write = fn;
-
-		return function () {
-			// reset to the default write method
-			_stream.write = old_write;
-		};
-	},
-
-	// hook up standard output
-	unhook_stdout = hook_stream(process.stdout, function (string, encoding, fd) {
-		logs.push(string);
-	});
-
-client.logs = logs;
-client.unhook_stdout = unhook_stdout;
-
 //other random thingy
-player.on('error', (queue, error) => {
+player.on('error', (queue: Queue<any>, error) => {
 	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released
 	if (error.message === '[DestroyedQueue] Cannot use destroyed queue') return;
 	queue.metadata.send(`There was a problem with the track queue => ${error.message}`);
 });
 
-player.on('connectionError', (queue, error) => {
+player.on('connectionError', (queue: Queue<any>, error) => {
 	queue.metadata.send(`I'm having trouble connecting => ${error.message}`);
 });
 
-player.on('trackStart', (queue, track) => {
+player.on('trackStart', (queue: Queue<any>, track) => {
 	queue.metadata.send(`🎵 Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}** 🎧`);
 });
 
-player.on('trackAdd', (queue, track) => {
+player.on('trackAdd', (queue: Queue<any>, track) => {
 	queue.metadata.send(`**${track.title}** added to queue. ✅`);
 });
 
-player.on('botDisconnect', (queue) => {
+player.on('botDisconnect', (queue: Queue<any>) => {
 	queue.metadata.send('Someone from the audio channel Im connected to kicked me out, the whole playlist has been cleared! ❌');
 });
 
-player.on('channelEmpty', (queue) => {
+player.on('channelEmpty', (queue: Queue<any>) => {
 	queue.metadata.send('I left the audio channel because there is no one on my audio channel. ❌');
 });
 
-player.on('queueEnd', (queue) => {
+player.on('queueEnd', (queue: Queue<any>) => {
 	queue.metadata.send('All play queue finished, I think you can listen to some more music. ✅');
 });
 
 //Run
 // setupSubscriptions(client, mongoose);
-process.on("unhandledRejection", _ => {
+process.on("unhandledRejection", (_: any) => {
 	console.error(_.stack + '\n' + '='.repeat(20))
-	client.guilds.cache.get("962861680226865193").channels.cache.get("979662019202527272").send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
+	const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
+	if (!channel || !channel.isText()) return;
+	channel.send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
 });

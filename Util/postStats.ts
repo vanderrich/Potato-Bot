@@ -1,7 +1,7 @@
-import { Client } from 'discord.js';
 import axios from 'axios';
 import { AutoPoster } from 'topgg-autoposter';
 import { config } from "dotenv";
+import { Client } from './types';
 config();
 
 export default async function postStats(client: Client): Promise<void> {

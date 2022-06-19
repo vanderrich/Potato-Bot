@@ -3,3 +3,6 @@ node_modules/
 .vscode/
 daemon/
 .env
+jsFileCleaner.js
+jsFileCleaner.ts
+deploy-commands.js

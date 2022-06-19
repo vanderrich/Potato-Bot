@@ -1,8 +1,9 @@
 import { ButtonInteraction, Message } from "discord.js";
+import { Client } from "../../Util/types";
 
 module.exports = {
     name: "delete-ticket-type",
-    async execute(interaction: ButtonInteraction, client: any) {
+    async execute(interaction: ButtonInteraction, client: Client) {
         if (!interaction.memberPermissions?.has("MANAGE_MESSAGES")) return interaction.reply("You don't have permission to use this command!");
         const ticket = interaction.customId.split("-")[3]
         if (!(interaction.message instanceof Message)) return

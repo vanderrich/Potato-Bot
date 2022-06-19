@@ -1,11 +1,12 @@
 import Discord from "discord.js";
 import fs from "fs";
 import officegen from "officegen";
+import { Client } from "../../Util/types";
 const msglimit = 100;
 
 module.exports = {
     name: "transcribe-ticket",
-    async execute(interaction: Discord.ButtonInteraction, client: any) {
+    async execute(interaction: Discord.ButtonInteraction, client: Client) {
         const ticket = interaction.customId.split("-")[2];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
         if (!ticketInfo) return interaction.reply("Ticket not found!");
@@ -13,8 +14,8 @@ module.exports = {
         interaction.deferReply();
         let docx = officegen({
             type: 'docx',
-            author: client.user.username,
-            creator: client.user.username,
+            author: client.user?.username,
+            creator: client.user?.username,
             description: `Transcript for the Channel #${interaction.channel.name} with the ID: ${interaction.channel.id}`,
             pageMargins: { top: 1000, right: 1000, bottom: 1000, left: 1000 },
             title: `Transcript!`

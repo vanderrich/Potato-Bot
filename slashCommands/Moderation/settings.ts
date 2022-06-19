@@ -1,19 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from "discord.js";
-
-type GuildSettings = {
-    guildId: string,
-    badWords: string[],
-    autoPublishChannels: string[],
-    welcomeMessage: string,
-    welcomeChannel: string,
-    welcomeRole: string,
-    suggestionChannel: string,
-    ghostPing: boolean,
-    tags: { name: String, value: String }[],
-    tagDescriptions: Object,
-    statChannels: string[],
-}
+import { GuildSettings } from "../../Util/types"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("settings")
