@@ -400,7 +400,7 @@ player.on('queueEnd', (queue: Queue<any>) => {
 //Run
 // setupSubscriptions(client, mongoose);
 process.on("unhandledRejection", (_: any) => {
-	console.error(_.stack + '\n' + '='.repeat(20))
+	console.error(_ + _.stack + '\n' + '='.repeat(20))
 	const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
 	if (!channel || !channel.isText()) return;
 	channel.send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
