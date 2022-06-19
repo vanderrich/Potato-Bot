@@ -15,7 +15,7 @@ export default async function postStats(client: Client): Promise<void> {
             "Authorization": process.env.DBOTS_API_KEY,
             "Content-Type": "application/json"
         },
-    });
+    }).catch(err => console.error(err)).then(() => console.log("Posted to discord.bots.gg"));
     AutoPoster(process.env.TOPGG_API_KEY, client)
     await axios.post(`https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`, {
         "guilds": client.guilds.cache.size,
@@ -27,5 +27,5 @@ export default async function postStats(client: Client): Promise<void> {
             "Authorization": process.env.DBOTLIST_API_KEY,
             "Content-Type": "application/json"
         }
-    });
+    }).catch(err => console.error(err)).then(() => console.log("Posted to discordbotlist.com"));
 }
