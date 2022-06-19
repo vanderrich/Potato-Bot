@@ -1,15 +1,18 @@
 //initialize variables
-import { Player, Queue } from 'discord-player'
-import fs from 'fs'
-import Discord from 'discord.js'
-import { shop, settings } from './config.json'
-import Economy from 'currency-system'
-import { deploy } from './deploy-commands.js'
-import { GiveawaysManager } from 'discord-giveaways'
-import mongoose from 'mongoose'
-import localizations from './localization.json'
-import * as Types from './Util/types.js'
-import { config } from "dotenv"
+import { Player, Queue } from 'discord-player';
+import fs from 'fs';
+import Discord from 'discord.js';
+import { shop, settings } from './config.json';
+import Economy from 'currency-system';
+import { deploy } from './deploy-commands';
+import { GiveawaysManager } from 'discord-giveaways';
+import mongoose from 'mongoose';
+import localizations from './localization.json';
+import * as Types from './Util/types';
+import { config } from "dotenv";
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+
 config();
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
@@ -399,9 +402,17 @@ player.on('queueEnd', (queue: Queue<any>) => {
 
 //Run
 // setupSubscriptions(client, mongoose);
-process.on("unhandledRejection", (_: any) => {
-	console.error(_ + "\n" + _.stack + '\n' + '='.repeat(20))
+process.on("unhandledRejection", (error: Error) => {
+	console.error(error + "\n" + error.stack + '\n' + '='.repeat(20))
 	const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
+	const id = uuidv4();
+	axios.post('https://potato-bot-api.herokuapp.com/error', {
+		name: 'Error',
+		id,
+		type: "Crash",
+		error: error.toString(),
+		stack: error.stack,
+	}, { headers: { Authorization: process.env.SUPER_SECRET_KEY! } })
 	if (!channel || !channel.isText()) return;
-	channel.send(`<@709950767670493275> Bot Crashed!\n\`\`\`${_?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
+	channel.send(`<@709950767670493275> Bot Crashed!\n\`\`\`${error?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
 });

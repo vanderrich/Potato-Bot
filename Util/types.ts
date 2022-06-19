@@ -1,22 +1,22 @@
-import Discord from 'discord.js';
+import { PermissionResolvable, CommandInteraction, ButtonInteraction, SelectMenuInteraction, Client as DiscClient, Collection } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
-import * as mongoose from 'mongoose';
+import { Model } from 'mongoose';
 import { shop } from './config.json';
 import { Player } from 'discord-player';
 import Economy from 'currency-system';
 
 export type SlashCommand = {
-    data: SlashCommandBuilder;
+    data: typeof SlashCommandBuilder;
     category: string;
     guildOnly?: boolean;
-    permissions?: Discord.PermissionResolvable | "BotAdmin";
-    execute: (interaction: Discord.CommandInteraction, client: Client, footers: string[]) => void;
+    permissions?: PermissionResolvable | "BotAdmin";
+    execute: (interaction: CommandInteraction, client: Client, footers: string[]) => void;
 }
 
 export type MessageComponent = {
     name: string;
-    permissions?: Discord.PermissionResolvable | "BotAdmin";
-    execute: (interaction: Discord.ButtonInteraction | Discord.SelectMenuInteraction, client: Client, footers: string[]) => void;
+    permissions?: PermissionResolvable | "BotAdmin";
+    execute: (interaction: ButtonInteraction | SelectMenuInteraction, client: Client, footers: string[]) => void;
 }
 
 export type GuildSettings = {
@@ -38,25 +38,25 @@ export type AutoCompleteValue = {
     value: string | number;
 }
 
-export interface Client extends Discord.Client {
-    cachedTags: Discord.Collection<string, AutoCompleteValue[]>;
-    cachedShopItems: Discord.Collection<string, AutoCompleteValue[]>;
-    cachedInventories: Discord.Collection<string, AutoCompleteValue[]>;
+export interface Client extends DiscClient {
+    cachedTags: Collection<string, AutoCompleteValue[]>;
+    cachedShopItems: Collection<string, AutoCompleteValue[]>;
+    cachedInventories: Collection<string, AutoCompleteValue[]>;
     globalShopItems: any[];
     eco: typeof Economy;
-    languages: mongoose.Model<any>;
-    playlists: mongoose.Model<any>;
-    rr: mongoose.Model<any>;
-    tickets: mongoose.Model<any>;
-    birthdays: mongoose.Model<any>;
-    birthdayConfigs: mongoose.Model<any>;
-    guildSettings: mongoose.Model<any>;
-    forms: mongoose.Model<any>;
+    languages: typeof Model;
+    playlists: typeof Model;
+    rr: typeof Model;
+    tickets: typeof Model;
+    birthdays: typeof Model;
+    birthdayConfigs: typeof Model;
+    guildSettings: typeof Model;
+    forms: typeof Model;
     giveawaysManager: any;
     shop: typeof shop;
-    slashCommands: Discord.Collection<string, SlashCommand>;
-    buttons: Discord.Collection<string, MessageComponent>;
-    selectMenus: Discord.Collection<string, MessageComponent>;
+    slashCommands: Collection<string, SlashCommand>;
+    buttons: Collection<string, MessageComponent>;
+    selectMenus: Collection<string, MessageComponent>;
     player: Player;
     tictactoe: any;
     getLocale(userId: string, key: string, ...args: any[]): any;

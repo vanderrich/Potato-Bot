@@ -10,7 +10,7 @@ module.exports = {
         await axios.post('https://potato-bot-api.herokuapp.com/error', {
             name: 'Error',
             id,
-            type: "Select Menu",
+            type: "Unknown",
             error: error.toString(),
             stack: error.stack,
         }, { headers: { Authorization: process.env.SUPER_SECRET_KEY! } })

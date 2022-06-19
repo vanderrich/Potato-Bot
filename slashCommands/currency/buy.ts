@@ -26,7 +26,7 @@ module.exports = {
         if (!item) {
             let items = await client.eco.getShopItems({ guild: interaction.guild?.id });
             let globalItems = await client.eco.getShopItems({ user: interaction.user.id });
-            let inv = items.inventory.concat(globalItems.inventory);
+            let inv = globalItems.inventory.concat(items.inventory);
 
             let embed = new MessageEmbed()
                 .setTitle(client.getLocale(interaction.user.id, "commands.currency.buy.storeTitle"))

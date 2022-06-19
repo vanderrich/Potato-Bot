@@ -4,5 +4,3 @@ node_modules/
 daemon/
 .env
 jsFileCleaner.js
-jsFileCleaner.ts
-deploy-commands.js
