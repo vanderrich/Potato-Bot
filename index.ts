@@ -414,5 +414,5 @@ process.on("unhandledRejection", (error: Error) => {
 		stack: error.stack,
 	}, { headers: { Authorization: process.env.SUPER_SECRET_KEY! } })
 	if (!channel || !channel.isText()) return;
-	channel.send(`<@709950767670493275> Bot Crashed!\n\`\`\`${error?.stack?.slice(0, 1000)}\`\`\``); // log the crash to the bot logs channel
+	channel.send(`<@709950767670493275> [Bot Crashed!](https://potato-bot.netlify.app/status/${id})`); // log the crash to the bot logs channel
 });

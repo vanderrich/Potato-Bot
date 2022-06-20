@@ -1,6 +1,7 @@
-import { footers } from '../config.json'
+import { en } from '../localization.json';
 import Discord from "discord.js"
 import { Client } from '../Util/types'
+const footers = en.utils.footers
 
 module.exports = {
     name: 'guildMemberAdd',
