@@ -33,7 +33,7 @@
                         "Something™️"
                     ],
                     "cooldown": "You have begged recently, Try again in ${VAR}",
-                    "success": "**${VAR}** donated you **${VAR}**!"
+                    "success": "**${VAR}** donated you **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Store",
@@ -430,7 +430,32 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     },
     "id": {
@@ -692,7 +717,7 @@
                 },
                 "language": {
                     "noLanguage": "Anda harus menentukan sebuah bahasa!",
-                    "success": "Bahasa berhasil diubah!"
+                    "success": "Bahasa berhasil diubah ke ${VAR}!"
                 },
                 "dictionary": {
                     "noWord": "Word Not Found!",
@@ -864,7 +889,32 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     },
     "nl": {
@@ -901,7 +951,7 @@
                         "Something™️"
                     ],
                     "cooldown": "You have begged recently, Try again in ${VAR}",
-                    "success": "**${VAR}** donated you **${VAR}**!"
+                    "success": "**${VAR}** donated you **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Store",
@@ -1295,7 +1345,32 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     },
     "tl": {
@@ -1332,7 +1407,7 @@
                         "Something™️"
                     ],
                     "cooldown": "You have begged recently, Try again in ${VAR}",
-                    "success": "**${VAR}** donated you **${VAR}**!"
+                    "success": "**${VAR}** donated you **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Store",
@@ -1726,7 +1801,32 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     }
 }

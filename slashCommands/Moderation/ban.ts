@@ -19,7 +19,6 @@ module.exports = {
 
         ),
     permissions: 'BAN_MEMBERS',
-    botPermissions: 'BAN_MEMBERS',
     category: "Moderation",
     guildOnly: true,
     async execute(interaction: CommandInteraction) {

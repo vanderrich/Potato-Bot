@@ -13,6 +13,7 @@ module.exports = {
                 .setRequired(true)
         ),
     category: "Fun",
+    permissions: "USE_EXTERNAL_EMOJIS",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const bet = interaction.options.getNumber("bet");
         if (bet == null || bet < 0) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));

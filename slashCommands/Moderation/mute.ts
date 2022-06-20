@@ -17,7 +17,7 @@ module.exports = {
                 .setDescription("The reason for the mute.")
                 .setRequired(false)
         ),
-    permissions: 'MANAGE_MEMBERS',
+    permissions: 'MANAGE_ROLES',
     category: "Moderation",
     guildOnly: true,
     async execute(interaction: CommandInteraction) {
