@@ -6,11 +6,11 @@ module.exports = {
     name: 'messageCreate',
     async execute(message: Discord.Message, client: Client) {
         let guildSettings = await client.guildSettings.findOne({ guildId: message.guildId })
-        for (let i = 0; i < guildSettings?.badWords.length; i++) {
+        for (let i = 0; i < guildSettings?.badWords.length!; i++) {
             if (message.channel.type === 'DM') break
             let badword
             try {
-                badword = message.content.toLowerCase().includes(guildSettings?.badWords[i])
+                badword = message.content.toLowerCase().includes(guildSettings?.badWords[i]!)
             } catch { }
             if (badword) {
                 const m = await message.reply('Message contains a word in bad words list')
@@ -21,7 +21,7 @@ module.exports = {
         }
 
         //check if message is in the autoPublishChannels array
-        if (guildSettings?.autoPublishChannels.length > 0) {
+        if (guildSettings?.autoPublishChannels.length! > 0) {
             console.log(guildSettings?.autoPublishChannels)
             if (guildSettings?.autoPublishChannels.find((channel: string) => channel === message.channel.id))
                 return message.crosspost()

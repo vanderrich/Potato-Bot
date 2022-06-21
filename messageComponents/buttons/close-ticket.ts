@@ -7,7 +7,7 @@ module.exports = {
         const ticket = interaction.customId.split("-")[2];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
         if (interaction.channel?.type !== "GUILD_TEXT") return interaction.reply("You can't close tickets in DM channels!");
-
+        if (!ticketInfo) return interaction.reply("Ticket not found!");
 
         const controls = new Discord.MessageActionRow()
             .addComponents(
