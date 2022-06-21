@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,11 +20,11 @@ module.exports = {
             .setName("price")
             .setDescription("The price of the item.")
             .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     category: "Currency",
     permissions: "ADMINISTRATOR",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: Client) {
         const name = interaction.options.getString("name");
         const description = interaction.options.getString("description");
         const price = interaction.options.getNumber("price");
@@ -45,4 +46,4 @@ module.exports = {
             if (result.type == 'No-Inventory') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noInv"));
         } else return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.success", name));
     }
-}
+} as SlashCommand;

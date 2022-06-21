@@ -11,17 +11,17 @@
                     "invalidPrice": "Invalid Price!",
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
-                    "success": "Successfully added the item ${VAR} to the shop!"
+                    "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
                     "noItem": "You must specify an item!",
-                    "success": "Successfully removed the item ${VAR} to the shop!"
+                    "success": "Successfully removed the item **${VAR}** to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
-                    "wallet": "Wallet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "wallet": "Wallet: **$${VAR}**",
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -479,8 +479,8 @@
                 "bal": {
                     "title": "Saldo ${VAR}",
                     "wallet": "Dompet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -537,7 +537,7 @@
                 "lb": {
                     "title": "Papan Peringkat",
                     "empty": "Papan Peringkat kosong!",
-                    "userDesc": "Dompet: ${VAR} - Bank: ${VAR} - Total: ${VAR}"
+                    "userDesc": "Dompet: ${VAR} - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Barang tidak valid!",
@@ -700,10 +700,10 @@
                 },
                 "birthday": {
                     "invalidBdate": "Tanggal lahir tidak valid!",
-                    "noBdate": "You must specify a birthdate!",
-                    "setSuccess": "Birthday set!",
-                    "updateSuccess": "Birthday updated!",
-                    "noBdays": "No birthdays set!",
+                    "noBdate": "Anda harus menentukan tanggal lahir!",
+                    "setSuccess": "Tanggal lahir anda telah diset!",
+                    "updateSuccess": "Tanggal lahir anda telah diperbarui!",
+                    "noBdays": "Tidak ada tanggal lahir yang tersedia!",
                     "listEmbedTitle": "Birthdays for ${VAR}",
                     "nextBday": "${VAR}'s birthday is next on ${VAR}",
                     "channelNotText": "The channel must be a text channel!",
@@ -929,17 +929,17 @@
                     "invalidPrice": "Invalid Price!",
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
-                    "success": "Successfully added the item ${VAR} to the shop!"
+                    "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
                     "noItem": "You must specify an item!",
-                    "success": "Successfully removed the item ${VAR} to the shop!"
+                    "success": "Successfully removed the item **${VAR}** to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
-                    "wallet": "Wallet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "wallet": "Wallet: **$${VAR}**",
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -1385,17 +1385,17 @@
                     "invalidPrice": "Invalid Price!",
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
-                    "success": "Successfully added the item ${VAR} to the shop!"
+                    "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
                     "noItem": "You must specify an item!",
-                    "success": "Successfully removed the item ${VAR} to the shop!"
+                    "success": "Successfully removed the item **${VAR}** to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
-                    "wallet": "Wallet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "wallet": "Wallet: **$${VAR}**",
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [

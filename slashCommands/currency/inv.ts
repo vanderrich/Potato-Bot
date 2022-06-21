@@ -2,6 +2,7 @@ import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/build
 import { ApplicationCommandType } from "discord-api-types/v9";
 import { CommandInteraction, ContextMenuInteraction, MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination';
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,7 +13,7 @@ module.exports = {
                 .setName("user")
                 .setDescription("The user to view the inventory of.")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("inv")
         .setType(ApplicationCommandType.User),
@@ -31,10 +32,6 @@ module.exports = {
             return interaction.editReply({ embeds: [embed] })
         }
         else {
-            // const arrayToObject = invPure.reduce((itemsobj, x) => {
-            //   itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
-            //   return itemsobj;
-            // }, {});
             let inv = invPure.inventory;
             const pages = [];
             let page = 1, emptypage = false;
@@ -76,4 +73,4 @@ module.exports = {
             generatePages(interaction, pages, { timeout: 40000, fromButton: false, replyHasSent: false });
         }
     }
-}
+} as SlashCommand;

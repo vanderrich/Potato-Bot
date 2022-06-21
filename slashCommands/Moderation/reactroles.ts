@@ -84,22 +84,7 @@ module.exports = {
                     .setCustomId(`giverole-${reactionRoles[i].id}`));
         }
         messageActionRow.addComponents(messageActionRowComponents);
-        channel.send({ embeds: [embed], components: [messageActionRow] }).then((m: Discord.Message) => {
-            const rr = new client.rr({
-                messageId: m.id,
-                channelId: channel.id,
-                guildId: interaction.guildId,
-                emoji: reactions,
-                roleId: reactionRoles.map(r => r.id)
-            })
-            rr.save()
-                .then(() => {
-                    console.log(rr);
-                })
-                .catch((err: any) => {
-                    console.log(err);
-                })
-        })
+        channel.send({ embeds: [embed], components: [messageActionRow] });
         interaction.reply({ content: 'Reaction Role created!', ephemeral: true });
     }
 }

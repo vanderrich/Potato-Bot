@@ -1,12 +1,13 @@
 import { PermissionResolvable, CommandInteraction, ButtonInteraction, SelectMenuInteraction, Client as DiscClient, Collection } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { Model } from 'mongoose';
+import { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
+import { Model, Schema } from 'mongoose';
 import { shop } from './config.json';
 import { Player } from 'discord-player';
 import Economy from 'currency-system';
 
 export type SlashCommand = {
-    data: typeof SlashCommandBuilder;
+    data: SlashCommandBuilder | SlashCommandSubcommandGroupBuilder | SlashCommandSubcommandBuilder;
+    contextMenu?: ContextMenuCommandBuilder;
     category: string;
     guildOnly?: boolean;
     permissions?: PermissionResolvable | "BotAdmin";
@@ -38,20 +39,112 @@ export type AutoCompleteValue = {
     value: string | number;
 }
 
+export type Language = {
+    user: string;
+    language: string;
+}
+
+export type Playlist = {
+    name: string;
+    tracks: string[];
+    creator: string;
+    managers: string[];
+    settings: {
+        loop: number & 0 | 1 | 2;
+        shuffle: boolean;
+        volume: number;
+    }
+}
+
+export type Giveaway = {
+    messageId: string,
+    channelId: string,
+    guildId: string,
+    startAt: number,
+    endAt: number,
+    ended: boolean,
+    winnerCount: number,
+    prize: string,
+    messages: {
+        giveaway: string,
+        giveawayEnded: string,
+        inviteToParticipate: string,
+        drawing: string,
+        dropMessage: string,
+        winMessage: Schema.Types.Mixed,
+        embedFooter: Schema.Types.Mixed,
+        noWinner: string,
+        winners: string,
+        endedAt: string,
+        hostedBy: string
+    },
+    thumbnail: string,
+    hostedBy: string,
+    winnerIds?: string[],
+    reaction: Schema.Types.Mixed,
+    botsCanWin: boolean,
+    embedColor: Schema.Types.Mixed,
+    embedColorEnd: Schema.Types.Mixed,
+    exemptPermissions?: any[],
+    exemptMembers: string,
+    bonusEntries: string,
+    extraData: Schema.Types.Mixed,
+    lastChance: {
+        enabled: boolean,
+        content: string,
+        threshold: number,
+        embedColor: Schema.Types.Mixed,
+    },
+    pauseOptions: {
+        isPaused: boolean,
+        content: string,
+        unPauseAfter: number,
+        embedColor: Schema.Types.Mixed,
+        durationAfterPause: number,
+        infiniteDurationText: string
+    },
+    isDrop: boolean,
+    allowedMentions: {
+        parse?: string[],
+        users?: string[],
+        roles?: string[],
+    }
+}
+
+export type Ticket = {
+    guildId: string,
+    categoryId: string,
+    closeCategoryId: string,
+    channelId: string[],
+    messageId: string,
+    title: string,
+    description: string,
+}
+
+export type Birthday = {
+    userId: string,
+    guildId: string,
+    birthday: Date,
+}
+
+export type BirthdayConfig = {
+    guildId: string,
+    channelId: string,
+    roleId: string,
+    message: string
+}
 export interface Client extends DiscClient {
     cachedTags: Collection<string, AutoCompleteValue[]>;
     cachedShopItems: Collection<string, AutoCompleteValue[]>;
     cachedInventories: Collection<string, AutoCompleteValue[]>;
     globalShopItems: any[];
     eco: typeof Economy;
-    languages: typeof Model;
-    playlists: typeof Model;
-    rr: typeof Model;
-    tickets: typeof Model;
-    birthdays: typeof Model;
-    birthdayConfigs: typeof Model;
-    guildSettings: typeof Model;
-    forms: typeof Model;
+    languages: Model<Language>;
+    playlists: Model<Playlist>;
+    tickets: Model<Ticket>;
+    birthdays: Model<Birthday>;
+    birthdayConfigs: Model<BirthdayConfig>;
+    guildSettings: Model<GuildSettings>;
     giveawaysManager: any;
     shop: typeof shop;
     slashCommands: Collection<string, SlashCommand>;

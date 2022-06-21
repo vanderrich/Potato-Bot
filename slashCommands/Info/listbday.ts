@@ -1,12 +1,7 @@
 import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination.js';
-
-type birthday = {
-    userId: string,
-    guildId: string,
-    birthday: Date,
-}
+import { Birthday } from "../../Util/types.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -15,7 +10,12 @@ module.exports = {
     category: "Info",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
-        const birthdays = await client.birthdays.find({});
+        const birthdays: Birthday[] = await (new Promise((resolve, reject) => {
+            client.birthdays.find({}, (err: any, bdays: Birthday[]) => {
+                if (err) return console.error(err);
+                resolve(bdays);
+            });
+        }));
         const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({ name: `Birthdays for ${interaction.guild ? interaction.guild.name : "all servers"}` })
@@ -31,8 +31,8 @@ module.exports = {
             do {
                 const pageStart = 10 * (page - 1);
                 const pageEnd = pageStart + 10;
-                birthdays.filter((bday: birthday) => client.guilds.cache.get(bday.guildId).members.cache.get(bday.userId))
-                const items = birthdays.slice(pageStart, pageEnd).map((m: birthday, i: number) => {
+                birthdays.filter((bday: Birthday) => client.guilds.cache.get(bday.guildId).members.cache.get(bday.userId))
+                const items = birthdays.slice(pageStart, pageEnd).map((m: Birthday, i: number) => {
                     return `**${i + pageStart + 1}**. ${userMention(m.userId)} - ${time(m.birthday, 'd')}`;
                 });
                 if (items.length) {

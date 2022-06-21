@@ -228,16 +228,6 @@ mongoose.connection.once('open', async () => {
 			reaction: "🥔",
 		}
 	});
-	const rrSchema = new mongoose.Schema({
-		guildId: String,
-		channelId: String,
-		messageId: String,
-		userId: String,
-		emoji: [String],
-		roleId: [String],
-		timestamp: String
-	}, { id: false });
-	client.rr = mongoose.model('rr', rrSchema);
 	client.tickets = mongoose.model('tickets', new mongoose.Schema({
 		guildId: String,
 		categoryId: String,
@@ -272,20 +262,12 @@ mongoose.connection.once('open', async () => {
 		suggestionChannel: { type: String, default: "" },
 		tagDescriptions: { type: Object, default: {} },
 		ghostPing: { type: Boolean, default: true },
-		statsChannels: { type: [String], default: "" },
+		statChannels: { type: [String], default: [] },
 	}));
 
 	client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
 		if (err) console.log(err);
 	});
-	client.forms = mongoose.model('forms', new mongoose.Schema({
-		guildId: String,
-		title: String,
-		description: String,
-		customId: String,
-		fields: Array,
-		color: String,
-	}));
 	setInterval(updateCache, 60000);
 	updateCache();
 	await client.login(token);

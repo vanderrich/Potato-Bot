@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,9 +16,9 @@ module.exports = {
             option
                 .setName("amount")
                 .setDescription("The amount to buy.")
-        ),
+    ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: Client, footers: Array<string>) {
         await interaction.deferReply();
         let item = interaction.options.getString("item");
         let amount = interaction.options.getInteger("amount") || 1;
@@ -63,4 +64,4 @@ module.exports = {
             if (results[0].type === 'low-money') return interaction.editReply(`You're too broke to buy this item.`);
         } else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.buy.success", amount, results[0].inventory.name, results[0].inventory.price * amount));
     }
-}
+} as SlashCommand;
