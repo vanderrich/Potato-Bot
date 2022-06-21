@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,9 +11,9 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount to withdraw.")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client) {
         await interaction.deferReply();
         let money = interaction.options.getNumber("amount");
         let result = await client.eco.withdraw({
@@ -29,4 +30,4 @@ module.exports = {
             if (result.type === 'success') return interaction.editReply(`You have withdrawn **$${result.amount}** to your bank.\nNow you have **$${result.rawData.wallet}** in your wallet and **$${result.rawData.bank}** in your bank.`);
         };
     }
-}
+} as SlashCommand;

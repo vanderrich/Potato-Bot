@@ -13,7 +13,7 @@ module.exports = {
         if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()
-            .setTitle(client.getLocale(interaction.user.id, "commands.currency.leaderboard.title"))
+            .setTitle(client.getLocale(interaction.user.id, "commands.currency.lb.title"))
             .setColor("RANDOM")
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 

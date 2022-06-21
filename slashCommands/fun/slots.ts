@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { APIMessage } from "discord-api-types/v9";
 import { CommandInteraction, GuildEmoji, Message, MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,12 +11,12 @@ module.exports = {
                 .setName("bet")
                 .setDescription("The amount of money you want to bet")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     category: "Fun",
     permissions: "USE_EXTERNAL_EMOJIS",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const bet = interaction.options.getNumber("bet");
-        if (bet == null || bet < 0) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));
+        if (!bet || bet < 0) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));
         const userWallet = await client.eco.balance({ user: interaction.user.id });
         if (bet > userWallet.wallet) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noMoneyBet"));
         const footer = footers[Math.floor(Math.random() * footers.length)]
@@ -80,4 +80,4 @@ module.exports = {
             }
         })
     }
-}
+} as SlashCommand;

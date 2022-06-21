@@ -1,6 +1,7 @@
 import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
 import { CommandInteraction, ContextMenuInteraction, User } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
                 .setName("opponent")
                 .setDescription("The opponent to play against")
                 .setRequired(true),
-        ),
+    ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("tictactoe")
         .setType(ApplicationCommandType.User),
@@ -60,4 +61,4 @@ module.exports = {
             }
         }, 300000);
     }
-}
+} as SlashCommand;
