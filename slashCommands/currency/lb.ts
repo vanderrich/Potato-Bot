@@ -9,7 +9,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply();
-        let leaderboard: { user: string, wallet: number, bank: number, total: number }[] = await client.eco.globalLeaderboard();
+        let leaderboard: { userID: string, wallet: number, bank: number, total: number }[] = await client.eco.globalLeaderboard();
         if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()
@@ -19,7 +19,7 @@ module.exports = {
 
         let pos = 0;
         leaderboard.slice(0, 10).forEach(user => {
-            const userObject = client.users.cache.get(user.user);
+            const userObject = client.users.cache.get(user.userID);
             if (!userObject) return;
             pos++
             embed.addField(
