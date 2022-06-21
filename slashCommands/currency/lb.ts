@@ -9,7 +9,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply();
-        let leaderboard = await client.eco.globalLeaderboard();
+        let leaderboard: { user: string, wallet: number, bank: number, total: number }[] = await client.eco.globalLeaderboard();
         if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()
@@ -18,8 +18,8 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
         let pos = 0;
-        leaderboard.slice(0, 10).forEach(async (user: any) => {
-            const userObject = await client.users.fetch(user.user).catch(() => null);
+        leaderboard.slice(0, 10).forEach(user => {
+            const userObject = client.users.cache.get(user.user);
             if (!userObject) return;
             pos++
             embed.addField(
