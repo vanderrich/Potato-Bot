@@ -19,7 +19,8 @@ module.exports = {
 
         let pos = 0;
         leaderboard.slice(0, 10).map(async (user: any) => {
-            const userObject = await client.users.fetch(user.user);
+            const userObject = await client.users.fetch(user.user).catch(() => null);
+            if (!userObject) return;
             pos++
             embed.addField(
                 `${pos} - **${userObject.username}**`,
