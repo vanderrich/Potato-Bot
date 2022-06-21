@@ -24,7 +24,7 @@ module.exports = {
             pos++
             embed.addField(
                 `${pos} - **${userObject.username}**`,
-                client.getLocale(interaction.user.id, "commands.currency.leaderboard.userDesc", user.wallet, user.bank)
+                client.getLocale(interaction.user.id, "commands.currency.lb.userDesc", user.wallet, user.bank)
             );
         });
         return interaction.editReply({ embeds: [embed] })
