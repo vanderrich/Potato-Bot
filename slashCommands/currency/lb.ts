@@ -9,7 +9,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply();
-        let leaderboard: { userID: string, wallet: number, bank: number, total: number }[] = await client.eco.globalLeaderboard();
+        let leaderboard: { userID: string, wallet: number, bank: number, networth: number }[] = await client.eco.globalLeaderboard();
         if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()
@@ -24,7 +24,7 @@ module.exports = {
             pos++
             embed.addField(
                 `${pos} - **${userObject.username}**`,
-                client.getLocale(interaction.user.id, "commands.currency.lb.userDesc", user.wallet, user.bank)
+                client.getLocale(interaction.user.id, "commands.currency.lb.userDesc", user.wallet, user.bank, user.networth)
             );
         });
         return interaction.editReply({ embeds: [embed] })
