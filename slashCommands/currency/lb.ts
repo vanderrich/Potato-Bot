@@ -18,7 +18,7 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
         let pos = 0;
-        leaderboard.slice(0, 10).map(async (user: any) => {
+        leaderboard.slice(0, 10).forEach(async (user: any) => {
             const userObject = await client.users.fetch(user.user).catch(() => null);
             if (!userObject) return;
             pos++
@@ -26,8 +26,7 @@ module.exports = {
                 `${pos} - **${userObject.username}**`,
                 client.getLocale(interaction.user.id, "commands.currency.leaderboard.userDesc", user.wallet, user.bank)
             );
-
-            return interaction.editReply({ embeds: [embed] })
-        })
+        });
+        return interaction.editReply({ embeds: [embed] })
     }
 } as SlashCommand;
