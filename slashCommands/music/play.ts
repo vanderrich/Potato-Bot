@@ -49,7 +49,13 @@ module.exports = {
         if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);
 
         const queue = await client.player.createQueue(interaction.guild, {
-            metadata: interaction.channel
+            metadata: interaction.channel,
+            leaveOnEnd: true,
+            leaveOnStop: true,
+            leaveOnEmpty: true,
+            leaveOnEmptyCooldown: 10000,
+            autoSelfDeaf: true,
+            initialVolume: 75
         });
 
         try {
