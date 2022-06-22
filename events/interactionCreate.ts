@@ -22,7 +22,7 @@ module.exports = {
             }
 
             try {
-                loggingChannel.send({ content: `${interaction.user} did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command
+                loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command
                 await command.execute(interaction as any, client, client.getLocale(interaction.user.id, "utils.footers"));
             } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
@@ -50,7 +50,7 @@ module.exports = {
             }
         }
         else if (interaction.isButton()) {
-            loggingChannel.send({ content: `${interaction.user} clicked on a button with the custom id of ${interaction.customId} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
+            loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) clicked on a button with the custom id of ${interaction.customId} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
 
             const button = client.buttons.get(interaction.customId.split("-")[0]);
 
@@ -112,7 +112,7 @@ module.exports = {
                     break;
             }
         } else if (interaction.isSelectMenu()) {
-            loggingChannel.send({ content: `${interaction.user} interaction with a select menu with the custom id of ${interaction.customId} and set the values to ${interaction.values.join(", ")} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
+            loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) interaction with a select menu with the custom id of ${interaction.customId} and set the values to ${interaction.values.join(", ")} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
 
             const selectMenu = client.selectMenus.get(interaction.customId.split("-")[0]);
 

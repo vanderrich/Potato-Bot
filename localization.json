@@ -78,7 +78,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                    "userDesc": "Wallet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
@@ -537,7 +537,7 @@
                 "lb": {
                     "title": "Papan Peringkat",
                     "empty": "Papan Peringkat kosong!",
-                    "userDesc": "Dompet: ${VAR} - Bank: **$${VAR}** - Total: **$${VAR}**"
+                    "userDesc": "Dompet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Barang tidak valid!",
@@ -996,7 +996,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                    "userDesc": "Wallet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
@@ -1452,7 +1452,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                    "userDesc": "Wallet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
