@@ -1,6 +1,6 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Client } from "../Util/types";
 
 module.exports = {
@@ -38,7 +38,12 @@ module.exports = {
             axios.post('https://potato-bot-api.herokuapp.com/status')
                 .catch(error => {
                     console.error(error);
-                });
+                }).then((res: AxiosResponse | void) => {
+                    if (!res) return;
+                    if (res.status !== 200) console.error(`Error in pinging the api: ${res.data.message}`);
+
+                    console.error(res.data.newVotes)
+                })
         }, 15000)
         await postStats(client);
     }
