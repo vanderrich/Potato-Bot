@@ -1,12 +1,7 @@
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommand } from "../../Util/types";
 
-type command = {
-    data: SlashCommandBuilder,
-    contextMenu: ContextMenuCommandBuilder,
-    category: string,
-    execute: (interaction: CommandInteraction, client: any, Discord: any, footers: Array<string>) => Promise<void> | void,
-}
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("help")
@@ -27,7 +22,7 @@ module.exports = {
             option
                 .setName("command")
                 .setDescription("The command to get help for.")
-        ),
+    ) as SlashCommandBuilder,
     category: "Info",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const commands = client.slashCommands;
@@ -38,8 +33,8 @@ module.exports = {
             if (!categories.includes(category)) {
                 return interaction.reply(client.getLocale(interaction.user.id, "commands.info.help.noCategory"));
             }
-            const commandsInCategory: command[] = []
-            commands.forEach((command: command) => {
+            const commandsInCategory: SlashCommand[] = []
+            commands.forEach((command: SlashCommand) => {
                 if (command.category == category && command.data) {
                     commandsInCategory.push(command)
                 }
@@ -77,7 +72,7 @@ module.exports = {
         let a = []
         for (let category in categories) {
             let value = 0
-            commands.forEach((command: command) => {
+            commands.forEach((command: SlashCommand) => {
                 if (command.category == categories[category]) {
                     value++
                 }
@@ -93,4 +88,4 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [messageEmbed] })
     }
-}
+} as SlashCommand;

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
         .setDescription('Information about the server'),
     category: 'Info',
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         if (!interaction.guild) return interaction.reply('This command can only be used in a server.');
         //variables
         const locales = client.getLocale(interaction.user.id, 'commands.info.serverInfo')
@@ -54,4 +55,4 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [embed] });
     }
-}
+} as SlashCommand;

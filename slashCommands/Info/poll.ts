@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, Message, MessageEmbed, Formatters } from "discord.js";
 import ms from "ms";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,9 +36,9 @@ module.exports = {
         .addStringOption(option => option.setName("option5").setDescription("The fifth option of the poll"))
         .addStringOption(option => option.setName("option6").setDescription("The sixth option of the poll"))
         .addStringOption(option => option.setName("option7").setDescription("The seventh option of the poll"))
-        .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")),
+        .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");
         var options = [];
@@ -98,4 +99,4 @@ module.exports = {
             })
         }
     }
-}
+} as SlashCommand;

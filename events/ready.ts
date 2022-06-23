@@ -46,7 +46,7 @@ module.exports = {
                     res.data.newVotes.forEach((vote: any) => {
                         const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                         if (!channel || !channel.isText()) return
-                        channel.send(`<@${vote.user}> voted for this bot with ${vote.source}!`)
+                        channel.send({ content: `<@${vote.user}> voted for this bot on ${vote.source}!`, allowedMentions: { users: [] } })
                     })
                 })
         }, 15000)

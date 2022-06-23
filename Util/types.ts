@@ -30,7 +30,9 @@ export type GuildSettings = {
     suggestionChannel: string,
     ghostPing: boolean,
     tags: { name: string, value: string }[],
-    tagDescriptions: Object,
+    tagDescriptions: {
+        [key: string]: string;
+    },
     statChannels: string[],
 }
 

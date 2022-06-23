@@ -1,5 +1,6 @@
 import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -8,15 +9,12 @@ module.exports = {
     category: "Info",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
-        const guild = interaction.guild;
-        if (!guild) return interaction.reply("This command can only be used in a server.");
-
-        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: guild.id });
+        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild!.id });
 
         if (!birthdayConfig) return interaction.reply("You don't have any birthday data!");
 
         client.birthdays.find({
-            guildId: guild.id,
+            guildId: interaction.guild!.id,
             birthday: {
                 $gte: new Date(),
             }
@@ -38,4 +36,4 @@ module.exports = {
             }
         });
     }
-}
+} as SlashCommand;

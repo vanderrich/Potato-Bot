@@ -1,5 +1,6 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, GuildChannel } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -16,7 +17,7 @@ module.exports = {
         .addStringOption(option => option
             .setName("birthdaymessage")
             .setDescription("The message to send to users whose birthday is today.")
-        ),
+    ) as SlashCommandSubcommandBuilder,
     category: "Info",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: any) {

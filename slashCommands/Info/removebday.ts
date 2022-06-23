@@ -1,4 +1,5 @@
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
 
@@ -8,7 +9,7 @@ module.exports = {
         .setDescription("Remove your birthday data."),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client) {
         const user = interaction.user;
 
         if (!client.birthdays.findOne({ userId: user.id })) return interaction.reply("You don't have any birthday data!");
@@ -23,4 +24,4 @@ module.exports = {
                 interaction.reply("Something went wrong! Error: " + err);
             });
     }
-}
+} as SlashCommand;

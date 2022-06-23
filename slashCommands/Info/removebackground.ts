@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageAttachment } from "discord.js";
 import request from "request";
 import fs from "fs";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +12,9 @@ module.exports = {
             .setName('image')
             .setDescription('Image to remove background from')
             .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction) {
         const image = interaction.options.getAttachment('image');
         if (!image) return interaction.reply("Please attach an image to remove the background from");
         request.post({
@@ -38,4 +39,4 @@ module.exports = {
             fs.unlinkSync(`./${image.name}.png`);
         });
     }
-}
+} as SlashCommand;

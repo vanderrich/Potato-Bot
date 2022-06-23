@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import axios from "axios";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +12,9 @@ module.exports = {
                 .setName("word")
                 .setDescription("The word to look up")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: any, footers: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         const word = interaction.options.getString("word");
         const response = await axios.get(`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.MERRIAMWEBSTER_API_KEY}`);
         const data = response.data[0];
@@ -28,4 +29,4 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         interaction.reply({ embeds: [embed] });
     }
-}
+} as SlashCommand;

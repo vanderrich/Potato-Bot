@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 import config from "../../config.json"
-type tagTypeThingy = string & keyof typeof config.tagDescriptions;
+import { Client, GuildSettings, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,15 +16,21 @@ module.exports = {
         .addUserOption(option => option
             .setName("target")
             .setDescription("user to ping")
-        ),
+    ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client) {
         const tag = interaction.options.getString("tag");
         if (!tag) return interaction.reply("You need to specify a tag");
-        const tagTyped: tagTypeThingy = tag as tagTypeThingy;
         const target = interaction.options.getUser("target");
 
-        const tagToSend = config.tagDescriptions[tagTyped] || (await client.guildSettings.findOne({ guildId: interaction.guildId }))?.tagDescriptions[tagTyped];
+        let tagToSend;
+        if (!config.tagDescriptions[tag]) {
+            const guildSetting: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId })
+            guildSetting?.tagDescriptions[tag];
+        }
+        else {
+            tagToSend = config.tagDescriptions[tag]
+        }
         if (!tagToSend) return interaction.reply("Tag not found");
 
         if (target) {
@@ -33,4 +39,4 @@ module.exports = {
             interaction.reply(tagToSend);
         }
     }
-}
+} as SlashCommand;
