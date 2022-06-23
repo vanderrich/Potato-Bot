@@ -126,9 +126,11 @@ module.exports = {
                                 { label: locale.addTag, value: "add" },
                                 { label: locale.removeTag, value: "remove" }
                             ])
-                    )
+                )
                 interaction.update({ components: [tagActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
                     if (!(msg instanceof Message)) return;
+                    const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id })!;
+                    if (!guildSettings) return
                     msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
                         const selected = collected.values[0];
                         if (selected === "add") {
@@ -142,12 +144,31 @@ module.exports = {
                                             .setLabel(locale.tag)
                                             .setPlaceholder(locale.tagTextInputPlaceHolder)
                                             .setStyle("SHORT")
+                                            .setRequired(true),
+                                        new TextInputComponent()
+                                            .setCustomId("customid")
+                                            .setLabel(locale.customid)
+                                            .setPlaceholder(locale.customIdInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                            .setRequired(true),
+                                        new TextInputComponent()
+                                            .setCustomId("value")
+                                            .setLabel(locale.value)
+                                            .setPlaceholder(locale.valueInputPlaceHolder)
+                                            .setStyle("PARAGRAPH")
+                                            .setRequired(true)
                                     )
                                 )
                             await collected.showModal(modal);
                             collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
                                 const tag = modal.fields.getTextInputValue("tag");
-                                await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $push: { tags: tag } });
+                                const customid = modal.fields.getTextInputValue("customid")?.toLowerCase().replace(/ /g, "");
+                                const value = modal.fields.getTextInputValue("value")
+                                if (!guildSettings.tags) guildSettings.tags = [];
+                                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
+                                guildSettings.tags.push({ name: tag, value: customid });
+                                guildSettings.tagDescriptions = { [customid]: value! };
+                                guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });
                         } else if (selected === "remove") {
@@ -161,18 +182,23 @@ module.exports = {
                                             .setLabel(locale.tag)
                                             .setPlaceholder(locale.tagTextInputPlaceHolder)
                                             .setStyle("SHORT")
+                                            .setRequired(true),
+                                        new TextInputComponent()
+                                            .setCustomId("customid")
+                                            .setLabel(locale.customid)
+                                            .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                            .setRequired(true)
                                     )
                                 )
                             await collected.showModal(modal);
                             collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const customid = modal.fields.getTextInputValue("customid");
                                 const tag = modal.fields.getTextInputValue("tag");
-                                await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $push: { tags: tag } });
+                                guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
+                                delete guildSettings.tagDescriptions[customid];
                                 modal.reply(locale.updated);
                             }).catch(() => { });
-                        } else {
-                            const tag = collected.values[1];
-                            await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $pull: { tags: tag } });
-                            collected.reply(locale.updated);
                         }
                     });
                 });
