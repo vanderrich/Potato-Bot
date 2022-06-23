@@ -10,12 +10,18 @@ module.exports = {
     guildOnly: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply()
-        const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
-        const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
-        if (!guildSettings) return interaction.reply(locale.noSettings)
-        console.log(locale);
+        let guildSetting = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
+        const locale = client.getLocale(interaction, "commands.moderation.settings");
+        if (!guildSetting) {
+            guildSetting = new client.guildSettings({
+                guildId: interaction.guildId
+            })
+            guildSetting.save()
+        }
+        if (!guildSetting) return
+        const guildSettings = guildSetting;
         const embed = new MessageEmbed()
-            .setTitle(client.getLocale(interaction.user.id, "commands.moderation.settings.settings", interaction.guild!.name))
+            .setTitle(client.getLocale(interaction, "commands.moderation.settings.settings", interaction.guild!.name))
             .addField(locale.badWords,
                 `**${locale.badWordsSpoilers}**: || ${guildSettings.badWords.join(", ")}|| `)
             .addField(locale.welcome,
@@ -24,11 +30,12 @@ module.exports = {
                 **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole)} `)
             .addField(locale.tags,
                 `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: String, value: String }) => `${tag.name}: ${tag.value}`).join("\n")}
-                **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")} `)
+                **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")
+                } `)
             .addField("Misc",
                 `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
                 **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
-                // **${locale.statChannels}**: ${guildSettings.statChannels.map(channel => interaction.guild!.channels.cache.get(channel)?.toString).join(", ")}
+                ** ${ locale.statChannels}**: ${guildSettings.statChannels.map(channel => interaction.guild!.channels.cache.get(channel)?.toString).join(", ") }
                 `)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 

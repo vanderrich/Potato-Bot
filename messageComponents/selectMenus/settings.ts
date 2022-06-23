@@ -10,7 +10,7 @@ module.exports = {
     async execute(interaction: SelectMenuInteraction, client: Client) {
         if (interaction.replied) return;
         const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
-        const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
+        const locale = client.getLocale(interaction, "commands.moderation.settings");
         const selected = interaction.values[0];
         switch (selected) {
             case "badWords":

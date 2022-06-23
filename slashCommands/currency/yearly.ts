@@ -11,7 +11,7 @@ module.exports = {
         await interaction.deferReply();
         let amount = Math.floor(Math.random() * 6000) + 12000;
         let addMoney = await client.eco.yearly({ user: interaction.user.id, amount });
-        if (addMoney.error) return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.cooldown", client.getLocale(interaction.user.id, "commands.currency.rewards.yearly"), addMoney.time));
-        else return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.rewards.success", amount, client.getLocale(interaction.user.id, "commands.currency.rewards.yearly"), addMoney.rawData.wallet));
+        if (addMoney.error) return interaction.editReply(client.getLocale(interaction, "commands.currency.rewards.cooldown", client.getLocale(interaction, "commands.currency.rewards.yearly"), addMoney.time));
+        else return interaction.editReply(client.getLocale(interaction, "commands.currency.rewards.success", amount, client.getLocale(interaction, "commands.currency.rewards.yearly"), addMoney.rawData.wallet));
     }
 }

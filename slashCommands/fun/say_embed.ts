@@ -23,14 +23,14 @@ module.exports = {
         const title = interaction.options.getString("title");
         let description = interaction.options.getString("description");
         if (!description) {
-            const message = await interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.say_embed.enterDesc"));
+            const message = await interaction.channel?.send(client.getLocale(interaction, "commands.fun.say_embed.enterDesc"));
             const descriptionThingy = await interaction.channel?.awaitMessages({ filter: (m: Message) => m.author.id === interaction.user.id, max: 1, time: 30000 });
             description = descriptionThingy?.first()?.content || "";
             message?.delete();
             descriptionThingy?.first()?.delete();
         }
 
-        if (!title) return interaction.editReply(client.getLocale(interaction.user.id, "commands.fun.say_embed.specifyTitle"));
+        if (!title) return interaction.editReply(client.getLocale(interaction, "commands.fun.say_embed.specifyTitle"));
 
         const embed = new MessageEmbed()
             .setColor('RANDOM')

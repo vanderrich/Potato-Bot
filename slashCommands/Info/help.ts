@@ -26,12 +26,12 @@ module.exports = {
     category: "Info",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const commands = client.slashCommands;
-        const categories = client.getLocale(interaction.user.id, "commands.info.help.categories");
+        const categories = client.getLocale(interaction, "commands.info.help.categories");
         let category = interaction.options.getString("category")
         if (category) {
             category = category.charAt(0).toUpperCase() + category?.slice(1)
             if (!categories.includes(category)) {
-                return interaction.reply(client.getLocale(interaction.user.id, "commands.info.help.noCategory"));
+                return interaction.reply(client.getLocale(interaction, "commands.info.help.noCategory"));
             }
             const commandsInCategory: SlashCommand[] = []
             commands.forEach((command: SlashCommand) => {
@@ -54,7 +54,7 @@ module.exports = {
             let command = interaction.options.getString("command")
             let commandObject = commands.get(command)
             if (!commandObject) {
-                return interaction.reply(client.getLocale(interaction.user.id, "commands.info.help.noCommand"))
+                return interaction.reply(client.getLocale(interaction, "commands.info.help.noCommand"))
             }
             const messageEmbed = new MessageEmbed()
                 .setColor("RANDOM")
@@ -78,12 +78,12 @@ module.exports = {
                 }
             });
             if (category === categories[6]) continue
-            a.push({ name: categories[category], value: client.getLocale(interaction.user.id, "commands.info.help.commandsInCategory", value) })
+            a.push({ name: categories[category], value: client.getLocale(interaction, "commands.info.help.commandsInCategory", value) })
         }
         const messageEmbed = new MessageEmbed()
             .setColor('RANDOM')
-            .setTitle(client.getLocale(interaction.user.id, "commands.info.help.embedTitle"))
-            .setDescription(client.getLocale(interaction.user.id, "commands.info.help.embedDesc"))
+            .setTitle(client.getLocale(interaction, "commands.info.help.embedTitle"))
+            .setDescription(client.getLocale(interaction, "commands.info.help.embedDesc"))
             .addFields(...a)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [messageEmbed] })

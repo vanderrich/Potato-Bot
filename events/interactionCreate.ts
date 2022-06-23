@@ -23,7 +23,7 @@ module.exports = {
 
             try {
                 loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command
-                await command.execute(interaction as any, client, client.getLocale(interaction.user.id, "utils.footers"));
+                await command.execute(interaction as any, client, client.getLocale(interaction, "utils.footers"));
             } catch (error: Discord.DiscordAPIError | any | Error) {
                 console.error(error);
                 const id = uuidv4();
@@ -60,7 +60,7 @@ module.exports = {
                 }
 
                 try {
-                    button?.execute(interaction, client, client.getLocale(interaction.user.id, "utils.footers"));
+                    button?.execute(interaction, client, client.getLocale(interaction, "utils.footers"));
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
@@ -122,7 +122,7 @@ module.exports = {
                 }
 
                 try {
-                    selectMenu?.execute(interaction, client, client.getLocale(interaction.user.id, "utils.footers"));
+                    selectMenu?.execute(interaction, client, client.getLocale(interaction, "utils.footers"));
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()

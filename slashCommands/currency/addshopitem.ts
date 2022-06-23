@@ -29,7 +29,7 @@ module.exports = {
         const description = interaction.options.getString("description");
         const price = interaction.options.getNumber("price");
 
-        if (!price) return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noPrice"));
+        if (!price) return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noPrice"));
         let result = await client.eco.addItem({
             guild: interaction.guild!.id,
             inventory: {
@@ -40,10 +40,10 @@ module.exports = {
         });
         client.updateCache();
         if (result.error) {
-            if (result.type == 'No-Inventory-Name') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noItemName"));
-            if (result.type == 'Invalid-Inventory-Price') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.invalidPrice"));
-            if (result.type == 'No-Inventory-Price') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noInvPrice"));
-            if (result.type == 'No-Inventory') return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.noInv"));
-        } else return interaction.reply(client.getLocale(interaction.user.id, "currency.addshopitem.success", name));
+            if (result.type == 'No-Inventory-Name') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noItemName"));
+            if (result.type == 'Invalid-Inventory-Price') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.invalidPrice"));
+            if (result.type == 'No-Inventory-Price') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noInvPrice"));
+            if (result.type == 'No-Inventory') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noInv"));
+        } else return interaction.reply(client.getLocale(interaction, "currency.addshopitem.success", name));
     }
 } as SlashCommand;

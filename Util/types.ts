@@ -1,6 +1,6 @@
-import { PermissionResolvable, CommandInteraction, ButtonInteraction, SelectMenuInteraction, Client as DiscClient, Collection } from 'discord.js';
+import { PermissionResolvable, CommandInteraction, ButtonInteraction, SelectMenuInteraction, Client as DiscClient, Collection, ContextMenuInteraction } from 'discord.js';
 import { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
-import { Model, Schema } from 'mongoose';
+import { Model, Schema, Document } from 'mongoose';
 import { shop } from './config.json';
 import { Player } from 'discord-player';
 import Economy from 'currency-system';
@@ -20,7 +20,7 @@ export type MessageComponent = {
     execute: (interaction: ButtonInteraction | SelectMenuInteraction, client: Client, footers: string[]) => void;
 }
 
-export type GuildSettings = {
+export interface GuildSettings extends Document {
     guildId: string,
     badWords: string[],
     autoPublishChannels: string[],
@@ -154,6 +154,6 @@ export interface Client extends DiscClient {
     selectMenus: Collection<string, MessageComponent>;
     player: Player;
     tictactoe: any;
-    getLocale(userId: string, key: string, ...args: any[]): any;
+    getLocale(interaction: CommandInteraction | ButtonInteraction | SelectMenuInteraction | ContextMenuInteraction, key: string, ...args: any[]): any;
     updateCache(): void;
 }

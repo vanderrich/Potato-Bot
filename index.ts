@@ -86,8 +86,8 @@ client.updateCache = updateCache;
 
 const languagesCache = new Discord.Collection();
 
-client.getLocale = (user, string, ...vars) => {
-	let language = languagesCache.get(user) || 'en';
+client.getLocale = (interaction, string, ...vars) => {
+	let language = languagesCache.get(interaction.user.id) || 'en';
 	if (!localizations[language as languages]) language = 'en';
 	let stringArr = string.split('.');
 	let locale = localizations[language as languages] as any;

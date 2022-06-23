@@ -57,8 +57,8 @@
                     "lowMoney": "You dont have that much money in your wallet!",
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
-                    "allSuccess": "Successfully deposited all your money into your bank!, you now have **$${VAR} **in your bank!",
-                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have **$${VAR}** in your bank!"
+                    "allSuccess": "Successfully deposited all your money into your bank, you now have **$${VAR} **in your bank!",
+                    "success": "Successfully deposited **$${VAR}** into your bank, you now have **$${VAR}** in your bank!"
                 },
                 "find": {
                     "places": [
@@ -106,6 +106,14 @@
                     ],
                     "cooldown": "You're too tired, try again in ${VAR}",
                     "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                },
+                "withdraw": {
+                    "noAmount": "Specify an amount to withdraw!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully withdrawn all your money into your bank, you now have **$${VAR}** in your bank!",
+                    "success": "Successfully withdrawn **$${VAR}** from your bank, you now have **$${VAR}** in your bank!"
                 }
             },
             "fun": {
@@ -270,35 +278,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -307,15 +286,7 @@
                 "createGiveaway": {
                     "success": "Giveaway created!"
                 },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
-                },
                 "settings": {
-                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -358,7 +329,7 @@
                 "reactroles": {
                     "noReactRole": "No react role set!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
                     "success": "Reaction roles created!"
                 },
@@ -730,35 +701,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -767,15 +709,7 @@
                 "createGiveaway": {
                     "success": "Giveaway created!"
                 },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
-                },
                 "settings": {
-                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -818,7 +752,7 @@
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
                     "success": "Reaction roles created!"
                 },
@@ -977,8 +911,8 @@
                     "lowMoney": "You dont have that much money in your wallet!",
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
-                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
+                    "allSuccess": "Successfully deposited all your money into your bank!, ou now have**$${VAR}**in your bank!",
+                    "success": "Successfully deposited **$${VAR}** into your bank!, ou now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
@@ -1026,6 +960,14 @@
                     ],
                     "cooldown": "You're too tired, try again in ${VAR}",
                     "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                },
+                "withdraw": {
+                    "noAmount": "Specify an amount to withdraw!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully withdrawn all your money into your bank, you now have **$${VAR}** in your bank!",
+                    "success": "Successfully withdrawn **$${VAR}** from your bank, you now have **$${VAR}** in your bank!"
                 }
             },
             "fun": {
@@ -1187,35 +1129,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -1224,15 +1137,7 @@
                 "createGiveaway": {
                     "success": "Giveaway created!"
                 },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
-                },
                 "settings": {
-                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -1275,7 +1180,7 @@
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
                     "success": "Reaction roles created!"
                 },
@@ -1434,8 +1339,8 @@
                     "lowMoney": "You dont have that much money in your wallet!",
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
-                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
+                    "allSuccess": "Successfully deposited all your money into your bank!, ou now have**$${VAR}**in your bank!",
+                    "success": "Successfully deposited **$${VAR}** into your bank!, ou now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
@@ -1483,6 +1388,14 @@
                     ],
                     "cooldown": "You're too tired, try again in ${VAR}",
                     "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                },
+                "withdraw": {
+                    "noAmount": "Specify an amount to withdraw!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully withdrawn all your money into your bank, you now have **$${VAR}** in your bank!",
+                    "success": "Successfully withdrawn **$${VAR}** from your bank, you now have **$${VAR}** in your bank!"
                 }
             },
             "fun": {
@@ -1644,35 +1557,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -1681,15 +1565,7 @@
                 "createGiveaway": {
                     "success": "Giveaway created!"
                 },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
-                },
                 "settings": {
-                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -1732,7 +1608,7 @@
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
                     "success": "Reaction roles created!"
                 },

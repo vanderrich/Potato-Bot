@@ -16,9 +16,9 @@ module.exports = {
     permissions: "USE_EXTERNAL_EMOJIS",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const bet = interaction.options.getNumber("bet");
-        if (!bet || bet < 0) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noBet"));
+        if (!bet || bet < 0) return interaction.reply(client.getLocale(interaction, "commands.fun.slots.noBet"));
         const userWallet = await client.eco.balance({ user: interaction.user.id });
-        if (bet > userWallet.wallet) return interaction.reply(client.getLocale(interaction.user.id, "commands.fun.slots.noMoneyBet"));
+        if (bet > userWallet.wallet) return interaction.reply(client.getLocale(interaction, "commands.fun.slots.noMoneyBet"));
         const footer = footers[Math.floor(Math.random() * footers.length)]
         let messages: MessageEmbed[] = [];
         let win = true;
@@ -51,7 +51,7 @@ module.exports = {
                         }
                     }
                     messages.unshift(new MessageEmbed()
-                        .setTitle(client.getLocale(interaction.user.id, "commands.fun.slots.embedTitle"))
+                        .setTitle(client.getLocale(interaction, "commands.fun.slots.embedTitle"))
                         .setDescription(slotdisplay.join('')))
 
                     //check if the player won
@@ -68,12 +68,12 @@ module.exports = {
                 //sends the result
                 if (win) {
                     setTimeout(async function () {
-                        interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.slots.win", interaction.user, bet));
+                        interaction.channel?.send(client.getLocale(interaction, "commands.fun.slots.win", interaction.user, bet));
                         await client.eco.addMoney({ user: interaction.user.id, amount: bet, whereToPutMoney: "wallet" })
                     }, messages.length * 1000)
                 } else {
                     setTimeout(async function () {
-                        interaction.channel?.send(client.getLocale(interaction.user.id, "commands.fun.slots.lose", bet));
+                        interaction.channel?.send(client.getLocale(interaction, "commands.fun.slots.lose", bet));
                         await client.eco.removeMoney({ user: interaction.user.id, amount: bet, whereToGetMoney: "wallet" })
                     }, messages.length * 1000)
                 }

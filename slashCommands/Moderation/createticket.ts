@@ -33,18 +33,18 @@ module.exports = {
     ) as SlashCommandBuilder,
     permissions: 'ADMINISTRATOR',
     category: "Moderation",
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         let title = interaction.options.getString("name");
         let description = interaction.options.getString("description");
         let channel = interaction.options.getChannel("channel");
         let category = interaction.options.getChannel("category");
         let closecategory = interaction.options.getChannel("closecategory");
-        if (!title) return interaction.reply("Provide a name for the ticket!");
-        if (!description) return interaction.reply("Provide a description for the ticket!");
+        if (!title) return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.noName"));
+        if (!description) return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.noDesc"));
         if (category?.type !== "GUILD_CATEGORY" || closecategory?.type !== "GUILD_CATEGORY" || !category || !closecategory) {
-            return interaction.reply("The category must be a guild category.");
+            return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.categoryNotCategory"));
         }
-        if (!interaction.guild) return interaction.reply("This command can only be used in a guild.");
         if (!channel || !(channel instanceof GuildChannel) || !channel.isText()) return interaction.reply("The channel must be a guild channel.");
         let embed = new MessageEmbed()
             .setTitle(title)
@@ -62,7 +62,7 @@ module.exports = {
                     .setCustomId(`delete-ticket-type-${title}`)
                     .setStyle("DANGER")
             );
-        category.permissionOverwrites.create(interaction.guild.id, {
+        category.permissionOverwrites.create(interaction.guild!.id, {
             'VIEW_CHANNEL': false,
             'SEND_MESSAGES': false,
             'READ_MESSAGE_HISTORY': false,
@@ -74,7 +74,7 @@ module.exports = {
             description: description,
             categoryId: category.id,
             closeCategoryId: closecategory.id,
-            guildId: interaction.guild.id,
+            guildId: interaction.guild!.id,
             messageId: message.id,
         });
         ticket.save()

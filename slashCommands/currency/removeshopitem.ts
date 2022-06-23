@@ -24,7 +24,7 @@ module.exports = {
         })
         client.updateCache();
         if (result.error) {
-            if (result.type == 'Invalid-Item-Number' || result.type == "Unknown-Item") return interaction.editReply(client.getLocale(interaction.user.id, "currency.buy.noItem"));
-        } else return interaction.editReply(client.getLocale(interaction.user.id, "currency.addshopitem.success", name));
+            if (result.type == 'Invalid-Item-Number' || result.type == "Unknown-Item") return interaction.editReply(client.getLocale(interaction, "currency.buy.noItem"));
+        } else return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.success", name));
     }
 } as SlashCommand;
