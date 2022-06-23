@@ -324,7 +324,11 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with"
                 },
                 "reactroles": {
                     "noReactRole": "No react role set!",
@@ -747,7 +751,11 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -1175,7 +1183,11 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -1603,7 +1615,11 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",

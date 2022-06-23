@@ -150,6 +150,25 @@ module.exports = {
                                 await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $push: { tags: tag } });
                                 modal.reply(locale.updated);
                             }).catch(() => { });
+                        } else if (selected === "remove") {
+                            const modal = new Modal()
+                                .setTitle(locale.removeTag)
+                                .setCustomId("removeTag")
+                                .addComponents(new MessageActionRow<TextInputComponent>()
+                                    .addComponents(
+                                        new TextInputComponent()
+                                            .setCustomId("tag")
+                                            .setLabel(locale.tag)
+                                            .setPlaceholder(locale.tagTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                    )
+                                )
+                            await collected.showModal(modal);
+                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const tag = modal.fields.getTextInputValue("tag");
+                                await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $push: { tags: tag } });
+                                modal.reply(locale.updated);
+                            }).catch(() => { });
                         } else {
                             const tag = collected.values[1];
                             await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $pull: { tags: tag } });
