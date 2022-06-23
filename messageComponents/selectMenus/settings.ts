@@ -1,5 +1,5 @@
 import { APIMessage } from "discord-api-types/v9";
-import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
+import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent, TextBasedChannel } from "discord.js";
 import config from "../../config.json";
 import { Client, GuildSettings } from "../../Util/types";
 type KeyofBadWordPresets = string & "low" | "medium" | "high" | "highest";
@@ -183,10 +183,10 @@ module.exports = {
                 interaction.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === miscModal.customId }).then(async (modal: ModalSubmitInteraction) => {
                     const suggestionChannel = modal.fields.getTextInputValue("suggestionChannel");
                     const ghostPingTextInput = modal.fields.getTextInputValue("ghostPing");
-                    const suggestionChannelObject = interaction.guild!.channels.cache.find((channel) => channel.name === suggestionChannel);
-                    if (!suggestionChannelObject?.id && suggestionChannel) return interaction.reply(locale.invalidChannel);
+                    const suggestionChannelObject: TextBasedChannel | undefined = modal.guild!.channels.cache.find((channel) => channel.name === suggestionChannel && channel.isText()) as TextBasedChannel;
+                    if (!suggestionChannelObject?.id && suggestionChannel) return modal.reply(locale.invalidChannel);
                     const ghostPing = ghostPingTextInput in locale.yes;
-                    await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, {
+                    await client.guildSettings.updateOne({ guildId: modal.guild!.id }, {
                         $set: {
                             suggestionChannel: suggestionChannelObject?.id || undefined,
                             ghostPing: ghostPingTextInput ? ghostPing : undefined
