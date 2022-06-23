@@ -192,6 +192,7 @@ module.exports = {
                             ghostPing: ghostPingTextInput ? ghostPing : undefined
                         }
                     });
+                    return modal.reply(locale.updated)
                 }).catch(() => { });
                 break;
         }
