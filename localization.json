@@ -760,8 +760,8 @@
                     "tag": "Tag",
                     "customid": "Custom ID",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
-                    "customIdInputPlaceHolder": "The tag custom id you want to mess with",
-                    "valueInputPlaceHolder": "The thing i send when someone asks me to send this tag"
+                    "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
