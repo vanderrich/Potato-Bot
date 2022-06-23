@@ -1,3 +1,4 @@
+//this is now useless
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 

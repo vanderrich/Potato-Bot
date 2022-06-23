@@ -234,7 +234,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
+                    "noChannel": "There are no suggestion channel in the server settings, try running /settings or ask an admin to do so",
                     "noSuggestion": "You must specify a suggestion!",
                     "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
@@ -315,6 +315,7 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
+                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -693,7 +694,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Saran",
-                    "noChannel": "Anda harus menentukan salah satu channel untuk mengirimkan saran!",
+                    "noChannel": "Tidak dapat menemukan channel saran di setting server, coba jalankan /settings atau meminta seorang admin untuk melakukannya",
                     "noSuggestion": "Anda harus menentukan sebuah saran!",
                     "noGuildSettings": "Pengaturan server tidak dapat ditemukan!",
                     "success": "Saran telah dikirim!"
@@ -774,6 +775,7 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
+                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -1149,7 +1151,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
+                    "noChannel": "There are no suggestion channel in the server settings, try running /settings or ask an admin to do so",
                     "noSuggestion": "You must specify a suggestion!",
                     "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
@@ -1230,6 +1232,7 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
+                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",
@@ -1605,7 +1608,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
+                    "noChannel": "There are no suggestion channel in the server settings, try running /settings or ask an admin to do so",
                     "noSuggestion": "You must specify a suggestion!",
                     "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
@@ -1686,6 +1689,7 @@
                     "createSuccess": "Backup created!"
                 },
                 "settings": {
+                    "noSettings": "No Settings Found!",
                     "badWords": "Bad Words",
                     "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
                     "welcome": "Welcome",

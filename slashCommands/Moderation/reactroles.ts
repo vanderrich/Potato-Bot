@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -34,11 +35,11 @@ module.exports = {
         .addRoleOption(option => option.setName("option3role").setDescription("The role of the third option of the reaction role"))
         .addStringOption(option => option.setName("option4").setDescription("The fourth option of the reaction role"))
         .addStringOption(option => option.setName("option4emoji").setDescription("The emoji of the fourth option of the reaction role"))
-        .addRoleOption(option => option.setName("option4role").setDescription("The role of the fourth option of the reaction role")),
+        .addRoleOption(option => option.setName("option4role").setDescription("The role of the fourth option of the reaction role")) as SlashCommandBuilder,
     permissions: "ADMINISTRATOR",
     category: "Moderation",
     guildOnly: true,
-    async execute(interaction: Discord.CommandInteraction, client: any, footers: Array<string>) {
+    async execute(interaction: Discord.CommandInteraction, client: Client, footers: string[]) {
         let title = interaction.options.getString("title");
         let description = interaction.options.getString("description");
         let channel: any = interaction.options.getChannel("channel");
@@ -87,4 +88,4 @@ module.exports = {
         channel.send({ embeds: [embed], components: [messageActionRow] });
         interaction.reply({ content: 'Reaction Role created!', ephemeral: true });
     }
-}
+} as SlashCommand;

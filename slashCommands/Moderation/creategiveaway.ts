@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 import ms from "ms";
 import { Giveaway } from "discord-giveaways"
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -24,11 +25,11 @@ module.exports = {
                 .setName("prize")
                 .setDescription("The prize of the giveaway")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     permissions: "ADMINISTRATOR",
     category: "Moderation",
     guildOnly: true,
-    execute(interaction: CommandInteraction, client: any) {
+    execute(interaction: CommandInteraction, client: Client) {
         let duration = interaction.options.getString("duration");
         let winners = interaction.options.getInteger("winners");
         let prize = interaction.options.getString("prize");
@@ -42,4 +43,4 @@ module.exports = {
             interaction.reply({ content: `Giveaway created!\n\n${gData.toString()}`, ephemeral: true });
         });
     }
-};
+} as SlashCommand;

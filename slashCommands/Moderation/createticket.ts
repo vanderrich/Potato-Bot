@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, GuildChannel, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,10 +30,10 @@ module.exports = {
             .setName("closecategory")
             .setDescription("The category to put the closed tickets.")
             .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     permissions: 'ADMINISTRATOR',
     category: "Moderation",
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         let title = interaction.options.getString("name");
         let description = interaction.options.getString("description");
         let channel = interaction.options.getChannel("channel");
@@ -86,4 +87,4 @@ module.exports = {
             }
             );
     }
-}
+} as SlashCommand;

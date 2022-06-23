@@ -1,5 +1,6 @@
 import { CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +11,7 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount of messages to delete")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     permissions: "MANAGE_MESSAGES",
     category: "Moderation",
     guildOnly: true,
@@ -26,4 +27,4 @@ module.exports = {
                 interaction.reply("Error deleting messages: " + err);
             })
     }
-};
+} as SlashCommand;

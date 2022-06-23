@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from "discord.js";
-import { GuildSettings } from "../../Util/types"
+import { Client, GuildSettings, SlashCommand } from "../../Util/types"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("settings")
@@ -8,10 +8,11 @@ module.exports = {
     category: "Moderation",
     permissions: "MANAGE_GUILD",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any, footers: string) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply()
-        const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
+        const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
         const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
+        if (!guildSettings) return interaction.reply(locale.noSettings)
         console.log(locale);
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction.user.id, "commands.moderation.settings.settings", interaction.guild!.name))
@@ -45,4 +46,4 @@ module.exports = {
 
         interaction.editReply({ embeds: [embed], components: [actionRow] });
     }
-}
+} as SlashCommand;
