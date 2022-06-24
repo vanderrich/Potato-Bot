@@ -329,6 +329,7 @@
                     "removeTag": "Remove Tag",
                     "tag": "Tag",
                     "customid": "Custom ID",
+                    "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
                     "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
@@ -759,6 +760,7 @@
                     "removeTag": "Remove Tag",
                     "tag": "Tag",
                     "customid": "Custom ID",
+                    "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
                     "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
@@ -1194,6 +1196,7 @@
                     "removeTag": "Remove Tag",
                     "tag": "Tag",
                     "customid": "Custom ID",
+                    "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
                     "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
@@ -1629,6 +1632,7 @@
                     "removeTag": "Remove Tag",
                     "tag": "Tag",
                     "customid": "Custom ID",
+                    "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
                     "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
