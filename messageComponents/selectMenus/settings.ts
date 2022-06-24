@@ -128,7 +128,7 @@ module.exports = {
                                 { label: locale.removeTag, value: "remove" }
                             ])
                 )
-                interaction.update({ components: [tagActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
+                interaction.update({ components: [actionRow, tagActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
                     if (!(msg instanceof Message)) return;
                     const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id })!;
                     if (!guildSettings) return
@@ -174,7 +174,7 @@ module.exports = {
                                 if (!guildSettings.tags) guildSettings.tags = [];
                                 if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
                                 guildSettings.tags.push({ name: tag, value: customid });
-                                guildSettings.tagDescriptions = { [customid]: value! };
+                                guildSettings.tagDescriptions[customid] = value;
                                 guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });
@@ -207,6 +207,7 @@ module.exports = {
                                 const tag = modal.fields.getTextInputValue("tag");
                                 guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
                                 delete guildSettings.tagDescriptions[customid];
+                                guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });
                         }
