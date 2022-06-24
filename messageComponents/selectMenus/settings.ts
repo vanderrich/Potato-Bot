@@ -175,7 +175,7 @@ module.exports = {
                                 if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
                                 guildSettings.tags.push({ name: tag, value: customid });
                                 guildSettings.tagDescriptions[customid] = value;
-                                guildSettings.save();
+                                await guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });
                         } else if (selected === "remove") {
@@ -207,7 +207,7 @@ module.exports = {
                                 const tag = modal.fields.getTextInputValue("tag");
                                 guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
                                 delete guildSettings.tagDescriptions[customid];
-                                guildSettings.save();
+                                await guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });
                         }

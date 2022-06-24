@@ -5,7 +5,7 @@ import { Client, SlashCommand } from "../../Util/types";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("createticket")
-        .setDescription("Create a ticket.")
+        .setDescription("Create a ticket panel.")
         .addStringOption(option => option
             .setName("name")
             .setDescription("The name of the ticket.")
