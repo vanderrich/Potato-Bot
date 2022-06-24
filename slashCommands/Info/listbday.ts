@@ -12,10 +12,13 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         const birthdays: Birthday[] = await (new Promise((resolve, reject) => {
             client.birthdays.find({}, (err: any, bdays: Birthday[]) => {
-                if (err) return console.error(err);
-                resolve(bdays);
+                if (err) {
+                    console.error(err);
+                    return reject(err)
+                }
+                return resolve(bdays);
             });
-        }));
+        }))
         const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({ name: `Birthdays for ${interaction.guild ? interaction.guild.name : "all servers"}` })

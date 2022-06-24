@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from "discord.js";
-import { Client, GuildSettings, SlashCommand } from "../../Util/types"
+import { Client, SlashCommand } from "../../Util/types"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("settings")

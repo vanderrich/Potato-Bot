@@ -12,19 +12,20 @@ module.exports = {
         const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
         const locale = client.getLocale(interaction, "commands.moderation.settings");
         const selected = interaction.values[0];
+        const actionRow = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId("settings")
+                    .addOptions([
+                        { label: locale.badWords, value: "badWords", default: selected === "badWords" ? true : false },
+                        { label: locale.welcome, value: "welcome" },
+                        { label: locale.tags, value: "tags", default: selected === "tags" ? true : false },
+                        { label: locale.misc, value: "misc" }
+                    ])
+                    .setDisabled(true)
+        )
         switch (selected) {
             case "badWords":
-                const actionRow = new MessageActionRow()
-                    .addComponents(
-                        new MessageSelectMenu()
-                            .setCustomId("settings")
-                            .addOptions([
-                                { label: locale.badWords, value: "badWords", default: true },
-                                { label: locale.welcome, value: "welcome" },
-                                { label: locale.tags, value: "tags" },
-                                { label: locale.misc, value: "misc" }
-                            ])
-                    )
                 const badWordPresetActionRow = new MessageActionRow()
                     .addComponents(
                         new MessageSelectMenu()
@@ -144,20 +145,26 @@ module.exports = {
                                             .setLabel(locale.tag)
                                             .setPlaceholder(locale.tagTextInputPlaceHolder)
                                             .setStyle("SHORT")
-                                            .setRequired(true),
-                                        new TextInputComponent()
-                                            .setCustomId("customid")
-                                            .setLabel(locale.customid)
-                                            .setPlaceholder(locale.customIdTextInputPlaceHolder)
-                                            .setStyle("SHORT")
-                                            .setRequired(true),
-                                        new TextInputComponent()
-                                            .setCustomId("value")
-                                            .setLabel(locale.value)
-                                            .setPlaceholder(locale.valueTextInputPlaceHolder)
-                                            .setStyle("PARAGRAPH")
                                             .setRequired(true)
-                                    )
+                                    ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("customid")
+                                                .setLabel(locale.customid)
+                                                .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                                .setStyle("SHORT")
+                                                .setRequired(true)
+                                        ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("value")
+                                                .setLabel(locale.value)
+                                                .setPlaceholder(locale.valueTextInputPlaceHolder)
+                                                .setStyle("PARAGRAPH")
+                                                .setRequired(true)
+                                        )
                                 )
                             await collected.showModal(modal);
                             collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
@@ -182,14 +189,17 @@ module.exports = {
                                             .setLabel(locale.tag)
                                             .setPlaceholder(locale.tagTextInputPlaceHolder)
                                             .setStyle("SHORT")
-                                            .setRequired(true),
-                                        new TextInputComponent()
-                                            .setCustomId("customid")
-                                            .setLabel(locale.customid)
-                                            .setPlaceholder(locale.customIdTextInputPlaceHolder)
-                                            .setStyle("SHORT")
                                             .setRequired(true)
-                                    )
+                                    ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("customid")
+                                                .setLabel(locale.customid)
+                                                .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                                .setStyle("SHORT")
+                                                .setRequired(true)
+                                        )
                                 )
                             await collected.showModal(modal);
                             collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
