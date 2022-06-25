@@ -39,7 +39,7 @@ module.exports = {
                             ])
                     )
                 interaction.update({ components: [actionRow, badWordPresetActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
-                    if (!(msg instanceof Message)) return;
+                    if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                     msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
                         const selected = collected.values[0];
                         if (selected === "custom") {
@@ -129,7 +129,7 @@ module.exports = {
                             ])
                 )
                 interaction.update({ components: [actionRow, tagActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
-                    if (!(msg instanceof Message)) return;
+                    if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                     const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id })!;
                     if (!guildSettings) return
                     msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {

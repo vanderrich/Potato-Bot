@@ -1,6 +1,7 @@
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { QueryType } from 'discord-player';
 import { CommandInteraction, GuildMember, Message } from 'discord.js';
+import { Client } from '../../Util/types';
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -19,11 +20,12 @@ module.exports = {
     category: 'Music',
     isSubcommand: true,
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any) {
-        if (!(interaction.member instanceof GuildMember)) return
+    async execute(interaction: CommandInteraction, client: Client) {
+        let member = interaction.member;
+        if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id);
         await interaction.deferReply()
-        const res = await client.player.search(interaction.options.getString('track'), {
-            requestedBy: interaction.member,
+        const res = await client.player.search(interaction.options.getString('track')!, {
+            requestedBy: member,
             searchEngine: QueryType.AUTO
         });
         let run = true;
@@ -48,7 +50,7 @@ module.exports = {
 
         if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);
 
-        const queue = await client.player.createQueue(interaction.guild, {
+        const queue = await client.player.createQueue(interaction.guild!, {
             metadata: interaction.channel,
             leaveOnEnd: true,
             leaveOnStop: true,
@@ -59,7 +61,7 @@ module.exports = {
         });
 
         try {
-            if (!queue.connection) await queue.connect(interaction.member?.voice.channel);
+            if (!queue.connection) await queue.connect(member.voice.channel!);
         } catch {
             await client.player.deleteQueue(interaction.guild!.id);
             return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);

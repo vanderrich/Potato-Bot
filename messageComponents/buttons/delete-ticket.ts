@@ -7,10 +7,11 @@ module.exports = {
         const ticket = interaction.customId.split("-")[2];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
         if (!ticketInfo) return interaction.reply("Ticket not found!");
-        if (!(interaction.message instanceof Message)) return
+        let message = interaction.message;
+        if (!(message instanceof Message)) message = await interaction.channel!.messages.fetch(message.id);
         ticketInfo.updateOne({ $pull: { channelId: interaction.channel?.id } });
-        interaction.reply("Deleted Ticket Successfully");
-        await interaction.message.delete();
+        await message.delete();
         await interaction.channel?.delete();
+        return interaction.reply("Deleted Ticket Successfully");
     }
 }

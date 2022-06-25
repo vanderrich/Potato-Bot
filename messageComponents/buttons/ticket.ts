@@ -14,11 +14,12 @@ module.exports = {
         const guild = client.guilds.cache.get(ticketInfo.guildId);
         const category = guild?.channels.cache.get(ticketInfo.categoryId)!;
         if (!category || category.type !== "GUILD_CATEGORY") return interaction.reply("Category not found!");
-        if (!(interaction.member instanceof Discord.GuildMember)) return interaction.reply("you are not in a guild! (no idea how this happened)");
+        let member = interaction.member
+        if (!(member instanceof Discord.GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
         const channel = await category.createChannel(`${ticketInfo.title}-ticket-${ticketInfo.id}`, {
             permissionOverwrites: [
                 {
-                    id: interaction.member,
+                    id: member,
                     allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                 },
                 {
