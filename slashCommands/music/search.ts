@@ -48,16 +48,10 @@ module.exports = {
         });
         if (!collector) return interaction.reply(`Timeout.`);
 
-        collector.on('collect', async (query: any) => {
-            if (!interaction.guild || !interaction.member || !(interaction.member instanceof Discord.GuildMember)) {
-                interaction.reply('This command can only be used in a guild.');
-                return;
-            }
-            if (query as APIMessage) {
-                interaction.followUp(`Call canceled. ✅`)
-                collector.stop();
-                return
-            }
+        collector.on('collect', async (query: Discord.Message | APIMessage) => {
+            let member = interaction.member
+            if (!(member instanceof Discord.GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
+            if (query as APIMessage) query = await interaction.channel!.messages.fetch(query.id)
             if (query.content.toLowerCase() === 'cancel') {
                 interaction.followUp(`Call cancelled. ✅`)
                 collector.stop();
@@ -72,9 +66,9 @@ module.exports = {
             collector.stop();
 
             try {
-                if (!queue.connection) await queue.connect(interaction.member.voice.channel);
+                if (!queue.connection) await queue.connect(member.voice.channel);
             } catch {
-                await client.player.deleteQueue(interaction.guild.id);
+                await client.player.deleteQueue(interaction.guildId);
                 interaction.followUp(`${interaction.user}, I can't join audio channel. ❌`);
                 return;
             }

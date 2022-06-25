@@ -37,7 +37,7 @@ module.exports = {
                 new Discord.MessageButton()
                     .setEmoji("🔒")
                     .setStyle('SECONDARY')
-                    .setCustomId(`close-ticket-notsure-${ticketInfo.title}`)
+                    .setCustomId(`close-ticket-notsure-${ticketInfo.title.toLocaleLowerCase().trim()}`)
             );
         await ticketInfo.updateOne({ $set: { channelId: channel.id } });
         await channel.send({ embeds: [embed], content: `${interaction.user} ${ticketInfo.title} ticket opened!`, components: [row] })

@@ -33,51 +33,51 @@ module.exports = {
 
         //sends the embed message and reacts to it
         interaction.reply({ embeds: [embed], fetchReply: true }).then(async (msg) => {
-            if (msg instanceof Message) {
-                var frameCount = Math.floor(Math.random() * 5) + 5
-                for (let i = 0; i < frameCount; i++) {
-                    let slotdisplay: GuildEmoji[] = []
-                    for (let x = 0; x < 3; x++) {
-                        switch (Math.floor(Math.random() * 3)) {
-                            case 1:
-                                slotdisplay[x] = diamond
-                                break;
-                            case 2:
-                                slotdisplay[x] = potat
-                                break;
-                            default:
-                                slotdisplay[x] = emerald
-                                break;
-                        }
+            if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
+            var frameCount = Math.floor(Math.random() * 5) + 5
+            for (let i = 0; i < frameCount; i++) {
+                let slotdisplay: GuildEmoji[] = []
+                for (let x = 0; x < 3; x++) {
+                    switch (Math.floor(Math.random() * 3)) {
+                        case 1:
+                            slotdisplay[x] = diamond
+                            break;
+                        case 2:
+                            slotdisplay[x] = potat
+                            break;
+                        default:
+                            slotdisplay[x] = emerald
+                            break;
                     }
-                    messages.unshift(new MessageEmbed()
-                        .setTitle(client.getLocale(interaction, "commands.fun.slots.embedTitle"))
-                        .setDescription(slotdisplay.join('')))
+                }
+                messages.unshift(new MessageEmbed()
+                    .setTitle(client.getLocale(interaction, "commands.fun.slots.embedTitle"))
+                    .setDescription(slotdisplay.join('')))
 
-                    //check if the player won
-                    if ((slotdisplay[0].id === slotdisplay[1].id && slotdisplay[1].id === slotdisplay[2].id) && i === 0) win = true
-                    else if (i === 0) win = false
-                }
-                //sends the frames
-                for (let i = 0; i < messages.length; i++) {
-                    msg.edit({
-                        embeds: [messages[i].setFooter({ text: footer })]
-                    })
-                }
-
-                //sends the result
-                if (win) {
-                    setTimeout(async function () {
-                        interaction.channel?.send(client.getLocale(interaction, "commands.fun.slots.win", interaction.user, bet));
-                        await client.eco.addMoney({ user: interaction.user.id, amount: bet, whereToPutMoney: "wallet" })
-                    }, messages.length * 1000)
-                } else {
-                    setTimeout(async function () {
-                        interaction.channel?.send(client.getLocale(interaction, "commands.fun.slots.lose", bet));
-                        await client.eco.removeMoney({ user: interaction.user.id, amount: bet, whereToGetMoney: "wallet" })
-                    }, messages.length * 1000)
-                }
+                //check if the player won
+                if ((slotdisplay[0].id === slotdisplay[1].id && slotdisplay[1].id === slotdisplay[2].id) && i === 0) win = true
+                else if (i === 0) win = false
             }
+            //sends the frames
+            for (let i = 0; i < messages.length; i++) {
+                msg.edit({
+                    embeds: [messages[i].setFooter({ text: footer })]
+                })
+            }
+
+            //sends the result
+            if (win) {
+                setTimeout(async function () {
+                    interaction.channel?.send(client.getLocale(interaction, "commands.fun.slots.win", interaction.user, bet));
+                    await client.eco.addMoney({ user: interaction.user.id, amount: bet, whereToPutMoney: "wallet" })
+                }, messages.length * 1000)
+            } else {
+                setTimeout(async function () {
+                    interaction.channel?.send(client.getLocale(interaction, "commands.fun.slots.lose", bet));
+                    await client.eco.removeMoney({ user: interaction.user.id, amount: bet, whereToGetMoney: "wallet" })
+                }, messages.length * 1000)
+            }
+
         })
     }
 } as SlashCommand;

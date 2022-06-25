@@ -60,11 +60,10 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             if (description != null) embed.setDescription(description + '\n\n' + timestamp);
 
-            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(msg => {
-                if (msg instanceof Message) {
+            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(async (msg) => {
+                if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
                     msg.react('👍');
-                    msg.react('👎');
-                }
+                msg.react('👎');
             });
         }
 
@@ -90,12 +89,11 @@ module.exports = {
             if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\n${timestamp}`);
             else embed.setDescription(arr.join('\n\n')) + `\n\n${timestamp}`;
 
-            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(msg => {
-                if (msg instanceof Message) {
+            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(async (msg) => {
+                if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
                     for (let i = 0; i < options.length; i++) {
                         msg.react(alphabet[i]);
                     }
-                }
             })
         }
     }

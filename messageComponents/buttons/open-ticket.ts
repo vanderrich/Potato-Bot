@@ -6,7 +6,8 @@ module.exports = {
     async execute(interaction: Discord.ButtonInteraction, client: Client) {
         const ticket = interaction.customId.split("-")[2];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
-        if (!interaction.member || !interaction.guild || !(interaction.member instanceof Discord.GuildMember)) return interaction.reply("you are not in a guild! (no idea how this happened)");
+        let member = interaction.member
+        if (!(member instanceof Discord.GuildMember)) member = await interaction.guild!.members.cache.get(interaction.user.id)!
         if (!ticketInfo) return interaction.reply("Ticket not found!");
         if (interaction.channel?.type !== "GUILD_TEXT") return interaction.reply("This command can only be used in a server!");
         const category = client.guilds.cache.get(interaction.guildId!)?.channels.cache.get(ticketInfo.categoryId);
@@ -16,11 +17,11 @@ module.exports = {
         interaction.channel.permissionOverwrites.set(
             [
                 {
-                    id: interaction.member!,
+                    id: member,
                     allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                 },
                 {
-                    id: interaction.guild.id,
+                    id: interaction.guild!.id,
                     deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                 },
                 {

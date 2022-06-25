@@ -45,7 +45,8 @@ module.exports = {
         if (category?.type !== "GUILD_CATEGORY" || closecategory?.type !== "GUILD_CATEGORY" || !category || !closecategory) {
             return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.categoryNotCategory"));
         }
-        if (!channel || !(channel instanceof GuildChannel) || !channel.isText()) return interaction.reply("The channel must be a guild channel.");
+        if (!(channel instanceof GuildChannel)) channel = await interaction.guild!.channels.fetch(channel!.id)
+        if (!channel?.isText()) return interaction.reply("The channel must be a guild channel.");
         let embed = new MessageEmbed()
             .setTitle(title)
             .setDescription(description)
