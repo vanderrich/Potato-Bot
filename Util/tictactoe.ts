@@ -24,11 +24,11 @@ function checkWin(board: MessageActionRow<MessageButton>[]) {
 
 export default async (interaction: MessageComponentInteraction, client: Client) => {
     /** @type {Discord.Message} message */
-    const message = interaction.message;
+    let message = interaction.message;
     if (!client.tictactoe[message.id]) return;
 
     let xs = 0, os = 0;
-    if (!(message instanceof Message)) return
+    if (!(message instanceof Message)) message = await interaction.channel!.messages.fetch(message.id)
 
     for (let actionRow of message.components) {
         for (let button of actionRow.components) {

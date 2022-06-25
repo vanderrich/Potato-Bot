@@ -1,4 +1,5 @@
 import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction, Interaction, ButtonInteraction } from 'discord.js';
+import { APIMessage } from "discord-api-types/v9"
 
 export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], options: any) => {
 
@@ -32,8 +33,9 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
     }
 
     const message = source instanceof ButtonInteraction ? await source.update(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
-    const pagedMessage = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
-    if (!(pagedMessage instanceof Message)) return console.log("how did this happen")
+    var pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
+    if (!(pagedMessageTemp instanceof Message) || !pagedMessageTemp) pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.channel!.messages.fetch((await source.fetchReply()).id) : await source.channel!.messages.fetch(message!.id);
+    const pagedMessage = pagedMessageTemp;
     const filter = (button: any) => button.customId === 'first' || button.customId === 'previous' || button.customId === 'next' || button.customId === 'last';
     const collector = await pagedMessage.createMessageComponentCollector({ filter, time: options.timeout });
 
