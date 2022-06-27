@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -7,15 +9,15 @@ module.exports = {
         .setDescription("Go back to the previous track."),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, No music currently playing! ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
 
-        if (!queue.previousTracks[1]) return interaction.reply(`${interaction.user}, There was no music playing before ❌`);
+        if (!queue.previousTracks[1]) return interaction.reply(locale.noMusicBefore);
 
         await queue.back();
 
-        interaction.reply(`Previous music started playing... ✅`);
+        interaction.reply(locale.backSuccess);
     },
 };

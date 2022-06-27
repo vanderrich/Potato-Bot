@@ -1,29 +1,31 @@
+
 import Discord from "discord.js";
+import { Music } from "../../localization";
 import { Client } from "../../Util/types";
 
 
 module.exports = {
     name: "saveTrack",
-    execute: (interaction: Discord.ButtonInteraction, client: Client) => {
+    execute: (interaction: Discord.ButtonInteraction, client: Client, footers: string[]) => {
         const queue = client.player.getQueue(interaction.guildId!);
-
-        if (!queue || !queue.playing) return interaction.reply({ content: `No music currently playing. ❌`, ephemeral: true, components: [] });
+        const locale = client.getLocale(interaction, "commands.music") as Music
+        if (!queue || !queue.playing) return interaction.reply({ content: locale.noMusicPlaying, ephemeral: true, components: [] });
 
         const embed = new Discord.MessageEmbed()
             .setColor('BLUE')
-            .setTitle(client.user?.username + " - Save Track")
+            .setTitle(locale.saveTrack)
             .setThumbnail(client.user?.displayAvatarURL()!)
-            .addField(`Track`, `\`${queue.current.title}\``)
-            .addField(`Duration`, `\`${queue.current.duration}\``)
-            .addField(`URL`, `${queue.current.url}`)
-            .addField(`Saved Server`, `\`${interaction.guild?.name}\``)
-            .addField(`Requested By`, `${queue.current.requestedBy}`)
+            .addField(locale.track, `\`${queue.current.title}\``)
+            .addField(locale.duration, `\`${queue.current.duration}\``)
+            .addField(locale.url, `${queue.current.url}`)
+            .addField(locale.saveServer, `\`${interaction.guild?.name}\``)
+            .addField(locale.requestedBy, `${queue.current.requestedBy}`)
             .setTimestamp()
-            .setFooter({ text: 'Music Code by Umut Bayraktar aka 1umutda', iconURL: interaction.user.displayAvatarURL({ dynamic: true }) });
+            .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.user.send({ embeds: [embed] }).then(() => {
-            return interaction.reply({ content: `I sent you the name of the music in a private message ✅`, ephemeral: true, components: [] });
+            return interaction.reply({ content: locale.saveSuccess, ephemeral: true, components: [] });
         }).catch(error => {
-            return interaction.reply({ content: `I can't send you a private message. ❌`, ephemeral: true, components: [] });
+            return interaction.reply({ content: locale.cantDM, ephemeral: true, components: [] });
         });
     }
 }

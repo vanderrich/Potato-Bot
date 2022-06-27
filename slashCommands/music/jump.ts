@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -12,17 +14,17 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
         let index = interaction.options.getInteger('index');
-        if (!index) return interaction.reply(`${interaction.user}, You must specify an index. ❌`);
-        if (index < 0) interaction.reply("Index cant be a negative number! ❌");
+        if (!index) return interaction.reply(locale.noIndex);
+        if (index < 0) interaction.reply(locale.noNegativeIndex);
         index--;
 
         queue.jump(index);
 
-        return interaction.reply(`Skipped tracks ✅`);
+        return interaction.reply(locale.skipSuccess);
     },
 };

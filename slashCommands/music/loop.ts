@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -19,10 +21,10 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
         const loop = interaction.options.getNumber("loop");
-        queue.setRepeatMode(loop);
-        interaction.reply(`${loop === 0 ? "Off" : loop === 1 ? "Looping track 🔂" : loop === 2 ? "Looping queue 🔁" : "Autoplaying 🔂"}`);
+        queue.setRepeatMode(loop!);
+        interaction.reply(loop === 0 ? locale.loopType.off : loop === 1 ? locale.loopType.track : loop === 2 ? locale.loopType.queue : locale.loopType.autoplay);
     }
 }

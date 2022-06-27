@@ -7,7 +7,7 @@ module.exports = {
         const ticketType = interaction.customId.split("-")[2];
         const ticket = (ticketType as unknown) as Capitalize<typeof ticketType>;
         const ticketInfo = await client.tickets.findOne({ title: ticket });
-        if (interaction.channel?.type !== "GUILD_TEXT") return interaction.reply("You can't close tickets in DM channels!");
+        if (interaction.channel?.type !== "GUILD_TEXT") return;
         if (!ticketInfo) return interaction.reply("Ticket not found!");
 
         const controls = new Discord.MessageActionRow()
@@ -28,7 +28,7 @@ module.exports = {
         let member = interaction.member;
         if (!(member instanceof Discord.GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
 
-        interaction.channel.send({ content: `Ticket closed by ${interaction.user}`, components: [controls] });
+        interaction.channel.send({ content: client.getLocale(interaction, "commands.moderation.createticket.closedBy", interaction.user.toString()), components: [controls] });
         ticketInfo.updateOne({ $pull: { channelId: interaction.channel?.id } });
         const closecategory = client.guilds.cache.get(ticketInfo.guildId)?.channels.cache.get(ticketInfo.closeCategoryId);
         if (!closecategory || closecategory.type !== "GUILD_CATEGORY") return;
@@ -40,7 +40,7 @@ module.exports = {
             READ_MESSAGE_HISTORY: true,
             ADD_REACTIONS: true
         });
-        interaction.reply({ content: "Closed Ticket Successfully", ephemeral: true });
+        interaction.reply({ content: client.getLocale(interaction, "commands.moderation.createticket.closeSuccess"), ephemeral: true });
         return;
     }
 }

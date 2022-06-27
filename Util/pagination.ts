@@ -1,7 +1,8 @@
 import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction, Interaction, ButtonInteraction } from 'discord.js';
 import { APIMessage } from "discord-api-types/v9"
+import { Client } from './types';
 
-export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], options: any) => {
+export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], client: Client, options: any) => {
 
     const buttons = [
         new MessageButton()
@@ -27,7 +28,7 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
 
     let currentPage = 0;
     let content = {
-        embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
+        embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
         components: [row],
         fetchReply: true
     }
@@ -66,7 +67,7 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
                 break;
         }
         pagedMessage.edit({
-            embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
+            embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
             components: [row]
         });
         collector.resetTimer();
@@ -77,7 +78,7 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
         if (reason !== "messageDelete" && pagedMessage.editable) {
             row.setComponents(buttons[0].setDisabled(true), buttons[1].setDisabled(true), buttons[2].setDisabled(true), buttons[3].setDisabled(true));
             pagedMessage.edit({
-                embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
+                embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
                 components: [row]
             }).catch((error: any) => { });
         }

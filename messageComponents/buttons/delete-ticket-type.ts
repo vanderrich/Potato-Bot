@@ -10,6 +10,6 @@ module.exports = {
         if (!(message instanceof Message)) message = await interaction.channel!.messages.fetch(message.id)
         await message.delete();
         await client.tickets.deleteOne({ title: ticket });
-        interaction.reply({ content: "Deleted ticket successfully", ephemeral: true });
+        interaction.reply({ content: client.getLocale(interaction, "commands.moderation.createticket.deleteSuccess"), ephemeral: true });
     }
 }

@@ -1,4 +1,5 @@
 {
+    "haventTrasnlate": "This line hasn't been translated yet",
     "en": {
         "name": "English",
         "native": "English",
@@ -138,7 +139,11 @@
                     "playSelf": "You can't play against yourself!",
                     "playClient": "You can't play against me!",
                     "playBot": "You can't play against a bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "turn": "${VAR}'s turn",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -339,14 +344,37 @@
                     "noPerms": "I don't have permissions to manage the roles!",
                     "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -390,14 +418,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
-                "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with **1** to **150** Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
+                "volNotInRange": "The volume must be between **1** and **150** 🔊",
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -411,6 +451,7 @@
             "pingedUser": "Pinged User(s)",
             "message": "Message",
             "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
             "footers": [
                 "<insert epic footer here>",
                 "these footers are getting old",
@@ -569,7 +610,11 @@
                     "playSelf": "Anda tidak dapat bermain dengan diri sendiri!",
                     "playClient": "Anda tidak dapat bermain denganku!",
                     "playBot": "Anda tidak dapat bermain dengan sebuah bot!",
-                    "firstTurn": "giliran ${VAR}"
+                    "turn": "giliran ${VAR}",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -770,14 +815,37 @@
                     "noPerms": "I don't have permissions to manage the roles!",
                     "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -821,14 +889,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
                 "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -842,6 +922,7 @@
             "pingedUser": "Pinged User(s)",
             "message": "Message",
             "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
             "footers": [
                 "<insert epic footer here>",
                 "these footers are getting old",
@@ -1008,7 +1089,11 @@
                     "playSelf": "You can't play against yourself!",
                     "playClient": "You can't play against me!",
                     "playBot": "You can't play against a bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "turn": "${VAR}'s turn",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -1206,14 +1291,37 @@
                     "noPerms": "I don't have permissions to manage the roles!",
                     "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -1257,14 +1365,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
                 "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -1278,6 +1398,7 @@
             "pingedUser": "Pinged User(s)",
             "message": "Message",
             "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
             "footers": [
                 "<insert epic footer here>",
                 "these footers are getting old",
@@ -1444,7 +1565,11 @@
                     "playSelf": "You can't play against yourself!",
                     "playClient": "You can't play against me!",
                     "playBot": "You can't play against a bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "turn": "${VAR}'s turn",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -1642,14 +1767,37 @@
                     "noPerms": "I don't have permissions to manage the roles!",
                     "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -1693,14 +1841,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
                 "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -1714,6 +1874,7 @@
             "pingedUser": "Pinged User(s)",
             "message": "Message",
             "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
             "footers": [
                 "<insert epic footer here>",
                 "these footers are getting old",

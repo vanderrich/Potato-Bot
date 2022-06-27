@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -268,13 +269,14 @@ module.exports = {
                 )
             )
         ),
-    execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         let subcommand;
         try {
             subcommand = interaction.options.getSubcommandGroup();
         } catch (e) {
             subcommand = interaction.options.getSubcommand();
         }
-        require("./" + subcommand).execute(interaction, client, footers);
+        const locale = client.getLocale(interaction, "commands.music")
+        require("./" + subcommand).execute(interaction, client, footers, locale);
     }
 }

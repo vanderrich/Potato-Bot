@@ -1,7 +1,9 @@
 import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import { QueryType } from 'discord-player';
-import { CommandInteraction, GuildMember, Message } from 'discord.js';
+import { CommandInteraction, GuildMember, Message, MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
+import { Music } from '../../localization';
 import { Client } from '../../Util/types';
+import { APIMessage } from "discord-api-types/v10"
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -20,7 +22,7 @@ module.exports = {
     category: 'Music',
     isSubcommand: true,
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         let member = interaction.member;
         if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id);
         await interaction.deferReply()
@@ -30,25 +32,37 @@ module.exports = {
         });
         let run = true;
         if (res.tracks[0].source != 'youtube') {
-            interaction.editReply({ content: `The package we use to play music (discord-player) does not support spotify and will search youtube for it, Are you sure you want to continue? (yes if yes and anything else for no)` });
-            const filter = (response: Message) => {
-                return response.author.id == interaction.user.id
-            }
-            await interaction.channel?.awaitMessages({ filter, max: 1, time: 30000, errors: ['time'] }).then(collected => {
-                if (collected.first()?.content.toLowerCase() != 'yes') {
-                    run = false
-                    return interaction.editReply({ content: `Canceled playing **${res.tracks[0].title}**` });
-                }
-            }).catch(() => {
-                run = false
-                return interaction.channel?.send({ content: "Timeout" });
+            const actionRow = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId("play")
+                        .setEmoji("✅"),
+                    new MessageButton()
+                        .setCustomId("cancel")
+                        .setEmoji("❎")
+                );
+            await interaction.editReply({ content: locale.areYouSurePlayNotYT, components: [actionRow] }).then(async (msg: Message | APIMessage) => {
+                if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
+                const collector = msg.createMessageComponentCollector({ componentType: "BUTTON" });
+                collector.on("collect", (button: ButtonInteraction) => {
+                    if (button.customId === "play") {
+                        run = true;
+                    } else {
+                        run = false;
+                        button.reply(locale.cancel);
+                    }
+                });
+                collector.on("end", () => {
+                    run = false;
+                    interaction.editReply(locale.timeout);
+                })
             });
         }
         if (!run) return;
 
         let index = interaction.options.getInteger('index');
 
-        if (!res || !res.tracks.length) return interaction.editReply(`${interaction.user}, No results found! ❌`);
+        if (!res || !res.tracks.length) return interaction.editReply(locale.noResults);
 
         const queue = await client.player.createQueue(interaction.guild!, {
             metadata: interaction.channel,
@@ -64,7 +78,7 @@ module.exports = {
             if (!queue.connection) await queue.connect(member.voice.channel!);
         } catch {
             await client.player.deleteQueue(interaction.guild!.id);
-            return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);
+            return interaction.editReply(locale.cantJoin);
         }
 
 
@@ -72,6 +86,6 @@ module.exports = {
 
         if (!queue.playing) await queue.play();
 
-        interaction.editReply(`Added ${res.playlist ? 'playlist' : 'track'} to the queue! 🎧`);
+        interaction.editReply(client.getLocale(interaction, "commands.music.playSuccess", res.playlist ? locale.track : locale.playlist));
     }
 }

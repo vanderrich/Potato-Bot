@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -7,10 +9,10 @@ module.exports = {
         .setDescription("See the current track"),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any, footers: string[]) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
 
         const track = queue.current;
 
@@ -20,12 +22,12 @@ module.exports = {
         embed.setThumbnail(track.thumbnail);
         embed.setTitle(track.title)
 
-        const methods = ['disabled', 'track', 'queue'];
+        const methods = locale.nowplayingMethods;
 
         const timestamp = queue.getPlayerTimestamp();
-        const trackDuration = timestamp.progress == 'Forever' ? 'Endless (Live)' : track.duration;
+        const trackDuration = timestamp.progress == Infinity ? locale.liveStream : track.duration;
 
-        embed.setDescription(`Audio **%${queue.volume}**\nDuration **${trackDuration}**\nLoop Mode **${methods[queue.repeatMode]}**\n${track.requestedBy}`);
+        embed.setDescription(client.getLocale(interaction, 'commands.music.nowplayingDesc', queue.volume, trackDuration, methods[queue.repeatMode], track.requestedBy));
 
         embed.setTimestamp();
         embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
