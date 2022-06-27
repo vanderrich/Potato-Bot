@@ -60,7 +60,7 @@ module.exports = {
                 }
             } while (!emptypage);
 
-            generatePages(interaction, pages, { timeout: 40000, fromButton: false });
+            generatePages(interaction, pages, client, { timeout: 40000, fromButton: false });
         }
 
     }

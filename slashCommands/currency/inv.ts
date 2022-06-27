@@ -70,7 +70,7 @@ module.exports = {
                 }
             } while (!emptypage);
 
-            generatePages(interaction, pages, { timeout: 40000, fromButton: false, replyHasSent: false });
+            generatePages(interaction, pages, client, { timeout: 40000, fromButton: false, replyHasSent: false });
         }
     }
 } as SlashCommand;
