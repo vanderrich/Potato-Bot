@@ -1,5 +1,8 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client } from "../../Util/types";
+import { QueueFilters } from "discord-player";
+import { Music } from "../../localization";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -17,27 +20,26 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
 
-        const actualFilter = queue.getFiltersEnabled()[0];
 
-        const filters: string[] = [];
-        queue.getFiltersEnabled().map((x: string) => filters.push(x));
-        queue.getFiltersDisabled().map((x: string) => filters.push(x));
+        const filters = [] as Array<keyof QueueFilters>;
+        queue.getFiltersEnabled().map((x: keyof QueueFilters) => filters.push(x));
+        queue.getFiltersDisabled().map((x: keyof QueueFilters) => filters.push(x));
 
         const filter = filters.find((x: string) => x.toLowerCase() === interaction.options.getString("filter")?.toLowerCase());
 
-        if (!filter) return interaction.reply(`${interaction.user}, I couldn't find a filter with your name. ❌\n\`bassboost, 8D, nightcore\``);
+        if (!filter) return interaction.reply(locale.noFilter);
 
         const filtersUpdated: any = {};
 
         filtersUpdated[filter] = queue.getFiltersEnabled().includes(filter) ? false : true;
 
         await queue.setFilters(filtersUpdated);
-
-        interaction.reply(`Applied: **${filter}**, Filter Status: **${queue.getFiltersEnabled().includes(filter) ? 'Active' : 'Inactive'}** ✅\n **Remember, if the music is long, the filter application time may be longer accordingly.**`);
+        queue.getFiltersEnabled().includes(filter) ? 'Active' : 'Inactive'
+        interaction.reply(client.getLocale(interaction, "commands.music.filterSuccess", filter, queue.getFiltersEnabled().includes(filter) ? 'Active' : 'Inactive'));
     },
 };

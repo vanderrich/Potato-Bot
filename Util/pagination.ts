@@ -1,6 +1,8 @@
 import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction, Interaction, ButtonInteraction } from 'discord.js';
+import { APIMessage } from "discord-api-types/v9"
+import { Client } from './types';
 
-export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], options: any) => {
+export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], client: Client, options: any) => {
 
     const buttons = [
         new MessageButton()
@@ -26,14 +28,15 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
 
     let currentPage = 0;
     let content = {
-        embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
+        embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
         components: [row],
         fetchReply: true
     }
 
     const message = source instanceof ButtonInteraction ? await source.update(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
-    const pagedMessage = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
-    if (!(pagedMessage instanceof Message)) return console.log("how did this happen")
+    var pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
+    if (!(pagedMessageTemp instanceof Message) || !pagedMessageTemp) pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.channel!.messages.fetch((await source.fetchReply()).id) : await source.channel!.messages.fetch(message!.id);
+    const pagedMessage = pagedMessageTemp;
     const filter = (button: any) => button.customId === 'first' || button.customId === 'previous' || button.customId === 'next' || button.customId === 'last';
     const collector = await pagedMessage.createMessageComponentCollector({ filter, time: options.timeout });
 
@@ -64,7 +67,7 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
                 break;
         }
         pagedMessage.edit({
-            embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
+            embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
             components: [row]
         });
         collector.resetTimer();
@@ -75,7 +78,7 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
         if (reason !== "messageDelete" && pagedMessage.editable) {
             row.setComponents(buttons[0].setDisabled(true), buttons[1].setDisabled(true), buttons[2].setDisabled(true), buttons[3].setDisabled(true));
             pagedMessage.edit({
-                embeds: [pages[currentPage].setFooter({ text: `Page ${currentPage + 1}/${pages.length}` })],
+                embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
                 components: [row]
             }).catch((error: any) => { });
         }

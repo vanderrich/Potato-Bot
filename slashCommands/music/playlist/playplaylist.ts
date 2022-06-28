@@ -1,6 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { QueryType } from "discord-player";
 import { CommandInteraction, GuildMember } from "discord.js";
+import { Playlist } from "../../../Util/types";
 
 
 module.exports = {
@@ -14,16 +15,15 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any) {
         await interaction.deferReply();
         const user = interaction.user;
-        const guild = interaction.guild;
-
-        if (!guild) return interaction.reply("You can't use this command in a DM!");
-
         const playlistName = interaction.options.getString("name");
+        let member = interaction.member
+        if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
 
-        const playlist = await client.playlists.findOne({ managers: user.id, name: playlistName });
+        const playlist: Playlist = await client.playlists.findOne({ managers: user.id, name: playlistName });
 
         if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
 
@@ -31,15 +31,20 @@ module.exports = {
 
         const res = playlist.tracks;
 
-
         const queue = await client.player.createQueue(interaction.guild, {
-            metadata: interaction.channel
+            metadata: interaction.channel,
+            leaveOnEnd: true,
+            leaveOnStop: true,
+            leaveOnEmpty: true,
+            leaveOnEmptyCooldown: 10000,
+            autoSelfDeaf: true,
+            initialVolume: playlist.settings.volume
         });
 
         try {
-            if (!queue.connection && interaction.member instanceof GuildMember) await queue.connect(interaction.member?.voice.channel);
+            if (!queue.connection) await queue.connect(member.voice.channel);
         } catch {
-            await client.player.deleteQueue(interaction.guild.id);
+            await client.player.deleteQueue(interaction.guildId);
             return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);
         }
 
@@ -58,14 +63,9 @@ module.exports = {
 
         queue.addTracks(tracksToPlay);
 
-        if (!queue.playing) await queue.play();
-        if (playlist.settings.shuffle) {
-            for (let i = queue.tracks.length - 1; i > 0; i--) {
-                queue.shuffle();
-            }
-        }
+        if (playlist.settings.shuffle) queue.shuffle();
         if (playlist.settings.loop) queue.setRepeatMode(playlist.settings.loop);
-        if (playlist.settings.volume) queue.setVolume(playlist.settings.volume);
+        if (!queue.playing) await queue.play();
 
         interaction.editReply(`Added playlist to the queue! 🎧`);
     }

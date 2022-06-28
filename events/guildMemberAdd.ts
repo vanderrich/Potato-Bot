@@ -1,11 +1,13 @@
-import { footers } from '../config.json'
+import { en } from '../localization.json';
 import Discord from "discord.js"
-import { channel } from 'diagnostics_channel'
+import { Client } from '../Util/types'
+const footers = en.utils.footers
+
 module.exports = {
     name: 'guildMemberAdd',
-    async execute(newMember: Discord.GuildMember, client: any) {
+    async execute(newMember: Discord.GuildMember, client: Client) {
         const guildSettings = await client.guildSettings.findOne({ guildId: newMember.guild.id })
-        const welcomeChannel = newMember.guild.channels.cache.get(guildSettings?.welcomeChannel) || newMember.guild.channels.cache.find(channel => channel.name.includes('welcome')) || newMember.guild.channels.cache.find(channel => channel.name.includes('general'))
+        const welcomeChannel = newMember.guild.channels.cache.get(guildSettings?.welcomeChannel!) || newMember.guild.channels.cache.find(channel => channel.name.includes('welcome')) || newMember.guild.channels.cache.find(channel => channel.name.includes('general'))
         if (newMember.user.bot || !welcomeChannel) return;
 
         const embed = new Discord.MessageEmbed()

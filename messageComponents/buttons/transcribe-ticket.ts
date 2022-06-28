@@ -1,23 +1,26 @@
 import Discord from "discord.js";
 import fs from "fs";
 import officegen from "officegen";
+import { Createticket } from "../../localization";
+import { Client } from "../../Util/types";
 const msglimit = 100;
 
 module.exports = {
     name: "transcribe-ticket",
-    async execute(interaction: Discord.ButtonInteraction, client: any) {
+    async execute(interaction: Discord.ButtonInteraction, client: Client) {
+        const locale = client.getLocale(interaction, "commands.moderation.createticket") as Createticket
         const ticket = interaction.customId.split("-")[2];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
-        if (!ticketInfo) return interaction.reply("Ticket not found!");
-        if (interaction.channel?.type !== "GUILD_TEXT") return interaction.reply("You can't transcribe tickets in DM channels!");
+        if (!ticketInfo) return interaction.reply(locale.noTicket);
+        if (interaction.channel?.type !== "GUILD_TEXT") return;
         interaction.deferReply();
         let docx = officegen({
             type: 'docx',
-            author: client.user.username,
-            creator: client.user.username,
-            description: `Transcript for the Channel #${interaction.channel.name} with the ID: ${interaction.channel.id}`,
+            author: client.user?.username,
+            creator: client.user?.username,
+            description: client.getLocale(interaction, "commands.moderation.createticket.transcriptDocxDesc", interaction.channel.name, interaction.channel.id),
             pageMargins: { top: 1000, right: 1000, bottom: 1000, left: 1000 },
-            title: `Transcript!`
+            title: locale.transcript
         });
         docx.on('error', function (err: any) {
             return console.log(err)
@@ -28,18 +31,18 @@ module.exports = {
         pObj.options.align = 'left';  //align it to the left page
         pObj.options.indentLeft = -350;   //overdrive it 350px to the left
         pObj.options.indentFirstLine = -250;  //go 250 px to the - left so right of the overdrive
-        pObj.addText('Transcript for:    #' + interaction.channel.name, { font_face: 'Arial', color: '3c5c63', bold: true, font_size: 22 }); //add the TEXT CHANNEL NAME
+        pObj.addText(locale.transcriptFor + interaction.channel.name, { font_face: 'Arial', color: '3c5c63', bold: true, font_size: 22 }); //add the TEXT CHANNEL NAME
         pObj.addLineBreak(); //make a new LINE
-        pObj.addText("ChannelID: " + interaction.channel.id, { font_face: 'Arial', color: '000000', bold: false, font_size: 10 }); //Channel id
+        pObj.addText(locale.channelId + interaction.channel.id, { font_face: 'Arial', color: '000000', bold: false, font_size: 10 }); //Channel id
         pObj.addLineBreak(); //Make a new LINE
-        pObj.addText(`Oldest message at the BOTTOM `, { hyperlink: 'myBookmark', font_face: 'Arial', color: '5dbcd2', italic: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
-        pObj.addText(`  [CLICK HERE TO JUMP]`, { hyperlink: 'myBookmark', font_face: 'Arial', color: '1979a9', italic: false, bold: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
+        pObj.addText(locale.oldestMsg, { hyperlink: 'myBookmark', font_face: 'Arial', color: '5dbcd2', italic: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
+        pObj.addText(locale.clickToJump, { hyperlink: 'myBookmark', font_face: 'Arial', color: '1979a9', italic: false, bold: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
         pObj.addLineBreak();
         let messageCollection: any = new Discord.Collection<string, Discord.Message>(); //make a new collection
         let channelMessages = await interaction.channel.messages.fetch({//fetch the last 100 messages
             limit: 100
         }).catch(err => console.log(err)); //catch any error
-        if (!channelMessages) return interaction.reply("No messages found!");
+        if (!channelMessages) return interaction.reply(locale.noMsg);
         messageCollection = messageCollection.concat(channelMessages); //add them to the Collection
         let tomanymsgs = 1; //some calculation for the messagelimit
         let messagelimit = Number(msglimit) / 100; //devide it by 100 to get a counter
@@ -70,7 +73,7 @@ module.exports = {
                 umsg = msg.content.replace(/```/g, "");
             }
             else if (msg.attachments.size > 0) {
-                umsg = "Unable to transcript (Embed/Video/Audio/etc.)";
+                umsg = locale.cantLoad;
             }
             else {
                 umsg = msg.content;
@@ -97,7 +100,7 @@ module.exports = {
                 });
             } catch (err) { // if the file is to big to be sent, then catch it!
                 console.log(err)
-                interaction.editReply('File too big!')
+                interaction.editReply(locale.fileTooBig)
                 fs.unlinkSync(path) //delete the docx
             }
         })

@@ -1,4 +1,5 @@
 {
+    "haventTrasnlate": "This line hasn't been translated yet",
     "en": {
         "name": "English",
         "native": "English",
@@ -11,17 +12,17 @@
                     "invalidPrice": "Invalid Price!",
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
-                    "success": "Successfully added the item ${VAR} to the shop!"
+                    "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
                     "noItem": "You must specify an item!",
-                    "success": "Successfully removed the item ${VAR} to the shop!"
+                    "success": "Successfully removed the item **${VAR}** to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
-                    "wallet": "Wallet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "wallet": "Wallet: **$${VAR}**",
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -33,11 +34,11 @@
                         "Something™️"
                     ],
                     "cooldown": "You have begged recently, Try again in ${VAR}",
-                    "success": "**${VAR}** donated you **${VAR}**!"
+                    "success": "**${VAR}** donated you **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Store",
-                    "storeItem": "${VAR} - Price: $${VAR} - **${VAR}:**`",
+                    "storeItem": "${VAR} - Price: $${VAR} - **${VAR}:**",
                     "noItem": "Item not found!",
                     "noMoney": "You're too broke to buy that item!",
                     "success": "Successfully bought **${VAR} ${VAR}** for **$${VAR}**!"
@@ -48,7 +49,8 @@
                     "hourly": "hourly",
                     "daily": "daily",
                     "weekly": "weekly",
-                    "monthly": "monthly"
+                    "monthly": "monthly",
+                    "yearly": "yearly"
                 },
                 "deposit": {
                     "money": "Specify an amount to deposit!",
@@ -56,8 +58,8 @@
                     "lowMoney": "You dont have that much money in your wallet!",
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
-                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
+                    "allSuccess": "Successfully deposited all your money into your bank, you now have **$${VAR} **in your bank!",
+                    "success": "Successfully deposited **$${VAR}** into your bank, you now have **$${VAR}** in your bank!"
                 },
                 "find": {
                     "places": [
@@ -77,7 +79,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                    "userDesc": "Wallet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
@@ -105,6 +107,14 @@
                     ],
                     "cooldown": "You're too tired, try again in ${VAR}",
                     "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                },
+                "withdraw": {
+                    "noAmount": "Specify an amount to withdraw!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully withdrawn all your money into your bank, you now have **$${VAR}** in your bank!",
+                    "success": "Successfully withdrawn **$${VAR}** from your bank, you now have **$${VAR}** in your bank!"
                 }
             },
             "fun": {
@@ -129,7 +139,11 @@
                     "playSelf": "You can't play against yourself!",
                     "playClient": "You can't play against me!",
                     "playBot": "You can't play against a bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "turn": "${VAR}'s turn",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -233,7 +247,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
+                    "noChannel": "There are no suggestion channel in the server settings, try running /settings or ask an admin to do so",
                     "noSuggestion": "You must specify a suggestion!",
                     "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
@@ -269,35 +283,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -305,13 +290,6 @@
                 },
                 "createGiveaway": {
                     "success": "Giveaway created!"
-                },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
                 },
                 "settings": {
                     "badWords": "Bad Words",
@@ -351,21 +329,52 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "customid": "Custom ID",
+                    "value": "Value",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with",
+                    "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
                 },
                 "reactroles": {
                     "noReactRole": "No react role set!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -409,14 +418,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
-                "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with **1** to **150** Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
+                "volNotInRange": "The volume must be between **1** and **150** 🔊",
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -429,7 +450,33 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     },
     "id": {
@@ -453,8 +500,8 @@
                 "bal": {
                     "title": "Saldo ${VAR}",
                     "wallet": "Dompet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -481,7 +528,8 @@
                     "hourly": "per jam",
                     "daily": "harian",
                     "weekly": "mingguan",
-                    "monthly": "bulanan"
+                    "monthly": "bulanan",
+                    "yearly": "tahunan"
                 },
                 "deposit": {
                     "money": "Tentulah sejumlah untuk disetor!",
@@ -510,7 +558,7 @@
                 "lb": {
                     "title": "Papan Peringkat",
                     "empty": "Papan Peringkat kosong!",
-                    "userDesc": "Dompet: ${VAR} - Bank: ${VAR} - Total: ${VAR}"
+                    "userDesc": "Dompet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Barang tidak valid!",
@@ -562,7 +610,11 @@
                     "playSelf": "Anda tidak dapat bermain dengan diri sendiri!",
                     "playClient": "Anda tidak dapat bermain denganku!",
                     "playBot": "Anda tidak dapat bermain dengan sebuah bot!",
-                    "firstTurn": "giliran ${VAR}"
+                    "turn": "giliran ${VAR}",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -666,17 +718,17 @@
                 },
                 "suggest": {
                     "embedTitle": "Saran",
-                    "noChannel": "Anda harus menentukan salah satu channel untuk mengirimkan saran!",
+                    "noChannel": "Tidak dapat menemukan channel saran di setting server, coba jalankan /settings atau meminta seorang admin untuk melakukannya",
                     "noSuggestion": "Anda harus menentukan sebuah saran!",
                     "noGuildSettings": "Pengaturan server tidak dapat ditemukan!",
                     "success": "Saran telah dikirim!"
                 },
                 "birthday": {
                     "invalidBdate": "Tanggal lahir tidak valid!",
-                    "noBdate": "You must specify a birthdate!",
-                    "setSuccess": "Birthday set!",
-                    "updateSuccess": "Birthday updated!",
-                    "noBdays": "No birthdays set!",
+                    "noBdate": "Anda harus menentukan tanggal lahir!",
+                    "setSuccess": "Tanggal lahir anda telah diset!",
+                    "updateSuccess": "Tanggal lahir anda telah diperbarui!",
+                    "noBdays": "Tidak ada tanggal lahir yang tersedia!",
                     "listEmbedTitle": "Birthdays for ${VAR}",
                     "nextBday": "${VAR}'s birthday is next on ${VAR}",
                     "channelNotText": "The channel must be a text channel!",
@@ -690,7 +742,7 @@
                 },
                 "language": {
                     "noLanguage": "Anda harus menentukan sebuah bahasa!",
-                    "success": "Bahasa berhasil diubah!"
+                    "success": "Bahasa berhasil diubah ke ${VAR}!"
                 },
                 "dictionary": {
                     "noWord": "Word Not Found!",
@@ -702,35 +754,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -738,13 +761,6 @@
                 },
                 "createGiveaway": {
                     "success": "Giveaway created!"
-                },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
                 },
                 "settings": {
                     "badWords": "Bad Words",
@@ -784,21 +800,52 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "customid": "Custom ID",
+                    "value": "Value",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with",
+                    "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -842,14 +889,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
                 "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -862,7 +921,33 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     },
     "nl": {
@@ -877,17 +962,17 @@
                     "invalidPrice": "Invalid Price!",
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
-                    "success": "Successfully added the item ${VAR} to the shop!"
+                    "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
                     "noItem": "You must specify an item!",
-                    "success": "Successfully removed the item ${VAR} to the shop!"
+                    "success": "Successfully removed the item **${VAR}** to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
-                    "wallet": "Wallet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "wallet": "Wallet: **$${VAR}**",
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -899,7 +984,7 @@
                         "Something™️"
                     ],
                     "cooldown": "You have begged recently, Try again in ${VAR}",
-                    "success": "**${VAR}** donated you **${VAR}**!"
+                    "success": "**${VAR}** donated you **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Store",
@@ -914,7 +999,8 @@
                     "hourly": "hourly",
                     "daily": "daily",
                     "weekly": "weekly",
-                    "monthly": "monthly"
+                    "monthly": "monthly",
+                    "yearly": "yearly"
                 },
                 "deposit": {
                     "money": "Specify an amount to deposit!",
@@ -922,8 +1008,8 @@
                     "lowMoney": "You dont have that much money in your wallet!",
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
-                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
+                    "allSuccess": "Successfully deposited all your money into your bank!, ou now have**$${VAR}**in your bank!",
+                    "success": "Successfully deposited **$${VAR}** into your bank!, ou now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
@@ -943,7 +1029,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                    "userDesc": "Wallet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
@@ -971,6 +1057,14 @@
                     ],
                     "cooldown": "You're too tired, try again in ${VAR}",
                     "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                },
+                "withdraw": {
+                    "noAmount": "Specify an amount to withdraw!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully withdrawn all your money into your bank, you now have **$${VAR}** in your bank!",
+                    "success": "Successfully withdrawn **$${VAR}** from your bank, you now have **$${VAR}** in your bank!"
                 }
             },
             "fun": {
@@ -995,7 +1089,11 @@
                     "playSelf": "You can't play against yourself!",
                     "playClient": "You can't play against me!",
                     "playBot": "You can't play against a bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "turn": "${VAR}'s turn",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -1096,7 +1194,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
+                    "noChannel": "There are no suggestion channel in the server settings, try running /settings or ask an admin to do so",
                     "noSuggestion": "You must specify a suggestion!",
                     "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
@@ -1132,35 +1230,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -1168,13 +1237,6 @@
                 },
                 "createGiveaway": {
                     "success": "Giveaway created!"
-                },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
                 },
                 "settings": {
                     "badWords": "Bad Words",
@@ -1214,21 +1276,52 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "customid": "Custom ID",
+                    "value": "Value",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with",
+                    "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -1272,14 +1365,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
                 "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -1292,7 +1397,33 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     },
     "tl": {
@@ -1307,17 +1438,17 @@
                     "invalidPrice": "Invalid Price!",
                     "noInvPrice": "You must specify an inventory price!",
                     "noInv": "No Data Received!",
-                    "success": "Successfully added the item ${VAR} to the shop!"
+                    "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
                     "noItem": "You must specify an item!",
-                    "success": "Successfully removed the item ${VAR} to the shop!"
+                    "success": "Successfully removed the item **${VAR}** to the shop!"
                 },
                 "bal": {
                     "title": "${VAR}'s Balance",
-                    "wallet": "Wallet: ${VAR}",
-                    "bank": "Bank: ${VAR}",
-                    "total": "Total: ${VAR}"
+                    "wallet": "Wallet: **$${VAR}**",
+                    "bank": "Bank: **$${VAR}**",
+                    "total": "Total: **$${VAR}**"
                 },
                 "beg": {
                     "users": [
@@ -1329,7 +1460,7 @@
                         "Something™️"
                     ],
                     "cooldown": "You have begged recently, Try again in ${VAR}",
-                    "success": "**${VAR}** donated you **${VAR}**!"
+                    "success": "**${VAR}** donated you **$${VAR}**!"
                 },
                 "buy": {
                     "storeTitle": "Store",
@@ -1344,7 +1475,8 @@
                     "hourly": "hourly",
                     "daily": "daily",
                     "weekly": "weekly",
-                    "monthly": "monthly"
+                    "monthly": "monthly",
+                    "yearly": "yearly"
                 },
                 "deposit": {
                     "money": "Specify an amount to deposit!",
@@ -1352,8 +1484,8 @@
                     "lowMoney": "You dont have that much money in your wallet!",
                     "noMoney": "You don't have any money to deposit!",
                     "bankFull": "Your bank is full!",
-                    "allSuccess": "Successfully deposited all your money into your bank!, you now have**$${VAR}**in your bank!",
-                    "success": "Successfully deposited **$${VAR}** into your bank!, you now have**$${VAR}**in your bank!"
+                    "allSuccess": "Successfully deposited all your money into your bank!, ou now have**$${VAR}**in your bank!",
+                    "success": "Successfully deposited **$${VAR}** into your bank!, ou now have**$${VAR}**in your bank!"
                 },
                 "find": {
                     "places": [
@@ -1373,7 +1505,7 @@
                 "lb": {
                     "title": "Leaderboard",
                     "empty": "Empty Leaderboard!",
-                    "userDesc": "Wallet: $${VAR} - Bank: $${VAR} - Total: $${VAR}"
+                    "userDesc": "Wallet: **$${VAR}** - Bank: **$${VAR}** - Total: **$${VAR}**"
                 },
                 "sell": {
                     "invalidItem": "Invalid Item!",
@@ -1401,6 +1533,14 @@
                     ],
                     "cooldown": "You're too tired, try again in ${VAR}",
                     "success": "You worked as a ${VAR} and earned **$${VAR}**!"
+                },
+                "withdraw": {
+                    "noAmount": "Specify an amount to withdraw!",
+                    "negativeMoney": "Amount must be positive!",
+                    "lowMoney": "You dont have that much money in your wallet!",
+                    "bankFull": "Your bank is full!",
+                    "allSuccess": "Successfully withdrawn all your money into your bank, you now have **$${VAR}** in your bank!",
+                    "success": "Successfully withdrawn **$${VAR}** from your bank, you now have **$${VAR}** in your bank!"
                 }
             },
             "fun": {
@@ -1425,7 +1565,11 @@
                     "playSelf": "You can't play against yourself!",
                     "playClient": "You can't play against me!",
                     "playBot": "You can't play against a bot!",
-                    "firstTurn": "${VAR}'s turn"
+                    "turn": "${VAR}'s turn",
+                    "notYourTurn": "It's not your turn!",
+                    "havePlayedThere": "Someone has already played there!",
+                    "tie": "Its a tie!",
+                    "gameOver": "Game Over! <@${VAR}> wins!"
                 }
             },
             "info": {
@@ -1526,7 +1670,7 @@
                 },
                 "suggest": {
                     "embedTitle": "Suggestion",
-                    "noChannel": "You must specify a channel!",
+                    "noChannel": "There are no suggestion channel in the server settings, try running /settings or ask an admin to do so",
                     "noSuggestion": "You must specify a suggestion!",
                     "noGuildSettings": "Could not find the settings for this server!",
                     "success": "Suggestion sent!"
@@ -1562,35 +1706,6 @@
             },
             "moderation": {
                 "modActions": {
-                    "defaultReason": "No reason given",
-                    "noModChannel": "Couldn't find a mod channel!",
-                    "reason": "Reason",
-                    "noMember": "Provide a valid member!",
-                    "ban": {
-                        "title": "Ban",
-                        "bannedMember": "Banned member",
-                        "footer": "Banned by ${VAR}"
-                    },
-                    "kick": {
-                        "title": "Kick",
-                        "kickedMemberFieldTitle": "Kicked member",
-                        "footer": "Kicked by ${VAR}"
-                    },
-                    "mute": {
-                        "title": "Mute",
-                        "mutedMember": "Muted member",
-                        "footer": "Muted by ${VAR}"
-                    },
-                    "timeout": {
-                        "title": "Timeout",
-                        "timeoutMember": "Timeout member",
-                        "footer": "Timeouted by ${VAR}"
-                    },
-                    "unban": {
-                        "title": "Unban",
-                        "unbannedMember": "Unbanned member",
-                        "footer": "Unbanned by ${VAR}"
-                    },
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
                         "messagesDeleted": "Messages deleted!"
@@ -1598,13 +1713,6 @@
                 },
                 "createGiveaway": {
                     "success": "Giveaway created!"
-                },
-                "backups": {
-                    "backups": "Backups",
-                    "noBackupID": "No backup ID provided!",
-                    "loadSuccess": "Backup loaded!",
-                    "removeSuccess": "Backup removed!",
-                    "createSuccess": "Backup created!"
                 },
                 "settings": {
                     "badWords": "Bad Words",
@@ -1644,21 +1752,52 @@
                         "true",
                         "1"
                     ],
-                    "settings": "Settings For ${VAR}"
+                    "settings": "Settings For ${VAR}",
+                    "addTag": "Add Tag",
+                    "removeTag": "Remove Tag",
+                    "tag": "Tag",
+                    "customid": "Custom ID",
+                    "value": "Value",
+                    "tagTextInputPlaceHolder": "The tag name you want to mess with",
+                    "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
                     "noPerms": "I don't have permissions to manage the roles!",
-                    "invalidEmoji": "Invalid emoji!",
+                    "invalidEmoji": "The emoji ${VAR} is invalid!",
                     "roleTooHigh": "The role ${VAR}'s position is higher than my highest role's position!",
-                    "success": "Reaction roles created!"
+                    "success": "Reaction roles created!",
+                    "noRole": "Role not Found!",
+                    "removeSuccess": "Removed Role!",
+                    "addSuccess": "Added Role!"
                 },
                 "createticket": {
                     "noName": "You must specify a name for the ticket!",
                     "noDesc": "You must specify a description for the ticket!",
                     "categoryNotCategory": "The category must be a guild category!",
                     "channelNotChannel": "The channel must be a guild text channel!",
-                    "success": "Ticket created!"
+                    "success": "Ticket created!",
+                    "areYouSureClose": "Are you sure you want to close this ticket?",
+                    "closedBy": "Ticket Closed by ${VAR}",
+                    "closeSuccess": "Closed Ticket Successfully",
+                    "deleteSuccess": "Deleted Ticket Successfully",
+                    "noTicket": "Ticket Not Found!",
+                    "noCategory": "Category Not Found!",
+                    "ticketMsg": "${VAR} ${VAR} ticket opened!",
+                    "ticketTitle": "New ${VAR} Ticket Opened!",
+                    "ticketDesc": "Support will be with you shortly.\nTo close this ticket react with 🔒\n**DO NOT PING ANYONE**",
+                    "openSuccess": "Ticket opened!",
+                    "openedBy": "Ticket Opened by ${VAR}",
+                    "transcript": "Transcript",
+                    "transcriptDocxDesc": "Transcript for the Channel #${VAR} with the ID: ${VAR}",
+                    "transcriptFor": "Transcript for:  #",
+                    "channelId": "Channel ID: ",
+                    "oldestMsg": "Oldest message at the bottom ",
+                    "clickToJump": "    [CLICK HERE TO JUMP]",
+                    "noMsg": "No Messages Found!",
+                    "cantLoad": "Unable to transcript (Embed/Video/Audio/etc)",
+                    "fileTooBig": "File too big!"
                 }
             },
             "music": {
@@ -1702,14 +1841,26 @@
                 "saveMsg": "Registered track: **${VAR.current.title}** | ${VAR.current.user}, Saved server: **${VAR.guild?.name}**",
                 "saveSuccess": "Saved track to your dms successfully!",
                 "searchEmbedTitle": "Search Results for ${VAR}",
-                "chooseTrack": "Choose a track from **1** to **${VAR.length}** write send or write **cancel** and cancel selection.",
-                "invalidTrack": "Select a track **1** to **${VAR.length}** and write send or type **cancel** and cancel selection. ",
+                "chooseTrack": "Choose a track from **1** to **10** write send or write **cancel** and cancel selection.",
+                "invalidTrack": "Select a track **1** to **10** and write send or type **cancel** and cancel selection. ",
                 "shuffleSuccess": "Shuffled the queue successfully!",
                 "stopSuccess": "Stopped the music playing successfully!",
-                "noVol": "Current volume: **${VAR.volume}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
-                "volEqualCurrent": "The volume is already **${VAR.volume}** 🔊",
+                "noVol": "Current volume: **${VAR}** 🔊\n**To change the volume, with `1` to `${VAR}` Type a number between.**",
+                "volEqualCurrent": "The volume is already **${VAR}** 🔊",
                 "volNotInRange": "The volume must be between **1** and **${VAR}** 🔊",
-                "volSuccess": "Changed the volume to **${VAR.volume}** 🔊"
+                "volSuccess": "Changed the volume to **${VAR}** 🔊",
+                "seekSuccess": "Seeked to ${VAR}",
+                "saveTrack": "Save Track",
+                "duration": "Duration",
+                "url": "URL",
+                "saveServer": "Save Server",
+                "requestedBy": "Requested By",
+                "cantDM": "I couldn't send you a private message!",
+                "playlist": "Playlist",
+                "track": "Track",
+                "queue": "Queue",
+                "none": "None",
+                "autoplay": "Autoplay"
             }
         },
         "utils": {
@@ -1722,7 +1873,33 @@
             "sender": "Sender",
             "pingedUser": "Pinged User(s)",
             "message": "Message",
-            "ghostPingEmbedFooter": "To turn this off use /settings ghostping"
+            "ghostPingEmbedFooter": "To turn this off use /settings ghostping",
+            "page": "Page ${VAR}/${VAR}",
+            "footers": [
+                "<insert epic footer here>",
+                "these footers are getting old",
+                "this is a footer",
+                "yea why did i do this footer thingys?",
+                "i bet you didnt ask for this footer",
+                "i forgor 💀",
+                "is this footer too distracting?",
+                "i dont know what to put here",
+                "fun fact: this footer isnt very good",
+                "fun fact: ",
+                "i think i need help",
+                "fun fact: van needs help",
+                "fun fact: <insert epic fun fact here>",
+                "someone dm van footer suggestions",
+                "why am i doing this",
+                "we need moar footers",
+                "\"its not a bug, its a feature\"",
+                "\"its not that i forgot to put a catch, its to make the user able to express their creativity™️\"",
+                "Potato Bot - the worst potato related bot",
+                "Potato Bot - too many features, too much bugs",
+                "Potato Bot - full of bugs",
+                "Potato Bot - 100% bug unfree",
+                "Potato Bot - 0% bug free"
+            ]
         }
     }
 }

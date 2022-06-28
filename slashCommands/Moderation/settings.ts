@@ -1,18 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from "discord.js";
-
-type GuildSettings = {
-    guildId: string,
-    badWords: string[],
-    autoPublishChannels: string[],
-    welcomeMessage: string,
-    welcomeChannel: string,
-    welcomeRole: string,
-    suggestionChannel: string,
-    ghostPing: boolean,
-    tags: { name: String, value: String }[],
-    tagDescriptions: Object,
-}
+import { Client, SlashCommand } from "../../Util/types"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("settings")
@@ -20,13 +8,20 @@ module.exports = {
     category: "Moderation",
     permissions: "MANAGE_GUILD",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any, footers: string) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply()
-        const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
-        const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
-        console.log(locale);
+        let guildSetting = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
+        const locale = client.getLocale(interaction, "commands.moderation.settings");
+        if (!guildSetting) {
+            guildSetting = new client.guildSettings({
+                guildId: interaction.guildId
+            })
+            guildSetting.save()
+        }
+        if (!guildSetting) return
+        const guildSettings = guildSetting;
         const embed = new MessageEmbed()
-            .setTitle(client.getLocale(interaction.user.id, "commands.moderation.settings.settings", interaction.guild!.name))
+            .setTitle(client.getLocale(interaction, "commands.moderation.settings.settings", interaction.guild!.name))
             .addField(locale.badWords,
                 `**${locale.badWordsSpoilers}**: || ${guildSettings.badWords.join(", ")}|| `)
             .addField(locale.welcome,
@@ -35,10 +30,13 @@ module.exports = {
                 **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole)} `)
             .addField(locale.tags,
                 `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: String, value: String }) => `${tag.name}: ${tag.value}`).join("\n")}
-                **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")} `)
+                **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")
+                } `)
             .addField("Misc",
                 `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
-                **${locale.ghostPing}**: ${guildSettings.ghostPing || true}`)
+                **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
+                ** ${ locale.statChannels}**: ${guildSettings.statChannels.map(channel => interaction.guild!.channels.cache.get(channel)?.toString).join(", ") }
+                `)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 
         const actionRow = new MessageActionRow()
@@ -55,4 +53,4 @@ module.exports = {
 
         interaction.editReply({ embeds: [embed], components: [actionRow] });
     }
-}
+} as SlashCommand;

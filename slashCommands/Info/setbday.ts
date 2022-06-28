@@ -1,5 +1,6 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -9,10 +10,10 @@ module.exports = {
             .setName("birthdate")
             .setDescription("Your birthdate in MM/DD, eg. 01/01")
             .setRequired(true)
-        ),
+    ) as SlashCommandSubcommandBuilder,
     category: "Info",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client) {
         await interaction.deferReply();
         const birthdate = interaction.options.getString("birthdate");
         const user = interaction.user;
@@ -32,7 +33,7 @@ module.exports = {
             date = new Date(now.getFullYear(), month - 1, day);
         if (date > now) date.setFullYear(date.getFullYear() - 1);
 
-        if (client.birthdays.findOne({ userId: user.id })) {
+        if (await client.birthdays.findOne({ userId: user.id })) {
             client.birthdays.updateOne({ userId: user.id }, {
                 $set: {
                     birthday: date,
@@ -61,4 +62,4 @@ module.exports = {
                 });
         }
     }
-}
+} as SlashCommand;

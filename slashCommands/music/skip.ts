@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -7,13 +9,13 @@ module.exports = {
         .setDescription("Skip the current track."),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
 
-        const success = queue.skip();
+        queue.skip();
 
-        return interaction.reply(success ? `**${queue.current.title}**, Skipped track ✅` : `${interaction.user}, Something went wrong ❌`);
+        return interaction.reply(locale.skipSuccess);
     },
 };

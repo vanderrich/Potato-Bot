@@ -78,6 +78,6 @@ module.exports = {
             }
         } while (!emptypage);
 
-        generatePages(interaction, pages, { hasSentReply: true });
+        generatePages(interaction, pages, client, { hasSentReply: true });
     }
 }

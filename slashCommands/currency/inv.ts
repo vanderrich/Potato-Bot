@@ -2,6 +2,7 @@ import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/build
 import { ApplicationCommandType } from "discord-api-types/v9";
 import { CommandInteraction, ContextMenuInteraction, MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination';
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,7 +13,7 @@ module.exports = {
                 .setName("user")
                 .setDescription("The user to view the inventory of.")
                 .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("inv")
         .setType(ApplicationCommandType.User),
@@ -22,19 +23,15 @@ module.exports = {
         await interaction.deferReply();
 
         const embed = new MessageEmbed()
-            .setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title"), iconURL: user.displayAvatarURL() })
+            .setAuthor({ name: client.getLocale(interaction, "commands.currency.inv.title"), iconURL: user.displayAvatarURL() })
             .setColor("RANDOM")
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         const invPure = await client.eco.getUserItems({ user });
         if (!invPure) {
-            embed.setDescription(client.getLocale(interaction.user.id, "commands.currency.inv.noItems"));
+            embed.setDescription(client.getLocale(interaction, "commands.currency.inv.noItems"));
             return interaction.editReply({ embeds: [embed] })
         }
         else {
-            // const arrayToObject = invPure.reduce((itemsobj, x) => {
-            //   itemsobj[x.name] = (itemsobj[x.name] || 0) + 1;
-            //   return itemsobj;
-            // }, {});
             let inv = invPure.inventory;
             const pages = [];
             let page = 1, emptypage = false;
@@ -46,9 +43,9 @@ module.exports = {
                 });
                 if (items.length) {
                     const embed = new MessageEmbed();
-                    embed.setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title", user.username), iconURL: user.displayAvatarURL() })
+                    embed.setAuthor({ name: client.getLocale(interaction, "commands.currency.inv.title", user.username), iconURL: user.displayAvatarURL() })
                     embed.setDescription(`${items.join('\n')}${inv.length > pageEnd
-                        ? `\n${client.getLocale(interaction.user.id, "commands.currency.inv.moreItems", pageEnd - inv.length)}`
+                        ? `\n${client.getLocale(interaction, "commands.currency.inv.moreItems", pageEnd - inv.length)}`
                         : ''
                         } `);
                     embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
@@ -61,9 +58,9 @@ module.exports = {
                     emptypage = true;
                     if (page === 1) {
                         const embed = new MessageEmbed()
-                            .setAuthor({ name: client.getLocale(interaction.user.id, "commands.currency.inv.title", user.username), iconURL: user.displayAvatarURL() })
+                            .setAuthor({ name: client.getLocale(interaction, "commands.currency.inv.title", user.username), iconURL: user.displayAvatarURL() })
                             .setColor('RANDOM')
-                            .setDescription(client.getLocale(interaction.user.id, "commands.currency.inv.noItems"))
+                            .setDescription(client.getLocale(interaction, "commands.currency.inv.noItems"))
                             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                         return interaction.editReply({ embeds: [embed] });
                     }
@@ -73,7 +70,7 @@ module.exports = {
                 }
             } while (!emptypage);
 
-            generatePages(interaction, pages, { timeout: 40000, fromButton: false, replyHasSent: false });
+            generatePages(interaction, pages, client, { timeout: 40000, fromButton: false, replyHasSent: false });
         }
     }
-}
+} as SlashCommand;

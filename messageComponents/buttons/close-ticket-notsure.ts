@@ -1,8 +1,9 @@
 import Discord from "discord.js";
+import { Client } from "../../Util/types";
 
 module.exports = {
     name: "close-ticket-notsure",
-    execute(interaction: Discord.ButtonInteraction) {
+    execute(interaction: Discord.ButtonInteraction, client: Client) {
         const areYouSure = new Discord.MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
@@ -10,6 +11,6 @@ module.exports = {
                     .setStyle('DANGER')
                     .setCustomId(`close-ticket-${interaction.customId.split("-")[3]}`)
             )
-        interaction.reply({ content: "Are you sure you want to close this ticket?", components: [areYouSure], ephemeral: true });
+        interaction.reply({ content: client.getLocale(interaction, "commands.moderation.createticket.areYouSureClose"), components: [areYouSure], ephemeral: true });
     }
 }

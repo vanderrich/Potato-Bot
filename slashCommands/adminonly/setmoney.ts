@@ -16,7 +16,7 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount of money to set.")
                 .setRequired(true)
-        ),
+    ),
     permissions: "BotAdmin",
     category: "Bot Admin Only",
     async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
@@ -24,7 +24,7 @@ module.exports = {
         let user = interaction.options.getUser("target");
         if (!user) return interaction.reply("Please specify a user!");
         let amount = interaction.options.getInteger("amount");
-        let data = await client.eco.setMoney(user.id, false, amount);
+        let data = await client.eco.setMoney({ userId: interaction.user.id, wheretoputmoney: "wallet", amount });
 
         const embed = new MessageEmbed()
             .setTitle(`Money Added!`)

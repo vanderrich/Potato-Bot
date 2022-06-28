@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 
 module.exports = {
@@ -8,10 +9,10 @@ module.exports = {
         .setDescription('Information about the server'),
     category: 'Info',
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         if (!interaction.guild) return interaction.reply('This command can only be used in a server.');
         //variables
-        const locales = client.getLocale(interaction.user.id, 'commands.info.serverInfo')
+        const locales = client.getLocale(interaction, 'commands.info.serverInfo')
         const roles = interaction.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         const members = interaction.guild.members.cache;
         const channels = interaction.guild.channels.cache;
@@ -26,7 +27,7 @@ module.exports = {
             .addField(locales.general, `
                 ${locales.name}: ${interaction.guild.name}
                 ${locales.id}: ${interaction.guild.id}
-                ${locales.boostTier}: ${interaction.guild.premiumTier == 'NONE' ? client.getLocale(interaction.user.id, "commands.info.serverinfo.tier", interaction.guild.premiumTier) : 'None'}
+                ${locales.boostTier}: ${interaction.guild.premiumTier == 'NONE' ? client.getLocale(interaction, "commands.info.serverinfo.tier", interaction.guild.premiumTier) : 'None'}
                 ${locales.explicitFilter}: ${filterLevels[interaction.guild.explicitContentFilter]}
                 ${locales.verificationLevel}: ${verificationLevels[interaction.guild.verificationLevel]}
                 \n\u200b
@@ -50,8 +51,8 @@ module.exports = {
                 ${locales.offline}: ${members.filter(member => member.presence == null).size}
                 \u200b
             `)
-            .addField(client.getLocale(interaction.user.id, "commands.info.serverInfo.roles", roles.length - 1), roles.join(', '))
+            .addField(client.getLocale(interaction, "commands.info.serverInfo.roles", roles.length - 1), roles.join(', '))
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.reply({ embeds: [embed] });
     }
-}
+} as SlashCommand;

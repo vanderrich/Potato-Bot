@@ -1,13 +1,15 @@
 import { ButtonInteraction, Message } from "discord.js";
+import { Client } from "../../Util/types";
 
 module.exports = {
     name: "delete-ticket-type",
-    async execute(interaction: ButtonInteraction, client: any) {
-        if (!interaction.memberPermissions?.has("MANAGE_MESSAGES")) return interaction.reply("You don't have permission to use this command!");
+    permissions: "ADMINISTRATOR",
+    async execute(interaction: ButtonInteraction, client: Client) {
         const ticket = interaction.customId.split("-")[3]
-        if (!(interaction.message instanceof Message)) return
-        await interaction.message.delete();
+        let message = interaction.message
+        if (!(message instanceof Message)) message = await interaction.channel!.messages.fetch(message.id)
+        await message.delete();
         await client.tickets.deleteOne({ title: ticket });
-        interaction.reply({ content: "Deleted ticket successfully", ephemeral: true });
+        interaction.reply({ content: client.getLocale(interaction, "commands.moderation.createticket.deleteSuccess"), ephemeral: true });
     }
 }

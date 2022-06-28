@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,9 +18,9 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount of the item you want to sell")
                 .setRequired(true)
-    ),
+    ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client) {
         await interaction.deferReply();
         let amount = interaction.options.getNumber("amount") || 1;
         let results: { error: boolean, inventory: { name: string }, type: string }[] = []
@@ -30,8 +31,8 @@ module.exports = {
             }));
         }
         if (results[0].error) {
-            if (results[0].type == 'Invalid-Item-Number') return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.sell.invalidItem"));
-            if (results[0].type == 'Unknown-Item') return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.sell.unknownItem"));
+            if (results[0].type == 'Invalid-Item-Number') return interaction.editReply(client.getLocale(interaction, "commands.currency.sell.invalidItem"));
+            if (results[0].type == 'Unknown-Item') return interaction.editReply(client.getLocale(interaction, "commands.currency.sell.unknownItem"));
         }
         else {
             let shopItem = await client.eco.getShopItems({ user: interaction.user.id });
@@ -39,11 +40,11 @@ module.exports = {
             if (item) {
                 client.eco.addMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
                 client.updateCache();
-                return interaction.editReply(client.getLocale(interaction.user.id, "commands.currency.sell.success", amount, item.name, item.price));
+                return interaction.editReply(client.getLocale(interaction, "commands.currency.sell.success", amount, item.name, item.price));
             }
             else {
                 return interaction.editReply('The item doesn\'t exist!');
             }
         }
     }
-}
+} as SlashCommand;

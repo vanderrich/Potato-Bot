@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, Message, MessageEmbed, Formatters } from "discord.js";
 import ms from "ms";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,21 +36,21 @@ module.exports = {
         .addStringOption(option => option.setName("option5").setDescription("The fifth option of the poll"))
         .addStringOption(option => option.setName("option6").setDescription("The sixth option of the poll"))
         .addStringOption(option => option.setName("option7").setDescription("The seventh option of the poll"))
-        .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")),
+        .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");
         var options = [];
         var time = new Date(Date.now() + ms(interaction.options.getString("duration")));
         var ping = interaction.options.getBoolean("ping") || false;
-        if (!time) return interaction.reply(client.getLocale(interaction.user.id, "commands.poll.invalidDuration"));
+        if (!ms(interaction.options.getString("duration"))) return interaction.reply(client.getLocale(interaction, "commands.poll.invalidDuration"));
         for (var i = 1; i <= 25; i++) {
             if (interaction.options.getString("option" + i) != null) {
                 options.push(interaction.options.getString("option" + i));
             }
         }
-        const timestamp = client.getLocale(interaction.user.id, "commands.info.poll.embedDesc", Formatters.time(time, 'R'))
+        const timestamp = client.getLocale(interaction, "commands.info.poll.embedDesc", Formatters.time(time, 'R'))
 
         if (options.length < 1) {
             const embed = new MessageEmbed()
@@ -57,13 +58,12 @@ module.exports = {
                 .setColor('RANDOM')
                 .setDescription(timestamp)
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
-            if (description != null) embed.setDescription(description)
+            if (description != null) embed.setDescription(description + '\n\n' + timestamp);
 
-            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction.user.id, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(msg => {
-                if (msg instanceof Message) {
+            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(async (msg) => {
+                if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
                     msg.react('👍');
-                    msg.react('👎');
-                }
+                msg.react('👎');
             });
         }
 
@@ -89,13 +89,12 @@ module.exports = {
             if (description != null) embed.setDescription(description + '\n\n' + arr.join('\n\n') + `\n\n${timestamp}`);
             else embed.setDescription(arr.join('\n\n')) + `\n\n${timestamp}`;
 
-            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction.user.id, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(msg => {
-                if (msg instanceof Message) {
+            interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(async (msg) => {
+                if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
                     for (let i = 0; i < options.length; i++) {
                         msg.react(alphabet[i]);
                     }
-                }
             })
         }
     }
-}
+} as SlashCommand;

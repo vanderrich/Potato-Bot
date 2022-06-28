@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -12,15 +14,15 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
 
         let pos = interaction.options.getInteger('pos');
 
-        const success = queue.seek(pos);
+        await queue.seek(pos!);
 
-        return interaction.reply(success ? `Seeked to ${pos} ✅` : `${interaction.user}, Something went wrong ❌`);
+        return interaction.reply(client.getLocale(interaction, "commands.music.seekSuccess", pos));
     },
 };

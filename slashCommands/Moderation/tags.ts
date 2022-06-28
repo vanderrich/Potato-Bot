@@ -1,5 +1,7 @@
+//not used anymore
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -31,7 +33,7 @@ module.exports = {
     category: "Moderation",
     permission: "MANAGE_GUILD",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction: CommandInteraction, client: Client) {
         const tag = interaction.options.getString("tag");
         const customid = interaction.options.getString("customid")?.toLowerCase().replace(/ /g, "");
         const value = interaction.options.getString("value");
@@ -58,7 +60,7 @@ module.exports = {
                 if (!guildSettings.tags) guildSettings.tags = [];
                 if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
                 guildSettings.tags.push({ name: tag, value: customid });
-                guildSettings.tagDescriptions = { [customid]: value };
+                guildSettings.tagDescriptions = { [customid]: value! };
             } else if (action === "remove") {
                 guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
                 delete guildSettings.tagDescriptions[customid];
@@ -67,4 +69,4 @@ module.exports = {
             interaction.reply(`Successfully ${action == "add" ? "added" : "removed"} the tag **${tag}** with the custom id **${customid}** ${action == "add" ? `and value **${value}**` : ''} `);
         }
     }
-}
+} as SlashCommand;

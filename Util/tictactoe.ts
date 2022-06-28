@@ -1,4 +1,6 @@
-import { Message, MessageActionRow, MessageButton, MessageComponentInteraction } from "discord.js";
+import { Message, MessageActionRow, MessageButton, ButtonInteraction } from "discord.js";
+import { Tictactoe } from "../localization";
+import { Client } from "./types";
 
 function checkWin(board: MessageActionRow<MessageButton>[]) {
     // Check rows
@@ -21,13 +23,15 @@ function checkWin(board: MessageActionRow<MessageButton>[]) {
     return "tie";
 }
 
-export default async (interaction: MessageComponentInteraction, client: any) => {
+export default async (interaction: ButtonInteraction, client: Client) => {
     /** @type {Discord.Message} message */
-    const message = interaction.message;
+    let message = interaction.message;
     if (!client.tictactoe[message.id]) return;
 
+    let locale = client.getLocale(interaction, "commands.fun.tictactoe") as Tictactoe;
+
     let xs = 0, os = 0;
-    if (!(message instanceof Message)) return
+    if (!(message instanceof Message)) message = await interaction.channel!.messages.fetch(message.id)
 
     for (let actionRow of message.components) {
         for (let button of actionRow.components) {
@@ -43,14 +47,14 @@ export default async (interaction: MessageComponentInteraction, client: any) => 
 
     let currPlayer = xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o;
     if (interaction.user.id !== currPlayer) {
-        return interaction.reply({ content: 'It\'s not your turn!', ephemeral: true });
+        return interaction.reply({ content: locale.notYourTurn, ephemeral: true });
     }
 
     const buttonPressed = message.components[i - 1].components[j - 1];
     if (!(buttonPressed instanceof MessageButton)) return;
 
     if (buttonPressed.label !== '_')
-        return interaction.reply({ content: "Someone already played there!", ephemeral: true });
+        return interaction.reply({ content: locale.havePlayedThere, ephemeral: true });
 
     buttonPressed.label = xs_turn ? 'X' : 'O';
     buttonPressed.style = xs_turn ? "SUCCESS" : "DANGER";
@@ -81,11 +85,11 @@ export default async (interaction: MessageComponentInteraction, client: any) => 
 
 
     if (checkWin(board) == "tie") {
-        await message.edit({ content: "It's a tie!", components: components });
+        await message.edit({ content: locale.tie, components: components });
         delete client.tictactoe[message.id];
     }
     else if (checkWin(board)) {
-        await message.edit({ content: `Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
+        await message.edit({ content: client.getLocale(interaction, "commands.tictactoe.")`Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
         delete client.tictactoe[message.id];
     }
     else await message.edit({ content: `<@${xs_turn ? client.tictactoe[message.id].o : client.tictactoe[message.id].x}>'s turn`, components: components });

@@ -1,11 +1,13 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
+import axios, { AxiosResponse } from "axios";
+import { Client } from "../Util/types";
 
 module.exports = {
     name: 'ready',
-    async execute(client: any) {
+    async execute(client: Client) {
         console.log('Ready!')
-        client.user.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
+        client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then((birthdays: any) => {
             if (birthdays.length > 0) {
                 console.log(`[INFO] ${birthdays.length} birthday(s) found`)
@@ -21,7 +23,9 @@ module.exports = {
                                 user.send(`Happy Birthday!`)
                                 client.birthdayConfigs.findOne({ guildId: birthday.guildId }).then((config: any) => {
                                     if (config && config.channelId) {
-                                        client.channels.cache.get(config.channelId).send(eval('`' + config.message + '`') || `@everyone its <@${user.id}>'s birthday!`)
+                                        const channel = client.channels.cache.get(config.channelId)
+                                        if (!channel || !channel.isText()) return;
+                                        channel.send(eval('`' + config.message + '`') || `Its <@${user.id}>'s birthday!`)
                                     }
                                 });
                             }
@@ -30,6 +34,22 @@ module.exports = {
                 })
             }
         });
+        setInterval(async () => {
+            axios.post('https://potato-bot-api.herokuapp.com/status')
+                .catch(error => {
+                    console.error(error);
+                }).then((res: AxiosResponse | void) => {
+                    if (!res) return;
+                    if (res.status !== 200) console.error(`Error in pinging the api: ${res.data.message}`);
+
+                    console.error(res.data.newVotes)
+                    res.data.newVotes.forEach((vote: any) => {
+                        const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
+                        if (!channel || !channel.isText()) return
+                        channel.send({ content: `<@${vote.user}> voted for this bot on ${vote.source}!`, allowedMentions: { users: [] } })
+                    })
+                })
+        }, 15000)
         await postStats(client);
     }
 }

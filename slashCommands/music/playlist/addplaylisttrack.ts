@@ -1,5 +1,5 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { QueryType, Track } from 'discord-player';
+import { QueryType, Track, PlayerSearchResult } from 'discord-player';
 import { CommandInteraction } from "discord.js";
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
         const playlistName = interaction.options.getString("name");
         const url = interaction.options.getString("url");
 
-        const track = await client.player.search(url, {
+        const track: PlayerSearchResult = await client.player.search(url, {
             requestedBy: interaction.member,
             searchEngine: QueryType.AUTO
         });
@@ -42,7 +42,7 @@ module.exports = {
         if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
 
 
-        playlist.tracks = playlist.tracks.concat(track.tracks.map((t: Track) => t.url));
+        playlist.tracks = playlist.tracks.concat(track.playlist ? [track.tracks[0].url] : track.tracks.map(t => t.url));
         playlist.save();
 
 

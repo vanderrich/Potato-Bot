@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,11 +10,11 @@ module.exports = {
             .setName("itemnumber")
             .setDescription("The shop item number to remove.")
             .setRequired(true)
-        ),
+    ) as SlashCommandBuilder,
     category: "Currency",
     permissions: "ADMINISTRATOR",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+    async execute(interaction: CommandInteraction, client: Client) {
         const itemNumber = interaction.options.getNumber("itemnumber");
         await interaction.deferReply();
 
@@ -23,7 +24,7 @@ module.exports = {
         })
         client.updateCache();
         if (result.error) {
-            if (result.type == 'Invalid-Item-Number' || result.type == "Unknown-Item") return interaction.editReply(client.getLocale(interaction.user.id, "currency.buy.noItem"));
-        } else return interaction.editReply(client.getLocale(interaction.user.id, "currency.addshopitem.success", name));
+            if (result.type == 'Invalid-Item-Number' || result.type == "Unknown-Item") return interaction.editReply(client.getLocale(interaction, "currency.buy.noItem"));
+        } else return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.success", name));
     }
-}
+} as SlashCommand;

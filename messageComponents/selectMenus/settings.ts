@@ -1,42 +1,31 @@
 import { APIMessage } from "discord-api-types/v9";
-import { DiscordAPIError, Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent } from "discord.js";
+import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent, TextBasedChannel } from "discord.js";
 import config from "../../config.json";
+import { Client, GuildSettings } from "../../Util/types";
 type KeyofBadWordPresets = string & "low" | "medium" | "high" | "highest";
 const badWordPresets = config.settings.badWordPresets;
-type GuildSettings = {
-    guildId: string,
-    badWords: string[],
-    autoPublishChannels: string[],
-    welcomeMessage: string,
-    welcomeChannel: string,
-    welcomeRole: string,
-    suggestionChannel: string,
-    ghostPing: boolean,
-    tags: { name: String, value: String }[],
-    tagDescriptions: Object,
-}
-
 
 module.exports = {
     name: "settings",
-    async execute(interaction: SelectMenuInteraction, client: any) {
+    async execute(interaction: SelectMenuInteraction, client: Client) {
         if (interaction.replied) return;
-        const guildSettings: GuildSettings = await client.guildSettings.findOne({ guildId: interaction.guildId });
-        const locale = client.getLocale(interaction.user.id, "commands.moderation.settings");
+        const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
+        const locale = client.getLocale(interaction, "commands.moderation.settings");
         const selected = interaction.values[0];
+        const actionRow = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId("settings")
+                    .addOptions([
+                        { label: locale.badWords, value: "badWords", default: selected === "badWords" ? true : false },
+                        { label: locale.welcome, value: "welcome" },
+                        { label: locale.tags, value: "tags", default: selected === "tags" ? true : false },
+                        { label: locale.misc, value: "misc" }
+                    ])
+                    .setDisabled(true)
+        )
         switch (selected) {
             case "badWords":
-                const actionRow = new MessageActionRow()
-                    .addComponents(
-                        new MessageSelectMenu()
-                            .setCustomId("settings")
-                            .addOptions([
-                                { label: locale.badWords, value: "badWords", default: true },
-                                { label: locale.welcome, value: "welcome" },
-                                { label: locale.tags, value: "tags" },
-                                { label: locale.misc, value: "misc" }
-                            ])
-                    )
                 const badWordPresetActionRow = new MessageActionRow()
                     .addComponents(
                         new MessageSelectMenu()
@@ -50,7 +39,7 @@ module.exports = {
                             ])
                     )
                 interaction.update({ components: [actionRow, badWordPresetActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
-                    if (!(msg instanceof Message)) return;
+                    if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                     msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
                         const selected = collected.values[0];
                         if (selected === "custom") {
@@ -63,7 +52,7 @@ module.exports = {
                                             .setCustomId("badWord")
                                             .setLabel("Bad Words")
                                             .setPlaceholder(locale.customBadWordTextInputPlaceHolder)
-                                            .setValue(guildSettings.badWords.join(","))
+                                            .setValue(guildSettings!.badWords.join(","))
                                     )
                                 )
                             await collected.showModal(modal);
@@ -130,6 +119,100 @@ module.exports = {
                 }).catch(() => { });
                 break;
             case "tags":
+                const tagActionRow = new MessageActionRow()
+                    .addComponents(
+                        new MessageSelectMenu()
+                            .setCustomId("tagaction")
+                            .addOptions([
+                                { label: locale.addTag, value: "add" },
+                                { label: locale.removeTag, value: "remove" }
+                            ])
+                )
+                interaction.update({ components: [actionRow, tagActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
+                    if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
+                    const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id })!;
+                    if (!guildSettings) return
+                    msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
+                        const selected = collected.values[0];
+                        if (selected === "add") {
+                            const modal = new Modal()
+                                .setTitle(locale.addTag)
+                                .setCustomId("addTag")
+                                .addComponents(new MessageActionRow<TextInputComponent>()
+                                    .addComponents(
+                                        new TextInputComponent()
+                                            .setCustomId("tag")
+                                            .setLabel(locale.tag)
+                                            .setPlaceholder(locale.tagTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                            .setRequired(true)
+                                    ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("customid")
+                                                .setLabel(locale.customid)
+                                                .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                                .setStyle("SHORT")
+                                                .setRequired(true)
+                                        ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("value")
+                                                .setLabel(locale.value)
+                                                .setPlaceholder(locale.valueTextInputPlaceHolder)
+                                                .setStyle("PARAGRAPH")
+                                                .setRequired(true)
+                                        )
+                                )
+                            await collected.showModal(modal);
+                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const tag = modal.fields.getTextInputValue("tag");
+                                const customid = modal.fields.getTextInputValue("customid")?.toLowerCase().replace(/ /g, "");
+                                const value = modal.fields.getTextInputValue("value")
+                                if (!guildSettings.tags) guildSettings.tags = [];
+                                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
+                                guildSettings.tags.push({ name: tag, value: customid });
+                                guildSettings.tagDescriptions[customid] = value;
+                                await guildSettings.save();
+                                modal.reply(locale.updated);
+                            }).catch(() => { });
+                        } else if (selected === "remove") {
+                            const modal = new Modal()
+                                .setTitle(locale.removeTag)
+                                .setCustomId("removeTag")
+                                .addComponents(new MessageActionRow<TextInputComponent>()
+                                    .addComponents(
+                                        new TextInputComponent()
+                                            .setCustomId("tag")
+                                            .setLabel(locale.tag)
+                                            .setPlaceholder(locale.tagTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                            .setRequired(true)
+                                    ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("customid")
+                                                .setLabel(locale.customid)
+                                                .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                                .setStyle("SHORT")
+                                                .setRequired(true)
+                                        )
+                                )
+                            await collected.showModal(modal);
+                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const customid = modal.fields.getTextInputValue("customid");
+                                const tag = modal.fields.getTextInputValue("tag");
+                                guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
+                                delete guildSettings.tagDescriptions[customid];
+                                await guildSettings.save();
+                                modal.reply(locale.updated);
+                            }).catch(() => { });
+                        }
+                    });
+                });
                 break;
             case "misc":
                 const miscModal = new Modal()
@@ -156,15 +239,16 @@ module.exports = {
                 interaction.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === miscModal.customId }).then(async (modal: ModalSubmitInteraction) => {
                     const suggestionChannel = modal.fields.getTextInputValue("suggestionChannel");
                     const ghostPingTextInput = modal.fields.getTextInputValue("ghostPing");
-                    const suggestionChannelObject = interaction.guild!.channels.cache.find((channel) => channel.name === suggestionChannel);
-                    if (!suggestionChannelObject?.id && suggestionChannel) return interaction.reply(locale.invalidChannel);
+                    const suggestionChannelObject: TextBasedChannel | undefined = modal.guild!.channels.cache.find((channel) => channel.name === suggestionChannel && channel.isText()) as TextBasedChannel;
+                    if (!suggestionChannelObject?.id && suggestionChannel) return modal.reply(locale.invalidChannel);
                     const ghostPing = ghostPingTextInput in locale.yes;
-                    await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, {
+                    await client.guildSettings.updateOne({ guildId: modal.guild!.id }, {
                         $set: {
                             suggestionChannel: suggestionChannelObject?.id || undefined,
                             ghostPing: ghostPingTextInput ? ghostPing : undefined
                         }
                     });
+                    return modal.reply(locale.updated)
                 }).catch(() => { });
                 break;
         }

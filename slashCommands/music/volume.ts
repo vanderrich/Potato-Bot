@@ -1,34 +1,35 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 const maxVol = 150;
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
         .setName("volume")
-        .setDescription("Change the volume of the current track.")
+        .setDescription("Set the volume of the current track.")
         .addIntegerOption(option =>
             option
                 .setName("vol")
                 .setDescription("The volume to set the track to.")
-                .setRequired(true)
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
 
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
 
         const vol = interaction.options.getInteger("vol");
 
-        if (!vol) return interaction.reply(`Current volume: **${queue.volume}** 🔊\n**To change the volume, with \`1\` to \`${maxVol}\` Type a number between.**`);
+        if (!vol) return interaction.reply(client.getLocale(interaction, "commands.music.noVol", queue.volume));
 
-        if (queue.volume === vol) return interaction.reply(`${interaction.user}, The volume you want to change is already the current volume ❌`);
+        if (queue.volume === vol) return interaction.reply(locale.volEqualCurrent);
 
-        if (vol < 0 || vol > maxVol) return interaction.reply(`${interaction.user}, **Type a number from \`1\` to \`${maxVol}\` to change the volume .** ❌`);
+        if (vol < 0 || vol > maxVol) return interaction.reply(locale.volNotInRange);
 
-        const success = queue.setVolume(vol);
+        queue.setVolume(vol);
 
-        return interaction.reply(success ? `Volume changed: **%${vol}**/**${maxVol}** 🔊` : `${interaction.user}, Something went wrong. ❌`);
+        return interaction.reply(client.getLocale(interaction, "commands.music.volSuccess", vol));
     },
 };

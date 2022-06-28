@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../localization";
+import { Client } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -7,13 +9,10 @@ module.exports = {
         .setDescription("Destroy the queue."),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any) {
-        const queue = client.player.getQueue(interaction.guild?.id);
-
-        if (!queue || !queue.playing) return interaction.reply(`${interaction.user}, There is no music currently playing!. ❌`);
-
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        const queue = client.player.getQueue(interaction.guildId!);
+        if (!queue || !queue.playing) return interaction.reply(locale.noMusicPlaying);
         queue.destroy();
-
-        interaction.reply(`The music playing on this server has been turned off, see you next time ✅`);
+        interaction.reply(locale.stopSuccess);
     },
 };
