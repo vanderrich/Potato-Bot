@@ -30,7 +30,7 @@ export interface Info2 {
     userInfo: UserInfo;
     serverInfo: ServerInfo;
     suggest: Suggest;
-    birthday: Birthday;
+    birthday: BirthdayLocaleType;
     tag: Tag;
     language: Language;
     dictionary: Dictionary;
@@ -312,7 +312,7 @@ export interface Info {
     userInfo: UserInfo;
     serverInfo: ServerInfo;
     suggest: Suggest;
-    birthday: Birthday;
+    birthday: BirthdayLocaleType;
     tag: Tag;
     language: Language;
     dictionary: Dictionary;
@@ -337,9 +337,10 @@ export interface Tag {
     pingUser: string;
 }
 
-export interface Birthday {
+export interface BirthdayLocaleType {
     invalidBdate: string;
     noBdate: string;
+    noBday: string;
     setSuccess: string;
     updateSuccess: string;
     noBdays: string;

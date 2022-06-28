@@ -1,4 +1,5 @@
 import { CommandInteraction } from "discord.js";
+import { BirthdayLocaleType } from "../../localization";
 import { Client, SlashCommand } from "../../Util/types";
 
 const { SlashCommandSubcommandBuilder } = require("@discordjs/builders");
@@ -12,17 +13,13 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: Client) {
         await interaction.deferReply();
         const user = interaction.user;
+        const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
 
-        if (!client.birthdays.findOne({ userId: user.id })) return interaction.editReply("You don't have any birthday data!");
+        if (!client.birthdays.findOne({ userId: user.id })) return interaction.editReply(locale.noBday);
 
         client.birthdays.deleteOne({ userId: user.id })
             .then(() => {
-                interaction.editReply("Your birthday data has been removed!");
-                console.log(`[INFO] ${user.tag} removed their birthday data`);
+                interaction.editReply(locale.removeSuccess);
             })
-            .catch((err: any) => {
-                console.error(err);
-                interaction.editReply("Something went wrong! Error: " + err);
-            });
     }
 } as SlashCommand;

@@ -1,5 +1,6 @@
 import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
+import { BirthdayLocaleType } from "../../localization";
 import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
@@ -10,9 +11,7 @@ module.exports = {
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply();
-        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild!.id });
-
-        if (!birthdayConfig) return interaction.editReply("You don't have any birthday data!");
+        const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
 
         client.birthdays.find({
             guildId: interaction.guild!.id,
@@ -20,20 +19,18 @@ module.exports = {
                 $gte: new Date(),
             }
         }, function (err: any, nextBirthday: any) {
-            if (err) return interaction.editReply("Something went wrong!");
-
             if (nextBirthday.length > 0) {
                 const birthdayEmbed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setTitle("Birthday")
-                    .setDescription(`${userMention(nextBirthday[0].userId)}'s birthday is next on ${time(nextBirthday[0].birthday, 'D')}`)
+                    .setDescription(client.getLocale(interaction, "commands.info.birthday.nextBday", userMention(nextBirthday[0].userId), time(nextBirthday[0].birthday, "D")))
                     .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
                     .setTimestamp();
 
                 interaction.editReply({ embeds: [birthdayEmbed] });
             }
             else {
-                interaction.editReply("There are no birthdays!");
+                interaction.editReply(locale.noBdays);
             }
         });
     }

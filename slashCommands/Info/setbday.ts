@@ -1,5 +1,6 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { BirthdayLocaleType } from "../../localization";
 import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
@@ -17,33 +18,27 @@ module.exports = {
         await interaction.deferReply();
         const birthdate = interaction.options.getString("birthdate");
         const user = interaction.user;
+        const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
 
-        if (!birthdate) return interaction.editReply("You need to specify your birthdate!");
+        if (!birthdate) return interaction.editReply(locale.noBdate);
 
         let birthdateArray = birthdate.split("/");
-        if (birthdateArray.length != 2) return interaction.editReply("Invalid birthdate!");
-        if (birthdateArray[0].length != 2 || birthdateArray[1].length != 2) return interaction.editReply("Invalid birthdate!");
-
         let month = parseInt(birthdateArray[0]);
         let day = parseInt(birthdateArray[1]);
-        if (month < 1 || month > 12) return interaction.editReply("Invalid birthdate!");
-        if (day < 1 || day > 31) return interaction.editReply("Invalid birthdate!");
+        if (birthdateArray.length != 2 || (birthdateArray[0].length != 2 || birthdateArray[1].length != 2) || (month < 1 || month > 12) || (day < 1 || day > 31)) return interaction.editReply(locale.invalidBdate);
 
         let now = new Date(),
             date = new Date(now.getFullYear(), month - 1, day);
         if (date > now) date.setFullYear(date.getFullYear() - 1);
 
-        if (await client.birthdays.findOne({ userId: user.id })) {
+        if (await client.birthdays.exists({ userId: user.id })) {
             client.birthdays.updateOne({ userId: user.id }, {
                 $set: {
                     birthday: date,
                 }
             })
                 .then(() => {
-                    return interaction.editReply("Your birthday has been updated!")
-                })
-                .catch((err: any) => {
-                    interaction.editReply("Something went wrong! Error: " + err); return console.log(err)
+                    return interaction.editReply(locale.updateSuccess)
                 });
         }
         else {
@@ -53,13 +48,8 @@ module.exports = {
                 birthday: date,
             })
             birthday.save().then(() => {
-                interaction.editReply("Birthday set!");
-                console.log(`[INFO] ${user.tag} set their birthday to ${birthdate}`);
-            })
-                .catch((err: any) => {
-                    console.error(err);
-                    interaction.editReply("Something went wrong! Error: " + err);
-                });
+                interaction.editReply(locale.setSuccess);
+            });
         }
     }
 } as SlashCommand;

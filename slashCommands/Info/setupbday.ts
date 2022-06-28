@@ -1,6 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, GuildChannel } from "discord.js";
-import { SlashCommand } from "../../Util/types";
+import { BirthdayLocaleType } from "../../localization";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -21,15 +22,16 @@ module.exports = {
     category: "Info",
     isSubcommand: true,
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client) {
         await interaction.deferReply()
+        const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
 
         const birthdayRole = interaction.options.getRole("birthdayrole");
         const birthdayChannel = interaction.options.getChannel("birthdaychannel");
         const birthdayMessage = interaction.options.getString("birthdaymessage");
 
         if (birthdayChannel instanceof GuildChannel && birthdayChannel)
-            if (!birthdayChannel.isText() && birthdayChannel != null) return interaction.editReply("That channel is not a text channel!");
+            if (!birthdayChannel.isText() && birthdayChannel != null) return interaction.editReply(locale.channelNotText);
 
         const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild!.id });
 
@@ -46,7 +48,6 @@ module.exports = {
             ).save();
         }
 
-        interaction.editReply("Your birthday data has been set!");
-        console.log(`[INFO] ${interaction.user.tag} set their birthday data`);
+        interaction.editReply(locale.setupSuccess);
     }
 }

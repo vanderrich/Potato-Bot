@@ -23,8 +23,6 @@ module.exports = {
     async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         await interaction.deferReply();
         const user = interaction.user;
-        const guild = interaction.guild;
-
         const playlistName = interaction.options.getString("name");
         const url = interaction.options.getString("url");
 
@@ -44,7 +42,7 @@ module.exports = {
         if (!playlist?.tracks) return interaction.editReply(locale.noPlaylist);
 
 
-        playlist.tracks = playlist.tracks.concat(track.playlist ? [track.tracks[0].url] : track.tracks.map(t => t.url));
+        playlist.tracks = playlist.tracks.concat(track.playlist ? track.tracks.map(t => t.url) : [track.tracks[0].url]);
         playlist.save();
 
 

@@ -2,6 +2,7 @@ import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/bui
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination.js';
 import { Birthday, Client, SlashCommand } from "../../Util/types.js";
+import { BirthdayLocaleType } from "../../localization.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -11,6 +12,7 @@ module.exports = {
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
         await interaction.deferReply();
+        const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
         const birthdays: Birthday[] = await (new Promise((resolve, reject) => {
             client.birthdays.find({}, (err: any, bdays: Birthday[]) => {
                 if (err) {
@@ -22,12 +24,12 @@ module.exports = {
         }))
         const embed = new MessageEmbed()
             .setColor('RANDOM')
-            .setAuthor({ name: `Birthdays for ${interaction.guild ? interaction.guild.name : "all servers"}` })
+            .setAuthor({ name: client.getLocale(interaction, "commands.birthday.listEmbedTitle", interaction.guild ? interaction.guild.name : "all servers") })
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             .setTimestamp();
 
         if (birthdays.length == 0) {
-            embed.setDescription("No birthdays set!");
+            embed.setDescription(locale.noBdays);
             return interaction.editReply({ embeds: [embed] });
         } else {
             const pages: any[] = [];
@@ -49,7 +51,7 @@ module.exports = {
                 else {
                     emptypage = true;
                     if (page === 1) {
-                        embed.setDescription("No birthdays set!");
+                        embed.setDescription(locale.noBdays);
                         embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                         console.log(embed)
                         return interaction.editReply({ embeds: [embed] });

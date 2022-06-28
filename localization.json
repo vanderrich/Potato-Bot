@@ -254,6 +254,7 @@
                 },
                 "birthday": {
                     "invalidBdate": "Invalid birthdate!",
+                    "noBday": "You have not set your birthday!",
                     "noBdate": "You must specify a birthdate!",
                     "setSuccess": "Birthday set!",
                     "updateSuccess": "Birthday updated!",
@@ -745,6 +746,7 @@
                 },
                 "birthday": {
                     "invalidBdate": "Tanggal lahir tidak valid!",
+                    "noBday": "You have not set your birthday!",
                     "noBdate": "Anda harus menentukan tanggal lahir!",
                     "setSuccess": "Tanggal lahir anda telah diset!",
                     "updateSuccess": "Tanggal lahir anda telah diperbarui!",
@@ -1241,6 +1243,7 @@
                 },
                 "birthday": {
                     "invalidBdate": "Invalid birthdate!",
+                    "noBday": "You have not set your birthday!",
                     "noBdate": "You must specify a birthdate!",
                     "setSuccess": "Birthday set!",
                     "updateSuccess": "Birthday updated!",
@@ -1737,6 +1740,7 @@
                 },
                 "birthday": {
                     "invalidBdate": "Invalid birthdate!",
+                    "noBday": "You have not set your birthday!",
                     "noBdate": "You must specify a birthdate!",
                     "setSuccess": "Birthday set!",
                     "updateSuccess": "Birthday updated!",
