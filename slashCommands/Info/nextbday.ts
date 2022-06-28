@@ -9,9 +9,10 @@ module.exports = {
     category: "Info",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+        await interaction.deferReply();
         const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild!.id });
 
-        if (!birthdayConfig) return interaction.reply("You don't have any birthday data!");
+        if (!birthdayConfig) return interaction.editReply("You don't have any birthday data!");
 
         client.birthdays.find({
             guildId: interaction.guild!.id,
@@ -19,7 +20,7 @@ module.exports = {
                 $gte: new Date(),
             }
         }, function (err: any, nextBirthday: any) {
-            if (err) return interaction.reply("Something went wrong!");
+            if (err) return interaction.editReply("Something went wrong!");
 
             if (nextBirthday.length > 0) {
                 const birthdayEmbed = new MessageEmbed()
@@ -29,10 +30,10 @@ module.exports = {
                     .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
                     .setTimestamp();
 
-                interaction.reply({ embeds: [birthdayEmbed] });
+                interaction.editReply({ embeds: [birthdayEmbed] });
             }
             else {
-                interaction.reply("There are no birthdays!");
+                interaction.editReply("There are no birthdays!");
             }
         });
     }

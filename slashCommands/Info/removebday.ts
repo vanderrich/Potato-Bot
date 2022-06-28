@@ -10,18 +10,19 @@ module.exports = {
     category: "Info",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: Client) {
+        await interaction.deferReply();
         const user = interaction.user;
 
-        if (!client.birthdays.findOne({ userId: user.id })) return interaction.reply("You don't have any birthday data!");
+        if (!client.birthdays.findOne({ userId: user.id })) return interaction.editReply("You don't have any birthday data!");
 
         client.birthdays.deleteOne({ userId: user.id })
             .then(() => {
-                interaction.reply("Your birthday data has been removed!");
+                interaction.editReply("Your birthday data has been removed!");
                 console.log(`[INFO] ${user.tag} removed their birthday data`);
             })
             .catch((err: any) => {
                 console.error(err);
-                interaction.reply("Something went wrong! Error: " + err);
+                interaction.editReply("Something went wrong! Error: " + err);
             });
     }
 } as SlashCommand;

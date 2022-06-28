@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../../localization";
+import { Client, SlashCommand } from "../../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -18,7 +20,8 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        await interaction.deferReply()
         const playlistName = interaction.options.getString("name");
         const index = interaction.options.getInteger("index");
         const playlist = await client.playlists.findOne({
@@ -26,12 +29,12 @@ module.exports = {
             name: playlistName
         });
 
-        if (!playlist?.tracks) return interaction.reply("I couldn't find that playlist!");
-        if (!index) return interaction.reply("You must specify an index!");
+        if (!playlist?.tracks) return interaction.editReply(locale.noPlaylist);
+        if (!index) return interaction.editReply(locale.noIndex);
 
         playlist.tracks.splice(index - 1, 1);
         playlist.save();
 
-        interaction.reply(`Removed track from the playlist **${playlistName}**`);
+        interaction.editReply(locale.removePlaylistTrackSuccess);
     }
-}
+} as SlashCommand;

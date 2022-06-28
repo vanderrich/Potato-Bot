@@ -1,5 +1,8 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from "discord.js";
+import { Music } from "../../../localization";
+import { Client, Playlist } from "../../../Util/types";
+import { Document } from "mongoose";
 const maxVol = 150;
 
 module.exports = {
@@ -34,7 +37,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -44,7 +47,7 @@ module.exports = {
         const volume = interaction.options.getNumber("volume");
         const name = interaction.options.getString("name");
 
-        const playlist = await client.playlists.findOne({
+        const playlist: Document & Playlist | null = await client.playlists.findOne({
             managers: user.id,
             name: name
         });
@@ -54,7 +57,7 @@ module.exports = {
 
 
         if (shuffle) playlist.settings.shuffle = shuffle;
-        if (loop) playlist.settings.loop = loop;
+        if (loop) playlist.settings.loop = loop as Playlist["settings"]["loop"];
         if (volume) {
             if (volume > maxVol) return interaction.editReply(`Volume can't be higher than ${maxVol}!`);
             playlist.settings.volume = volume;
@@ -62,8 +65,8 @@ module.exports = {
 
         await playlist.save();
 
-        interaction.editReply(`**${playlist.name}** settings:\n\n${playlist.settings.shuffle ? "Shuffle: True" : "Shuffle: False"}\n` +
-            `${playlist.settings.loop === 0 ? "Loop: None" : playlist.settings.loop === 1 ? "Loop: Track" : playlist.settings.loop === 2 ? "Loop: Queue" : playlist.settings.loop === 3 ? "Loop: Autoplay" : "Impossible edge case, notify developer"}\n` +
-            `Volume: ${playlist.settings.volume}%`);
+        const loopType = locale.loopType[playlist.settings.loop]
+        const shuffleLocale = playlist.settings.shuffle ? client.getLocale(interaction, "utils.true") : client.getLocale(interaction, "utils.false");
+        interaction.editReply(`**${playlist.name}**:\n\n${client.getLocale(interaction, "commands.music.playlistSettings", shuffleLocale, playlist.settings.volume.toString(), loopType)}`);
     }
 }

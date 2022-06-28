@@ -1,6 +1,8 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { QueryType, Track, PlayerSearchResult } from 'discord-player';
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../../localization";
+import { Client, SlashCommand } from "../../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -18,7 +20,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -26,26 +28,26 @@ module.exports = {
         const playlistName = interaction.options.getString("name");
         const url = interaction.options.getString("url");
 
-        const track: PlayerSearchResult = await client.player.search(url, {
-            requestedBy: interaction.member,
+        const track: PlayerSearchResult = await client.player.search(url!, {
+            requestedBy: interaction.user,
             searchEngine: QueryType.AUTO
         });
 
-        if (!track) return interaction.editReply("I couldn't find that track!");
-        if (track.tracks[0].source !== "youtube") return interaction.editReply("I can't play non YouTube videos!");
+        if (!track) return interaction.editReply(locale.noResults);
+        if (track.tracks[0].source !== "youtube") return interaction.editReply(locale.onlyYT);
 
         const playlist = await client.playlists.findOne({
             managers: user.id,
             name: playlistName
         });
 
-        if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
+        if (!playlist?.tracks) return interaction.editReply(locale.noPlaylist);
 
 
         playlist.tracks = playlist.tracks.concat(track.playlist ? [track.tracks[0].url] : track.tracks.map(t => t.url));
         playlist.save();
 
 
-        interaction.editReply(`Added track to the playlist **${playlistName}**`);
+        interaction.editReply(locale.addSuccess);
     }
-}
+} as SlashCommand;

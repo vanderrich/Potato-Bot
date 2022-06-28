@@ -1,6 +1,7 @@
 import { SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
 import { CommandInteraction } from 'discord.js';
 import { Music } from '../../localization';
+import { Client } from '../../Util/types';
 
 module.exports = {
     data: new SlashCommandSubcommandGroupBuilder()
@@ -108,7 +109,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    execute(interaction: CommandInteraction, client: any, footers: string[], locale: Music) {
+    execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         let subcommand;
         switch (interaction.options.getSubcommand()) {
             case "add":

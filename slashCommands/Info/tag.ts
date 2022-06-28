@@ -19,8 +19,9 @@ module.exports = {
     ) as SlashCommandBuilder,
     category: "Info",
     async execute(interaction: CommandInteraction, client: Client) {
+        await interaction.deferReply();
         const tag = interaction.options.getString("tag");
-        if (!tag) return interaction.reply("You need to specify a tag");
+        if (!tag) return interaction.editReply("You need to specify a tag");
         const target = interaction.options.getUser("target");
 
         let tagToSend;
@@ -31,12 +32,12 @@ module.exports = {
         else {
             tagToSend = config.tagDescriptions[tag]
         }
-        if (!tagToSend) return interaction.reply("Tag not found");
+        if (!tagToSend) return interaction.editReply("Tag not found");
 
         if (target) {
-            interaction.reply(`*Tag suggestion for ${target}*\n\n${tagToSend}`);
+            interaction.editReply(`*Tag suggestion for ${target}*\n\n${tagToSend}`);
         } else {
-            interaction.reply(tagToSend);
+            interaction.editReply(tagToSend);
         }
     }
 } as SlashCommand;

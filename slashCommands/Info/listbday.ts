@@ -10,6 +10,7 @@ module.exports = {
     category: "Info",
     isSubcommand: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+        await interaction.deferReply();
         const birthdays: Birthday[] = await (new Promise((resolve, reject) => {
             client.birthdays.find({}, (err: any, bdays: Birthday[]) => {
                 if (err) {
@@ -27,7 +28,7 @@ module.exports = {
 
         if (birthdays.length == 0) {
             embed.setDescription("No birthdays set!");
-            return interaction.reply({ embeds: [embed] });
+            return interaction.editReply({ embeds: [embed] });
         } else {
             const pages: any[] = [];
             let page = 1, emptypage = false;
@@ -51,11 +52,11 @@ module.exports = {
                         embed.setDescription("No birthdays set!");
                         embed.setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
                         console.log(embed)
-                        return interaction.reply({ embeds: [embed] });
+                        return interaction.editReply({ embeds: [embed] });
                     }
                     if (page === 2) {
                         console.log(embed)
-                        return interaction.reply({ embeds: [pages[0]] });
+                        return interaction.editReply({ embeds: [pages[0]] });
                     }
                 }
             } while (!emptypage);

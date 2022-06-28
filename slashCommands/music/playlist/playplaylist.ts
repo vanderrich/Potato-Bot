@@ -1,7 +1,8 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { QueryType } from "discord-player";
+import { QueryType, Track } from "discord-player";
 import { CommandInteraction, GuildMember } from "discord.js";
-import { Playlist } from "../../../Util/types";
+import { Music } from "../../../localization";
+import { Client, Playlist } from "../../../Util/types";
 
 
 module.exports = {
@@ -16,22 +17,22 @@ module.exports = {
     category: "Music",
     isSubcommand: true,
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         await interaction.deferReply();
         const user = interaction.user;
         const playlistName = interaction.options.getString("name");
         let member = interaction.member
         if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
 
-        const playlist: Playlist = await client.playlists.findOne({ managers: user.id, name: playlistName });
+        const playlist: Playlist | null = await client.playlists.findOne({ managers: user.id, name: playlistName });
 
-        if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
+        if (!playlist?.tracks) return interaction.editReply(locale.noPlaylist);
 
-        if (playlist.tracks.length === 0) return interaction.editReply("That playlist doesn't have any tracks!");
+        if (playlist.tracks.length === 0) return interaction.editReply(locale.emptyPlaylist);
 
         const res = playlist.tracks;
 
-        const queue = await client.player.createQueue(interaction.guild, {
+        const queue = await client.player.createQueue(interaction.guild!, {
             metadata: interaction.channel,
             leaveOnEnd: true,
             leaveOnStop: true,
@@ -42,24 +43,24 @@ module.exports = {
         });
 
         try {
-            if (!queue.connection) await queue.connect(member.voice.channel);
+            if (!queue.connection) await queue.connect(member.voice.channel!);
         } catch {
-            await client.player.deleteQueue(interaction.guildId);
-            return interaction.editReply(`${interaction.user}, I can't join audio channel, try joining to a voice channel or change the permissions of the voice channel. ❌`);
+            await client.player.deleteQueue(interaction.guildId!);
+            return interaction.editReply(locale.cantJoin);
         }
 
-        const tracks = await res.map(async (track: string) => {
+        const tracks = res.map(async (track: string) => {
             return new Promise(async (resolve, reject) => {
                 client.player.search(track, {
-                    requestedBy: interaction.member,
-                    searchEngine: QueryType.AUTO
-                }).then((trackToPlay: any) => {
+                    requestedBy: interaction.user,
+                    searchEngine: QueryType.YOUTUBE_VIDEO
+                }).then((trackToPlay) => {
                     return resolve(trackToPlay.tracks[0]);
                 });
             });
         })
 
-        const tracksToPlay = await Promise.all(tracks);
+        const tracksToPlay: Track[] = await Promise.all(tracks) as Track[];
 
         queue.addTracks(tracksToPlay);
 
@@ -67,6 +68,6 @@ module.exports = {
         if (playlist.settings.loop) queue.setRepeatMode(playlist.settings.loop);
         if (!queue.playing) await queue.play();
 
-        interaction.editReply(`Added playlist to the queue! 🎧`);
+        interaction.editReply(client.getLocale(interaction, "commands.music.playSuccess", "Playlist"));
     }
 }

@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../../localization";
+import { Client, SlashCommand } from "../../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -12,13 +14,13 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
+        await interaction.deferReply();
         const user = interaction.user;
-        const guild = interaction.guild;
 
         const playlistName = interaction.options.getString("name");
 
-        if (await client.playlists.findOne({ managers: user.id, name: playlistName })) return interaction.reply("You already have a playlist with that name!");
+        if (await client.playlists.exists({ managers: user.id, name: playlistName })) return interaction.editReply(locale.haveSamePlaylist);
 
         const playlist = new client.playlists({
             name: playlistName,
@@ -34,6 +36,6 @@ module.exports = {
 
         await playlist.save();
 
-        interaction.reply(`Created playlist **${playlistName}**`);
+        interaction.editReply(locale.createPlaylistSuccess);
     }
-}
+} as SlashCommand;

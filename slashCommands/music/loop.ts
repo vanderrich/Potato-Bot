@@ -25,6 +25,6 @@ module.exports = {
         const queue = client.player.getQueue(interaction.guildId!);
         const loop = interaction.options.getNumber("loop");
         queue.setRepeatMode(loop!);
-        interaction.reply(loop === 0 ? locale.loopType.off : loop === 1 ? locale.loopType.track : loop === 2 ? locale.loopType.queue : locale.loopType.autoplay);
+        interaction.reply(locale.loopType[loop!]);
     }
 }

@@ -35,18 +35,19 @@ module.exports = {
     category: "Moderation",
     guildOnly: true,
     async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+        await interaction.deferReply({ ephemeral: true });
         let title = interaction.options.getString("name");
         let description = interaction.options.getString("description");
         let channel = interaction.options.getChannel("channel");
         let category = interaction.options.getChannel("category");
         let closecategory = interaction.options.getChannel("closecategory");
-        if (!title) return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.noName"));
-        if (!description) return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.noDesc"));
+        if (!title) return interaction.editReply(client.getLocale(interaction, "commands.moderation.createticket.noName"));
+        if (!description) return interaction.editReply(client.getLocale(interaction, "commands.moderation.createticket.noDesc"));
         if (category?.type !== "GUILD_CATEGORY" || closecategory?.type !== "GUILD_CATEGORY" || !category || !closecategory) {
-            return interaction.reply(client.getLocale(interaction, "commands.moderation.createticket.categoryNotCategory"));
+            return interaction.editReply(client.getLocale(interaction, "commands.moderation.createticket.categoryNotCategory"));
         }
         if (!(channel instanceof GuildChannel)) channel = await interaction.guild!.channels.fetch(channel!.id)
-        if (!channel?.isText()) return interaction.reply("The channel must be a guild channel.");
+        if (!channel?.isText()) return interaction.editReply("The channel must be a guild channel.");
         let embed = new MessageEmbed()
             .setTitle(title)
             .setDescription(description)
@@ -80,11 +81,11 @@ module.exports = {
         });
         ticket.save()
             .then(() => {
-                interaction.reply({ content: `Ticket created successfully!`, ephemeral: true });
+                interaction.editReply({ content: `Ticket created successfully!` });
             }
             ).catch((err: any) => {
                 console.log(err);
-                interaction.reply({ content: `There was an error while creating the ticket: ${err}`, ephemeral: true });
+                interaction.editReply({ content: `There was an error while creating the ticket: ${err}` });
             }
             );
     }

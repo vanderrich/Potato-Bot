@@ -1,5 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { Music } from "../../../localization";
+import { Client } from "../../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -17,7 +19,7 @@ module.exports = {
         ),
     category: "Music",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction: CommandInteraction, client: Client, footers: string[], locale: Music) {
         await interaction.deferReply();
         const user = interaction.user;
         const guild = interaction.guild;
@@ -26,24 +28,18 @@ module.exports = {
 
         const playlist = await client.playlists.findOne({ managers: user.id, name: playlistName });
 
-        if (!playlist?.tracks) return interaction.editReply("I couldn't find that playlist!");
-
-        if (playlist.tracks.length === 0) return interaction.editReply("That playlist doesn't have any tracks!");
-
-        const res = playlist.tracks;
+        if (!playlist?.tracks) return interaction.editReply(locale.noPlaylist);
+        if (playlist.tracks.length === 0) return interaction.editReply(locale.emptyPlaylist);
 
         const userToShare = interaction.options.getUser("user");
-        if (!userToShare) return interaction.editReply("You must specify a user!");
-        const userToSharePlaylist = await client.playlists.findOne({ creator: userToShare.id, name: playlistName });
-
-        if (!userToSharePlaylist) return interaction.editReply(`${userToShare} doesn't have a playlist with that name!`);
+        if (!userToShare) return interaction.editReply(locale.noUser);
 
         const index = playlist.managers.indexOf(userToShare.id);
-        if (index === -1) return interaction.editReply(`${userToShare} doesn't have a playlist with that name!`);
+        if (index === -1) return interaction.editReply(locale.otherDoesntHavePlaylist);
 
         playlist.managers.splice(index, 1);
         playlist.save();
 
-        return interaction.editReply(`Successfully unshared playlist **${playlistName}** with ${userToShare}`);
+        return interaction.editReply(client.getLocale(interaction, "commands.music.unshareSuccess", userToShare));
     }
 }

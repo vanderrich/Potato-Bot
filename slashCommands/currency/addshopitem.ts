@@ -25,11 +25,12 @@ module.exports = {
     permissions: "ADMINISTRATOR",
     guildOnly: true,
     async execute(interaction: CommandInteraction, client: Client) {
+        await interaction.deferReply();
         const name = interaction.options.getString("name");
         const description = interaction.options.getString("description");
         const price = interaction.options.getNumber("price");
 
-        if (!price) return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noPrice"));
+        if (!price) return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.noPrice"));
         let result = await client.eco.addItem({
             guild: interaction.guild!.id,
             inventory: {
@@ -40,10 +41,10 @@ module.exports = {
         });
         client.updateCache();
         if (result.error) {
-            if (result.type == 'No-Inventory-Name') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noItemName"));
-            if (result.type == 'Invalid-Inventory-Price') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.invalidPrice"));
-            if (result.type == 'No-Inventory-Price') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noInvPrice"));
-            if (result.type == 'No-Inventory') return interaction.reply(client.getLocale(interaction, "currency.addshopitem.noInv"));
-        } else return interaction.reply(client.getLocale(interaction, "currency.addshopitem.success", name));
+            if (result.type == 'No-Inventory-Name') return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.noItemName"));
+            if (result.type == 'Invalid-Inventory-Price') return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.invalidPrice"));
+            if (result.type == 'No-Inventory-Price') return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.noInvPrice"));
+            if (result.type == 'No-Inventory') return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.noInv"));
+        } else return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.success", name));
     }
 } as SlashCommand;

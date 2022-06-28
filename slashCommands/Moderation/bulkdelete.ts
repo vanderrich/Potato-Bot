@@ -16,16 +16,17 @@ module.exports = {
     category: "Moderation",
     guildOnly: true,
     execute(interaction: CommandInteraction, client: Client) {
+        interaction.deferReply();
         let amount = interaction.options.getInteger("amount");
-        if (!amount || isNaN(amount) || amount < 0) return interaction.reply(client.getLocale(interaction, "commands.moderation.modActions.bulkDelete.invalidAmount"));
+        if (!amount || isNaN(amount) || amount < 0) return interaction.editReply(client.getLocale(interaction, "commands.moderation.modActions.bulkDelete.invalidAmount"));
         let channel = interaction.channel
         if (!channel || channel.type === "DM") return
         channel.bulkDelete(amount)
             .then(() => {
-                interaction.reply("Messages deleted!");
+                interaction.editReply("Messages deleted!");
             })
             .catch(err => {
-                interaction.reply("Error deleting messages: " + err);
+                interaction.editReply("Error deleting messages: " + err);
             })
     }
 } as SlashCommand;

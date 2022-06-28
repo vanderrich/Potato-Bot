@@ -40,26 +40,27 @@ module.exports = {
     category: "Moderation",
     guildOnly: true,
     async execute(interaction: Discord.CommandInteraction, client: Client, footers: string[]) {
+        await interaction.deferReply({ ephemeral: true });
         let title: string = interaction.options.getString("title")!;
         let description: string | null = interaction.options.getString("description");
         let channel: any = interaction.options.getChannel("channel");
-        if (!channel || !channel.isText()) return interaction.reply(client.getLocale(interaction, "commands.moderation.reactroles.noTextChannel"));
+        if (!channel || !channel.isText()) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.noTextChannel"));
         let options: Array<string> = [];
         let reactionRoles: Array<any> = [];
         let reactions: Array<Discord.GuildEmoji | string> = [];
-        if (!interaction.guild!.me?.roles.highest.position) return interaction.reply(client.getLocale(interaction, "commands.moderation.reactroles.noPerms"));
+        if (!interaction.guild!.me?.roles.highest.position) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.noPerms"));
         for (let i = 1; i <= 25; i++) {
             let option = interaction.options.getString(`option${i}`);
             let emoji = interaction.options.getString(`option${i}emoji`);
             let role = interaction.options.getRole(`option${i}role`);
             if (option && emoji && role) {
                 if (role.position < interaction.guild!.me.roles.highest.position) {
-                    if (!client.emojis.cache.get(emoji.replace(/<:[a-z]+:/, "").replace(/>/, "")) && !emoji.match(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/)) return interaction.reply(client.getLocale(interaction, "commands.moderation.reactroles.invalidEmoji", emoji));
+                    if (!client.emojis.cache.get(emoji.replace(/<:[a-z]+:/, "").replace(/>/, "")) && !emoji.match(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/)) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.invalidEmoji", emoji));
                     options.push(option);
                     reactionRoles.push(role);
                     reactions.push(emoji.trim());
                 } else {
-                    return interaction.reply(client.getLocale(interaction, "commands.moderation.reactroles.roleTooHigh", role.name));
+                    return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.roleTooHigh", role.name));
                 }
             }
         }
@@ -84,6 +85,6 @@ module.exports = {
         }
         messageActionRow.addComponents(messageActionRowComponents);
         channel.send({ embeds: [embed], components: [messageActionRow] });
-        interaction.reply({ content: client.getLocale(interaction, "commands.moderation.reactroles.success"), ephemeral: true });
+        interaction.editReply({ content: client.getLocale(interaction, "commands.moderation.reactroles.success") });
     }
 } as SlashCommand;

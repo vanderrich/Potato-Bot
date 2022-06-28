@@ -4,6 +4,7 @@ import { Model, Schema, Document } from 'mongoose';
 import { shop } from './config.json';
 import { Player } from 'discord-player';
 import Economy from 'currency-system';
+import { Music } from '../localization';
 
 export type SlashCommand = {
     data: SlashCommandBuilder | SlashCommandSubcommandGroupBuilder | SlashCommandSubcommandBuilder;
@@ -11,7 +12,7 @@ export type SlashCommand = {
     category: string;
     guildOnly?: boolean;
     permissions?: PermissionResolvable | "BotAdmin";
-    execute: (interaction: CommandInteraction, client: Client, footers: string[]) => void;
+    execute: (interaction: CommandInteraction, client: Client, footers: string[], locale?: Music) => void;
 }
 
 export type MessageComponent = {

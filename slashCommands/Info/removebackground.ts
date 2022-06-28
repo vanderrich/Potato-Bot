@@ -15,8 +15,9 @@ module.exports = {
     ) as SlashCommandBuilder,
     category: "Info",
     async execute(interaction: CommandInteraction) {
+        await interaction.deferReply();
         const image = interaction.options.getAttachment('image');
-        if (!image) return interaction.reply("Please attach an image to remove the background from");
+        if (!image) return interaction.editReply("Please attach an image to remove the background from");
         request.post({
             url: 'https://api.remove.bg/v1.0/removebg/',
             formData: {
@@ -33,7 +34,7 @@ module.exports = {
             if (response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString());
             fs.writeFileSync(`./${image.name}.png`, body);
             const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}.png`), `${image.name}.png`);
-            interaction.reply({
+            interaction.editReply({
                 files: [attachment],
             });
             fs.unlinkSync(`./${image.name}.png`);

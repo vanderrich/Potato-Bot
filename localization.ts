@@ -136,7 +136,7 @@ export interface Music {
     clearSuccess: string;
     filterSuccess: string;
     skipSuccess: string;
-    loopType: LoopType;
+    loopType: string[];
     nowplayingMethods: string[];
     nowplayingDesc: string;
     saveButtonLabel: string;
@@ -173,17 +173,28 @@ export interface Music {
     saveServer: string;
     requestedBy: string;
     cantDM: string;
+    onlyYT: string;
+    noPlaylist: string;
+    addSuccess: string;
+    removePlaylistTrackSuccess: string;
+    haveSamePlaylist: string;
+    createPlaylistSuccess: string;
+    deletePlaylistSuccess: string;
+    noPlaylists: string;
+    yourPlaylists: string;
+    tracks: string;
+    emptyPlaylist: string;
+    playlistSettings: string;
+    noMoreTracksPlaylist: string;
+    noUser: string;
+    otherHasPlaylist: string;
+    otherDoesntHavePlaylist: string;
+    shareSuccess: string;
+    unshareSuccess: string;
     playlist: string;
     track: string;
     queue: string;
     none: string;
-    autoplay: string;
-}
-
-export interface LoopType {
-    off: string;
-    track: string;
-    queue: string;
     autoplay: string;
 }
 

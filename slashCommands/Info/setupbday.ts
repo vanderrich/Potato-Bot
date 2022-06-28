@@ -20,24 +20,25 @@ module.exports = {
     ) as SlashCommandSubcommandBuilder,
     category: "Info",
     isSubcommand: true,
+    guildOnly: true,
     async execute(interaction: CommandInteraction, client: any) {
-        if (!interaction.guild) return interaction.editReply("This command can only be used in a guild!");
+        await interaction.deferReply()
 
         const birthdayRole = interaction.options.getRole("birthdayrole");
         const birthdayChannel = interaction.options.getChannel("birthdaychannel");
         const birthdayMessage = interaction.options.getString("birthdaymessage");
 
         if (birthdayChannel instanceof GuildChannel && birthdayChannel)
-            if (!birthdayChannel.isText() && birthdayChannel != null) return interaction.reply("That channel is not a text channel!");
+            if (!birthdayChannel.isText() && birthdayChannel != null) return interaction.editReply("That channel is not a text channel!");
 
-        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild.id });
+        const birthdayConfig = await client.birthdayConfigs.findOne({ guildId: interaction.guild!.id });
 
         if (birthdayConfig) {
-            client.birthdayConfigs.updateOne({ guildId: interaction.guild.id }, { $set: { birthdayChannel: birthdayChannel, birthdayRole: birthdayRole, birthdayMessage: birthdayMessage } });
+            client.birthdayConfigs.updateOne({ guildId: interaction.guild!.id }, { $set: { birthdayChannel: birthdayChannel, birthdayRole: birthdayRole, birthdayMessage: birthdayMessage } });
         } else {
             new client.birthdayConfigs(
                 {
-                    guildId: interaction.guild.id,
+                    guildId: interaction.guild!.id,
                     channelId: birthdayChannel?.id,
                     roleId: birthdayRole?.id,
                     message: birthdayMessage
@@ -45,7 +46,7 @@ module.exports = {
             ).save();
         }
 
-        interaction.reply("Your birthday data has been set!");
+        interaction.editReply("Your birthday data has been set!");
         console.log(`[INFO] ${interaction.user.tag} set their birthday data`);
     }
 }
