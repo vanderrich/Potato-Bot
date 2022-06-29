@@ -5,6 +5,8 @@ import { Client, SlashCommand } from "../../Util/types";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("language")
+        .setNameLocalization("zh-CN", "语言")
+        .setDescriptionLocalization("zh-CN", "改变机器人的语言。")
         .setDescription("Change the language of the bot.")
         .addStringOption(option => option
             .setName("language")

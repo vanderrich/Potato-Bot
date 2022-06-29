@@ -746,91 +746,92 @@
                 },
                 "birthday": {
                     "invalidBdate": "Tanggal lahir tidak valid!",
-                    "noBday": "You have not set your birthday!",
+                    "noBday": "Anda belum mengatur tangal ulang tahun anda!",
                     "noBdate": "Anda harus menentukan tanggal lahir!",
-                    "setSuccess": "Tanggal lahir anda telah diset!",
-                    "updateSuccess": "Tanggal lahir anda telah diperbarui!",
+                    "setSuccess": "Ulang tahun anda telah diset!",
+                    "updateSuccess": "Ulang tahun anda telah diperbarui!",
                     "noBdays": "Tidak ada tanggal lahir yang tersedia!",
-                    "listEmbedTitle": "Birthdays for ${VAR}",
-                    "nextBday": "${VAR}'s birthday is next on ${VAR}",
-                    "channelNotText": "The channel must be a text channel!",
-                    "setupSuccess": "Settings saved!",
-                    "removeSuccess": "Birthday removed!"
+                    "listEmbedTitle": "Ulang tahun untuk ${VAR}",
+                    "nextBday": "Ulang tahun ${VAR} berikutnya pada ${VAR}",
+                    "channelNotText": "Channel harus channel teks!",
+                    "setupSuccess": "Peraturan telah disave!",
+                    "removeSuccess": "Data ulang tahun telah dihapus!"
                 },
                 "tag": {
-                    "noTag": "You must specify a tag!",
-                    "tagNotFound": "Tag not found!",
-                    "pingUser": "*Tag suggestion for ${VAR}*"
+                    "noTag": "Anda harus menentukan sebuah tag!",
+                    "tagNotFound": "Tidak dapat menemukan tag itu!",
+                    "pingUser": "*Saran tag untuk ${VAR}*"
                 },
                 "language": {
                     "noLanguage": "Anda harus menentukan sebuah bahasa!",
                     "success": "Bahasa berhasil diubah ke ${VAR}!"
                 },
                 "dictionary": {
-                    "noWord": "Word Not Found!",
-                    "offensive": "Offensive?",
-                    "stems": "Stems",
-                    "topDefs": "Top Definitions",
-                    "examples": "Examples"
+                    "noWord": "Tidak dapat menemukan kata itu!",
+                    "offensive": "Ofensif?",
+                    "stems": "Batang",
+                    "topDefs": "Definisi paling atas",
+                    "examples": "Contoh"
                 }
             },
             "moderation": {
                 "modActions": {
                     "bulkDelete": {
-                        "invalidAmount": "Enter a valid amount of messages to delete!",
-                        "messagesDeleted": "Messages deleted!"
+                        "invalidAmount": "Masukkan jumlah message yang valid untuk dihapus!",
+                        "messagesDeleted": "Message telah dihapus!"
                     }
                 },
                 "createGiveaway": {
-                    "success": "Giveaway created!"
+                    "success": "Giveaway telah dibuat!"
                 },
                 "settings": {
-                    "badWords": "Bad Words",
-                    "badWordsSpoilers": "Bad Words (unspoil at your own risk)",
+                    "badWords": "Kata-Kata Buruk",
+                    "badWordsSpoilers": "Kata-Kata Buruk (buka tutup dengan risiko anda sendiri)",
                     "welcome": "Welcome",
-                    "welcomeChannel": "Welcome Channel",
-                    "welcomeMessage": "Welcome Message",
+                    "welcomeChannel": "Channel Welcome",
+                    "welcomeMessage": "Message Welcome",
                     "welcomeRole": "Welcome Role",
-                    "tags": "Tags",
-                    "tagDescriptions": "Tag Descriptions",
-                    "misc": "Misc",
-                    "suggestionChannel": "Suggestion Channel",
-                    "ghostPing": "Ghost Ping Detection?",
+                    "tags": "Tag",
+                    "tagDescriptions": "Deskripsi tag",
+                    "misc": "Lain Lain",
+                    "suggestionChannel": "Channel Saran",
+                    "ghostPing": "Deteksi Ping Bayangan?",
                     "badWordPresetNames": {
-                        "low": "Low (default)",
-                        "medium": "Medium (recommended)",
-                        "high": "High (recommended)",
-                        "highest": "Highest (not recommended)",
+                        "low": "Rendah (default)",
+                        "medium": "Medium (rekomendasi)",
+                        "high": "Tinggi (rekomendasi)",
+                        "highest": "Paling Tinggi (tidak direkomendasi)",
                         "superHigh": "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻",
-                        "custom": "Custom"
+                        "custom": "Khusus"
                     },
-                    "customBadWords": "Custom Bad Words",
-                    "badWordsTextInputPlaceHolder": "Enter the custom bad words you'd like to set, separate with commas",
-                    "updated": "Settings Updated!",
-                    "welcomeSettings": "Welcome Settings",
-                    "welcomeMessageTextInputPlaceHolder": "The title of the embed when someone joins",
-                    "welcomeChannelTextInputPlaceHolder": "The name of channel to send the embed to",
-                    "welcomeRoleTextInputPlaceHolder": "The role to give to the new members",
-                    "invalidChannel": "Invalid Channel!",
+                    "customBadWords": "Kata-Kata Buruk Khusus",
+                    "badWordsTextInputPlaceHolder": "Masukkan kata-kata buruk khusus yang ingin anda diset, pisahkan dengan koma",
+                    "updated": "Peraturan Diperbarui!",
+                    "welcomeSettings": "Peraturan Welcome",
+                    "welcomeMessageTextInputPlaceHolder": "Judul embed saat seseorang datang",
+                    "welcomeChannelTextInputPlaceHolder": "Nama channel untuk mengirim embed ke",
+                    "welcomeRoleTextInputPlaceHolder": "Role untuk diberi kepada member baru",
+                    "invalidChannel": "Channel tidak valid!",
                     "invalidRole": "Invalid Role!",
-                    "miscSettings": "Misc Settings",
-                    "suggestionChannelTextInputPlaceHolder": "The name of the channel to send suggestions to",
-                    "ghostPingTextInputPlaceHolder": "Should I Detect Ghost Pings?",
+                    "miscSettings": "Settings Lain Lain",
+                    "suggestionChannelTextInputPlaceHolder": "Nama channel untuk mengirim saran ke",
+                    "ghostPingTextInputPlaceHolder": "Haruskah saya mendeteksi ping bayangan?",
                     "yes": [
                         "y",
                         "yes",
                         "true",
-                        "1"
+                        "iya",
+                        "ya"
                     ],
-                    "settings": "Settings For ${VAR}",
-                    "addTag": "Add Tag",
-                    "removeTag": "Remove Tag",
+                    "settings": "Peraturan Untuk ${VAR}",
+                    "addTag": "Tambah Tag",
+                    "removeTag": "Hapus Tag",
                     "tag": "Tag",
-                    "customid": "Custom ID",
+                    "customid": "ID Khusus",
                     "value": "Value",
-                    "tagTextInputPlaceHolder": "The tag name you want to mess with",
-                    "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
-                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
+                    "tagTextInputPlaceHolder": "Nama tag yang ingin anda dilakukan",
+                    "customIdTextInputPlaceHolder": "ID Khusus tag yang ingin anda dilakukan",
+                    "valueTextInputPlaceHolder": "Sesuatu saya kirim saat seseorang menyanyakanku untuk mengirim tag ini"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",

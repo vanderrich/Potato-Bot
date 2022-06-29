@@ -189,7 +189,7 @@ client.playlists = mongoose.model('playlists', new mongoose.Schema({
 		shuffle: Boolean,
 		volume: Number,
 	}
-}));
+})) as mongoose.Model<Types.Playlist>;
 const giveawayModel = mongoose.model('giveaways', giveawaySchema);
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
 	// This function is called when the manager needs to get all giveaways which are stored in the database.

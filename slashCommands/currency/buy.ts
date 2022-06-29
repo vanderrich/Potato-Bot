@@ -6,6 +6,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("buy")
         .setDescription("Buy an item!")
+        .setNameLocalization("zh-CN", "买")
+        .setDescriptionLocalization("zh-CN", "购买一个东西!")
         .addStringOption(option =>
             option
                 .setName("item")
