@@ -7,6 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("bal")
         .setDescription("Check your balance.")
+        .setNameLocalization("zh-CN", "平衡")
         .addUserOption(option =>
             option
                 .setName("target")
