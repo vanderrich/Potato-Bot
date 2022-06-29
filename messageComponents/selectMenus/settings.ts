@@ -39,7 +39,7 @@ module.exports = {
                                 { label: locale.badWordPresetNames.custom, value: "custom" }
                             ])
                     )
-                interaction.update({ components: [actionRow, badWordPresetActionRow], fetchReply: true }).then(async (msg: Message | APIMessage) => {
+                interaction.update({ components: [actionRow, badWordPresetActionRow], fetchReply: true }).then(async (msg: APIMessage | Message) => {
                     if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                     msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
                         const selected = collected.values[0];
