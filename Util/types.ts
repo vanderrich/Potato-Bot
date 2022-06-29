@@ -12,7 +12,7 @@ export type SlashCommand = {
     category: string;
     guildOnly?: boolean;
     permissions?: PermissionResolvable | "BotAdmin";
-    execute: (interaction: CommandInteraction, client: Client, footers: string[], locale?: Music) => void;
+    execute: (interaction: CommandInteraction, client: Client, footers: string[], locale?: Music) => any;
 }
 
 export type MessageComponent = {
