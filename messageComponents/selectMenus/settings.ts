@@ -7,6 +7,7 @@ const badWordPresets = config.settings.badWordPresets;
 
 module.exports = {
     name: "settings",
+    permissions: "MANAGE_GUILD",
     async execute(interaction: SelectMenuInteraction, client: Client) {
         if (interaction.replied) return;
         const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
