@@ -43,6 +43,6 @@
         "ytdl-core": ""
     },
     "engines": {
-        "node": "18.x"
+        "node": "16.x"
 }
 }
