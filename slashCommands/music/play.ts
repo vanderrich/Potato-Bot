@@ -3,7 +3,6 @@ import { QueryType } from 'discord-player';
 import { CommandInteraction, GuildMember, Message, MessageActionRow, MessageButton, ButtonInteraction } from 'discord.js';
 import { Music } from '../../localization';
 import { Client } from '../../Util/types';
-import { APIMessage } from "discord-api-types/v10"
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -41,7 +40,7 @@ module.exports = {
                         .setCustomId("cancel")
                         .setEmoji("❎")
                 );
-            await interaction.editReply({ content: locale.areYouSurePlayNotYT, components: [actionRow] }).then(async (msg: Message | APIMessage) => {
+            await interaction.editReply({ content: locale.areYouSurePlayNotYT, components: [actionRow] }).then(async (msg: any) => {
                 if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                 const collector = msg.createMessageComponentCollector({ componentType: "BUTTON" });
                 collector.on("collect", (button: ButtonInteraction) => {
