@@ -41,5 +41,8 @@
         "undici": "",
         "uuid": "^8.3.2",
         "ytdl-core": ""
-    }
+    },
+    "engines": {
+        "node": "18.x"
+}
 }
