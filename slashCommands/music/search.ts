@@ -4,6 +4,7 @@ import { QueryType, Track } from "discord-player"
 import { APIMessage, APIInteractionGuildMember } from "discord-api-types/v9"
 import { Client } from "../../Util/types";
 import { Music } from "../../localization";
+import * as playdl from "play-dl";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -27,7 +28,16 @@ module.exports = {
         if (!res || !res.tracks.length) return interaction.reply(locale.noResults);
 
         const queue = await client.player.createQueue(interaction.guild, {
-            metadata: interaction.channel
+            metadata: interaction.channel,
+            leaveOnEnd: true,
+            leaveOnStop: true,
+            leaveOnEmpty: true,
+            leaveOnEmptyCooldown: 10000,
+            autoSelfDeaf: true,
+            initialVolume: 75,
+            async onBeforeCreateStream(track, source, _queue) {
+                return (await playdl.stream(track.url)).stream;
+            },
         });
 
         const embed = new Discord.MessageEmbed();

@@ -3,7 +3,7 @@ import { QueryType, Track } from "discord-player";
 import { CommandInteraction, GuildMember } from "discord.js";
 import { Music } from "../../../localization";
 import { Client, Playlist } from "../../../Util/types";
-
+import * as playdl from "play-dl";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -39,7 +39,10 @@ module.exports = {
             leaveOnEmpty: true,
             leaveOnEmptyCooldown: 10000,
             autoSelfDeaf: true,
-            initialVolume: playlist.settings.volume
+            initialVolume: playlist.settings.volume,
+            async onBeforeCreateStream(track, source, _queue) {
+                return (await playdl.stream(track.url)).stream;
+            },
         });
 
         try {
