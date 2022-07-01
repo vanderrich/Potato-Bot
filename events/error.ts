@@ -7,7 +7,7 @@ module.exports = {
     async execute(error: Error, client: Client) {
         console.error(error);
         const id = uuidv4();
-        await axios.post('https://potato-bot-api.herokuapp.com/error', {
+        await axios.post('https://potato-bot-api.up.railway.app//error', {
             name: 'Error',
             id,
             type: "Unknown",

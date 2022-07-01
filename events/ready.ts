@@ -35,7 +35,7 @@ module.exports = {
             }
         });
         setInterval(async () => {
-            axios.post('https://potato-bot-api.herokuapp.com/status')
+            axios.post('https://potato-bot-api.up.railway.app//status')
                 .catch(error => {
                     console.error(error);
                 }).then((res: AxiosResponse | void) => {
