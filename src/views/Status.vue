@@ -5,13 +5,15 @@ export default {
     return {
       loading: true,
       status: "",
+      herokuStatus: {},
+      discordStatus: {},
       errors: [],
       uptime: "",
     };
   },
   created() {
     axios
-      .get("https://potato-bot-api.herokuapp.com/status")
+      .get("https://potato-bot-api.up.railway.app/status")
       .then((response) => {
         this.status = response.data.message ? "Online" : "Offline";
         this.errors = response.data.errors;
@@ -20,6 +22,21 @@ export default {
         let hours = Math.floor((ms_num / 1000 / 60 / 60) % 24);
         let minutes = Math.floor((ms_num / 1000 / 60) % 60);
         this.uptime = `${days} days, ${hours} hours, ${minutes} minutes`;
+        this.loading = false;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("https://status.heroku.com/api/v4/current-status")
+      .then((response) => {
+        this.herokuStatus = response.data;
+        this.loading = false;
+      });
+    axios
+      .get("https://discordstatus.com/api/v2/summary.json")
+      .then((response) => {
+        this.discordStatus = response.data;
         this.loading = false;
       })
       .catch((error) => {
@@ -37,9 +54,39 @@ export default {
   <div id="status">
     <h1>Status</h1>
     <p>
-      Status: <span v-if="!loading">{{ status }}</span
+      Status:
+      <span v-if="!loading"
+        ><span v-if="!status"
+          ><a href="https://potato-bot-api.up.railway.app/status">Our API</a>
+          haven't responded yet, most likely because heroku is down (check the
+          heroku incidents below)</span
+        ><span v-else>{{ status }}</span></span
       ><span v-else>Loading...</span><br />
-      Uptime: <span v-if="!loading">{{ status }} for {{ uptime }}</span><span v-else>Loading...</span>
+      Heroku Status: <span v-if="loading">Loading...<br /></span>
+      <span v-else>
+        <li v-for="(status, index) in herokuStatus.status">
+          {{ status.system }}: {{ status.status }}
+        </li>
+        Incidents:
+        <ul>
+          <li v-for="(incident, index) in herokuStatus.incidents">
+            <a
+              :href="`https://status.heroku.com/incidents/${incident.id}`"
+              target="_blank"
+              >{{ incident.title }}</a
+            >
+          </li>
+        </ul>
+        <br />
+      </span>
+      Uptime:
+      <span v-if="!loading"
+        ><span v-if="!status"
+          ><a href="https://potato-bot-api.up.railway.app/status">Our API</a>
+          haven't responded yet, most likely because heroku is down (check the
+          heroku incidents above)</span
+        ><span v-else>{{ status }} for {{ uptime }}</span></span
+      ><span v-else>Loading...</span>
     </p>
     <h2>Latest Errors</h2>
     <ul>

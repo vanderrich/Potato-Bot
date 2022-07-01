@@ -9,7 +9,7 @@ export default {
   },
   created() {
     axios
-      .get("https://potato-bot-api.herokuapp.com/status")
+      .get("https://potato-bot-api.up.railway.app/status")
       .then((response) => {
         this.error = response.data.errors.find(
           (error) => error.id === this.$route.params.id
