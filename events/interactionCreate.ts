@@ -30,7 +30,7 @@ module.exports = {
                 const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                 if (!channel || !channel.isText()) return;
                 await channel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
-                await axios.post('https://potato-bot-api.up.railway.app//error', {
+                await axios.post('https://potato-bot-api.up.railway.app/error', {
                     name: command.data.name,
                     id,
                     type: interaction.isCommand() ? "Slash Command" : "Context Menu Command",
@@ -65,7 +65,7 @@ module.exports = {
                     console.error(error);
                     const id = uuidv4()
                     await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
-                    await axios.post('https://potato-bot-api.up.railway.app//error', {
+                    await axios.post('https://potato-bot-api.up.railway.app/error', {
                         name: interaction.customId,
                         id,
                         type: "Button",
@@ -127,7 +127,7 @@ module.exports = {
                     console.error(error);
                     const id = uuidv4()
                     await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
-                    await axios.post('https://potato-bot-api.up.railway.app//error', {
+                    await axios.post('https://potato-bot-api.up.railway.app/error', {
                         name: selectMenu.name,
                         id,
                         type: "Select Menu",
