@@ -1,6 +1,6 @@
 {
     "name": "potato-bot",
-    "version": "NaN",
+    "version": "42.0.69",
     "description": "Your local general purpose bot",
     "main": "build/index.js",
     "scripts": {
