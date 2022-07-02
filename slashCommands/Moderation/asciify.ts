@@ -17,10 +17,11 @@ module.exports = {
     contextMenu: new ContextMenuCommandBuilder()
         .setName("asciify")
         .setType(ApplicationCommandType.User),
-    category: "Info",
+    category: "Moderation",
     guildOnly: true,
+    permissions: "CHANGE_NICKNAME",
     async execute(interaction: CommandInteraction | UserContextMenuInteraction, client) {
-        const locale = client.getLocale(interaction, "commands.info.asciify") as Asciify;
+        const locale = client.getLocale(interaction, "commands.moderation.asciify") as Asciify;
         let member = interaction.isContextMenu() ? await interaction.guild!.members.fetch(interaction.targetId) : interaction.options.getMember("member");
         if (!member) return interaction.reply(locale.userNotInGuild);
         if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.options.getUser("member")!);
@@ -29,6 +30,6 @@ module.exports = {
         if (oldUserName === normalizedUserNickname) return interaction.reply(locale.userAlreadyAsciified);
         if (normalizedUserNickname == " " || normalizedUserNickname == "") normalizedUserNickname = locale.blank;
         await member.setNickname(normalizedUserNickname, "Unicode");
-        interaction.reply(client.getLocale(interaction, "commands.info.asciify.success", member.user.toString(), oldUserName, normalizedUserNickname));
+        interaction.reply(client.getLocale(interaction, "commands.moderation.asciify.success", member.user.toString(), oldUserName, normalizedUserNickname));
     }
 } as SlashCommand;

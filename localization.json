@@ -147,12 +147,6 @@
                 }
             },
             "info": {
-                "asciify": {
-                    "userNotInGuild": "The user is not in this server!",
-                    "userAlreadyAsciified": "The user is already asciified!",
-                    "blank": "blank",
-                    "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
-                },
                 "help": {
                     "categories": [
                         "Currency",
@@ -289,6 +283,12 @@
                 }
             },
             "moderation": {
+                "asciify": {
+                    "userNotInGuild": "The user is not in this server!",
+                    "userAlreadyAsciified": "The user is already asciified!",
+                    "blank": "blank",
+                    "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
+                },
                 "modActions": {
                     "bulkDelete": {
                         "invalidAmount": "Enter a valid amount of messages to delete!",
@@ -645,12 +645,6 @@
                 }
             },
             "info": {
-                "asciify": {
-                    "userNotInGuild": "The user is not in this server!",
-                    "userAlreadyAsciified": "The user is already asciified!",
-                    "blank": "blank",
-                    "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
-                },
                 "help": {
                     "categories": [
                         "Ekonomi",
@@ -787,6 +781,12 @@
                 }
             },
             "moderation": {
+                "asciify": {
+                    "userNotInGuild": "The user is not in this server!",
+                    "userAlreadyAsciified": "The user is already asciified!",
+                    "blank": "blank",
+                    "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
+                },
                 "modActions": {
                     "bulkDelete": {
                         "invalidAmount": "Masukkan jumlah message yang valid untuk dihapus!",
