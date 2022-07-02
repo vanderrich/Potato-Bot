@@ -150,6 +150,7 @@
                 "asciify": {
                     "userNotInGuild": "The user is not in this server!",
                     "userAlreadyAsciified": "The user is already asciified!",
+                    "blank": "blank",
                     "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
                 },
                 "help": {
@@ -647,6 +648,7 @@
                 "asciify": {
                     "userNotInGuild": "The user is not in this server!",
                     "userAlreadyAsciified": "The user is already asciified!",
+                    "blank": "blank",
                     "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
                 },
                 "help": {
@@ -1154,6 +1156,7 @@
                     "asciify": {
                         "userNotInGuild": "The user is not in this server!",
                         "userAlreadyAsciified": "The user is already asciified!",
+                        "blank": "blank",
                         "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
                     },
                     "categories": [
@@ -1656,6 +1659,7 @@
                     "asciify": {
                         "userNotInGuild": "The user is not in this server!",
                         "userAlreadyAsciified": "The user is already asciified!",
+                        "blank": "blank",
                         "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
                     },
                     "categories": [

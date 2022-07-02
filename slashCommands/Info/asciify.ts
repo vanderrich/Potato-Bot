@@ -25,8 +25,9 @@ module.exports = {
         if (!member) return interaction.reply(locale.userNotInGuild);
         if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.options.getUser("member")!);
         const oldUserName = member.user.username;
-        const normalizedUserNickname: string = unidecode(oldUserName);
+        let normalizedUserNickname: string = unidecode(oldUserName);
         if (oldUserName === normalizedUserNickname) return interaction.reply(locale.userAlreadyAsciified);
+        if (normalizedUserNickname == " " || normalizedUserNickname == "") normalizedUserNickname = locale.blank;
         await member.setNickname(normalizedUserNickname, "Unicode");
         interaction.reply(client.getLocale(interaction, "commands.info.asciify.success", member.user.toString(), oldUserName, normalizedUserNickname));
     }

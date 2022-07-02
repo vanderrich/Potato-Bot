@@ -479,6 +479,7 @@ export interface Asciify {
     userNotInGuild: string;
     userAlreadyAsciified: string;
     success: string;
+    blank: string;
 }
 
 export interface Fun {
