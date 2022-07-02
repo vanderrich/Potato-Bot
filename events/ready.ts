@@ -1,6 +1,7 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import { AxiosResponse } from "axios";
 import { Client } from "../Util/types";
 
 module.exports = {
@@ -42,7 +43,6 @@ module.exports = {
                     if (!res) return;
                     if (res.status !== 200) console.error(`Error in pinging the api: ${res.data.message}`);
 
-                    console.error(res.data.newVotes)
                     res.data.newVotes.forEach((vote: any) => {
                         const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                         if (!channel || !channel.isText()) return

@@ -147,6 +147,11 @@
                 }
             },
             "info": {
+                "asciify": {
+                    "userNotInGuild": "The user is not in this server!",
+                    "userAlreadyAsciified": "The user is already asciified!",
+                    "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
+                },
                 "help": {
                     "categories": [
                         "Currency",
@@ -639,6 +644,11 @@
                 }
             },
             "info": {
+                "asciify": {
+                    "userNotInGuild": "The user is not in this server!",
+                    "userAlreadyAsciified": "The user is already asciified!",
+                    "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
+                },
                 "help": {
                     "categories": [
                         "Ekonomi",
@@ -1141,6 +1151,11 @@
             },
             "info": {
                 "help": {
+                    "asciify": {
+                        "userNotInGuild": "The user is not in this server!",
+                        "userAlreadyAsciified": "The user is already asciified!",
+                        "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
+                    },
                     "categories": [
                         "Currency",
                         "Fun",
@@ -1638,6 +1653,11 @@
             },
             "info": {
                 "help": {
+                    "asciify": {
+                        "userNotInGuild": "The user is not in this server!",
+                        "userAlreadyAsciified": "The user is already asciified!",
+                        "success": "Asciified ${VAR}'s nickname from ${VAR} to ${VAR}!"
+                    },
                     "categories": [
                         "Currency",
                         "Fun",

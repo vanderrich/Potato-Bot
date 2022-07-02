@@ -23,7 +23,7 @@ export interface Commands3 {
 }
 
 export interface Info2 {
-    help: Help;
+    help: Help2;
     links: Links2;
     ping: Ping;
     poll: Poll;
@@ -42,6 +42,16 @@ export interface Links2 {
     discServer: string;
     invite: string;
     trello: string;
+}
+
+export interface Help2 {
+    asciify: Asciify;
+    categories: string[];
+    noCategory: string;
+    noCommand: string;
+    embedTitle: string;
+    embedDesc: string;
+    commandsInCategory: string;
 }
 
 export interface Id {
@@ -115,6 +125,8 @@ export interface Utils {
     message: string;
     ghostPingEmbedFooter: string;
     page: string;
+    true: string;
+    false: string;
     footers: string[];
 }
 
@@ -305,6 +317,7 @@ export interface BulkDelete {
 }
 
 export interface Info {
+    asciify: Asciify;
     help: Help;
     links: Links;
     ping: Ping;
@@ -339,8 +352,8 @@ export interface Tag {
 
 export interface BirthdayLocaleType {
     invalidBdate: string;
-    noBdate: string;
     noBday: string;
+    noBdate: string;
     setSuccess: string;
     updateSuccess: string;
     noBdays: string;
@@ -460,6 +473,12 @@ export interface Help {
     embedTitle: string;
     embedDesc: string;
     commandsInCategory: string;
+}
+
+export interface Asciify {
+    userNotInGuild: string;
+    userAlreadyAsciified: string;
+    success: string;
 }
 
 export interface Fun {

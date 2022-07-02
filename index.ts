@@ -1,5 +1,5 @@
 //initialize variables
-import { Player, Queue } from 'discord-player';
+import * as DiscordPlayer from 'discord-player';
 import fs from 'fs';
 import Discord from 'discord.js';
 import { shop, settings } from './config.json';
@@ -13,6 +13,8 @@ import { config } from "dotenv";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
+const { Player } = DiscordPlayer;
+type Queue = DiscordPlayer.Queue;
 config();
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
@@ -350,34 +352,34 @@ for (const file of selectMenuFiles) {
 }
 
 //other random thingy
-player.on('error', (queue: Queue<any>, error) => {
+player.on('error', (queue: Queue, error) => {
 	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released
 	if (error.message === '[DestroyedQueue] Cannot use destroyed queue') return;
-	queue.metadata.send(`There was a problem with the track queue => ${error.message}`);
+	(queue.metadata as Discord.TextChannel).send(`There was a problem with the track queue => ${error.message}`);
 });
 
-player.on('connectionError', (queue: Queue<any>, error) => {
-	queue.metadata.send(`I'm having trouble connecting => ${error.message}`);
+player.on('connectionError', (queue: Queue, error) => {
+	(queue.metadata as Discord.TextChannel).send(`I'm having trouble connecting => ${error.message}`);
 });
 
-player.on('trackStart', (queue: Queue<any>, track) => {
-	queue.metadata.send(`Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}**`);
+player.on('trackStart', (queue: Queue, track) => {
+	(queue.metadata as Discord.TextChannel).send(`Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}**`);
 });
 
-player.on('trackAdd', (queue: Queue<any>, track) => {
-	queue.metadata.send(`**${track.title}** added to queue.`);
+player.on('trackAdd', (queue: Queue, track) => {
+	(queue.metadata as Discord.TextChannel).send(`**${track.title}** added to queue.`);
 });
 
-player.on('botDisconnect', (queue: Queue<any>) => {
-	queue.metadata.send('Someone from the audio channel Im connected to kicked me out, the whole playlist has been cleared! ❌');
+player.on('botDisconnect', (queue: Queue) => {
+	(queue.metadata as Discord.TextChannel).send('Someone from the audio channel Im connected to kicked me out, the whole playlist has been cleared! ❌');
 });
 
-player.on('channelEmpty', (queue: Queue<any>) => {
-	queue.metadata.send('I left the audio channel because there is no one on my audio channel.');
+player.on('channelEmpty', (queue: Queue) => {
+	(queue.metadata as Discord.TextChannel).send('I left the audio channel because there is no one on my audio channel.');
 });
 
-player.on('queueEnd', (queue: Queue<any>) => {
-	queue.metadata.send('All play queue finished, I think you can listen to some more music.');
+player.on('queueEnd', (queue: Queue) => {
+	(queue.metadata as Discord.TextChannel).send('All play queue finished, I think you can listen to some more music.');
 });
 
 process.on("unhandledRejection", (error: Error) => {

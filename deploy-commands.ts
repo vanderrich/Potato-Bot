@@ -26,28 +26,10 @@ export const deploy = async (client: Client) => {
 
     try {
         console.log('Started refreshing application (/) commands.');
-        // test bot
-        if (clientId == '954584325809123348' || clientId == '982231580363853875') {
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(null);
-                }, 5000);
-            });
-            client.guilds.cache.forEach(async (guild) => {
-                await rest.put(
-                    Routes.applicationGuildCommands(clientId, guild.id),
-                    { body: commands },
-                );
-            });
-        }
-        // stable
-        else if (clientId == '894060283373449317') {
-            await rest.put(
-                Routes.applicationCommands(clientId),
-                { body: commands },
-            );
-        }
-
+        await rest.put(
+            Routes.applicationCommands(clientId!),
+            { body: commands },
+        );
         console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
         console.error(error);

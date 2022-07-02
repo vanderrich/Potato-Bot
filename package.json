@@ -6,25 +6,24 @@
     "scripts": {
         "start": "tsc && node index.js",
         "build": "tsc",
-        "postinstall": "npm run build",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-        "dev": "tsc && node --trace-warnings --inspect index.js"
+        "dev": "node index.js"
     },
     "author": "vanderrich",
     "dependencies": {
         "@author.io/arg": "",
         "@discordjs/builders": "",
-        "@discordjs/opus": "",
+        "@discordjs/opus": "^0.5.3",
         "@discordjs/rest": "",
         "@discordjs/voice": "",
-        "@types/node": "^18.0.0",
-        "axios": "^0.27.2",
+        "@types/node": "",
+        "axios": "",
         "currency-system": "",
         "discord-api-types": "",
         "discord-backup": "",
         "discord-currency": "github:vanderrich/discord-currency",
         "discord-giveaways": "",
-        "discord-player": "",
+        "discord-player": "^5.2.2",
         "discord.js": "",
         "dotenv": "",
         "ffmpeg-static": "",
@@ -33,14 +32,15 @@
         "officegen": "",
         "pet-pet-gif": "",
         "play-dl": "",
-        "request": "^2.88.2",
+        "request": "",
         "tenorjs": "",
-        "topgg-autoposter": "^2.0.1",
+        "topgg-autoposter": "",
         "typescript": "",
         "undici": "",
-        "uuid": "^8.3.2"
+        "unidecode": "",
+        "uuid": ""
     },
     "engines": {
         "node": "16.x"
-}
+    }
 }
