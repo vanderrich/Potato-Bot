@@ -240,20 +240,20 @@ client.tickets = mongoose.model('tickets', new mongoose.Schema({
 	messageId: String,
 	title: String,
 	description: String,
-}));
+})) as Types.Client["tickets"];
 
 client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
 	userId: String,
 	guildId: String,
 	birthday: Date,
-}));
+})) as Types.Client["birthdays"];
 
 client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
 	guildId: { type: String },
 	channelId: String,
 	roleId: String,
 	message: String,
-}));
+})) as Types.Client["birthdayConfigs"];
 
 client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 	guildId: { type: String, required: true },
@@ -267,7 +267,7 @@ client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 	tagDescriptions: { type: Object, default: {} },
 	ghostPing: { type: Boolean, default: true },
 	statChannels: { type: [String], default: [] },
-}));
+})) as Types.Client["guildSettings"];
 
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
 	if (err) console.log(err);
