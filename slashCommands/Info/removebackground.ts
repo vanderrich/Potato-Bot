@@ -3,6 +3,7 @@ import { CommandInteraction, MessageAttachment } from "discord.js";
 import fs from "fs";
 import { SlashCommand } from "../../Util/types";
 import axios from "axios";
+import { AxiosResponse } from "axios";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,8 +26,8 @@ module.exports = {
             headers: {
                 'X-Api-Key': process.env.REMOVEBG_API_KEY!,
             }
-        }).then((res) => {
-            fs.writeFileSync(`./${image.name}.png`, res.body);
+        }).then((res: AxiosResponse<any | any>) => {
+            fs.writeFileSync(`./${image.name}.png`, res.data);
             const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}.png`), `${image.name}.png`);
             interaction.editReply({
                 files: [attachment],
