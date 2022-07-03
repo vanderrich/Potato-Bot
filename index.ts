@@ -182,14 +182,17 @@ const giveawaySchema = new mongoose.Schema({
 	}
 }, { id: false });
 client.playlists = mongoose.model('playlists', new mongoose.Schema({
-	name: String,
-	tracks: Array,
-	creator: { type: String },
+	name: { type: String, required: true },
+	tracks: [String],
+	creator: { type: String, required: true },
 	managers: { type: [String] },
 	settings: {
-		loop: Number,
-		shuffle: Boolean,
-		volume: Number,
+		type: {
+			loop: { type: Number, min: 0, max: 3 },
+			shuffle: Boolean,
+			volume: { type: Number, min: 0, max: 250 },
+		},
+		default: { loop: 0, shuffle: false, volume: 75 }
 	}
 })) as mongoose.Model<Types.Playlist>;
 const giveawayModel = mongoose.model('giveaways', giveawaySchema);
@@ -272,6 +275,7 @@ client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
 	if (err) console.log(err);
 });
+mongoose.set('debug', true);
 setInterval(updateCache, 60000);
 updateCache();
 client.eco.getShopItems({ user: client.user?.id })
