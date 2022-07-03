@@ -270,13 +270,14 @@ module.exports = {
             )
         ),
     execute(interaction: CommandInteraction, client: Client, footers: string[]) {
-        let subcommand;
-        try {
-            subcommand = interaction.options.getSubcommandGroup();
-        } catch (e) {
-            subcommand = interaction.options.getSubcommand();
-        }
-        const locale = client.getLocale(interaction, "commands.music")
-        require("./" + subcommand).execute(interaction, client, footers, locale);
+        return interaction.reply("Unfortunately railway does not support music bots, sorry for the inconvenience");
+        // let subcommand;
+        // try {
+        //     subcommand = interaction.options.getSubcommandGroup();
+        // } catch (e) {
+        //     subcommand = interaction.options.getSubcommand();
+        // }
+        // const locale = client.getLocale(interaction, "commands.music")
+        // require("./" + subcommand).execute(interaction, client, footers, locale);
     }
 }

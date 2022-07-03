@@ -26,7 +26,7 @@ module.exports = {
             headers: {
                 'X-Api-Key': process.env.REMOVEBG_API_KEY!,
             }
-        }).then((res: AxiosResponse<any | any>) => {
+        }).then((res) => {
             fs.writeFileSync(`./${image.name}.png`, res.data);
             const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}.png`), `${image.name}.png`);
             interaction.editReply({
