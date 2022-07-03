@@ -181,7 +181,7 @@ const giveawaySchema = new mongoose.Schema({
 		roles: { type: [String], default: undefined }
 	}
 }, { id: false });
-client.playlists = mongoose.model('playlists', new mongoose.Schema({
+client.playlists = (mongoose.model('playlists', new mongoose.Schema({
 	name: { type: String, required: true },
 	tracks: [String],
 	creator: { type: String, required: true },
@@ -194,7 +194,7 @@ client.playlists = mongoose.model('playlists', new mongoose.Schema({
 		},
 		default: { loop: 0, shuffle: false, volume: 75 }
 	}
-})) as mongoose.Model<Types.Playlist>;
+})) as unknown) as mongoose.Model<Types.Playlist>;
 const giveawayModel = mongoose.model('giveaways', giveawaySchema);
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
 	// This function is called when the manager needs to get all giveaways which are stored in the database.
@@ -235,7 +235,7 @@ client.giveawaysManager = new GiveawayManagerWithOwnDatabase(client, {
 		reaction: "🥔",
 	}
 });
-client.tickets = mongoose.model('tickets', new mongoose.Schema({
+client.tickets = (mongoose.model('tickets', new mongoose.Schema({
 	guildId: String,
 	categoryId: String,
 	closeCategoryId: String,
@@ -243,22 +243,22 @@ client.tickets = mongoose.model('tickets', new mongoose.Schema({
 	messageId: String,
 	title: String,
 	description: String,
-})) as Types.Client["tickets"];
+})) as unknown) as Types.Client["tickets"];
 
-client.birthdays = mongoose.model('birthdays', new mongoose.Schema({
+client.birthdays = (mongoose.model('birthdays', new mongoose.Schema({
 	userId: String,
 	guildId: String,
 	birthday: Date,
-})) as Types.Client["birthdays"];
+})) as unknown) as Types.Client["birthdays"];
 
-client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema({
+client.birthdayConfigs = (mongoose.model('birthdayConfigs', new mongoose.Schema({
 	guildId: { type: String },
 	channelId: String,
 	roleId: String,
 	message: String,
-})) as Types.Client["birthdayConfigs"];
+})) as unknown) as Types.Client["birthdayConfigs"];
 
-client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
+client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
 	guildId: { type: String, required: true },
 	badWords: { type: [String], default: settings.badWordPresets.low },
 	autoPublishChannels: { type: [String], default: [] },
@@ -270,7 +270,7 @@ client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema({
 	tagDescriptions: { type: Object, default: {} },
 	ghostPing: { type: Boolean, default: true },
 	statChannels: { type: [String], default: [] },
-})) as Types.Client["guildSettings"];
+})) as unknown) as Types.Client["guildSettings"];
 
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
 	if (err) console.log(err);
