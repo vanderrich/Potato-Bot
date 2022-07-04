@@ -18,6 +18,7 @@
 .toHomepage {
   background-color: #020122;
   color: #FCE762;
+  padding: 2px 6px 0px;
 }
 
 .topNav:hover {
@@ -56,6 +57,7 @@ a:hover {
 a:visited {
   color: #020122;
 }
+
 .inviteLink:hover {
   height: 300px;
   width: 300px;
@@ -79,6 +81,7 @@ code {
   border-radius: 5px;
   padding: 10px;
 }
+
 @media screen and (max-width: 800px) {
   #inviteLinks {
     flex-direction: column;
