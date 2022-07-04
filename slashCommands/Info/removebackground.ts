@@ -13,7 +13,7 @@ module.exports = {
             .setName('image')
             .setDescription('Image to remove background from')
             .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Info",
     async execute(interaction: CommandInteraction) {
         await interaction.deferReply();
@@ -27,12 +27,12 @@ module.exports = {
                 'X-Api-Key': process.env.REMOVEBG_API_KEY!,
             }
         }).then((res) => {
-            fs.writeFileSync(`./${image.name}.png`, res.data);
-            const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}.png`), `${image.name}.png`);
+            fs.writeFileSync(`./${image.name}`, res.data);
+            const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}`), `${image.name}`);
             interaction.editReply({
                 files: [attachment],
             });
-            fs.unlinkSync(`./${image.name}.png`);
+            fs.unlinkSync(`./${image.name}`);
         });
     }
 } as SlashCommand;
