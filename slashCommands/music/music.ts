@@ -35,7 +35,7 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("loop")
             .setDescription("Loop the track or queue")
-            .addNumberOption(option => optio`n
+            .addNumberOption(option => option
                 .setName("loop")
                 .setDescription("The object to loop")
                 .setRequired(true)
