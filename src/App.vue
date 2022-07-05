@@ -6,7 +6,8 @@ import { RouterLink, RouterView } from "vue-router";
     <header>
         <div class="wrapper">
             <nav>
-                <RouterLink to="/" class="topNav toHomepage"><img src="@/assets/potato.png" width="50" height="50">
+                <RouterLink to="/" class="topNav toHomepage">
+                    <img src="@/assets/potato.png" width="50" height="50">
                 </RouterLink>
                 <!-- <RouterLink to="/dashboard" class="topNav">Dashboard</RouterLink> -->
                 <RouterLink to="/status" class="topNav">Status</RouterLink>
