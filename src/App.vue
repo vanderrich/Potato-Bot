@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
     <header>
         <div>
-            <nav>
+            <nav class="pl-0.5">
                 <RouterLink to="/" class="float-left px-1.5 pt-1 overflow-hidden bg-home-bg hover:bg-alto">
                     <img src="@/assets/potato.png" class="lg:w-15 lg:h-15 md:w-14 md:h-14 sm:w-10 sm:h-10 w-12 h-12">
                 </RouterLink>
