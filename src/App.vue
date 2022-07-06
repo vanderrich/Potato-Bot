@@ -54,7 +54,7 @@ a:hover {
     color: #FCE762;
 }
 
-a:visited {
+a:visited:not(nav > a) {
     color: #020122;
 }
 
