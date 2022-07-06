@@ -29,7 +29,7 @@ export default {
             <p>Interaction Name: <strong>{{ error.name }}</strong></p>
             <p>Interaction Type: <strong>{{ error.type }}</strong></p>
             <p>Stack: </p>
-            <pre class="code"><code>{{ error.stack }}</code></pre>
+            <pre class="bg-code-bg rounded-md p-2.5"><code>{{ error.stack }}</code></pre>
         </div>
     </div>
 </template>

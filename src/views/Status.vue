@@ -52,7 +52,7 @@ export default {
 
 <template>
     <div id="status">
-        <h1>Status</h1>
+        <h1 class="text-5xl">Status</h1>
         <p>
             Status:
             <span v-if="!loading"><span v-if="!status"><a href="https://potato-bot-api.up.railway.app/status">Our
@@ -62,12 +62,12 @@ export default {
                 v-else>Loading...</span><br />
             Heroku Status: <span v-if="loading">Loading...<br /></span>
             <span v-else>
-                <li v-for="(status, index) in herokuStatus.status">
+                <li v-for="status in herokuStatus.status" :key="status.system">
                     {{ status.system }}: {{ status.status }}
                 </li>
                 Incidents:
                 <ul>
-                    <li v-for="(incident, index) in herokuStatus.incidents">
+                    <li v-for="incident in herokuStatus.incidents" :key="incident.id">
                         <a :href="`https://status.heroku.com/incidents/${incident.id}`" target="_blank">{{
                                 incident.title
                         }}</a>
@@ -82,11 +82,11 @@ export default {
                     heroku incidents above)</span><span v-else>{{ status }} for {{ uptime }}</span></span><span
                 v-else>Loading...</span>
         </p>
-        <h2>Latest Errors</h2>
+        <h3 class="text-3xl">Latest Errors</h3>
         <ul>
             <li v-if="loading">Loading...</li>
             <div v-else>
-                <li v-for="(error, key) in errors">
+                <li v-for="(error) in errors" :key="error.id">
                     <a :href="`/status/${error.id}`"><span>{{ error.id.slice(0, 4) }}...</span> -
                         <strong>{{ error.error }}</strong></a>
                 </li>
