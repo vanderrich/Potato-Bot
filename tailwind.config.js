@@ -14,10 +14,7 @@ module.exports = {
             "features-bg": '#ae5a4b',
             "home-bg": '#020122',
         },
-        extend: {
-            spacing: {
-            }
-        },
+        extend: {},
     },
     plugins: [],
 }

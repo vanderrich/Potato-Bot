@@ -35,7 +35,7 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 
 <style>
-/* stuff that cant be done with tailwin i think */
+/* stuff that cant be done with tailwind i think */
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 body {
