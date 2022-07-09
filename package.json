@@ -2,6 +2,12 @@
     "name": "potato-bot",
     "version": "42.0.69",
     "description": "Your local general purpose bot",
+    "scripts": {
+        "start": "tsc && node index.js",
+        "build": "tsc",
+        "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+        "dev": "node index.js"
+    },
     "main": "build/index.js",
     "author": "vanderrich",
     "dependencies": {
