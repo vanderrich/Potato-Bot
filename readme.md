@@ -1,3 +1,11 @@
-# Potato Bot Website
+# fresh project
 
-what should i put here
+### Usage
+
+Start the project:
+
+```
+deno task start
+```
+
+This will watch the project directory and restart as necessary.
