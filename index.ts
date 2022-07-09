@@ -272,7 +272,7 @@ client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
 	statChannels: { type: [String], default: [] },
 })) as unknown) as Types.Client["guildSettings"];
 
-client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err) => {
+client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err: any) => {
 	if (err) console.log(err);
 });
 mongoose.set('debug', true);
@@ -390,7 +390,7 @@ process.on("unhandledRejection", (error: Error) => {
 	console.error(error + "\n" + error.stack + '\n' + '='.repeat(20))
 	const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
 	const id = uuidv4();
-	axios.post('https://potato-bot-api.up.railway.app/error', {
+	axios.post('https://potato-bot.deno.dev/api/error', {
 		name: 'Error',
 		id,
 		type: "Crash",

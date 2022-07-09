@@ -36,7 +36,7 @@ module.exports = {
             }
         });
         setInterval(async () => {
-            axios.post('https://potato-bot-api.up.railway.app/status')
+            axios.post('https://potato-bot.deno.dev/api/status')
                 .catch(error => {
                     console.error(error);
                 }).then((res: AxiosResponse | void) => {

@@ -3,12 +3,6 @@
     "version": "42.0.69",
     "description": "Your local general purpose bot",
     "main": "build/index.js",
-    "scripts": {
-        "start": "tsc && node index.js",
-        "build": "tsc",
-        "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-        "dev": "node index.js"
-    },
     "author": "vanderrich",
     "dependencies": {
         "@author.io/arg": "^1.3.10",
