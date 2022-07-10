@@ -82,7 +82,7 @@ module.exports = {
                         }),
                         method: "POST",
                         headers: {
-                            Authorization: process.env.SUPER_SECRET_KEY
+                            Authorization: process.env.SUPER_SECRET_KEY!
                         }
                     }).catch(err => console.error(err));
                     try {
