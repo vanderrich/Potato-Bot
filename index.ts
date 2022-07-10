@@ -408,8 +408,8 @@ process.on("unhandledRejection", (error: Error) => {
 	channel.send(`<@709950767670493275> [Bot Crashed!](https://potato-bot.netlify.app/status/${id})`); // log the crash to the bot logs channel
 });
 
-setInterval(async () => {
-	updateStats(await client.guilds.fetch("962861680226865193"), client);
-}, 100000);
+// setInterval(async () => {
+// 	updateStats(await client.guilds.fetch("962861680226865193"), client);
+// }, 100000);
 client.login(token);
 deploy(client);
