@@ -12,6 +12,7 @@ import * as Types from './Util/types';
 import { config } from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
 import { updateStats } from './Util/serverstats';
+import fetch from "node-fetch";
 
 const { Player } = DiscordPlayer;
 type Queue = DiscordPlayer.Queue;

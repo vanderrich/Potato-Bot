@@ -3,8 +3,9 @@
     "version": "42.0.69",
     "description": "Your local general purpose bot",
     "scripts": {
-        "start": "bun run index.ts",
-        "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+        "start": "tsc && node index.js",
+        "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+        "build": "tsc"
     },
     "main": "build/index.js",
     "author": "vanderrich",
@@ -21,6 +22,7 @@
         "discord-player": "",
         "discord.js": "^13.8.1",
         "dotenv": "",
+        "fetch": "^1.1.0",
         "mongoose": "^6.4.3",
         "ms": "^2.1.3",
         "officegen": "",

@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageAttachment } from "discord.js";
 import fs from "fs";
 import { SlashCommand } from "../../Util/types";
+import fetch from "node-fetch";
 
 module.exports = {
     data: new SlashCommandBuilder()

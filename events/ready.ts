@@ -1,6 +1,7 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
 import { Client } from "../Util/types";
+import fetch from "node-fetch";
 
 module.exports = {
     name: 'ready',
@@ -37,7 +38,7 @@ module.exports = {
             fetch('https://potato-bot.deno.dev/api/status', { method: 'POST' })
                 .catch(error => {
                     console.error(error);
-                }).then(async (res: void | Response) => {
+                }).then(async (res) => {
                     if (!res) return;
                     const data = await res.json()
                     if (res.status !== 200) console.error(`Error in pinging the api: ${data.message}`);
