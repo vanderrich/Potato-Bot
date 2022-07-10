@@ -1,6 +1,5 @@
 import { tags, admins } from './../config.json'
 import Discord from 'discord.js'
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { Client } from '../Util/types';
 import { AutoCompleteValue } from '../Util/types';
@@ -69,7 +68,7 @@ module.exports = {
                     console.error(error);
                     const id = uuidv4()
                     await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
-                    await axios.post('https://potato-bot.deno.dev/api/error', {
+                    await fetch('https://potato-bot.deno.dev/api/error', {
                         body: JSON.stringify({
                             name: interaction.customId,
                             id,
@@ -81,10 +80,10 @@ module.exports = {
                             httpStatus: error.httpStatus,
                             requestData: error.requestData?.json,
                         }),
+                        method: "POST",
                         headers: {
                             Authorization: process.env.SUPER_SECRET_KEY
-                        },
-                        method: "POST"
+                        }
                     }).catch(err => console.error(err));
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
@@ -149,8 +148,8 @@ module.exports = {
                             httpStatus: error.httpStatus,
                             requestData: error.requestData?.json,
                         }),
-                        headers: { Authorization: process.env.SUPER_SECRET_KEY! },
                         method: 'POST',
+                        headers: { Authorization: process.env.SUPER_SECRET_KEY! }
                     }).catch(err => console.error(err));
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });

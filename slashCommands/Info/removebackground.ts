@@ -2,8 +2,6 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageAttachment } from "discord.js";
 import fs from "fs";
 import { SlashCommand } from "../../Util/types";
-import axios from "axios";
-import { AxiosResponse } from "axios";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,15 +17,15 @@ module.exports = {
         await interaction.deferReply();
         const image = interaction.options.getAttachment('image');
         if (!image) return interaction.editReply("Please attach an image to remove the background from");
-        axios.post('https://api.remove.bg/v1.0/removebg/', {
-            image_url: image.url,
-            size: 'auto',
-        }, {
-            headers: {
+        fetch('https://api.remove.bg/v1.0/removebg/', {
+            body: JSON.stringify({
+                image_url: image.url,
+                size: 'auto',
+            }), headers: {
                 'X-Api-Key': process.env.REMOVEBG_API_KEY!,
             }
-        }).then((res) => {
-            fs.writeFileSync(`./${image.name}`, res.data);
+        }).then(async (res) => {
+            fs.writeFileSync(`./${image.name}`, await res.json());
             const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}`), `${image.name}`);
             interaction.editReply({
                 files: [attachment],

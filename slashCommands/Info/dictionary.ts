@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
-import axios from "axios";
 import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
