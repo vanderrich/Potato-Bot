@@ -15,4 +15,4 @@ RUN chown -R 101:101 /app && chmod -R g+w /app
 USER appuser
 COPY . ./
 
-CMD bun run index.ts
+CMD bun install --backend=copyfile && bun run index.ts
