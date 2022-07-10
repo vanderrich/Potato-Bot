@@ -5,7 +5,8 @@
     "scripts": {
         "start": "tsc && node index.js",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-        "build": "tsc"
+        "build": "tsc",
+        "startBun": "bun install --backend=copyfile && bun run index.ts"
     },
     "main": "build/index.js",
     "author": "vanderrich",
