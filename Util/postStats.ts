@@ -1,6 +1,7 @@
 import { AutoPoster } from 'topgg-autoposter';
 import { config } from "dotenv";
 import { Client } from './types';
+import fetch from 'node-fetch';
 config();
 
 export default async function postStats(client: Client): Promise<void> {

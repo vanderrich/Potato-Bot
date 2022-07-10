@@ -29,7 +29,6 @@ module.exports = {
                 const id = uuidv4();
                 const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                 if (!channel || !channel.isText()) return;
-                await channel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                 await fetch('https://potato-bot.deno.dev/api/error', {
                     body: JSON.stringify({
                         name: command.data.name,
@@ -45,6 +44,15 @@ module.exports = {
                     headers: { Authorization: process.env.SUPER_SECRET_KEY! },
                     method: "POST"
                 }).catch(err => console.error(err));
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+                    .addField("Error", error.toString())
+                    .addField("Stack", error.stack!)
+                await loggingChannel.send({
+                    content: `<@709950767670493275> you got some debugging to do`,
+                    embeds: [embed]
+                }); // log the error to the bot logs channel
+
                 try {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
@@ -68,7 +76,6 @@ module.exports = {
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
-                    await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                     await fetch('https://potato-bot.deno.dev/api/error', {
                         body: JSON.stringify({
                             name: interaction.customId,
@@ -86,6 +93,14 @@ module.exports = {
                             Authorization: process.env.SUPER_SECRET_KEY!
                         }
                     }).catch(err => console.error(err));
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+                        .addField("Error", error.toString())
+                        .addField("Stack", error.stack!)
+                    await loggingChannel.send({
+                        content: `<@709950767670493275> you got some debugging to do`,
+                        embeds: [embed]
+                    }); // log the error to the bot logs channel
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
@@ -136,7 +151,6 @@ module.exports = {
                 } catch (error: Discord.DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
-                    await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                     await fetch('https://potato-bot.deno.dev/api/error', {
                         body: JSON.stringify({
                             name: selectMenu.name,
@@ -152,6 +166,14 @@ module.exports = {
                         method: 'POST',
                         headers: { Authorization: process.env.SUPER_SECRET_KEY! }
                     }).catch(err => console.error(err));
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+                        .addField("Error", error.toString())
+                        .addField("Stack", error.stack!)
+                    await loggingChannel.send({
+                        content: `<@709950767670493275> you got some debugging to do`,
+                        embeds: [embed]
+                    }); // log the error to the bot logs channel
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
