@@ -1,7 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { v4 as uuidv4 } from 'uuid';
 import { Client } from "../Util/types";
-import fetch from "node-fetch";
 
 module.exports = {
     name: 'error',

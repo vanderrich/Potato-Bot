@@ -1,5 +1,4 @@
 //initialize variables
-import * as DiscordPlayer from 'discord-player';
 import fs from 'fs';
 import Discord from 'discord.js';
 import { shop, settings } from './config.json';
@@ -12,10 +11,7 @@ import * as Types from './Util/types';
 import { config } from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
 import { updateStats } from './Util/serverstats';
-import fetch from "node-fetch";
 
-const { Player } = DiscordPlayer;
-type Queue = DiscordPlayer.Queue;
 config();
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
@@ -294,27 +290,15 @@ client.buttons = new Discord.Collection();
 // client.contextMenus = new Discord.Collection();
 // client.cooldowns = new Discord.Collection();
 client.selectMenus = new Discord.Collection();
-client.player = new Player(client, {
-	ytdlOptions: {
-		quality: 'highestaudio', //Please don't touch
-		filter: 'audioonly', //Please don't touch
-		highWaterMark: 1 << 25 //Please don't touch
-	}
-});
+// client.player = new Player(client, {
+// 	ytdlOptions: {
+// 		quality: 'highestaudio', //Please don't touch
+// 		filter: 'audioonly', //Please don't touch
+// 		highWaterMark: 1 << 25 //Please don't touch
+// 	}
+// });
 client.tictactoe = {};
 const player = client.player
-
-// //initialize commands
-// const commandFolders = fs.readdirSync('./commands');
-// for (const folder of commandFolders) {
-// 	//loops through all folders of commandFolders
-// 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-// 	for (const file of commandFiles) {
-// 		//loops through all the commandFiles and add them to the client commands collection
-// 		const command from `./commands/${folder}/${file}`);
-// 		client.commands.set(command.name, command);
-// 	}
-// }
 
 // initialize slash commands
 const slashCommandFolders = fs.readdirSync('./slashCommands');
@@ -356,36 +340,36 @@ for (const file of selectMenuFiles) {
 	client.selectMenus.set(selectMenu.name, selectMenu);
 }
 
-//other random thingy
-player.on('error', (queue: Queue, error) => {
-	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released
-	if (error.message === '[DestroyedQueue] Cannot use destroyed queue') return;
-	(queue.metadata as Discord.TextChannel).send(`There was a problem with the track queue => ${error.message}`);
-});
+// //other random thingy
+// player.on('error', (queue: Queue, error) => {
+// 	// temp fix until https://github.com/Androz2091/discord-player/pull/1107 is merged and released
+// 	if (error.message === '[DestroyedQueue] Cannot use destroyed queue') return;
+// 	(queue.metadata as Discord.TextChannel).send(`There was a problem with the track queue => ${error.message}`);
+// });
 
-player.on('connectionError', (queue: Queue, error) => {
-	(queue.metadata as Discord.TextChannel).send(`I'm having trouble connecting => ${error.message}`);
-});
+// player.on('connectionError', (queue: Queue, error) => {
+// 	(queue.metadata as Discord.TextChannel).send(`I'm having trouble connecting => ${error.message}`);
+// });
 
-player.on('trackStart', (queue: Queue, track) => {
-	(queue.metadata as Discord.TextChannel).send(`Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}**`);
-});
+// player.on('trackStart', (queue: Queue, track) => {
+// 	(queue.metadata as Discord.TextChannel).send(`Music started playing: **${track.title}** -> Channel: **${queue.connection.channel.name}**`);
+// });
 
-player.on('trackAdd', (queue: Queue, track) => {
-	(queue.metadata as Discord.TextChannel).send(`**${track.title}** added to queue.`);
-});
+// player.on('trackAdd', (queue: Queue, track) => {
+// 	(queue.metadata as Discord.TextChannel).send(`**${track.title}** added to queue.`);
+// });
 
-player.on('botDisconnect', (queue: Queue) => {
-	(queue.metadata as Discord.TextChannel).send('Someone from the audio channel Im connected to kicked me out, the whole playlist has been cleared! ❌');
-});
+// player.on('botDisconnect', (queue: Queue) => {
+// 	(queue.metadata as Discord.TextChannel).send('Someone from the audio channel Im connected to kicked me out, the whole playlist has been cleared! ❌');
+// });
 
-player.on('channelEmpty', (queue: Queue) => {
-	(queue.metadata as Discord.TextChannel).send('I left the audio channel because there is no one on my audio channel.');
-});
+// player.on('channelEmpty', (queue: Queue) => {
+// 	(queue.metadata as Discord.TextChannel).send('I left the audio channel because there is no one on my audio channel.');
+// });
 
-player.on('queueEnd', (queue: Queue) => {
-	(queue.metadata as Discord.TextChannel).send('All play queue finished, I think you can listen to some more music.');
-});
+// player.on('queueEnd', (queue: Queue) => {
+// 	(queue.metadata as Discord.TextChannel).send('All play queue finished, I think you can listen to some more music.');
+// });
 
 process.on("unhandledRejection", (error: Error) => {
 	console.error(error + "\n" + error.stack + '\n' + '='.repeat(20))
