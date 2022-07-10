@@ -16,7 +16,7 @@ module.exports = {
                 { name: "Indonesian", value: "id" },
             )
             .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Info",
     async execute(interaction: CommandInteraction, client: Client) {
         await interaction.deferReply();

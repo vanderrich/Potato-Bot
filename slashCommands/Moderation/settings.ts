@@ -35,7 +35,7 @@ module.exports = {
             .addField("Misc",
                 `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
                 **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
-                ** ${ locale.statChannels}**: ${guildSettings.statChannels.map(channel => interaction.guild!.channels.cache.get(channel)?.toString).join(", ") }
+                ** ${locale.statChannels}**: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}
                 `)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 

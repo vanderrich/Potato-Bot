@@ -1,7 +1,5 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
-import axios from "axios";
-import { AxiosResponse } from "axios";
 import { Client } from "../Util/types";
 
 module.exports = {
@@ -36,14 +34,15 @@ module.exports = {
             }
         });
         setInterval(async () => {
-            axios.post('https://potato-bot.deno.dev/api/status')
+            fetch('https://potato-bot.deno.dev/api/status', { method: 'POST' })
                 .catch(error => {
                     console.error(error);
-                }).then((res: AxiosResponse | void) => {
+                }).then(async (res: void | Response) => {
                     if (!res) return;
-                    if (res.status !== 200) console.error(`Error in pinging the api: ${res.data.message}`);
+                    const data = await res.json()
+                    if (res.status !== 200) console.error(`Error in pinging the api: ${data.message}`);
 
-                    res.data.newVotes.forEach((vote: any) => {
+                    data.newVotes.forEach((vote: any) => {
                         const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                         if (!channel || !channel.isText()) return
                         channel.send({ content: `<@${vote.user}> voted for this bot on ${vote.source}!`, allowedMentions: { users: [] } })

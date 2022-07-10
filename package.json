@@ -16,7 +16,6 @@
         "@discordjs/rest": "",
         "@discordjs/voice": "",
         "@types/node": "",
-        "axios": "",
         "currency-system": "^2.6.53",
         "discord-api-types": "",
         "discord-backup": "",

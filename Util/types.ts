@@ -34,7 +34,11 @@ export interface GuildSettings extends Document {
     tagDescriptions: {
         [key: string]: string;
     },
-    statChannels: string[],
+    statChannels: {
+        type: string & "member" | "all members" | "bots" | "boosts" | "role members",
+        channel: string,
+        role?: string
+    }[],
 }
 
 export type AutoCompleteValue = {

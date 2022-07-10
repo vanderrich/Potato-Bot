@@ -10,8 +10,8 @@ import mongoose from 'mongoose';
 import localizations from './localization.json';
 import * as Types from './Util/types';
 import { config } from "dotenv";
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { updateStats } from './Util/serverstats';
 
 const { Player } = DiscordPlayer;
 type Queue = DiscordPlayer.Queue;
@@ -269,7 +269,7 @@ client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
 	suggestionChannel: { type: String, default: "" },
 	tagDescriptions: { type: Object, default: {} },
 	ghostPing: { type: Boolean, default: true },
-	statChannels: { type: [String], default: [] },
+	statChannels: { type: [{ type: String, channel: String, role: String }], default: [] },
 })) as unknown) as Types.Client["guildSettings"];
 
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err: any) => {
@@ -390,16 +390,25 @@ process.on("unhandledRejection", (error: Error) => {
 	console.error(error + "\n" + error.stack + '\n' + '='.repeat(20))
 	const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
 	const id = uuidv4();
-	axios.post('https://potato-bot.deno.dev/api/error', {
-		name: 'Error',
-		id,
-		type: "Crash",
-		error: error.toString(),
-		stack: error.stack,
-	}, { headers: { Authorization: process.env.SUPER_SECRET_KEY! } })
+	fetch('https://potato-bot.deno.dev/api/error', {
+		method: 'POST',
+		body: JSON.stringify({
+			name: 'Error',
+			id,
+			type: "Crash",
+			error: error.toString(),
+			stack: error.stack,
+		}),
+		headers: {
+			Authorization: process.env.SUPER_SECRET_KEY!
+		}
+	});
 	if (!channel || !channel.isText()) return;
 	channel.send(`<@709950767670493275> [Bot Crashed!](https://potato-bot.netlify.app/status/${id})`); // log the crash to the bot logs channel
 });
 
+setInterval(async () => {
+	updateStats(await client.guilds.fetch("962861680226865193"), client);
+}, 100000);
 client.login(token);
 deploy(client);

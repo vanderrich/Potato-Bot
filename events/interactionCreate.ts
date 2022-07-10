@@ -30,24 +30,28 @@ module.exports = {
                 const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                 if (!channel || !channel.isText()) return;
                 await channel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
-                await axios.post('https://potato-bot.deno.dev/api/error', {
-                    name: command.data.name,
-                    id,
-                    type: interaction.isCommand() ? "Slash Command" : "Context Menu Command",
-                    error: error.toString(),
-                    stack: error.stack,
-                    code: error.code,
-                    path: error.path,
-                    httpStatus: error.httpStatus,
-                    requestData: error.requestData?.json,
-                });
+                await fetch('https://potato-bot.deno.dev/api/error', {
+                    body: JSON.stringify({
+                        name: command.data.name,
+                        id,
+                        type: interaction.isCommand() ? "Slash Command" : "Context Menu Command",
+                        error: error.toString(),
+                        stack: error.stack,
+                        code: error.code,
+                        path: error.path,
+                        httpStatus: error.httpStatus,
+                        requestData: error.requestData?.json,
+                    }),
+                    headers: { Authorization: process.env.SUPER_SECRET_KEY! },
+                    method: "POST"
+                }).catch(err => console.error(err));
                 try {
                     await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
                 }
                 catch (err) {
                     await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue" });
                 }
-            }
+            };
         }
         else if (interaction.isButton()) {
             loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) clicked on a button with the custom id of ${interaction.customId} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
@@ -66,16 +70,22 @@ module.exports = {
                     const id = uuidv4()
                     await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
                     await axios.post('https://potato-bot.deno.dev/api/error', {
-                        name: interaction.customId,
-                        id,
-                        type: "Button",
-                        error: error.toString(),
-                        stack: error.stack,
-                        code: error.code,
-                        path: error.path,
-                        httpStatus: error.httpStatus,
-                        requestData: error.requestData?.json,
-                    });
+                        body: JSON.stringify({
+                            name: interaction.customId,
+                            id,
+                            type: "Button",
+                            error: error.toString(),
+                            stack: error.stack,
+                            code: error.code,
+                            path: error.path,
+                            httpStatus: error.httpStatus,
+                            requestData: error.requestData?.json,
+                        }),
+                        headers: {
+                            Authorization: process.env.SUPER_SECRET_KEY
+                        },
+                        method: "POST"
+                    }).catch(err => console.error(err));
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
@@ -127,19 +137,21 @@ module.exports = {
                     console.error(error);
                     const id = uuidv4()
                     await loggingChannel.send({ content: `<@709950767670493275> [Error ${id}](https://potato-bot.netlify.app/status/${id}/ )!` }); // log the error to the bot logs channel
-                    await axios.post('https://potato-bot.deno.dev/api/error', {
-                        name: selectMenu.name,
-                        id,
-                        type: "Select Menu",
-                        error: error.toString(),
-                        stack: error.stack,
-                        code: error.code,
-                        path: error.path,
-                        httpStatus: error.httpStatus,
-                        requestData: error.requestData?.json,
-                    }, { headers: { Authorization: process.env.SUPER_SECRET_KEY! } }).catch(err => console.error(err)).then((res) => {
-                        console.log(res!.data);
-                    });
+                    await fetch('https://potato-bot.deno.dev/api/error', {
+                        body: JSON.stringify({
+                            name: selectMenu.name,
+                            id,
+                            type: "Select Menu",
+                            error: error.toString(),
+                            stack: error.stack,
+                            code: error.code,
+                            path: error.path,
+                            httpStatus: error.httpStatus,
+                            requestData: error.requestData?.json,
+                        }),
+                        headers: { Authorization: process.env.SUPER_SECRET_KEY! },
+                        method: 'POST',
+                    }).catch(err => console.error(err));
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
