@@ -2,7 +2,7 @@ import { PermissionResolvable, CommandInteraction, ButtonInteraction, SelectMenu
 import { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
 import { Model, Schema, Document } from 'mongoose';
 import { shop } from './config.json';
-import { Player } from 'discord-player';
+// import { Player } from 'discord-player';
 import Economy from 'currency-system';
 import { Music } from '../localization';
 
@@ -157,7 +157,7 @@ export interface Client extends DiscClient {
     slashCommands: Collection<string, SlashCommand>;
     buttons: Collection<string, MessageComponent>;
     selectMenus: Collection<string, MessageComponent>;
-    player: Player;
+    // player: Player;
     tictactoe: any;
     getLocale(interaction: CommandInteraction | ButtonInteraction | SelectMenuInteraction | ContextMenuInteraction, key: string, ...args: any[]): any;
     updateCache(): void;
