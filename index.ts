@@ -1,18 +1,16 @@
 //initialize variables
 import fs from 'fs';
 import Discord from 'discord.js';
-import { shop, settings } from './config.json';
+import { settings, shop } from './config.json';
 import Economy from 'currency-system';
 import { deploy } from './deploy-commands';
 import { GiveawaysManager } from 'discord-giveaways';
 import mongoose from 'mongoose';
 import localizations from './localization.json';
 import * as Types from './Util/types';
-import { config } from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
 import { updateStats } from './Util/serverstats';
 
-config();
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
 // const setupSubscriptions from './Util/setupSubscriptions.js');
