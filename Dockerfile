@@ -13,6 +13,6 @@ WORKDIR /app
 RUN addgroup --gid 101 --system appuser && adduser --uid 101 --system appuser
 RUN chown -R 101:101 /app && chmod -R g+w /app
 USER appuser
-COPY . /bun/
-RUN bun install --backend=copyfile
+COPY . /app/
+RUN /app bun install --backend=copyfile
 CMD bun run index.ts
