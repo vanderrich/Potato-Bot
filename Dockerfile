@@ -9,6 +9,7 @@ RUN unzip -d /bun -q -o "/bun/bun.zip"
 RUN mv /bun/bun-linux-x64/bun /usr/local/bin/bun
 RUN chmod 777 /usr/local/bin/bun
 
+WORKDIR /
 RUN addgroup --gid 101 --system appuser && adduser --uid 101 --system appuser
 RUN chown -R 101:101 / && chmod -R g+w /
 USER appuser
