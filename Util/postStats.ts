@@ -17,7 +17,11 @@ export default async function postStats(client: Client): Promise<void> {
             Authorization: process.env.DBOTS_API_KEY!
         }
     }).catch(err => console.error(err)).then(() => console.log("Posted to discord.bots.gg"));
-    AutoPoster(process.env.TOPGG_API_KEY, client)
+    AutoPoster(process.env.TOPGG_API_KEY, client).on('posted', () => {
+        console.log("Posted to top.gg");
+    }).on('error', (err: any) => {
+        console.error(err);
+    });
     await fetch(`https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`, {
         body: JSON.stringify({
             guilds: client.guilds.cache.size,
