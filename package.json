@@ -24,10 +24,10 @@
         "topgg-autoposter": "",
         "unidecode": "^0.1.8",
         "uuid": "^7.0.3",
-        "node-fetch": "^2.0.0"
+        "node-fetch": "^2.0.0",
+        "dotenv": "^8.2.0"
     },
     "engines": {
-        "node": "16.x",
-        "npm": "8.13.2"
+        "node": "16.x"
     }
 }
