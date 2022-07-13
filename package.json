@@ -23,7 +23,8 @@
         "tenorjs": "^1.0.8",
         "topgg-autoposter": "",
         "unidecode": "^0.1.8",
-        "uuid": "^7.0.3"
+        "uuid": "^7.0.3",
+        "node-fetch": "^2.0.0"
     },
     "engines": {
         "node": "16.x"
