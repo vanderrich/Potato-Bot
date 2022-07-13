@@ -1,7 +1,6 @@
 //initialize variables
 import fs from 'fs';
 import Discord from 'discord.js';
-import { settings, shop } from './config.json';
 import Economy from 'currency-system';
 import { deploy } from './deploy-commands';
 import { GiveawaysManager } from 'discord-giveaways';
@@ -9,7 +8,10 @@ import mongoose from 'mongoose';
 import localizations from './localization.json';
 import * as Types from './Util/types';
 import { v4 as uuidv4 } from 'uuid';
-import { updateStats } from './Util/serverstats';
+// import { updateStats } from './Util/serverstats';
+import fetch from "node-fetch";
+import { config } from "dotenv";
+config();
 
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
@@ -120,7 +122,7 @@ Economy.cs.on('debug', (debug: any, error: any) => {
 eco.setMongoURL(process.env.MONGO_URI);
 eco.setDefaultBankAmount(100);
 eco.setMaxBankAmount(0);
-eco.setItems({ shop });
+// eco.setItems({ shop });
 client.eco = eco;
 const giveawaySchema = new mongoose.Schema({
 	messageId: String,
@@ -255,7 +257,7 @@ client.birthdayConfigs = (mongoose.model('birthdayConfigs', new mongoose.Schema(
 
 client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
 	guildId: { type: String, required: true },
-	badWords: { type: [String], default: settings.badWordPresets.low },
+	badWords: { type: [String], default: /*settings.badWordPresets.low*/[] },
 	autoPublishChannels: { type: [String], default: [] },
 	welcomeMessage: { type: String, default: "" },
 	welcomeChannel: { type: String, default: "" },
@@ -282,7 +284,7 @@ client.eco.getShopItems({ user: client.user?.id })
 			});
 		});
 	});
-client.shop = shop;
+// client.shop = shop;
 client.slashCommands = new Discord.Collection();
 client.buttons = new Discord.Collection();
 // client.contextMenus = new Discord.Collection();
@@ -296,7 +298,7 @@ client.selectMenus = new Discord.Collection();
 // 	}
 // });
 client.tictactoe = {};
-const player = client.player
+// const player = client.player
 
 // initialize slash commands
 const slashCommandFolders = fs.readdirSync('./slashCommands');

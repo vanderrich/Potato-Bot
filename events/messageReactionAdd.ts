@@ -1,4 +1,5 @@
 import Discord from "discord.js"
+
 module.exports = {
     name: 'messageReactionAdd',
     async execute(reaction: Discord.MessageReaction, user: Discord.User) {

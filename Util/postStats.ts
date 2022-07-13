@@ -1,5 +1,8 @@
 import { AutoPoster } from 'topgg-autoposter';
 import { Client } from './types';
+import { config } from 'dotenv';
+import fetch from "node-fetch";
+config();
 
 export default async function postStats(client: Client): Promise<void> {
     if (!process.env.DBOTLIST_API_KEY) return console.log("No discordbotlist.com API Key found.");

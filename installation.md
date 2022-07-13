@@ -19,9 +19,3 @@ npm i
 tsc
 npm run dev
 ```
-
-### Bun
-```sh
-bun i
-bun run index.ts
-```

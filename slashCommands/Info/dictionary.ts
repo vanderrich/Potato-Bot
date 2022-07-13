@@ -1,6 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import { Client, SlashCommand } from "../../Util/types";
+import { config } from "dotenv";
+config();
+import fetch from "node-fetch";
 
 module.exports = {
     data: new SlashCommandBuilder()

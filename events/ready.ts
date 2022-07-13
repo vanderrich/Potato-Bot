@@ -1,6 +1,7 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
 import { Client } from "../Util/types";
+import fetch from "node-fetch";
 
 module.exports = {
     name: 'ready',
