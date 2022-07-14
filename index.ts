@@ -389,7 +389,14 @@ process.on("unhandledRejection", (error: Error) => {
 		}
 	});
 	if (!channel || !channel.isText()) return;
-	channel.send(`<@709950767670493275> [Bot Crashed!](https://potato-bot.netlify.app/status/${id})`); // log the crash to the bot logs channel
+	const embed = new Discord.MessageEmbed()
+		.setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
+		.addField("Error", error.toString())
+		.addField("Stack", error.stack!)
+	channel.send({
+		content: `<@709950767670493275> you got some debugging to do`,
+		embeds: [embed]
+	});
 });
 
 // setInterval(async () => {

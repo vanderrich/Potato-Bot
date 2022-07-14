@@ -45,7 +45,7 @@ module.exports = {
                     method: "POST"
                 }).catch(err => console.error(err));
                 const embed = new Discord.MessageEmbed()
-                    .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+                    .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
                     .addField("Error", error.toString())
                     .addField("Stack", error.stack!)
                 await loggingChannel.send({
@@ -94,7 +94,7 @@ module.exports = {
                         }
                     }).catch(err => console.error(err));
                     const embed = new Discord.MessageEmbed()
-                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
                         .addField("Error", error.toString())
                         .addField("Stack", error.stack!)
                     await loggingChannel.send({
@@ -167,7 +167,7 @@ module.exports = {
                         headers: { Authorization: process.env.SUPER_SECRET_KEY! }
                     }).catch(err => console.error(err));
                     const embed = new Discord.MessageEmbed()
-                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
                         .addField("Error", error.toString())
                         .addField("Stack", error.stack!)
                     await loggingChannel.send({

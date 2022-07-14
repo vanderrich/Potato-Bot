@@ -21,7 +21,7 @@ module.exports = {
         const logChannel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272")
         if (!logChannel || !logChannel.isText()) return;
         const embed = new MessageEmbed()
-            .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.netlify.app/status/${id}` })
+            .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
             .addField("Error", error.toString())
             .addField("Stack", error.stack!)
         await logChannel.send({
