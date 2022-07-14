@@ -42,7 +42,7 @@ module.exports = {
                     if (!res) return;
                     const data = await res.json()
                     if (res.status !== 200) console.error(`Error in pinging the api: ${data.message}`);
-                    console.log(res);
+                    console.log(res, data);
                     data.newVotes.forEach((vote: any) => {
                         const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                         if (!channel || !channel.isText()) return
