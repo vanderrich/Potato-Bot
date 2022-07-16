@@ -1,9 +1,10 @@
 /** @jsx h */
 import { h } from "preact";
 import { PageProps, Handlers } from "$fresh/server.ts";
-import { errors, Error as BotError } from "../../static/apistuff.ts";
+import { apiStuff, Error as BotError } from "../../static/apistuff.ts";
 import { tw } from "@twind";
-import TopNav from "../../islands/TopNav.tsx"
+import TopNav from "../../islands/TopNav.tsx";
+const { errors } = apiStuff;
 
 export const handler: Handlers<BotError | null> = {
     GET(_, ctx) {

@@ -2,8 +2,9 @@
 import { h } from "preact";
 import { tw } from "@twind";
 import TopNav from "../islands/TopNav.tsx";
-import { errors, uptime, online } from "../static/apistuff.ts"
+import { apiStuff } from "../static/apistuff.ts"
 import { Handlers, PageProps } from "$fresh/server.ts";
+const { errors, uptime, online } = apiStuff;
 
 export const handler: Handlers = {
     async GET(_req, ctx) {

@@ -1,5 +1,6 @@
 import { HandlerContext } from "$fresh/server.ts";
-import { online, uptime, errors, onlineCooldown, newVotes, Ping, ClearVotes } from "../../static/apistuff.ts"
+import { apiStuff, onlineCooldown, newVotes, Ping, ClearVotes } from "../../static/apistuff.ts"
+const { online, uptime, errors } = apiStuff;
 
 export const handler = {
     GET(_req: Request, _ctx: HandlerContext) {

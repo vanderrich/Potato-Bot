@@ -1,5 +1,5 @@
 import { HandlerContext } from "$fresh/server.ts";
-import { errors, Error } from "../../static/apistuff.ts";
+import { CreateError, Error } from "../../static/apistuff.ts";
 import "dotenv";
 
 export const handler = {
@@ -8,7 +8,7 @@ export const handler = {
         if (req.headers.get("authorization") !== Deno.env.get("SUPER_SECRET_KEY")) return new Response("Unauthorized");
         if (!body.has("name") || !body.has("id") || !body.has("error") || !body.has("stack") || !body.has("type")) return new Response("Missing required fields");
         try {
-            errors.push({
+            CreateError({
                 name: body.get("name")!,
                 id: body.get("id")!,
                 error: body.get("error")!,
