@@ -51,6 +51,10 @@ setInterval(() => {
     }
 }, 100);
 
+setInterval(() => {
+    apiStuffs.updateOne({ e: 69 }, { $set: apiStuff });
+}, 30000);
+
 export const Ping = async () => {
     apiStuff.online = true;
     onlineCooldown = 30000;

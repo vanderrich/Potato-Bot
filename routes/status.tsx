@@ -23,6 +23,7 @@ export default function Status(props: PageProps) {
     const hours = Math.floor((ms_num / 1000 / 60 / 60) % 24);
     const minutes = Math.floor((ms_num / 1000 / 60) % 60);
     const uptimeFormatted = `${days} days, ${hours} hours, ${minutes} minutes`;
+    console.log({ uptime, uptimeFormatted, days, hours, minutes });
     return (
         <div class={tw`bg-background h-screen`}>
             <TopNav /><br /><br /><br />
