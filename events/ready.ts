@@ -8,7 +8,7 @@ module.exports = {
     async execute(client: Client) {
         console.log('Ready!')
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
-        client.birthdays.find({}).then((birthdays: any) => {
+        client.birthdays.find({}).then(birthdays => {
             if (birthdays.length > 0) {
                 console.log(`[INFO] ${birthdays.length} birthday(s) found`)
                 birthdays.forEach((birthday: any) => {

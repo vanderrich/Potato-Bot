@@ -2,8 +2,10 @@ import { Guild, GuildResolvable } from "discord.js";
 import { Client, GuildSettings } from "./types";
 
 export const updateStats = async (guild: Guild, client: Client) => {
+    console.log(`Updating stats for ${guild.name}`);
     const guildSetting = await client.guildSettings.findOne({ guildId: guild.id });
     if (!guildSetting) return console.warn("no guild setting found");
+    console.log(guildSetting);
     for (const i in guildSetting.statChannels) {
         const stat = guildSetting.statChannels[i];
         const statChannel = await guild.channels.fetch(stat.channel);
@@ -16,7 +18,7 @@ export const updateStats = async (guild: Guild, client: Client) => {
                 await guild.members.fetch();
                 statChannel.setName("Bots: " + guild.members.cache.filter(member => member.user.bot).size)
                 break;
-            case "member":
+            case "members":
                 await guild.members.fetch();
                 statChannel.setName("Members: " + guild.members.cache.filter(member => !member.user.bot).size)
                 break;
@@ -31,5 +33,6 @@ export const updateStats = async (guild: Guild, client: Client) => {
             default:
                 break;
         }
+        console.log(`Updated ${statChannel.name}`);
     }
 }

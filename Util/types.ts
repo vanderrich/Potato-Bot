@@ -35,7 +35,7 @@ export interface GuildSettings extends Document {
         [key: string]: string;
     },
     statChannels: {
-        type: string & "member" | "all members" | "bots" | "boosts" | "role members",
+        type: string & "members" | "all members" | "bots" | "boosts" | "role members",
         channel: string,
         role?: string
     }[],

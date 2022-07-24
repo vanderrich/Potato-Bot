@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import localizations from './localization.json';
 import * as Types from './Util/types';
 import { v4 as uuidv4 } from 'uuid';
-// import { updateStats } from './Util/serverstats';
+import { updateStats } from './Util/serverstats';
 import fetch from "node-fetch";
 import { config } from "dotenv";
 config();
@@ -399,8 +399,8 @@ process.on("unhandledRejection", (error: Error) => {
 	});
 });
 
-// setInterval(async () => {
-// 	updateStats(await client.guilds.fetch("962861680226865193"), client);
-// }, 100000);
+setInterval(async () => {
+	updateStats(await client.guilds.fetch("962861680226865193"), client);
+}, 15000);
 client.login(token);
 deploy(client);
