@@ -132,6 +132,7 @@ export type Birthday = {
     userId: string,
     guildId: string,
     birthday: Date,
+    haveCelebratedYears: [number]
 }
 
 export type BirthdayConfig = {

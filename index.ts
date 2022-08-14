@@ -246,6 +246,7 @@ client.birthdays = (mongoose.model('birthdays', new mongoose.Schema({
 	userId: String,
 	guildId: String,
 	birthday: Date,
+	haveCelebratedYears: [Number],
 })) as unknown) as Types.Client["birthdays"];
 
 client.birthdayConfigs = (mongoose.model('birthdayConfigs', new mongoose.Schema({

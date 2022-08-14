@@ -1,6 +1,6 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
-import { Client } from "../Util/types";
+import { Birthday, Client } from "../Util/types";
 import fetch from "node-fetch";
 
 module.exports = {
@@ -10,9 +10,8 @@ module.exports = {
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then(birthdays => {
             if (birthdays.length > 0) {
-                console.log(`[INFO] ${birthdays.length} birthday(s) found`)
-                birthdays.forEach((birthday: any) => {
-                    if (birthday.birthday.getTime() < new Date().getTime()) {
+                birthdays.forEach((birthday: Birthday) => {
+                    if (birthday.birthday.getDate() == new Date().getDate() && birthday.birthday.getMonth() == new Date().getMonth() && !birthday.haveCelebratedYears.includes(new Date().getFullYear())) {
                         client.birthdays.updateOne({ userId: birthday.userId }, {
                             $set: {
                                 birthday: new Date(new Date().getFullYear() + 1, birthday.birthday.getMonth(), birthday.birthday.getDate())
