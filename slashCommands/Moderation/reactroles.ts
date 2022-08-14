@@ -70,7 +70,7 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         if (description) embed.setDescription(description);
         for (const i in reactions) {
-            embed.addField(`${reactions[i]}: ${options[i]}`, `${reactionRoles[i]}`);
+            embed.addFields({ name: `${reactions[i]}: ${options[i]}`, value: `${reactionRoles[i]}` });
         }
 
         const messageActionRow = new Discord.MessageActionRow();

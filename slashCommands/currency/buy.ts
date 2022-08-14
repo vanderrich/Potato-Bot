@@ -18,7 +18,7 @@ module.exports = {
             option
                 .setName("amount")
                 .setDescription("The amount to buy.")
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
     async execute(interaction: CommandInteraction, client: Client, footers: Array<string>) {
         await interaction.deferReply();
@@ -37,7 +37,7 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
             for (let key in inv) {
-                embed.addField(client.getLocale(interaction, "commands.currency.buy.storeItem", key, inv[key].price, inv[key].name), inv[key].description)
+                embed.addFields({ name: client.getLocale(interaction, "commands.currency.buy.storeItem", key, inv[key].price, inv[key].name), value: inv[key].description })
             }
             return interaction.editReply({ embeds: [embed] });
         }

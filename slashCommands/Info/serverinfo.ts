@@ -23,16 +23,17 @@ module.exports = {
         const embed = new MessageEmbed()
             .setDescription(locales.embedTitle)
             .setColor('RANDOM')
-            .addField(locales.general, `
-                ${locales.name}: ${interaction.guild!.name}
+            .addFields({
+                name: locales.general,
+                value: `${locales.name}: ${interaction.guild!.name}
                 ${locales.id}: ${interaction.guild!.id}
                 ${locales.boostTier}: ${interaction.guild!.premiumTier == 'NONE' ? client.getLocale(interaction, "commands.info.serverinfo.tier", interaction.guild!.premiumTier) : 'None'}
                 ${locales.explicitFilter}: ${filterLevels[interaction.guild!.explicitContentFilter]}
                 ${locales.verificationLevel}: ${verificationLevels[interaction.guild!.verificationLevel]}
                 \n\u200b
-            `)
-            .addField(locales.statistics, `
-                ${locales.roleCount}: ${roles.length}
+            `}, {
+                name: locales.statistics,
+                value: `${locales.roleCount}: ${roles.length}
                 ${locales.emojiCount}: ${emojis.size}
                 ${locales.regEmojiCount}: ${emojis.filter(emoji => !emoji.animated).size}
                 ${locales.animEmojiCount}: ${emojis.filter(emoji => !(!emoji.animated)).size}
@@ -42,15 +43,18 @@ module.exports = {
                 ${locales.voiceChannelCount}: ${channels.filter(channel => channel.isVoice()).size}
                 ${locales.boostCount}: ${interaction.guild!.premiumSubscriptionCount || '0'}
                 \u200b
-            `)
-            .addField(locales.presence, `
-                ${locales.online}: ${members.filter(member => member.presence?.status == 'online').size}
+            `}, {
+                name: locales.presence,
+                value:
+                    `${locales.online}: ${members.filter(member => member.presence?.status == 'online').size}
                 ${locales.idle}: ${members.filter(member => member.presence?.status == 'idle').size}
                 ${locales.dnd}: ${members.filter(member => member.presence?.status == 'dnd').size}
                 ${locales.offline}: ${members.filter(member => member.presence == null).size}
                 \u200b
-            `)
-            .addField(client.getLocale(interaction, "commands.info.serverInfo.roles", roles.length - 1), roles.join(', '))
+            `}, {
+                name: client.getLocale(interaction, "commands.info.serverInfo.roles", roles.length - 1),
+                value: roles.join(', ')
+            })
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         interaction.editReply({ embeds: [embed] });
     }

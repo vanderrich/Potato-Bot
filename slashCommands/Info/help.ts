@@ -22,7 +22,7 @@ module.exports = {
             option
                 .setName("command")
                 .setDescription("The command to get help for.")
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Info",
     async execute(interaction: CommandInteraction, client: any, footers: string[]) {
         const commands = client.slashCommands;
@@ -46,7 +46,7 @@ module.exports = {
             for (const commandIndex in commandsInCategory) {
                 const command = commandsInCategory[commandIndex]
                 const description = command.data.description
-                messageEmbed.addField(command.data.name, description)
+                messageEmbed.addFields({ name: command.data.name, value: description })
             }
             return interaction.reply({ embeds: [messageEmbed] })
         }
@@ -64,7 +64,7 @@ module.exports = {
             if (commandObject.data.options) {
                 for (const optionIndex in commandObject.data.options) {
                     const option = commandObject.data.options[optionIndex]
-                    messageEmbed.addField(option.name, option.description)
+                    messageEmbed.addFields({ name: option.name, value: option.description })
                 }
             }
             return interaction.reply({ embeds: [messageEmbed] })

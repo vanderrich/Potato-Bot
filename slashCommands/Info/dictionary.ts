@@ -27,7 +27,7 @@ module.exports = {
             .setTitle(`${data.meta.id} - ${data.fl}`)
             .setColor("RANDOM")
             .setDescription(`${data.hwi.hw} | ${data.hwi.prs[0].mw}\n${locale.offensive}: ${data.meta.offensive}\n${locale.stems}: ${data.meta.stems.join(", ")}`)
-            .addField(client.getLocale(interaction, "commands.info.dictionary.topDefs"), "- " + data.shortdef.join("\n- "))
+            .addFields({ name: client.getLocale(interaction, "commands.info.dictionary.topDefs"), value: "- " + data.shortdef.join("\n- ") })
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         interaction.reply({ embeds: [embed] });
     }

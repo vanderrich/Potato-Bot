@@ -22,10 +22,10 @@ module.exports = {
             const userObject = client.users.cache.get(user.userID);
             if (!userObject) return;
             pos++
-            embed.addField(
-                `${pos} - **${userObject.username}**`,
-                client.getLocale(interaction, "commands.currency.lb.userDesc", user.wallet, user.bank, user.networth)
-            );
+            embed.addFields({
+                name: `${pos} - **${userObject.username}**`,
+                value: client.getLocale(interaction, "commands.currency.lb.userDesc", user.wallet, user.bank, user.networth)
+            });
         });
         return interaction.editReply({ embeds: [embed] })
     }
