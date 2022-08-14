@@ -46,8 +46,7 @@ module.exports = {
                 }).catch(err => console.error(err));
                 const embed = new Discord.MessageEmbed()
                     .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-                    .addField("Error", error.toString())
-                    .addField("Stack", error.stack!)
+                    .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
                 await loggingChannel.send({
                     content: `<@709950767670493275> you got some debugging to do`,
                     embeds: [embed]
@@ -95,8 +94,7 @@ module.exports = {
                     }).catch(err => console.error(err));
                     const embed = new Discord.MessageEmbed()
                         .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-                        .addField("Error", error.toString())
-                        .addField("Stack", error.stack!)
+                        .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
                     await loggingChannel.send({
                         content: `<@709950767670493275> you got some debugging to do`,
                         embeds: [embed]
@@ -168,8 +166,7 @@ module.exports = {
                     }).catch(err => console.error(err));
                     const embed = new Discord.MessageEmbed()
                         .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-                        .addField("Error", error.toString())
-                        .addField("Stack", error.stack!)
+                        .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
                     await loggingChannel.send({
                         content: `<@709950767670493275> you got some debugging to do`,
                         embeds: [embed]

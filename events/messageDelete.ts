@@ -12,9 +12,10 @@ module.exports = {
             let embed = new Discord.MessageEmbed()
                 .setColor("RANDOM")
                 .setTitle("Ghost ping detected!")
-                .addField("Sender", message.author.toString())
-                .addField("Pinged user(s)", `${user.map(u => u.toString()).join(", ")}, ${roles.map(r => r.toString()).join(", ")}, ${everyone ? " @everyone" : ""}`)
-                .addField("Message", message.content)
+                .addFields(
+                    { name: "Sender", value: message.author.toString() },
+                    { name: "Pinged user(s)", value: `${user.map(u => u.toString()).join(", ")}, ${roles.map(r => r.toString()).join(", ")}, ${everyone ? " @everyone" : ""}` },
+                    { name: "Message", value: message.content })
                 .setFooter({ text: "To turn this off go to the settings use /settings" })
             message.channel.send({ embeds: [embed] });
         }

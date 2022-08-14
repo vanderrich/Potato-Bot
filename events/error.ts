@@ -22,8 +22,9 @@ module.exports = {
         if (!logChannel || !logChannel.isText()) return;
         const embed = new MessageEmbed()
             .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-            .addField("Error", error.toString())
-            .addField("Stack", error.stack!)
+            .addFields(
+                { name: "Error", value: error.toString() },
+                { name: "Stack", value: error.stack! })
         await logChannel.send({
             content: `<@709950767670493275> you got some debugging to do`,
             embeds: [embed]

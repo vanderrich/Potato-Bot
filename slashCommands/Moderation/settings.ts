@@ -22,21 +22,22 @@ module.exports = {
         const guildSettings = guildSetting;
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction, "commands.moderation.settings.settings", interaction.guild!.name))
-            .addField(locale.badWords,
-                `**${locale.badWordsSpoilers}**: || ${guildSettings.badWords.join(", ")}|| `)
-            .addField(locale.welcome,
-                `**${locale.welcomeMessage}**: ${guildSettings.welcomeMessage}
+            .addFields({ name: locale.badWords, value: `**${locale.badWordsSpoilers}**: || ${guildSettings.badWords.join(", ")}|| ` }, {
+                name: locale.welcome, value: `**${locale.welcomeMessage}**: ${guildSettings.welcomeMessage}
                 **${locale.welcomeChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.welcomeChannel)}
-                **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole)} `)
-            .addField(locale.tags,
-                `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: String, value: String }) => `${tag.name}: ${tag.value}`).join("\n")}
+                **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole)} `
+            }, {
+                name: locale.tags,
+                value:
+                    `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: String, value: String }) => `${tag.name}: ${tag.value}`).join("\n")}
                 **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")
-                } `)
-            .addField("Misc",
-                `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
+                    } `
+            }, {
+                name: "Misc",
+                value: `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
                 **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
                 ** ${locale.statChannels}**: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}
-                `)
+                `})
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 
         const actionRow = new MessageActionRow()
