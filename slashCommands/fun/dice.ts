@@ -30,7 +30,8 @@ module.exports = {
     execute: (interaction: CommandInteraction, client: Client, footers: Array<string>) => {
         const number = interaction.options.getNumber("number") || 1;
         const sides = interaction.options.getNumber("sides") || 6;
-        if (number > 10000 || sides > 10000) return interaction.reply("Too many or big dices.");
+        if (number > 10000) return interaction.reply("Too many dices.");
+        if (sides > 10000) return interaction.reply("Too big of a die.");
         const modifier = interaction.options.getNumber("modifier") || 0;
         let assign: any = interaction.options.getString("assign");
         if (assign) {

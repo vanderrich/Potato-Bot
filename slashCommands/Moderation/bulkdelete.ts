@@ -11,12 +11,12 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount of messages to delete")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     permissions: "MANAGE_MESSAGES",
     category: "Moderation",
     guildOnly: true,
-    execute(interaction: CommandInteraction, client: Client) {
-        interaction.deferReply();
+    async execute(interaction: CommandInteraction, client: Client) {
+        await interaction.deferReply({ ephemeral: true });
         let amount = interaction.options.getInteger("amount");
         if (!amount || isNaN(amount) || amount < 0) return interaction.editReply(client.getLocale(interaction, "commands.moderation.modActions.bulkDelete.invalidAmount"));
         let channel = interaction.channel
