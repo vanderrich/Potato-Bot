@@ -39,7 +39,8 @@ module.exports = {
                     console.error(error);
                 }).then(async (res) => {
                     if (!res) return;
-                    const data = await res.json()
+                    const dataRaw = await res.json()
+                    const data = JSON.parse(dataRaw)
                     if (res.status !== 200) console.error(`Error in pinging the api: ${data.message}`);
                     console.log(res, data);
                     data.newVotes.forEach((vote: any) => {
