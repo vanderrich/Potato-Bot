@@ -25,11 +25,12 @@ module.exports = {
         .addStringOption(option => option
             .setName("assign")
             .setDescription("Assign each number to something, syntax: <number>=<text>, separate with commas.")
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Fun",
     execute: (interaction: CommandInteraction, client: Client, footers: Array<string>) => {
         const number = interaction.options.getNumber("number") || 1;
         const sides = interaction.options.getNumber("sides") || 6;
+        if (number > 10000 || sides > 10000) return interaction.reply("Too many or big dices.");
         const modifier = interaction.options.getNumber("modifier") || 0;
         let assign: any = interaction.options.getString("assign");
         if (assign) {
@@ -47,6 +48,9 @@ module.exports = {
                 }`)
             .setColor('RANDOM')
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
+        if (!embed.description || embed.description.length > 4096) {
+            return interaction.reply("Embed description too big! Try rolling a smaller dice.");
+        }
         return interaction.reply({ embeds: [embed] });
     }
 } as SlashCommand;
