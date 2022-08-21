@@ -13,7 +13,7 @@ export const handler = {
         ClearVotes();
         return new Response(JSON.stringify({
             message: onlineCooldown,
-            newVotes: newVtesTemp
+            newVotes: newVotesTemp
         }), {
             headers: { "Content-Type": "application/json" }
         });
