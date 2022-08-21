@@ -8,9 +8,10 @@ export default async function postStats(client: Client): Promise<void> {
     if (!process.env.DBOTLIST_API_KEY) return console.log("No discordbotlist.com API Key found.");
     if (!process.env.DBOTS_API_KEY) return console.log("No discord.bots.gg API key found.");
     if (!process.env.TOPGG_API_KEY) return console.log("No top.gg API key found.");
+    if (process.env.CLIENT_ID !== '894060283373449317') return
     fetch(`https://discord.bots.gg/api/v1/bots/${client.user!.id}/stats/`, {
         body: JSON.stringify({
-            guildCount: 36
+            guildCount: client.guilds.cache.size
         }),
         method: 'POST',
         headers: {
@@ -27,7 +28,7 @@ export default async function postStats(client: Client): Promise<void> {
     });
     fetch(`https://discordbotlist.com/api/v1/bots/${client.user!.id}/stats`, {
         body: JSON.stringify({
-            guilds: 35,
+            guilds: client.guilds.cache.size,
             voice_connections: client.voice.adapters.size,
             shard_id: 0,
         }),
@@ -41,4 +42,13 @@ export default async function postStats(client: Client): Promise<void> {
             console.log(res);
             console.log("Posted to discordbotlist.com")
         });
+    fetch(`https://api.discordlist.gg/v0/bots/${client.user!.id}/guilds`, {
+        body: JSON.stringify({
+            count: client.guilds.cache.size,
+        }),
+        method: 'PUT',
+        headers: {
+            Authorization: process.env.DLIST_API_KEY!,
+        }
+    })
 }
