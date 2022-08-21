@@ -2,6 +2,9 @@ import fs from 'fs'
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v9'
 import { Client } from 'discord.js';
+import { config } from "dotenv";
+config();
+
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
 
@@ -24,12 +27,12 @@ export const deploy = async (client: Client) => {
     const rest = new REST({ version: '9' }).setToken(token);
 
     try {
-        console.log('Started refreshing application (/) commands.');
+        console.info('Started refreshing application (/) commands.');
         await rest.put(
             Routes.applicationCommands(clientId!),
             { body: commands },
         );
-        console.log('Successfully reloaded application (/) commands.');
+        console.info('Successfully reloaded application (/) commands.');
     } catch (error) {
         console.error(error);
     }
