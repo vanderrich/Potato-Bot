@@ -5,7 +5,7 @@ const { online, uptime, errors } = apiStuff;
 export const handler = {
     GET(_req: Request, _ctx: HandlerContext) {
         const res = { message: online, uptime, errors }
-        return new Response(JSON.stringify(res))
+        return new Response(JSON.stringify(res), { headers: { "Content-Type": "application/json" } })
     },
     POST(_req: Request, _ctx: HandlerContext) {
         Ping();
@@ -13,7 +13,9 @@ export const handler = {
         ClearVotes();
         return new Response(JSON.stringify({
             message: onlineCooldown,
-            newVotes: newVotesTemp
-        }));
+            newVotes: newVtesTemp
+        }), {
+            headers: { "Content-Type": "application/json" }
+        });
     }
 };
