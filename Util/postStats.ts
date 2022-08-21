@@ -51,4 +51,9 @@ export default async function postStats(client: Client): Promise<void> {
             Authorization: process.env.DLIST_API_KEY!,
         }
     })
+        .catch(err => console.error(err))
+        .then((res) => {
+            console.log(res);
+            console.log("Posted to discordlist.gg")
+        })
 }
