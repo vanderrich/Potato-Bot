@@ -12,13 +12,13 @@ module.exports = {
                 .setName("opponent")
                 .setDescription("The opponent to play against")
                 .setRequired(true),
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("tictactoe")
         .setType(ApplicationCommandType.User),
     category: "Fun",
     async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any) {
-        const opponent: User = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
+        const opponent: User = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : interaction.options.getUser("opponent");
         if (interaction.user.id == opponent.id) return interaction.reply({ content: client.getLocale(interaction, "commands.fun.tictactoe.playSelf"), ephemeral: true });
         if (opponent.id == client.user.id) return interaction.reply({ content: client.getLocale(interaction, "commands.fun.tictactoe.playClient"), ephemeral: true });
         if (opponent.bot) interaction.channel?.send(client.getLocale(interaction, "commands.fun.tictactoe.playBot"));
