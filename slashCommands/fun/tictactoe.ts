@@ -1,7 +1,8 @@
 import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
 import { CommandInteraction, ContextMenuInteraction, User } from "discord.js";
-import { SlashCommand } from "../../Util/types";
+import { Tictactoe } from "../../localization";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,14 +18,15 @@ module.exports = {
         .setName("tictactoe")
         .setType(ApplicationCommandType.User),
     category: "Fun",
-    async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any) {
-        const opponent: User = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : interaction.options.getUser("opponent");
-        if (interaction.user.id == opponent.id) return interaction.reply({ content: client.getLocale(interaction, "commands.fun.tictactoe.playSelf"), ephemeral: true });
-        if (opponent.id == client.user.id) return interaction.reply({ content: client.getLocale(interaction, "commands.fun.tictactoe.playClient"), ephemeral: true });
-        if (opponent.bot) interaction.channel?.send(client.getLocale(interaction, "commands.fun.tictactoe.playBot"));
+    async execute(interaction: CommandInteraction | ContextMenuInteraction, client: Client) {
+        const opponent: User = interaction.isContextMenu() ? await client.users.fetch(interaction.targetId) : interaction.options.getUser("opponent")!;
+        const locale: Tictactoe = client.getLocale(interaction, "commands.fun.tictactoe")
+        if (interaction.user.id == opponent.id) return interaction.reply({ content: locale.playSelf, ephemeral: true });
+        if (opponent.id == client.user!.id) return interaction.reply({ content: locale.playClient, ephemeral: true });
+        if (opponent.bot) interaction.channel?.send(locale.playBot);
 
         const game = await interaction.reply({
-            content: client.getLocale(interaction, "commands.fun.tictactoe.firstTurn", opponent),
+            content: client.getLocale(interaction, "commands.fun.tictactoe.turn", opponent),
             components: [
                 {
                     type: 1, components: [
