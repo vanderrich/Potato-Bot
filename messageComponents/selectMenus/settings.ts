@@ -1,14 +1,13 @@
-import { APIMessage } from "discord-api-types/v9";
-import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextInputComponent, TextBasedChannel } from "discord.js";
+import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextBasedChannel, TextInputComponent } from "discord.js";
 import config from "../../config.json";
-import { Client, GuildSettings } from "../../Util/types";
+import { GuildSettings, MessageComponent } from "../../Util/types";
 type KeyofBadWordPresets = string & "low" | "medium" | "high" | "highest";
 const badWordPresets = config.settings.badWordPresets;
 
 module.exports = {
     name: "settings",
     permissions: "MANAGE_GUILD",
-    async execute(interaction: SelectMenuInteraction, client: Client) {
+    async execute(interaction: SelectMenuInteraction, client) {
         if (interaction.replied) return;
         const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
         const locale = client.getLocale(interaction, "commands.moderation.settings");
@@ -24,7 +23,7 @@ module.exports = {
                         { label: locale.misc, value: "misc" }
                     ])
                     .setDisabled(true)
-        )
+            )
         switch (selected) {
             case "badWords":
                 const badWordPresetActionRow = new MessageActionRow()
@@ -128,7 +127,7 @@ module.exports = {
                                 { label: locale.addTag, value: "add" },
                                 { label: locale.removeTag, value: "remove" }
                             ])
-                )
+                    )
                 interaction.update({ components: [actionRow, tagActionRow], fetchReply: true }).then(async (msg: any) => {
                     if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                     const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id })!;
@@ -254,4 +253,4 @@ module.exports = {
                 break;
         }
     }
-}
+} as MessageComponent;
