@@ -162,6 +162,14 @@ client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
 	statChannels: { type: [{ type: String, channel: String, role: String }], default: [] },
 })) as unknown) as Types.Client["guildSettings"];
 
+client.subscriptions = (mongoose.model('subscriptions', new mongoose.Schema({
+	type: { type: String, required: true },
+	webhookId: { type: String, required: true },
+	text: { type: String, required: true },
+	username: { type: String, required: true },
+	userId: { type: String, required: true },
+})) as unknown) as Types.Client["subscriptions"]
+
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err: any) => {
 	if (err) console.log(err);
 });

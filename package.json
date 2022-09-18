@@ -21,7 +21,7 @@
         "node-fetch": "^2.0.0",
         "officegen": "^0.6.5",
         "topgg-autoposter": "",
-        "twit": "^2.2.11",
+        "twitter-api-v2": "^1.12.7",
         "unidecode": "^0.1.8",
         "uuid": "^7.0.3"
     }

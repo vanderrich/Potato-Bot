@@ -16,7 +16,7 @@ module.exports = {
         .addBooleanOption(option =>
             option
                 .setName("ai")
-                .setDescription("Have no friends? Well this product is for you! Fight an endlessly difficult ai just to give up and play with something else!")
+                .setDescription("(WIP) Have no friends? Fight an endlessly difficult ai just to give up and play with something else!")
         ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("tictactoe")

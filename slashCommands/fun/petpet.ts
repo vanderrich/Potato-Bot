@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageAttachment } from "discord.js";
-import petPetGif from "pet-pet-gif";
+// import petPetGif from "pet-pet-gif";
 import { SlashCommand } from "../../Util/types";
 
 module.exports = {
@@ -14,10 +14,11 @@ module.exports = {
         ) as SlashCommandBuilder,
     category: "Fun",
     async execute(interaction) {
-        const user = interaction.options.getUser("user") || interaction.user;
-        const avatar = user.displayAvatarURL({ format: "png", size: 512 });
+        interaction.reply("This command cant be used at the moment, sorry for the inconvenience")
+        // const user = interaction.options.getUser("user") || interaction.user;
+        // const avatar = user.displayAvatarURL({ format: "png", size: 512 });
 
-        const animatedGif = await petPetGif(avatar);
-        interaction.reply({ files: [new MessageAttachment(animatedGif, "petpet.gif")] });
+        // const animatedGif = await petPetGif(avatar);
+        // interaction.reply({ files: [new MessageAttachment(animatedGif, "petpet.gif")] });
     }
 } as SlashCommand;

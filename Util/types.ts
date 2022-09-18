@@ -78,6 +78,15 @@ export type BirthdayConfig = {
     roleId: string,
     message: string
 }
+
+export type Subscription = {
+    type: "Twitter" | "Youtube",
+    webhookId: string,
+    text: string,
+    username: string,
+    userId: string
+}
+
 export interface Client extends DiscClient {
     cachedTags: Collection<string, AutoCompleteValue[]>;
     cachedShopItems: Collection<string, AutoCompleteValue[]>;
@@ -89,7 +98,7 @@ export interface Client extends DiscClient {
     birthdays: Model<Birthday>;
     birthdayConfigs: Model<BirthdayConfig>;
     guildSettings: Model<GuildSettings>;
-    giveawaysManager: any;
+    subscriptions: Model<Subscription>;
     shop: typeof shop;
     slashCommands: Collection<string, SlashCommand>;
     buttons: Collection<string, MessageComponent>;
