@@ -3,3 +3,4 @@ node_modules/
 daemon/
 .env
 bun.lockb
+*.js
