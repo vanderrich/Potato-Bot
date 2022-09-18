@@ -3,7 +3,6 @@ import fs from 'fs';
 import Discord from 'discord.js';
 import Economy from 'currency-system';
 import { deploy } from './deploy-commands';
-import { GiveawaysManager } from 'discord-giveaways';
 import mongoose from 'mongoose';
 import localizations from './localization.json';
 import * as Types from './Util/types';
