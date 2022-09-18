@@ -11,9 +11,9 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount to withdraw.")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let money = interaction.options.getNumber("amount");
         let result = await client.eco.withdraw({

@@ -1,5 +1,5 @@
-import { Guild, GuildResolvable } from "discord.js";
-import { Client, GuildSettings } from "./types";
+import { Guild } from "discord.js";
+import { Client } from "./types";
 
 export const updateStats = async (guild: Guild, client: Client) => {
     console.log(`Updating stats for ${guild.name}`);

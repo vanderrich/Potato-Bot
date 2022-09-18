@@ -1,7 +1,7 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder } from "@discordjs/builders";
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
-import { CommandInteraction, ContextMenuInteraction, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,12 +12,12 @@ module.exports = {
                 .setName("target")
                 .setDescription("The user to check the balance of.")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("bal")
         .setType(ApplicationCommandType.User),
     category: "Currency",
-    async execute(interaction: ContextMenuInteraction | CommandInteraction, client: Client, footers: Array<string>) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         let user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
         if (!user) return;

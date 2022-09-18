@@ -1,32 +1,32 @@
-import Discord from "discord.js";
-import { Client } from "../../Util/types";
+import { ButtonInteraction, GuildMember, MessageActionRow, MessageButton } from "discord.js";
+import { Client, MessageComponent } from "../../Util/types";
 
 module.exports = {
     name: "close-ticket",
-    async execute(interaction: Discord.ButtonInteraction, client: Client) {
+    async execute(interaction: ButtonInteraction, client: Client) {
         const ticketType = interaction.customId.split("-")[2];
         const ticket = (ticketType as unknown) as Capitalize<typeof ticketType>;
         const ticketInfo = await client.tickets.findOne({ title: ticket });
         if (interaction.channel?.type !== "GUILD_TEXT") return;
         if (!ticketInfo) return interaction.reply("Ticket not found!");
 
-        const controls = new Discord.MessageActionRow()
+        const controls = new MessageActionRow()
             .addComponents(
-                new Discord.MessageButton()
+                new MessageButton()
                     .setEmoji("📑")
                     .setStyle('SECONDARY')
                     .setCustomId(`transcribe-ticket-${ticketType}`),
-                new Discord.MessageButton()
+                new MessageButton()
                     .setEmoji("🔓")
                     .setStyle('SECONDARY')
                     .setCustomId(`open-ticket-${ticketType}`),
-                new Discord.MessageButton()
+                new MessageButton()
                     .setEmoji("⛔")
                     .setStyle('DANGER')
                     .setCustomId(`delete-ticket-${ticketType}`)
             )
         let member = interaction.member;
-        if (!(member instanceof Discord.GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
+        if (!(member instanceof GuildMember)) member = await interaction.guild!.members.fetch(interaction.user.id)
 
         interaction.channel.send({ content: client.getLocale(interaction, "commands.moderation.createticket.closedBy", interaction.user.toString()), components: [controls] });
         ticketInfo.updateOne({ $pull: { channelId: interaction.channel?.id } });
@@ -43,4 +43,4 @@ module.exports = {
         interaction.reply({ content: client.getLocale(interaction, "commands.moderation.createticket.closeSuccess"), ephemeral: true });
         return;
     }
-}
+} as MessageComponent;

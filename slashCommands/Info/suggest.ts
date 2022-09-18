@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, AnyChannel, MessageEmbed } from "discord.js";
-import { Client, GuildSettings } from "../../Util/types";
+import { AnyChannel, MessageEmbed } from "discord.js";
+import { GuildSettings, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,10 +11,10 @@ module.exports = {
                 .setName("suggestion")
                 .setDescription("The suggestion")
                 .setRequired(true)
-        ),
+        ) as SlashCommandBuilder,
     category: "Info",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         const guildSettings: GuildSettings | null | undefined = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
         if (!guildSettings?.suggestionChannel) return interaction.editReply(client.getLocale(interaction, "commands.info.suggest.noChannel"));
@@ -32,4 +32,4 @@ module.exports = {
         await channel.send({ embeds: [embed] });
         interaction.editReply(client.getLocale(interaction, "commands.info.suggest.success"));
     }
-}
+} as SlashCommand;

@@ -1,9 +1,7 @@
-import { MessageActionRow, MessageButton, CommandInteraction, MessageComponentInteraction, Message, ContextMenuInteraction, Interaction, ButtonInteraction } from 'discord.js';
-import { APIMessage } from "discord-api-types/v9"
+import { ButtonInteraction, CommandInteraction, ContextMenuInteraction, Message, MessageActionRow, MessageButton } from 'discord.js';
 import { Client } from './types';
 
 export default async (source: CommandInteraction | ButtonInteraction | ContextMenuInteraction, pages: any[], client: Client, options: any) => {
-
     const buttons = [
         new MessageButton()
             .setCustomId('first')

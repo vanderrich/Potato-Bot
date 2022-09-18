@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,9 +16,9 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount of money you want to transfer")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let user = interaction.options.getUser("user");
         if (!user) return interaction.editReply(client.getLocale(interaction, "commands.currency.transfer.invalidUser"));

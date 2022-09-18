@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { MessageEmbed } from "discord.js";
 import { config } from "dotenv";
-config();
 import fetch from "node-fetch";
+import { SlashCommand } from "../../Util/types";
+config();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
                 .setRequired(true)
         ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         const word = interaction.options.getString("word");
         const response = await fetch(`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.MERRIAMWEBSTER_API_KEY}`);
         const data = (await response.json())[0];

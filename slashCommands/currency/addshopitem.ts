@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,11 +19,11 @@ module.exports = {
             .setName("price")
             .setDescription("The price of the item.")
             .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
     permissions: "ADMINISTRATOR",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         const name = interaction.options.getString("name");
         const description = interaction.options.getString("description");

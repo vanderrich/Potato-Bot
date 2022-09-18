@@ -1,7 +1,6 @@
 //not used anymore
-import { SlashCommandSubcommandBuilder } from "@discordjs/builders"
-import { CommandInteraction } from "discord.js";
-import { settings } from "../../config.json"
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+import { settings } from "../../config.json";
 import { SlashCommand } from "../../Util/types";
 const { badWordPresets } = settings;
 type badWordsTypeThingy = string & "low" | "medium" | "high";
@@ -25,10 +24,10 @@ module.exports = {
             .setName("custom")
             .setDescription("The custom bad words to use, seperate with commas.")
             .setRequired(false)
-    ) as SlashCommandSubcommandBuilder,
+        ) as SlashCommandSubcommandBuilder,
     category: "Moderation",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction, client) {
         const preset = interaction.options.getString("preset");
         const custom = interaction.options.getString("custom");
 
@@ -77,4 +76,4 @@ module.exports = {
             return interaction.reply(`Set the bad words to ${preset}`);
         }
     }
-}
+} as SlashCommand;

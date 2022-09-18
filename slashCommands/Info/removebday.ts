@@ -10,7 +10,7 @@ module.exports = {
         .setDescription("Remove your birthday data."),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         const user = interaction.user;
         const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;

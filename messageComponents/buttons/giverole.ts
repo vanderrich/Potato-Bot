@@ -1,13 +1,13 @@
-import Discord from "discord.js";
+import { ButtonInteraction, GuildMemberRoleManager } from "discord.js";
 import { Reactroles } from "../../localization";
-import { Client } from "../../Util/types";
+import { Client, MessageComponent } from "../../Util/types";
 
 module.exports = {
     name: "giverole",
-    async execute(interaction: Discord.ButtonInteraction, client: Client) {
+    async execute(interaction: ButtonInteraction, client: Client) {
         const locale = client.getLocale(interaction, "commands.moderation.reactroles") as Reactroles
         let memberRoles = interaction.member!.roles
-        if (!(memberRoles instanceof Discord.GuildMemberRoleManager)) return
+        if (!(memberRoles instanceof GuildMemberRoleManager)) return
         const role = interaction.customId.split("-")[1];
         const roleInfo = await interaction.guild!.roles.fetch(role);
         if (!roleInfo) return interaction.reply(locale.noRole);
@@ -19,4 +19,4 @@ module.exports = {
             return interaction.reply({ content: locale.addSuccess, ephemeral: true });
         }
     }
-}
+} as MessageComponent;

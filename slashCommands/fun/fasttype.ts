@@ -11,7 +11,7 @@
 //     name: 'fasttype',
 //     description: 'type fast',
 //     category: "Fun",
-//     async execute(interaction: CommandInteraction, client: any) {
+//     async execute(interaction: typeof CommandInteraction, client: any) {
 //         if (!interaction.channel || !interaction.channel.isText()) return interaction.reply("This command can only be used in a server!");
 //         //sends the starting embed message
 //         const embed = new MessageEmbed()

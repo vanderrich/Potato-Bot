@@ -24,10 +24,11 @@ module.exports = {
                 .setDescription("The command to get help for.")
         ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction, client, footers) {
         const commands = client.slashCommands;
         const categories = client.getLocale(interaction, "commands.info.help.categories");
         let category = interaction.options.getString("category")
+        let command = interaction.options.getString("command")
         if (category) {
             category = category.charAt(0).toUpperCase() + category?.slice(1)
             if (!categories.includes(category)) {
@@ -50,8 +51,7 @@ module.exports = {
             }
             return interaction.reply({ embeds: [messageEmbed] })
         }
-        else if (interaction.options.getString("command")) {
-            let command = interaction.options.getString("command")
+        else if (command) {
             let commandObject = commands.get(command)
             if (!commandObject) {
                 return interaction.reply(client.getLocale(interaction, "commands.info.help.noCommand"))
@@ -63,7 +63,7 @@ module.exports = {
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
             if (commandObject.data.options) {
                 for (const optionIndex in commandObject.data.options) {
-                    const option = commandObject.data.options[optionIndex]
+                    const option = commandObject.data.options[optionIndex].toJSON()
                     messageEmbed.addFields({ name: option.name, value: option.description })
                 }
             }

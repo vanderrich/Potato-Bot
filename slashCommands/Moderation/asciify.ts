@@ -1,9 +1,9 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder } from "@discordjs/builders";
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v10";
-import { SlashCommand } from "../../Util/types";
-import { CommandInteraction, UserContextMenuInteraction, GuildMember } from "discord.js"
+import { GuildMember } from "discord.js";
 import unidecode from "unidecode";
 import { Asciify } from "../../localization";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,7 +20,7 @@ module.exports = {
     category: "Moderation",
     guildOnly: true,
     permissions: "CHANGE_NICKNAME",
-    async execute(interaction: CommandInteraction | UserContextMenuInteraction, client) {
+    async execute(interaction, client) {
         const locale = client.getLocale(interaction, "commands.moderation.asciify") as Asciify;
         let member = interaction.isContextMenu() ? await interaction.guild!.members.fetch(interaction.targetId) : interaction.options.getMember("member");
         if (!member) return interaction.reply(locale.userNotInGuild);

@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ module.exports = {
             .setDescription("Assign each number to something, syntax: <number>=<text>, separate with commas.")
         ) as SlashCommandBuilder,
     category: "Fun",
-    execute: (interaction: CommandInteraction, client: Client, footers: Array<string>) => {
+    execute: (interaction, client, footers) => {
         const number = interaction.options.getNumber("number") || 1;
         const sides = interaction.options.getNumber("sides") || 6;
         if (number > 10000) return interaction.reply("Too many dices.");

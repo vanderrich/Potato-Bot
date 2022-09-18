@@ -1,6 +1,6 @@
 import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
 import { ApplicationCommandType } from "discord-api-types/v9";
-import { CommandInteraction, ContextMenuInteraction, MessageEmbed } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import generatePages from '../../Util/pagination';
 import { SlashCommand } from "../../Util/types";
 
@@ -13,13 +13,13 @@ module.exports = {
                 .setName("user")
                 .setDescription("The user to view the inventory of.")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName("inv")
         .setType(ApplicationCommandType.User),
     category: "Currency",
-    async execute(interaction: CommandInteraction | ContextMenuInteraction, client: any, footers: Array<string>) {
-        const user = interaction.isContextMenu() ? client.users.cache.get(interaction.targetId) : (interaction.options.getUser("user") || interaction.user);
+    async execute(interaction, client, footers) {
+        const user = interaction.isContextMenu() ? await client.users.fetch(interaction.targetId) : interaction.options.getUser("user") || interaction.user;
         await interaction.deferReply();
 
         const embed = new MessageEmbed()

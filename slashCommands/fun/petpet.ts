@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageAttachment } from "discord.js";
+import { MessageAttachment } from "discord.js";
 import petPetGif from "pet-pet-gif";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +11,9 @@ module.exports = {
             .setName("user")
             .setRequired(false)
             .setDescription("the user to pet, defaults to yourself")
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction) {
         const user = interaction.options.getUser("user") || interaction.user;
         const avatar = user.displayAvatarURL({ format: "png", size: 512 });
 

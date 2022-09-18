@@ -1,4 +1,4 @@
-import { Client } from "../Util/types";
+import { Client, Event } from "../Util/types";
 
 module.exports = {
     name: 'warn',
@@ -8,4 +8,4 @@ module.exports = {
         if (!channel || !channel.isText()) return;
         channel.send({ content: `<@709950767670493275> Warning: ${warning}!` }); // log the warning to the bot logs channel
     }
-}
+} as Event;

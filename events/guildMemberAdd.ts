@@ -1,6 +1,6 @@
 import { en } from '../localization.json';
 import Discord from "discord.js"
-import { Client } from '../Util/types'
+import { Client, Event } from '../Util/types'
 const footers = en.utils.footers
 
 module.exports = {
@@ -23,4 +23,4 @@ module.exports = {
             newMember.roles.add(role)
         }
     }
-}
+} as Event;

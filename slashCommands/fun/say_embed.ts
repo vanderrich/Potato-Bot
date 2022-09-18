@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, Message, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { Message, MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,9 +16,9 @@ module.exports = {
             option
                 .setName("description")
                 .setDescription("The description of the embed"),
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         const title = interaction.options.getString("title");
         let description = interaction.options.getString("description");

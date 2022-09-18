@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -24,9 +24,9 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("yearly")
             .setDescription("Get your yearly rewards!")
-        ),
+        ) as SlashCommandBuilder,
     category: "Currency",
-    execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+    execute(interaction, client, footers) {
         require("./" + interaction.options.getSubcommand()).execute(interaction, client, footers);
     }
-}
+} as SlashCommand;

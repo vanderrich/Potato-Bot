@@ -23,6 +23,14 @@ function checkWin(board: MessageActionRow<MessageButton>[]) {
     return "tie";
 }
 
+function ai(board: MessageActionRow<MessageButton>[]) {
+    for (let actionRow of board) {
+        for (let action of actionRow.components) {
+            if (action.label === 'X') return
+        }
+    }
+}
+
 export default async (interaction: ButtonInteraction, client: Client) => {
     /** @type {Discord.Message} message */
     let message = interaction.message;
@@ -50,6 +58,20 @@ export default async (interaction: ButtonInteraction, client: Client) => {
         return interaction.reply({ content: locale.notYourTurn, ephemeral: true });
     }
 
+    const board: MessageActionRow<MessageButton>[] = []
+    //typing stuff
+    for (let row of message.components) {
+        const newActionRow = new MessageActionRow<MessageButton>();
+        for (let button of row.components) {
+            if (!(button instanceof MessageButton)) continue;
+            newActionRow.addComponents(button);
+        }
+        board.push(newActionRow);
+    }
+
+    if (currPlayer === "ai") ai(board);
+
+
     const buttonPressed = message.components[i - 1].components[j - 1];
     if (!(buttonPressed instanceof MessageButton)) return;
 
@@ -72,7 +94,7 @@ export default async (interaction: ButtonInteraction, client: Client) => {
         components.push({ type: 1, components: componentComponents });
     }
 
-    const board: MessageActionRow<MessageButton>[] = [];
+    const boardNew: MessageActionRow<MessageButton>[] = [];
 
     for (let row of message.components) {
         const newActionRow = new MessageActionRow<MessageButton>();
@@ -80,15 +102,15 @@ export default async (interaction: ButtonInteraction, client: Client) => {
             if (!(button instanceof MessageButton)) continue;
             newActionRow.addComponents(button);
         }
-        board.push(newActionRow);
+        boardNew.push(newActionRow);
     }
 
 
-    if (checkWin(board) == "tie") {
+    if (checkWin(boardNew) == "tie") {
         await message.edit({ content: locale.tie, components: components });
         delete client.tictactoe[message.id];
     }
-    else if (checkWin(board)) {
+    else if (checkWin(boardNew)) {
         await message.edit({ content: client.getLocale(interaction, "commands.tictactoe.")`Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
         delete client.tictactoe[message.id];
     }

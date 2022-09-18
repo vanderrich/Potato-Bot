@@ -1,6 +1,5 @@
-import { CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,7 +14,7 @@ module.exports = {
     permissions: "MANAGE_MESSAGES",
     category: "Moderation",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true });
         let amount = interaction.options.getInteger("amount");
         if (!amount || isNaN(amount) || amount < 0) return interaction.editReply(client.getLocale(interaction, "commands.moderation.modActions.bulkDelete.invalidAmount"));

@@ -1,13 +1,13 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('links')
         .setDescription('Links'),
     category: "Info",
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction, "commands.info.links.embedTitle"))
             .setDescription(`

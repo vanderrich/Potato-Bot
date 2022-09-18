@@ -1,7 +1,7 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, GuildChannel } from "discord.js";
+import { GuildChannel } from "discord.js";
 import { BirthdayLocaleType } from "../../localization";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -18,11 +18,11 @@ module.exports = {
         .addStringOption(option => option
             .setName("birthdaymessage")
             .setDescription("The message to send to users whose birthday is today.")
-    ) as SlashCommandSubcommandBuilder,
+        ) as SlashCommandSubcommandBuilder,
     category: "Info",
     isSubcommand: true,
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply()
         const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
 
@@ -50,4 +50,4 @@ module.exports = {
 
         interaction.editReply(locale.setupSuccess);
     }
-}
+} as SlashCommand;

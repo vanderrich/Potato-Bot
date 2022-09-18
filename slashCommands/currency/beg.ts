@@ -1,13 +1,12 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("beg")
         .setDescription("Beg for money!"),
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let users = client.getLocale(interaction, "commands.currency.beg.users");
         let result = await client.eco.beg({ user: interaction.user.id, minAmount: 1, maxAmount: 5 })

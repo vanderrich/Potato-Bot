@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,7 +17,7 @@ module.exports = {
             .setRequired(true)
         ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let language = interaction.options.getString("language");
         if (!language) return interaction.editReply(client.getLocale(interaction, "commands.info.language.noLanguage"));

@@ -1,15 +1,16 @@
-import Discord from "discord.js"
+import { Message, MessageEmbed } from "discord.js"
+import { Event } from "../Util/types";
 
 module.exports = {
     name: 'messageDelete',
-    execute(message: Discord.Message) {
+    execute(message: Message) {
         //ghost ping detection
         if (message.mentions?.users.size > 0 || message.mentions?.roles.size > 0 || message?.mentions.everyone) {
             if (message.author.bot || message.channel.type === "DM" || !message.guild!.me?.permissions || !message.channel.permissionsFor(message.guild!.me).has("SEND_MESSAGES") && message.channel.permissionsFor(message.guild!.me).has("VIEW_CHANNEL")) return;
             let user = message.mentions.users
             let roles = message.mentions.roles
             let everyone = message.mentions.everyone
-            let embed = new Discord.MessageEmbed()
+            let embed = new MessageEmbed()
                 .setColor("RANDOM")
                 .setTitle("Ghost ping detected!")
                 .addFields(
@@ -20,4 +21,4 @@ module.exports = {
             message.channel.send({ embeds: [embed] });
         }
     }
-}
+} as Event;

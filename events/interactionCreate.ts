@@ -1,13 +1,12 @@
-import { tags, admins } from './../config.json'
-import Discord from 'discord.js'
-import { v4 as uuidv4 } from 'uuid';
-import { Client } from '../Util/types';
-import { AutoCompleteValue } from '../Util/types';
+import { DiscordAPIError, Interaction, MessageEmbed, PermissionResolvable } from 'discord.js';
 import fetch from 'node-fetch';
+import { v4 as uuidv4 } from 'uuid';
+import { AutoCompleteValue, Client, Event } from '../Util/types';
+import { admins, tags } from './../config.json';
 
 module.exports = {
     name: 'interactionCreate',
-    async execute(interaction: Discord.Interaction, client: Client) {
+    async execute(interaction: Interaction, client: Client) {
         const loggingChannel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
         if (!loggingChannel || !loggingChannel.isText()) return;
         if (interaction.isCommand() || interaction.isContextMenu()) {
@@ -17,14 +16,14 @@ module.exports = {
 
             if (command.guildOnly && (!interaction.guild)) return interaction.reply({ content: "You can't use this command in DM!", ephemeral: true });
             if (command.permissions) {
-                if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(command.permissions as Discord.PermissionResolvable)) return interaction.reply({ content: "You don't have permission to use this command!", ephemeral: true });
-                if ((command.permissions == "BotAdmin" && !interaction.guild!.me!.permissions.has("ADMINISTRATOR")) || (!interaction.guild!.me!.permissions.has(command.permissions as Discord.PermissionResolvable))) return interaction.reply({ content: "I dont have the permissions to use this command!", ephemeral: true });
+                if ((command.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(command.permissions as PermissionResolvable)) return interaction.reply({ content: "You don't have permission to use this command!", ephemeral: true });
+                if ((command.permissions == "BotAdmin" && !interaction.guild!.me!.permissions.has("ADMINISTRATOR")) || (!interaction.guild!.me!.permissions.has(command.permissions as PermissionResolvable))) return interaction.reply({ content: "I dont have the permissions to use this command!", ephemeral: true });
             }
 
             try {
                 loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command
                 await command.execute(interaction as any, client, client.getLocale(interaction, "utils.footers"));
-            } catch (error: Discord.DiscordAPIError | any | Error) {
+            } catch (error: DiscordAPIError | any | Error) {
                 console.error(error);
                 const id = uuidv4();
                 const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
@@ -44,7 +43,7 @@ module.exports = {
                     headers: { Authorization: process.env.SUPER_SECRET_KEY! },
                     method: "POST"
                 }).catch(err => console.error(err));
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                     .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
                     .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
                 await loggingChannel.send({
@@ -63,16 +62,16 @@ module.exports = {
         else if (interaction.isButton()) {
             loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) clicked on a button with the custom id of ${interaction.customId} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
 
-            const button = client.buttons.get(interaction.customId.split("-")[0]);
+            const button = client.buttons.get(interaction.customId.split("-").slice(0, -1).join("-"));
 
             if (button) {
                 if (button?.permissions) {
-                    if ((button.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(button.permissions as Discord.PermissionResolvable)) return interaction.reply("You don't have permission to use this command!");
+                    if ((button.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(button.permissions as PermissionResolvable)) return interaction.reply("You don't have permission to use this command!");
                 }
 
                 try {
                     button?.execute(interaction, client, client.getLocale(interaction, "utils.footers"));
-                } catch (error: Discord.DiscordAPIError | any | Error) {
+                } catch (error: DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
                     await fetch('https://potato-bot.deno.dev/api/error', {
@@ -92,7 +91,7 @@ module.exports = {
                             Authorization: process.env.SUPER_SECRET_KEY!
                         }
                     }).catch(err => console.error(err));
-                    const embed = new Discord.MessageEmbed()
+                    const embed = new MessageEmbed()
                         .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
                         .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
                     await loggingChannel.send({
@@ -141,12 +140,12 @@ module.exports = {
 
             if (selectMenu) {
                 if (selectMenu?.permissions) {
-                    if ((selectMenu.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(selectMenu.permissions as Discord.PermissionResolvable)) return interaction.reply("You don't have permission to use this command!");
+                    if ((selectMenu.permissions == "BotAdmin" && !admins.includes(interaction.user.id)) || !interaction.memberPermissions?.has(selectMenu.permissions as PermissionResolvable)) return interaction.reply("You don't have permission to use this command!");
                 }
 
                 try {
                     selectMenu?.execute(interaction, client, client.getLocale(interaction, "utils.footers"));
-                } catch (error: Discord.DiscordAPIError | any | Error) {
+                } catch (error: DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
                     await fetch('https://potato-bot.deno.dev/api/error', {
@@ -164,7 +163,7 @@ module.exports = {
                         method: 'POST',
                         headers: { Authorization: process.env.SUPER_SECRET_KEY! }
                     }).catch(err => console.error(err));
-                    const embed = new Discord.MessageEmbed()
+                    const embed = new MessageEmbed()
                         .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
                         .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
                     await loggingChannel.send({
@@ -183,4 +182,4 @@ module.exports = {
 
         }
     }
-}
+} as Event;

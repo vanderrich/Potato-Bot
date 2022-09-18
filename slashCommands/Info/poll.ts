@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, Message, MessageEmbed, Formatters } from "discord.js";
+import { Formatters, Message, MessageEmbed } from "discord.js";
 import ms from "ms";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -38,7 +38,7 @@ module.exports = {
         .addStringOption(option => option.setName("option7").setDescription("The seventh option of the poll"))
         .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         var title = interaction.options.getString("title");
         var description = interaction.options.getString("description");
         var options = [];
@@ -62,7 +62,7 @@ module.exports = {
 
             interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(async (msg) => {
                 if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
-                    msg.react('👍');
+                msg.react('👍');
                 msg.react('👎');
             });
         }
@@ -91,9 +91,9 @@ module.exports = {
 
             interaction.reply({ content: ping ? '@everyone' : client.getLocale(interaction, "commands.info.poll.newPoll"), embeds: [embed], fetchReply: true }).then(async (msg) => {
                 if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
-                    for (let i = 0; i < options.length; i++) {
-                        msg.react(alphabet[i]);
-                    }
+                for (let i = 0; i < options.length; i++) {
+                    msg.react(alphabet[i]);
+                }
             })
         }
     }

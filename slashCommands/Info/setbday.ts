@@ -1,7 +1,6 @@
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
 import { BirthdayLocaleType } from "../../localization";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -11,10 +10,10 @@ module.exports = {
             .setName("birthdate")
             .setDescription("Your birthdate in MM/DD, eg. 01/01")
             .setRequired(true)
-    ) as SlashCommandSubcommandBuilder,
+        ) as SlashCommandSubcommandBuilder,
     category: "Info",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         const birthdate = interaction.options.getString("birthdate");
         const user = interaction.user;

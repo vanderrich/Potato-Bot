@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
-import { Client } from "../../Util/types";
+import { Client, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -268,8 +268,9 @@ module.exports = {
                     .setRequired(true)
                 )
             )
-        ),
-    execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+        ) as SlashCommandBuilder,
+    category: "Music",
+    execute(interaction) {
         return interaction.reply("Unfortunately railway does not support music bots, sorry for the inconvenience");
         // let subcommand;
         // try {
@@ -280,4 +281,4 @@ module.exports = {
         // const locale = client.getLocale(interaction, "commands.music")
         // require("./" + subcommand).execute(interaction, client, footers, locale);
     }
-}
+} as SlashCommand;

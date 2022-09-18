@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import config from "../../config.json"
-import { Client, GuildSettings, SlashCommand } from "../../Util/types";
+import config from "../../config.json";
+import { GuildSettings, SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,9 +15,9 @@ module.exports = {
         .addUserOption(option => option
             .setName("target")
             .setDescription("user to ping")
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         const tag = interaction.options.getString("tag");
         if (!tag) return interaction.editReply("You need to specify a tag");

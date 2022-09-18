@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,11 +9,11 @@ module.exports = {
             .setName("itemnumber")
             .setDescription("The shop item number to remove.")
             .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
     permissions: "ADMINISTRATOR",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         const itemNumber = interaction.options.getNumber("itemnumber");
         await interaction.deferReply();
 

@@ -1,6 +1,6 @@
 import { User } from "discord.js"
 import postStats from "../Util/postStats";
-import { Birthday, Client } from "../Util/types";
+import { Birthday, Client, Event } from "../Util/types";
 import fetch from "node-fetch";
 
 module.exports = {
@@ -51,4 +51,4 @@ module.exports = {
         }, 15000)
         await postStats(client);
     }
-}
+} as Event;

@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
 import fs from 'fs';
 import { admins } from '../../config.json';
+import { SlashCommand } from '../../Util/types';
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('reload')
@@ -11,13 +11,13 @@ module.exports = {
                 .setName('command')
                 .setDescription('The command to reload.')
                 .setRequired(true)
-        ),
+        ) as SlashCommandBuilder,
     permissions: "BotAdmin",
     category: "Bot Admin Only",
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction, client) {
         if (!admins.includes(interaction.user.id)) return;
         //variables
-        const commandName = interaction.options.getString('command');
+        const commandName = interaction.options.getString('command')!;
         const command = client.slashCommands.get(commandName)
             || client.slashCommands.find((cmd: any) => cmd.aliases && cmd.aliases.includes(commandName));
         const commandFolders = fs.readdirSync('./slashCommands');
@@ -37,4 +37,4 @@ module.exports = {
             interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error}\``);
         }
     },
-};
+} as SlashCommand;

@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,15 +11,15 @@ module.exports = {
                 .setDescription("The item you want to sell")
                 .setAutocomplete(true)
                 .setRequired(true)
-    )
+        )
         .addNumberOption(option =>
             option
                 .setName("amount")
                 .setDescription("The amount of the item you want to sell")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let amount = interaction.options.getNumber("amount") || 1;
         let results: { error: boolean, inventory: { name: string }, type: string }[] = []

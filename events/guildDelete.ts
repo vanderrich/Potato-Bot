@@ -1,6 +1,6 @@
 import { Guild } from "discord.js";
 import postStats from "../Util/postStats";
-import { Client } from "../Util/types";
+import { Client, Event } from "../Util/types";
 
 module.exports = {
     name: 'guildDelete',
@@ -11,4 +11,4 @@ module.exports = {
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         await postStats(client);
     }
-};
+} as Event;

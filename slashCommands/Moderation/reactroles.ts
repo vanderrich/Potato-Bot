@@ -1,6 +1,6 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
-import Discord from "discord.js"
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { GuildEmoji, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -39,7 +39,7 @@ module.exports = {
     permissions: "ADMINISTRATOR",
     category: "Moderation",
     guildOnly: true,
-    async execute(interaction: Discord.CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply({ ephemeral: true });
         let title: string = interaction.options.getString("title")!;
         let description: string | null = interaction.options.getString("description");
@@ -47,7 +47,7 @@ module.exports = {
         if (!channel || !channel.isText()) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.noTextChannel"));
         let options: Array<string> = [];
         let reactionRoles: Array<any> = [];
-        let reactions: Array<Discord.GuildEmoji | string> = [];
+        let reactions: Array<GuildEmoji | string> = [];
         if (!interaction.guild!.me?.roles.highest.position) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.noPerms"));
         for (let i = 1; i <= 25; i++) {
             let option = interaction.options.getString(`option${i}`);
@@ -65,7 +65,7 @@ module.exports = {
             }
         }
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(title)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
         if (description) embed.setDescription(description);
@@ -73,11 +73,11 @@ module.exports = {
             embed.addFields({ name: `${reactions[i]}: ${options[i]}`, value: `${reactionRoles[i]}` });
         }
 
-        const messageActionRow = new Discord.MessageActionRow();
+        const messageActionRow = new MessageActionRow();
         const messageActionRowComponents = []
         for (const i in reactions) {
             messageActionRowComponents.push(
-                new Discord.MessageButton()
+                new MessageButton()
                     .setEmoji(reactions[i])
                     .setLabel(options[i])
                     .setStyle("PRIMARY")

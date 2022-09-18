@@ -1,5 +1,4 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
 import { SlashCommand } from "../../Util/types";
 const gifs = [
     "https://tenor.com/view/just-do-it-shia-la-beouf-do-it-flame-fire-gif-5621394",
@@ -18,7 +17,7 @@ module.exports = {
         .setName("motivation")
         .setDescription("Get a random motivational gif!"),
     category: "Fun",
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction) {
         interaction.reply(gifs[Math.floor(Math.random() * gifs.length)]);
     }
 } as SlashCommand;

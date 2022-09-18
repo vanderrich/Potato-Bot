@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { admins } from "../../config.json";
+import { SlashCommand } from "../../Util/types";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("addmoney")
@@ -26,10 +27,10 @@ module.exports = {
                     { name: "Wallet", value: "wallet" },
                 )
                 .setRequired(true)
-        ),
+        ) as SlashCommandBuilder,
     permissions: "BotAdmin",
     category: "Bot Admin Only",
-    async execute(interaction: CommandInteraction, client: any, footers: Array<string>) {
+    async execute(interaction, client, footers) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
         let user = interaction.options.getUser("target");
         if (!user) return interaction.reply("Please specify a user!");
@@ -45,4 +46,4 @@ module.exports = {
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
         return interaction.reply({ embeds: [embed] })
     }
-}
+} as SlashCommand;

@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import { v4 as uuidv4 } from 'uuid';
-import { Client } from "../Util/types";
+import { Client, Event } from "../Util/types";
 import fetch from "node-fetch";
 
 module.exports = {
@@ -30,4 +30,4 @@ module.exports = {
             embeds: [embed]
         }); // log the error to the bot logs channel
     }
-}
+} as Event;

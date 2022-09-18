@@ -1,13 +1,12 @@
-import { CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("work")
         .setDescription("Work to earn money!"),
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let result = await client.eco.work({
             user: interaction.guild?.id,

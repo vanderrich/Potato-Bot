@@ -1,13 +1,13 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("lb")
         .setDescription("See the leaderboard!"),
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         let leaderboard: { userID: string, wallet: number, bank: number, networth: number }[] = await client.eco.globalLeaderboard();
         if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction, "commands.currency.leaderboard.empty"));

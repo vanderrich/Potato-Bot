@@ -1,13 +1,13 @@
-import Discord from "discord.js";
+import { ButtonInteraction, Collection, Message, MessageAttachment } from "discord.js";
 import fs from "fs";
 import officegen from "officegen";
 import { Createticket } from "../../localization";
-import { Client } from "../../Util/types";
+import { Client, MessageComponent } from "../../Util/types";
 const msglimit = 100;
 
 module.exports = {
     name: "transcribe-ticket",
-    async execute(interaction: Discord.ButtonInteraction, client: Client) {
+    async execute(interaction: ButtonInteraction, client: Client) {
         const locale = client.getLocale(interaction, "commands.moderation.createticket") as Createticket
         const ticket = interaction.customId.split("-")[2];
         const ticketInfo = await client.tickets.findOne({ title: ticket });
@@ -38,7 +38,7 @@ module.exports = {
         pObj.addText(locale.oldestMsg, { hyperlink: 'myBookmark', font_face: 'Arial', color: '5dbcd2', italic: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
         pObj.addText(locale.clickToJump, { hyperlink: 'myBookmark', font_face: 'Arial', color: '1979a9', italic: false, bold: true, font_size: 8 });  //Make a hyperlink to the BOOKMARK (Created later)
         pObj.addLineBreak();
-        let messageCollection: any = new Discord.Collection<string, Discord.Message>(); //make a new collection
+        let messageCollection: any = new Collection<string, Message>(); //make a new collection
         let channelMessages = await interaction.channel.messages.fetch({//fetch the last 100 messages
             limit: 100
         }).catch(err => console.log(err)); //catch any error
@@ -57,7 +57,7 @@ module.exports = {
         }
         let msgs = messageCollection.reverse(); //reverse the array to have it listed like the discord chat
         //now for every interaction in the array make a new paragraph!
-        await msgs.forEach(async (msg: Discord.Message) => {
+        await msgs.forEach(async (msg: Message) => {
             // Create a new paragraph:
             pObj = docx.createP()
             pObj.options.align = 'left'; //Also 'right' or 'justify'.
@@ -93,7 +93,7 @@ module.exports = {
         out.on("finish", function () {
             try { // try to send the file
                 const buffer = fs.readFileSync(path); //get a buffer file
-                const attachment = new Discord.MessageAttachment(buffer, filename); //send it as an attachment
+                const attachment = new MessageAttachment(buffer, filename); //send it as an attachment
                 //send the Transcript Into the Channel and then Deleting it again from the FOLDER
                 interaction.editReply({ files: [attachment] }).then(del => { //after sending it delete the file and edit the temp interaction to an approvement
                     fs.unlinkSync(path)
@@ -106,4 +106,4 @@ module.exports = {
         })
         docx.generate(out);
     }
-}
+} as MessageComponent;

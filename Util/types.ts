@@ -1,10 +1,9 @@
-import { PermissionResolvable, CommandInteraction, ButtonInteraction, SelectMenuInteraction, Client as DiscClient, Collection, ContextMenuInteraction } from 'discord.js';
-import { SlashCommandBuilder, SlashCommandSubcommandGroupBuilder, SlashCommandSubcommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
-import { Model, Schema, Document } from 'mongoose';
-import { shop } from './config.json';
-// import { Player } from 'discord-player';
+import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
 import Economy from 'currency-system';
+import { ButtonInteraction, Client as DiscClient, Collection, CommandInteraction, ContextMenuInteraction, Message, PermissionResolvable, SelectMenuInteraction } from 'discord.js';
+import { Document, Model } from 'mongoose';
 import { Music } from '../localization';
+import { shop } from './config.json';
 
 export type SlashCommand = {
     data: SlashCommandBuilder | SlashCommandSubcommandGroupBuilder | SlashCommandSubcommandBuilder;
@@ -19,6 +18,11 @@ export type MessageComponent = {
     name: string;
     permissions?: PermissionResolvable | "BotAdmin";
     execute: (interaction: ButtonInteraction | SelectMenuInteraction, client: Client, footers: string[]) => void;
+}
+
+export type Event = {
+    name: string;
+    execute(...args: any): any;
 }
 
 export interface GuildSettings extends Document {
@@ -51,73 +55,6 @@ export type Language = {
     language: string;
 }
 
-export type Playlist = {
-    name: string;
-    tracks: string[];
-    creator: string;
-    managers: string[];
-    settings: {
-        loop: number & 0 | 1 | 2;
-        shuffle: boolean;
-        volume: number;
-    }
-}
-
-export type Giveaway = {
-    messageId: string,
-    channelId: string,
-    guildId: string,
-    startAt: number,
-    endAt: number,
-    ended: boolean,
-    winnerCount: number,
-    prize: string,
-    messages: {
-        giveaway: string,
-        giveawayEnded: string,
-        inviteToParticipate: string,
-        drawing: string,
-        dropMessage: string,
-        winMessage: Schema.Types.Mixed,
-        embedFooter: Schema.Types.Mixed,
-        noWinner: string,
-        winners: string,
-        endedAt: string,
-        hostedBy: string
-    },
-    thumbnail: string,
-    hostedBy: string,
-    winnerIds?: string[],
-    reaction: Schema.Types.Mixed,
-    botsCanWin: boolean,
-    embedColor: Schema.Types.Mixed,
-    embedColorEnd: Schema.Types.Mixed,
-    exemptPermissions?: any[],
-    exemptMembers: string,
-    bonusEntries: string,
-    extraData: Schema.Types.Mixed,
-    lastChance: {
-        enabled: boolean,
-        content: string,
-        threshold: number,
-        embedColor: Schema.Types.Mixed,
-    },
-    pauseOptions: {
-        isPaused: boolean,
-        content: string,
-        unPauseAfter: number,
-        embedColor: Schema.Types.Mixed,
-        durationAfterPause: number,
-        infiniteDurationText: string
-    },
-    isDrop: boolean,
-    allowedMentions: {
-        parse?: string[],
-        users?: string[],
-        roles?: string[],
-    }
-}
-
 export type Ticket = {
     guildId: string,
     categoryId: string,
@@ -148,7 +85,6 @@ export interface Client extends DiscClient {
     globalShopItems: any[];
     eco: typeof Economy;
     languages: Model<Language>;
-    playlists: Model<Playlist>;
     tickets: Model<Ticket>;
     birthdays: Model<Birthday>;
     birthdayConfigs: Model<BirthdayConfig>;
@@ -158,8 +94,7 @@ export interface Client extends DiscClient {
     slashCommands: Collection<string, SlashCommand>;
     buttons: Collection<string, MessageComponent>;
     selectMenus: Collection<string, MessageComponent>;
-    // player: Player;
-    tictactoe: any;
+    tictactoe: { [key: string]: { x: string, o: string, message: Message, lastInteraction: number } };
     getLocale(interaction: CommandInteraction | ButtonInteraction | SelectMenuInteraction | ContextMenuInteraction, key: string, ...args: any[]): any;
     updateCache(): void;
 }

@@ -1,6 +1,6 @@
 import { prefix } from '../config.json'
 import Discord from 'discord.js'
-import { Client } from '../Util/types'
+import { Client, Event } from '../Util/types'
 
 module.exports = {
     name: 'messageCreate',
@@ -34,4 +34,4 @@ module.exports = {
             message.reply("Text commands cant be used anymore, please use slash (/) commands instead")
         }
     }
-}
+} as Event;

@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { MessageEmbed } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('Information about the server'),
     category: 'Info',
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         //variables
         const locales = client.getLocale(interaction, 'commands.info.serverInfo')
         const roles = interaction.guild!.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());

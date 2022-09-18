@@ -1,6 +1,5 @@
-import { CommandInteraction } from "discord.js";
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -8,7 +7,7 @@ module.exports = {
         .setDescription("Get your weekly reward!"),
     category: "Currency",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let amount = Math.floor(Math.random() * 100) + 50;
         let addMoney = await client.eco.weekly({ user: interaction.user.id, amount });

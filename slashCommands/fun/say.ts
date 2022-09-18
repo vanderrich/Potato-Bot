@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,9 +10,9 @@ module.exports = {
                 .setName("text")
                 .setDescription("The text you want the bot to say")
                 .setRequired(true),
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         let text = interaction.options.getString("text");
         if (!text) return interaction.reply(client.getLocale(interaction, "commands.fun.say.noText"));
         if (text.length > 2000) return interaction.reply(client.getLocale(interaction, "commands.fun.say.textTooLong"));

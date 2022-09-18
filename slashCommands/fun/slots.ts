@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, GuildEmoji, Message, MessageEmbed } from "discord.js";
+import { GuildEmoji, Message, MessageEmbed } from "discord.js";
 import { SlashCommand } from "../../Util/types";
 
 module.exports = {
@@ -11,10 +11,10 @@ module.exports = {
                 .setName("bet")
                 .setDescription("The amount of money you want to bet")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Fun",
     permissions: "USE_EXTERNAL_EMOJIS",
-    async execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    async execute(interaction, client, footers) {
         const bet = interaction.options.getNumber("bet");
         if (!bet || bet < 0) return interaction.reply(client.getLocale(interaction, "commands.fun.slots.noBet"));
         const userWallet = await client.eco.balance({ user: interaction.user.id });
@@ -23,10 +23,10 @@ module.exports = {
         let messages: MessageEmbed[] = [];
         let win = true;
         //initializes the emojis and the embed
-        const diamond = client.emojis.cache.get("981348563852329050")
-        const emerald = client.emojis.cache.get("981348806450896936")
-        const potat = client.emojis.cache.get("981348806450896936")
-        const embed = new MessageEmbed()
+        const diamond = client.emojis.resolve("981348563852329050")!
+        const emerald = client.emojis.resolve("981348806450896936")!
+        const potat = client.emojis.resolve("981348806450896936")!
+        const embed = await new MessageEmbed()
             .setTitle('Slots')
             .setDescription('⬛⬛⬛')
             .setFooter({ text: footer })

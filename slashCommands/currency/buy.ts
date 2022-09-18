@@ -20,7 +20,7 @@ module.exports = {
                 .setDescription("The amount to buy.")
         ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client, footers: Array<string>) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         let item = interaction.options.getString("item");
         let amount = interaction.options.getInteger("amount") || 1;

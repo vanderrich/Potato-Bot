@@ -1,7 +1,7 @@
 import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { BirthdayLocaleType } from "../../localization";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
         .setDescription("Get the next birthday."),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
 

@@ -30,11 +30,11 @@ module.exports = {
             .setName("closecategory")
             .setDescription("The category to put the closed tickets.")
             .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     permissions: 'ADMINISTRATOR',
     category: "Moderation",
     guildOnly: true,
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply({ ephemeral: true });
         let title = interaction.options.getString("name");
         let description = interaction.options.getString("description");

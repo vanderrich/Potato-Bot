@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,7 +44,7 @@ module.exports = {
         ),
     category: "Info",
     guildOnly: true,
-    execute(interaction: CommandInteraction, client: any, footers: string[]) {
+    execute(interaction, client, footers) {
         require("./" + interaction.options.getSubcommand() + "bday").execute(interaction, client, footers);
     }
-};
+} as SlashCommand;

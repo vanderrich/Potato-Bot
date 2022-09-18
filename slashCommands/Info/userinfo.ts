@@ -1,7 +1,7 @@
-import { SlashCommandBuilder, ContextMenuCommandBuilder } from '@discordjs/builders';
+import { ContextMenuCommandBuilder, SlashCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandType } from 'discord-api-types/v9';
-import { AllowedImageSize, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-import { Client } from '../../Util/types';
+import { AllowedImageSize, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { SlashCommand } from '../../Util/types';
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,12 +12,12 @@ module.exports = {
                 .setName('target')
                 .setDescription('The user to get information about.')
                 .setRequired(true)
-        ),
+        ) as SlashCommandBuilder,
     contextMenu: new ContextMenuCommandBuilder()
         .setName('userinfo')
         .setType(ApplicationCommandType.User),
     category: 'Info',
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         const userMention = interaction.isContextMenu() ? await client.users.fetch(interaction.targetId) : interaction.options.getUser("target") || interaction.user;
         if (!userMention) return
 
@@ -60,4 +60,4 @@ module.exports = {
         }
         interaction.reply({ embeds: [myInfo], components: actionRows });
     }
-}
+} as SlashCommand;

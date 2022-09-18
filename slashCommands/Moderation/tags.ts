@@ -1,7 +1,6 @@
 //not used anymore
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -33,7 +32,7 @@ module.exports = {
     category: "Moderation",
     permission: "MANAGE_GUILD",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         const tag = interaction.options.getString("tag");
         const customid = interaction.options.getString("customid")?.toLowerCase().replace(/ /g, "");
         const value = interaction.options.getString("value");

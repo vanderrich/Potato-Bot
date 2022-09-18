@@ -1,8 +1,8 @@
 import { SlashCommandSubcommandBuilder, time, userMention } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import generatePages from '../../Util/pagination.js';
-import { Birthday, Client, SlashCommand } from "../../Util/types.js";
+import { MessageEmbed } from "discord.js";
 import { BirthdayLocaleType } from "../../localization.js";
+import generatePages from '../../Util/pagination.js';
+import { Birthday, SlashCommand } from "../../Util/types.js";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -10,7 +10,7 @@ module.exports = {
         .setDescription("List of all birthdays."),
     category: "Info",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: Client, footers: string[]) {
+    async execute(interaction, client, footers) {
         await interaction.deferReply();
         const locale = client.getLocale(interaction, "commands.info.birthday") as BirthdayLocaleType;
         const birthdays: Birthday[] = await (new Promise((resolve, reject) => {

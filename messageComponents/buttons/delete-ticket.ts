@@ -1,5 +1,5 @@
 import { ButtonInteraction, Message } from "discord.js";
-import { Client } from "../../Util/types";
+import { Client, MessageComponent } from "../../Util/types";
 
 module.exports = {
     name: "delete-ticket",
@@ -15,4 +15,4 @@ module.exports = {
         await interaction.channel?.delete();
         return interaction.reply(locale.deleteSuccess);
     }
-}
+} as MessageComponent;

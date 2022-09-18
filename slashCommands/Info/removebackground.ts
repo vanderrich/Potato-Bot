@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageAttachment } from "discord.js";
-import fs from "fs";
-import { SlashCommand } from "../../Util/types";
-import fetch from "node-fetch";
+import { MessageAttachment } from "discord.js";
 import { config } from "dotenv";
+import fs from "fs";
+import fetch from "node-fetch";
+import { SlashCommand } from "../../Util/types";
 config();
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
             .setRequired(true)
         ) as SlashCommandBuilder,
     category: "Info",
-    async execute(interaction: CommandInteraction) {
+    async execute(interaction) {
         await interaction.deferReply();
         const image = interaction.options.getAttachment('image');
         if (!image) return interaction.editReply("Please attach an image to remove the background from");

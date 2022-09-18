@@ -1,6 +1,7 @@
 //this is now useless
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
+import { SlashCommand } from "../../Util/types";
 
 module.exports = {
     data: new SlashCommandSubcommandBuilder()
@@ -23,7 +24,7 @@ module.exports = {
         ),
     category: "Moderation",
     isSubcommand: true,
-    async execute(interaction: CommandInteraction, client: any) {
+    async execute(interaction, client) {
         const message = interaction.options.getString("message");
         const role = interaction.options.getRole("role");
         const channel = interaction.options.getChannel("channel");
@@ -39,11 +40,11 @@ module.exports = {
             });
             guildSettings.save();
         } else {
-            guildSettings.welcomeMessage = message;
-            guildSettings.welcomeRole = role?.id;
-            guildSettings.welcomeChannel = channel?.id;
+            guildSettings.welcomeMessage = message!;
+            guildSettings.welcomeRole = role!.id;
+            guildSettings.welcomeChannel = channel!.id;
             guildSettings.save();
         }
         interaction.reply("Updated settings.");
     }
-}
+} as SlashCommand;

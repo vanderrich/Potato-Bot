@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
-import { Client, SlashCommand } from "../../Util/types";
+import { SlashCommand } from "../../Util/types";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("deposit")
@@ -10,9 +9,9 @@ module.exports = {
                 .setName("amount")
                 .setDescription("The amount to deposit.")
                 .setRequired(true)
-    ) as SlashCommandBuilder,
+        ) as SlashCommandBuilder,
     category: "Currency",
-    async execute(interaction: CommandInteraction, client: Client) {
+    async execute(interaction, client) {
         await interaction.deferReply();
         let money = interaction.options.getNumber("amount");
         let result = await client.eco.deposite({
