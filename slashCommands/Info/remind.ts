@@ -24,16 +24,17 @@ module.exports = {
         const name = interaction.options.getString("name")!;
         let time: number;
         try {
-            time = ms(interaction.options.getString("time")!) + Date.now()
+            time = ms(interaction.options.getString("time")!)
             if (!time) throw Error();
+            if (time < 5000) return interaction.reply("Time too short!")
         } catch {
             return interaction.reply("Invalid Time!")
         }
+        interaction.reply("Successfully created reminder!")
         setTimeout(() => {
             const embed = new MessageEmbed()
                 .setTitle(name)
             interaction.followUp({ content: `${interaction.user}`, embeds: [embed] })
         }, time);
-        interaction.reply("Successfully created reminder!")
     }
 } as SlashCommand;
