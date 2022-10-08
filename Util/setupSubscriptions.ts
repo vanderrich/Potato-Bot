@@ -1,7 +1,6 @@
-import { ETwitterStreamEvent, TweetSearchV2StreamParams, TweetV2, TweetV2SingleStreamResult, TwitterApi } from 'twitter-api-v2';
 import { config } from 'dotenv';
+import { ETwitterStreamEvent, TweetSearchV2StreamParams, TweetV2SingleStreamResult, TwitterApi } from 'twitter-api-v2';
 import { Client } from './types';
-import { MessageEmbed } from 'discord.js';
 config();
 const tClient = new TwitterApi(process.env.TWITTER_BEARER_TOKEN!)
 const twitClient = tClient.readOnly.v2

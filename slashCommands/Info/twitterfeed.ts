@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { TextChannel } from "discord.js";
+import { BaseGuildTextChannel } from "discord.js";
 import { config } from "dotenv";
 import { TwitterApi } from "twitter-api-v2";
 import { SlashCommand } from "../../Util/types";
@@ -37,7 +37,7 @@ module.exports = {
         const twitterClient = tClient.v2
         const userInfo = await twitterClient.userByUsername(username)
         if (!userInfo.data.id) return interaction.reply("Couldn't find user with that username");
-        if (!(channel instanceof TextChannel)) return interaction.reply("Channel cant be a category channel")
+        if (!(channel instanceof BaseGuildTextChannel)) return interaction.reply("Channel cant be a category channel")
         const webhook = await channel.createWebhook(`${username}`, { avatar: userInfo.data.profile_image_url || defaultImageURL })
         const subscription = new client.subscriptions({
             type: "Twitter",
