@@ -32,11 +32,9 @@ module.exports = {
             embed.setDescription(locale.noBdays);
             return interaction.editReply({ embeds: [embed] });
         } else {
-            console.log(birthdays);
             const pages: any[] = [];
             let page = 1, emptypage = false;
             do {
-                console.log(page);
                 const pageStart = 10 * (page - 1);
                 const pageEnd = pageStart + 10;
                 birthdays.filter((bday: Birthday) => client.guilds.cache.get(bday.guildId)?.members.cache.get(bday.userId))
@@ -48,7 +46,7 @@ module.exports = {
                     if (page % 2 === 0) embed.setColor('RANDOM');
                     else embed.setColor('RANDOM');
                     page++;
-                    console.log(page);
+
                 }
                 else {
                     emptypage = true;
@@ -58,12 +56,12 @@ module.exports = {
                         return interaction.editReply({ embeds: [embed] });
                     }
                     if (page === 2) {
-                        console.log(embed);
+
                         return interaction.editReply({ embeds: [pages[0]] });
                     }
                 }
             } while (!emptypage);
-            console.log(pages);
+
             generatePages(interaction, pages, client, { timeout: 40000, fromButton: false });
         }
 

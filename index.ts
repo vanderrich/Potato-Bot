@@ -33,7 +33,7 @@ client.globalShopItems = [];
 
 const updateCache = () => {
 	client.guildSettings.find({}, (err: any, docs: any) => {
-		if (err) return console.log(err);
+		if (err) return console.error(err);
 		docs.forEach((guildSetting: Types.GuildSettings) => {
 			if (!guildSetting.tags) return;
 			const tags: Types.AutoCompleteValue[] = [];
@@ -74,7 +74,7 @@ const updateCache = () => {
 				client.cachedInventories.set(user.id, userItemsCache);
 			});
 		client.languages.findOne({ user: user.id }, (err: any, doc: any) => {
-			if (err) return console.log(err);
+			if (err) return console.error(err);
 			if (!doc) return;
 			languagesCache.set(user.id, doc.language);
 		});
@@ -106,7 +106,7 @@ client.getLocale = (interaction, string, ...vars) => {
 
 mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
 mongoose.connection.once('open', async () => {
-	console.log('Connected to MongoDB.');
+	console.info('Connected to MongoDB.');
 });
 
 const eco = new Economy;
@@ -171,7 +171,7 @@ client.subscriptions = (mongoose.model('subscriptions', new mongoose.Schema({
 })) as unknown) as Types.Client["subscriptions"]
 
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err: any) => {
-	if (err) console.log(err);
+	if (err) console.warn(err);
 });
 mongoose.set('debug', true);
 setInterval(updateCache, 60000);
@@ -210,7 +210,7 @@ for (const folder of slashCommandFolders) {
 		//loops through all the commandFiles and add them to the client commands collection
 		const command = require(`./slashCommands/${folder}/${file}`);
 		if (!command.data || command.isSubcommand) continue;
-		if (client.slashCommands.has(command.data.name)) console.log(`${command.data.name} is already taken.`);
+		if (client.slashCommands.has(command.data.name)) console.warn(`${command.data.name} is already taken.`);
 		client.slashCommands.set(command.data.name, command);
 	}
 }

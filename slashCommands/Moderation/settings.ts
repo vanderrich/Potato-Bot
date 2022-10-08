@@ -22,7 +22,7 @@ module.exports = {
         const guildSettings = guildSetting;
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction, "commands.moderation.settings.settings", interaction.guild!.name))
-            .addFields({ name: locale.badWords, value: `**${locale.badWordsSpoilers}**: || ${guildSettings.badWords.join(", ")}|| ` }, {
+            .addFields({
                 name: locale.welcome, value: `**${locale.welcomeMessage}**: ${guildSettings.welcomeMessage}
                 **${locale.welcomeChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.welcomeChannel)}
                 **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole)} `
@@ -45,7 +45,6 @@ module.exports = {
                 new MessageSelectMenu()
                     .setCustomId("settings")
                     .addOptions([
-                        { label: locale.badWords, value: "badWords" },
                         { label: locale.welcome, value: "welcome" },
                         { label: locale.tags, value: "tags" },
                         { label: locale.misc, value: "misc" }

@@ -23,7 +23,7 @@ module.exports = {
             title: locale.transcript
         });
         docx.on('error', function (err: any) {
-            return console.log(err)
+            return console.warn(err)
         });
         const path = `./assets/transcripts/${interaction.channel.name}-${interaction.channel.id}.docx`;
         const filename = `${interaction.channel.name}-${interaction.channel.id}.docx`;
@@ -41,7 +41,7 @@ module.exports = {
         let messageCollection: any = new Collection<string, Message>(); //make a new collection
         let channelMessages = await interaction.channel.messages.fetch({//fetch the last 100 messages
             limit: 100
-        }).catch(err => console.log(err)); //catch any error
+        }).catch(err => console.warn(err)); //catch any error
         if (!channelMessages) return interaction.reply(locale.noMsg);
         messageCollection = messageCollection.concat(channelMessages); //add them to the Collection
         let tomanymsgs = 1; //some calculation for the messagelimit
@@ -51,7 +51,7 @@ module.exports = {
             if (tomanymsgs === messagelimit) break; //if the counter equals to the limit stop the loop
             tomanymsgs += 1; //add 1 to the counter
             let lastMessageId: any = channelMessages.lastKey(); //get key of the already fetched messages above
-            channelMessages = await interaction.channel.messages.fetch({ limit: 100, before: lastMessageId }).catch(err => console.log(err)); //Fetch again, 100 messages above the already fetched messages
+            channelMessages = await interaction.channel.messages.fetch({ limit: 100, before: lastMessageId }).catch(err => console.warn(err)); //Fetch again, 100 messages above the already fetched messages
             if (channelMessages) //if its true
                 messageCollection = messageCollection.concat(channelMessages); //add them to the collection
         }
@@ -88,7 +88,7 @@ module.exports = {
         pObj.endBookmark();
         let out = fs.createWriteStream(path)  //write everything in the docx file
         out.on('error', function (err) {
-            console.log(err)
+            console.warn(err)
         })
         out.on("finish", function () {
             try { // try to send the file
@@ -99,7 +99,7 @@ module.exports = {
                     fs.unlinkSync(path)
                 });
             } catch (err) { // if the file is to big to be sent, then catch it!
-                console.log(err)
+                console.warn(err)
                 interaction.editReply(locale.fileTooBig)
                 fs.unlinkSync(path) //delete the docx
             }

@@ -17,7 +17,6 @@ module.exports = {
                 new MessageSelectMenu()
                     .setCustomId("settings")
                     .addOptions([
-                        { label: locale.badWords, value: "badWords", default: selected === "badWords" ? true : false },
                         { label: locale.welcome, value: "welcome" },
                         { label: locale.tags, value: "tags", default: selected === "tags" ? true : false },
                         { label: locale.misc, value: "misc" }
@@ -25,50 +24,6 @@ module.exports = {
                     .setDisabled(true)
             )
         switch (selected) {
-            case "badWords":
-                const badWordPresetActionRow = new MessageActionRow()
-                    .addComponents(
-                        new MessageSelectMenu()
-                            .setCustomId("badWordPreset")
-                            .addOptions([
-                                { label: locale.badWordPresetNames.low, value: "low" },
-                                { label: locale.badWordPresetNames.medium, value: "medium" },
-                                { label: locale.badWordPresetNames.high, value: "high" },
-                                { label: locale.badWordPresetNames.highest, value: "highest" },
-                                { label: locale.badWordPresetNames.custom, value: "custom" }
-                            ])
-                    )
-                interaction.update({ components: [actionRow, badWordPresetActionRow], fetchReply: true }).then(async (msg: any) => {
-                    if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
-                    msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
-                        const selected = collected.values[0];
-                        if (selected === "custom") {
-                            const modal = new Modal()
-                                .setTitle(locale.customBadWords)
-                                .setCustomId("customBadWords")
-                                .addComponents(new MessageActionRow<TextInputComponent>()
-                                    .addComponents(
-                                        new TextInputComponent()
-                                            .setCustomId("badWord")
-                                            .setLabel("Bad Words")
-                                            .setPlaceholder(locale.customBadWordTextInputPlaceHolder)
-                                            .setValue(guildSettings!.badWords.join(","))
-                                    )
-                                )
-                            await collected.showModal(modal);
-                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
-                                const badWords = modal.fields.getTextInputValue("badWord").split(",").map((word: string) => word.trim());
-                                await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $set: { badWords } });
-                                modal.reply(locale.updated);
-                            }).catch(() => { });
-                        } else {
-                            const badWords = badWordPresets[selected as KeyofBadWordPresets];
-                            await client.guildSettings.updateOne({ guildId: interaction.guild!.id }, { $set: { badWords } });
-                            collected.reply(locale.updated);
-                        }
-                    });
-                });
-                break;
             case "welcome":
                 const welcomeModal = new Modal()
                     .setTitle(locale.welcome)

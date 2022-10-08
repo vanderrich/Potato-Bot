@@ -5,7 +5,7 @@ export const updateStats = async (guild: Guild, client: Client) => {
     console.log(`Updating stats for ${guild.name}`);
     const guildSetting = await client.guildSettings.findOne({ guildId: guild.id });
     if (!guildSetting) return console.warn("no guild setting found");
-    console.log(guildSetting);
+
     for (const i in guildSetting.statChannels) {
         const stat = guildSetting.statChannels[i];
         const statChannel = await guild.channels.fetch(stat.channel);

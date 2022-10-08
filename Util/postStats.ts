@@ -18,7 +18,7 @@ export default async function postStats(client: Client): Promise<void> {
             Authorization: process.env.DBOTS_API_KEY!
         }
     }).catch(err => console.error(err)).then((res) => {
-        console.log(res);
+
         console.log("Posted to discord.bots.gg")
     });
     AutoPoster(process.env.TOPGG_API_KEY, client).on('posted', () => {
@@ -39,7 +39,7 @@ export default async function postStats(client: Client): Promise<void> {
     })
         .catch(err => console.error(err))
         .then((res) => {
-            console.log(res);
+
             console.log("Posted to discordbotlist.com")
         });
     fetch(`https://api.discordlist.gg/v0/bots/${client.user!.id}/guilds`, {
@@ -53,7 +53,7 @@ export default async function postStats(client: Client): Promise<void> {
     })
         .catch(err => console.error(err))
         .then((res) => {
-            console.log(res);
+
             console.log("Posted to discordlist.gg")
         })
 }

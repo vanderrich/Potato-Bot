@@ -84,7 +84,7 @@ module.exports = {
                 interaction.editReply({ content: `Ticket created successfully!` });
             }
             ).catch((err: any) => {
-                console.log(err);
+                console.warn(err);
                 interaction.editReply({ content: `There was an error while creating the ticket: ${err}` });
             }
             );

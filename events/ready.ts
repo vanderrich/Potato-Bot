@@ -2,13 +2,14 @@ import { User } from "discord.js"
 import postStats from "../Util/postStats";
 import { Birthday, Client, Event } from "../Util/types";
 import fetch from "node-fetch";
-import { setupSubscriptionsTwitter } from "../Util/setupSubscriptions";
+import { setupSubscriptionsTwitter, setupSubscriptionsYoutube } from "../Util/setupSubscriptions";
 
 module.exports = {
     name: 'ready',
     async execute(client: Client) {
-        console.log('Ready!')
-        setupSubscriptionsTwitter(client)
+        console.info('Ready!')
+        // setupSubscriptionsTwitter(client)
+        setupSubscriptionsYoutube(client)
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then(birthdays => {
             if (birthdays.length > 0) {
@@ -43,7 +44,6 @@ module.exports = {
                     if (!res) return;
                     const data = await res.json()
                     if (res.status !== 200) console.error(`Error in pinging the api: ${data.message}`);
-                    console.log(res, data);
                     data.newVotes.forEach((vote: any) => {
                         const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
                         if (!channel || !channel.isText()) return
