@@ -38,11 +38,11 @@ module.exports = {
         const userInfo = await twitterClient.userByUsername(username)
         if (!userInfo.data.id) return interaction.reply("Couldn't find user with that username");
         if (!(channel instanceof BaseGuildTextChannel)) return interaction.reply("Channel cant be a category channel")
-        const webhook = await channel.createWebhook(`${username}`, { avatar: userInfo.data.profile_image_url || defaultImageURL })
+        const webhook = await channel.createWebhook(`${userInfo.data.name}`, { avatar: userInfo.data.profile_image_url || defaultImageURL })
         const subscription = new client.subscriptions({
             type: "Twitter",
             text,
-            username,
+            username: userInfo.data.username,
             userId: userInfo.data.id,
             webhookId: webhook.id
         })

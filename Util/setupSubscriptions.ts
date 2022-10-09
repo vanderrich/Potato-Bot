@@ -1,10 +1,8 @@
 import { config } from 'dotenv';
 import { ETwitterStreamEvent, TweetSearchV2StreamParams, TwitterApi } from 'twitter-api-v2';
-import Parser from 'rss-parser'
 import { Client } from './types';
 config();
 
-const parser = new Parser()
 
 const tClient = new TwitterApi(process.env.TWITTER_BEARER_TOKEN!)
 const twitClient = tClient.readOnly.v2
@@ -12,16 +10,16 @@ const endPointParamters = {
     'tweet.fields': ['referenced_tweets'],
 }
 
-// youtube
 
-async function sendMessage(data: { url: string, username: string }, client: Client) {
-    const { url, username } = data
+async function sendMessage(data: { url: string, username: string, name: string }, client: Client) {
+    const { url, username, name } = data
     try {
         const subscriptionDatas = await client.subscriptions.find({ username })
         subscriptionDatas.forEach(async (subscriptionData) => {
             if (!subscriptionData) return
             const webhook = await client.fetchWebhook(subscriptionData.webhookId)
             webhook.send({ content: `[${subscriptionData.text}](${url})` })
+            if (webhook.name != name) webhook.edit({ name });
         })
     } catch (error) {
         console.error(error);
@@ -43,8 +41,10 @@ export async function setupSubscriptionsTwitter(client: Client) {
     stream.autoReconnect = true;
     try {
         stream.on(ETwitterStreamEvent.Data, async (tweet) => {
+            console.log(tweet)
             if (tweet.data.referenced_tweets === undefined) {
-                sendMessage({ url: "https://twitter.com/user/status/" + tweet.data.id, username: tweet.matching_rules[0].tag }, client);
+                const userInfo = await twitClient.user(tweet.data.author_id!)
+                sendMessage({ url: "https://twitter.com/user/status/" + tweet.data.id, username: userInfo.data.username, name: userInfo.data.name }, client);
             }
 
             stream.on(ETwitterStreamEvent.ConnectionLost, () => stream.reconnect())
@@ -58,9 +58,4 @@ export async function setupSubscriptionsTwitter(client: Client) {
             setupSubscriptionsTwitter(client);
         }
     }
-}
-
-export async function setupSubscriptionsYoutube(client: Client) {
-    const data = await parser.parseURL("https://youtube.com/feeds/videos.xml?channel_id=UCRj9SXOpZtjH_0nflkRqRCg")
-
 }

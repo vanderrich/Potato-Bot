@@ -2,14 +2,13 @@ import { User } from "discord.js"
 import postStats from "../Util/postStats";
 import { Birthday, Client, Event } from "../Util/types";
 import fetch from "node-fetch";
-import { setupSubscriptionsTwitter, setupSubscriptionsYoutube } from "../Util/setupSubscriptions";
+import { setupSubscriptionsTwitter } from "../Util/setupSubscriptions";
 
 module.exports = {
     name: 'ready',
     async execute(client: Client) {
         console.info('Ready!')
-        // setupSubscriptionsTwitter(client)
-        setupSubscriptionsYoutube(client)
+        setupSubscriptionsTwitter(client)
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then(birthdays => {
             if (birthdays.length > 0) {
