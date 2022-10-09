@@ -12,14 +12,14 @@ export const config: Configuration = {
     },
     theme: {
         colors: {
-            "macaroni-and-cheese": '#FFB17A',
-            "black-russian": '#020122',
+            "main-color": '#020122',
+            "secondary-color": '#dddddd',
             "sweet-brown": '#AC3931',
-            "alto": '#dddddd',
-            "code-bg": '#2F3136',
+            "macaroni-and-cheese": '#FFB17A',
             "features-bg": '#ae5a4b',
-            "home-bg": '#020122',
             "background": '#7F534B',
+
+            "code-bg": '#2F3136',
             "code-text-color": "#A0A2A5"
         },
         fontFamily: {

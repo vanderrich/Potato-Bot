@@ -4,6 +4,7 @@ import { tw } from "@twind";
 import TopNav from "../islands/TopNav.tsx"
 
 export default function Home() {
+    const feature = tw`inline-block p-12`;
     return (
         <div class={tw`bg-background`}>
             <TopNav /><br /><br /><br />
@@ -25,41 +26,34 @@ export default function Home() {
                         </path>
                     </svg>
                     <div class={tw`bg-features-bg justify-around -mt-14`}>
-                        <h2 class={tw`pl-12 -mt-14 text-2xl`} v-motion-slide-visible-bottom>Features</h2>
-                        <div id="economy" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
+                        <h2 class={tw`pl-12 -mt-14 text-2xl`}>Features</h2>
+                        <div id="economy" class={feature}>
                             <h3>Economy</h3>
                             <p>Global Economy</p>
                         </div>
-                        <div id="games" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
+                        <div id="games" class={feature}>
                             <h3>Games</h3>
                             <p>Games.</p>
                         </div>
-                        <div id="reactionroles" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
+                        <div id="reactionroles" class={feature}>
                             <h3>Reaction Roles</h3>
                             <p>More like button roles but same thing ig</p>
                         </div>
-                        <div id="moderation" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
-                            <h3>Moderation</h3>
-                            <p>
-                                Block words and unicode characters (currently not<br />
-                                implemented), bulk delete messages and more!
-                            </p>
-                        </div>
-                        <div id="tickets" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
+                        <div id="tickets" class={feature}>
                             <h3>Tickets</h3>
                             <p>Tickets.</p>
                         </div>
-                        <div id="giveaways" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
-                            <h3>Giveaways</h3>
-                            <p>Literally just a creategiveaway command</p>
-                        </div>
-                        <div id="birthdays" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
+                        <div id="birthdays" class={feature}>
                             <h3>Birthdays</h3>
                             <p>why am i doing this</p>
                         </div>
-                        <div id="tags" class={tw`inline-block p-12`} v-motion-slide-visible-bottom>
+                        <div id="tags" class={feature}>
                             <h3>Tags</h3>
                             <p>Set tags and use them.</p>
+                        </div>
+                        <div id="more" class={feature}>
+                            <h3>More to come</h3>
+                            <p></p>
                         </div>
                     </div>
                 </div>
