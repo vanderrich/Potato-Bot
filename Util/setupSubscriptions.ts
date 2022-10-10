@@ -41,9 +41,8 @@ export async function setupSubscriptionsTwitter(client: Client) {
     stream.autoReconnect = true;
     try {
         stream.on(ETwitterStreamEvent.Data, async (tweet) => {
-            console.log(tweet)
             if (tweet.data.referenced_tweets === undefined) {
-                const userInfo = await twitClient.user(tweet.data.author_id!)
+                const userInfo = await twitClient.userByUsername(tweet.matching_rules[0].tag)
                 sendMessage({ url: "https://twitter.com/user/status/" + tweet.data.id, username: userInfo.data.username, name: userInfo.data.name }, client);
             }
 
