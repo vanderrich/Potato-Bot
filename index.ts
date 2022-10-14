@@ -21,9 +21,20 @@ const client = new Discord.Client({
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER"],
 }) as Types.Client;
 
+console.log(process.env.MONGO_URI)
 mongoose.connect(process.env.MONGO_URI!, {
 	autoIndex: false
 });
+
+mongoose.connection.on("connected", () => console.log("mongoDb connected!"));
+mongoose.connection.on("disconnected", () => console.log("mongoDb disconnected!"));
+
+mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
+mongoose.connection.once('open', async () => {
+	console.info('Connected to MongoDB.');
+});
+
+mongoose.set('debug', true);
 
 //caches
 client.cachedTags = new Discord.Collection();
@@ -103,12 +114,6 @@ client.getLocale = (interaction, string, ...vars) => {
 	return locale;
 }
 
-
-mongoose.connection.on('error', console.error.bind(console, 'Connection error:'));
-mongoose.connection.once('open', async () => {
-	console.info('Connected to MongoDB.');
-});
-
 const eco = new Economy;
 client.languages = mongoose.model('languages', new mongoose.Schema({
 	user: { type: String, required: true },
@@ -173,7 +178,6 @@ client.subscriptions = (mongoose.model('subscriptions', new mongoose.Schema({
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err: any) => {
 	if (err) console.warn(err);
 });
-mongoose.set('debug', true);
 setInterval(updateCache, 60000);
 updateCache();
 client.eco.getShopItems({ user: client.user?.id })

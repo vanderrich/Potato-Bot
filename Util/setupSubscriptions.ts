@@ -18,6 +18,7 @@ async function sendMessage(data: { url: string, username: string, name: string }
         subscriptionDatas.forEach(async (subscriptionData) => {
             if (!subscriptionData) return
             const webhook = await client.fetchWebhook(subscriptionData.webhookId)
+            if (!webhook) return
             webhook.send({ content: `[${subscriptionData.text}](${url})` })
             if (webhook.name != name) webhook.edit({ name });
         })
