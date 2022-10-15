@@ -1,5 +1,6 @@
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { ContextMenuCommandBuilder, SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { MessageEmbed } from "discord.js";
+import { Help } from "../../localization";
 import { SlashCommand } from "../../Util/types";
 
 module.exports = {
@@ -14,8 +15,7 @@ module.exports = {
                     { name: "Currency", value: "Currency" },
                     { name: "Fun", value: "Fun" },
                     { name: "Info", value: "Info" },
-                    { name: "Moderation", value: "Moderation" },
-                    { name: "Music", value: "Music" }
+                    { name: "Moderation", value: "Moderation" }
                 )
         )
         .addStringOption(option =>
@@ -26,7 +26,7 @@ module.exports = {
     category: "Info",
     async execute(interaction, client, footers) {
         const commands = client.slashCommands;
-        const categories = client.getLocale(interaction, "commands.info.help.categories");
+        const categories: string[] = client.getLocale(interaction, "commands.info.help.categories");
         let category = interaction.options.getString("category")
         let command = interaction.options.getString("command")
         if (category) {
