@@ -52,7 +52,10 @@ export async function setupSubscriptionsTwitter(client: Client) {
 
     } catch (error) {
         if (error) {
-            stream.reconnect();
+            try {
+                stream.reconnect();
+            }
+            catch(e){}
         }
         else {
             setupSubscriptionsTwitter(client);
