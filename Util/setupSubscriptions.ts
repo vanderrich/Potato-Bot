@@ -55,7 +55,7 @@ export async function setupSubscriptionsTwitter(client: Client) {
             try {
                 stream.reconnect();
             }
-            catch(e){}
+            catch (e) { }
         }
         else {
             setupSubscriptionsTwitter(client);
