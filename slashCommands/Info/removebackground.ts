@@ -24,9 +24,11 @@ module.exports = {
             body: JSON.stringify({
                 image_url: image.url,
                 size: 'auto',
-            }), headers: {
+            }),
+            headers: {
                 'X-Api-Key': process.env.REMOVEBG_API_KEY!,
-            }
+            },
+            method: "POST"
         }).then(async (res) => {
             fs.writeFileSync(`./${image.name}`, await res.json());
             const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}`), `${image.name}`);
