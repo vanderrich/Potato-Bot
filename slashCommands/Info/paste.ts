@@ -91,6 +91,8 @@ module.exports = {
             method: "post",
             data: body
         });
+
+        console.log(data)
         url = bin == "paste" ? data.data : `${binUrl}${data.data.key}`;
 
         interaction.editReply(`[Pasted successfully!](${url})`);
