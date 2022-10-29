@@ -37,7 +37,9 @@ module.exports = {
         }).then(async (res) => {
             console.log(res.data)
             fs.writeFileSync(`./${image.name}`, res.data);
-            const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}`), `${image.name}`);
+            const img = fs.readFileSync(`./${image.name}`)
+            console.log(img)
+            const attachment = new MessageAttachment(img, `${image.name}`);
             interaction.editReply({
                 files: [attachment],
             });
