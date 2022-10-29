@@ -38,11 +38,10 @@ module.exports = {
             console.log(res.data)
             fs.writeFileSync(`./${image.name}`, res.data);
             const img = fs.readFileSync(`./${image.name}`)
-            console.log(img)
             const attachment = new MessageAttachment(img, `${image.name}`);
-            interaction.editReply({
+            await interaction.editReply({
                 files: [attachment],
-            });
+            })
             fs.unlinkSync(`./${image.name}`);
         });
     }
