@@ -85,7 +85,6 @@ module.exports = {
                 break;
         }
 
-        let url;
         const data = await axios({
             url: binApiUrl,
             method: "post",
@@ -93,7 +92,7 @@ module.exports = {
         });
 
         console.log(data)
-        url = bin == "paste" ? data.data : `${binUrl}${data.data.key}`;
+        const url = bin == "paste" ? data.data : `${binUrl}${data.data.key}`;
 
         await interaction.editReply(`[Pasted successfully!](${url})`);
     }
