@@ -8,7 +8,8 @@ module.exports = {
     name: 'ready',
     async execute(client: Client) {
         console.info('Ready!')
-        setupSubscriptionsTwitter(client)
+        if (process.env.CLIENT_ID == "894060283373449317")
+            setupSubscriptionsTwitter(client)
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
         client.birthdays.find({}).then(birthdays => {
             if (birthdays.length > 0) {
