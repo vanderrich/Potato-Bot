@@ -35,6 +35,7 @@ module.exports = {
                 'X-Api-Key': process.env.REMOVEBG_API_KEY,
             }
         }).then(async (res) => {
+            console.log(res.data)
             fs.writeFileSync(`./${image.name}`, res.data);
             const attachment = new MessageAttachment(fs.readFileSync(`./${image.name}`), `${image.name}`);
             interaction.editReply({
