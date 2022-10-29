@@ -95,6 +95,6 @@ module.exports = {
         console.log(data)
         url = bin == "paste" ? data.data : `${binUrl}${data.data.key}`;
 
-        interaction.editReply(`[Pasted successfully!](${url})`);
+        await interaction.editReply(`[Pasted successfully!](${url})`);
     }
 } as SlashCommand;
