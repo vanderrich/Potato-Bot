@@ -32,7 +32,7 @@ module.exports = {
             responseType: 'arraybuffer',
             headers: {
                 ...formData.getHeaders(),
-                'X-Api-Key': 'INSERT_YOUR_API_KEY_HERE',
+                'X-Api-Key': process.env.REMOVEBG_API_KEY,
             }
         }).then(async (res) => {
             fs.writeFileSync(`./${image.name}`, res.data);
