@@ -3,6 +3,8 @@ import postStats from "../Util/postStats";
 import { Birthday, Client, Event } from "../Util/types";
 import fetch from "node-fetch";
 import { setupSubscriptionsTwitter } from "../Util/setupSubscriptions";
+import { config } from "dotenv";
+config()
 
 module.exports = {
     name: 'ready',
