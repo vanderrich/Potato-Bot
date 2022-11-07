@@ -50,8 +50,8 @@ export default async (interaction: ButtonInteraction, client: Client) => {
     }
 
     const xs_turn = xs <= os;
-    const i = parseInt(interaction.customId[3]),
-        j = parseInt(interaction.customId[4]);
+    const i = parseInt(interaction.customId[4]),
+        j = parseInt(interaction.customId[5]);
 
     let currPlayer = xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o;
     if (interaction.user.id !== currPlayer) {
