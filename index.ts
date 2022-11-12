@@ -102,7 +102,7 @@ client.getLocale = (interaction, string, ...vars) => {
 	let locale = localizations[language as languages] as any;
 	for (let i = 0; i < stringArr.length; i++) {
 		locale = locale[stringArr[i] as keyof typeof locale];
-		if (locale === undefined) return undefined;
+		if (locale === undefined) return "Cant find locale";
 	}
 
 	let count = 0;

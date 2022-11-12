@@ -30,7 +30,7 @@ module.exports = {
         } catch {
             return interaction.reply("Invalid Time!")
         }
-        interaction.reply("Successfully created reminder!")
+        interaction.reply("Successfully created reminder!\n\nFYI: Your reminder will be gone once the bot restarts.")
         setTimeout(() => {
             const embed = new MessageEmbed()
                 .setTitle(name)

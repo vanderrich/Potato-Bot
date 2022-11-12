@@ -18,8 +18,16 @@ export interface Commands3 {
     currency: Currency;
     fun: Fun;
     info: Info2;
-    moderation: Moderation2;
+    moderation: Moderation3;
     music: Music;
+}
+
+export interface Moderation3 {
+    modActions: ModActions;
+    createGiveaway: CreateGiveaway;
+    settings: Settings;
+    reactroles: Reactroles2;
+    createticket: Createticket;
 }
 
 export interface Info2 {
@@ -71,6 +79,7 @@ export interface Commands2 {
 }
 
 export interface Moderation2 {
+    asciify: Asciify;
     modActions: ModActions;
     createGiveaway: CreateGiveaway;
     settings: Settings;
@@ -211,6 +220,7 @@ export interface Music {
 }
 
 export interface Moderation {
+    asciify: Asciify;
     modActions: ModActions;
     createGiveaway: CreateGiveaway;
     settings: Settings;
@@ -316,8 +326,14 @@ export interface BulkDelete {
     messagesDeleted: string;
 }
 
+export interface Asciify {
+    userNotInGuild: string;
+    userAlreadyAsciified: string;
+    blank: string;
+    success: string;
+}
+
 export interface Info {
-    asciify: Asciify;
     help: Help;
     links: Links;
     ping: Ping;
@@ -473,13 +489,6 @@ export interface Help {
     embedTitle: string;
     embedDesc: string;
     commandsInCategory: string;
-}
-
-export interface Asciify {
-    userNotInGuild: string;
-    userAlreadyAsciified: string;
-    success: string;
-    blank: string;
 }
 
 export interface Fun {

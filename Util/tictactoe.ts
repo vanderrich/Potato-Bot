@@ -111,10 +111,10 @@ export default async (interaction: ButtonInteraction, client: Client) => {
         delete client.tictactoe[message.id];
     }
     else if (checkWin(boardNew)) {
-        await message.edit({ content: client.getLocale(interaction, "commands.tictactoe.")`Game over! <@${xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o}> wins!`, components: components });
+        await message.edit({ content: client.getLocale(interaction, "commands.tictactoe.gameOver", xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o), components: components });
         delete client.tictactoe[message.id];
     }
-    else await message.edit({ content: `<@${xs_turn ? client.tictactoe[message.id].o : client.tictactoe[message.id].x}>'s turn`, components: components });
+    else await message.edit({ content: client.getLocale(interaction, "commands.tictactoe.turn", xs_turn ? client.tictactoe[message.id].o : client.tictactoe[message.id].x), components: components });
 
     client.tictactoe[message.id].lastInteraction = Date.now();
     await interaction.deferUpdate();

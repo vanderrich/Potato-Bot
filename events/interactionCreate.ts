@@ -1,6 +1,7 @@
 import { DiscordAPIError, Interaction, MessageEmbed, PermissionResolvable } from 'discord.js';
 import fetch from 'node-fetch';
 import { v4 as uuidv4 } from 'uuid';
+import { Utils } from '../localization';
 import { AutoCompleteValue, Client, Event } from '../Util/types';
 import { admins, tags } from './../config.json';
 
@@ -22,7 +23,7 @@ module.exports = {
 
             try {
                 loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command
-                await command.execute(interaction as any, client, client.getLocale(interaction, "utils.footers"));
+                await command.execute(interaction as any, client, client.getLocale(interaction, "utils.footers") as Utils["footers"]);
             } catch (error: DiscordAPIError | any | Error) {
                 console.error(error);
                 const id = uuidv4();
@@ -52,10 +53,10 @@ module.exports = {
                 }); // log the error to the bot logs channel
 
                 try {
-                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue", ephemeral: true });
+                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](https://discord.gg/cHj7nErGBa)? (yes, shameless advertising)", ephemeral: true });
                 }
                 catch (err) {
-                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nSuccessfully DMed the owner about the error, very sorry about this issue" });
+                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](https://discord.gg/cHj7nErGBa)? (yes, shameless advertising)" });
                 }
             };
         }
@@ -70,7 +71,7 @@ module.exports = {
                 }
 
                 try {
-                    button?.execute(interaction, client, client.getLocale(interaction, "utils.footers"));
+                    button?.execute(interaction, client, client.getLocale(interaction, "utils.footers") as Utils["footers"]);
                 } catch (error: DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()
@@ -144,7 +145,7 @@ module.exports = {
                 }
 
                 try {
-                    selectMenu?.execute(interaction, client, client.getLocale(interaction, "utils.footers"));
+                    selectMenu?.execute(interaction, client, client.getLocale(interaction, "utils.footers") as Utils["footers"]);
                 } catch (error: DiscordAPIError | any | Error) {
                     console.error(error);
                     const id = uuidv4()

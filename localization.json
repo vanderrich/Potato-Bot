@@ -9,9 +9,9 @@
                 "addshopitem": {
                     "noPrice": "You can't add an item for less than $1!",
                     "noItemName": "You must specify an item name!",
-                    "invalidPrice": "Invalid Price!",
+                    "invalidPrice": "Invalid price!",
                     "noInvPrice": "You must specify an inventory price!",
-                    "noInv": "No Data Received!",
+                    "noInv": "No data received!",
                     "success": "Successfully added the item **${VAR}** to the shop!"
                 },
                 "removeshopitem": {
