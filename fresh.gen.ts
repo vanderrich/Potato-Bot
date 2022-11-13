@@ -6,11 +6,10 @@ import * as $0 from "./routes/api/error.tsx";
 import * as $1 from "./routes/api/joke.ts";
 import * as $2 from "./routes/api/status.tsx";
 import * as $3 from "./routes/api/vote.tsx";
-import * as $4 from "./routes/dashboard.tsx";
-import * as $5 from "./routes/error/[error].tsx";
-import * as $6 from "./routes/index.tsx";
-import * as $7 from "./routes/invite.tsx";
-import * as $8 from "./routes/status.tsx";
+import * as $4 from "./routes/error/[error].tsx";
+import * as $5 from "./routes/index.tsx";
+import * as $6 from "./routes/invite.tsx";
+import * as $7 from "./routes/status.tsx";
 import * as $$0 from "./islands/Counter.tsx";
 import * as $$1 from "./islands/TopNav.tsx";
 
@@ -20,11 +19,10 @@ const manifest = {
     "./routes/api/joke.ts": $1,
     "./routes/api/status.tsx": $2,
     "./routes/api/vote.tsx": $3,
-    "./routes/dashboard.tsx": $4,
-    "./routes/error/[error].tsx": $5,
-    "./routes/index.tsx": $6,
-    "./routes/invite.tsx": $7,
-    "./routes/status.tsx": $8,
+    "./routes/error/[error].tsx": $4,
+    "./routes/index.tsx": $5,
+    "./routes/invite.tsx": $6,
+    "./routes/status.tsx": $7,
   },
   islands: {
     "./islands/Counter.tsx": $$0,
