@@ -10,7 +10,7 @@ export default function TopNav() {
     const menuStyle = 'w-7 h-0.5 m-1.5 bg-main-color transition duration-500'
     return (
         <header>
-            <nav class={tw`p-2 bg-background`}>
+            <nav class={tw`p-2 bg-background z-10 relative`}>
                 <a href="/" class={tw`fixed flex w-auto py-2 px-3 m-1.5 overflow-hidden box-border`}>
                     <div>
                         <img src="potato.png" class={tw`w-7 h-7 box-border`} />
