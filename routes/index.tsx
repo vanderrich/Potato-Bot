@@ -7,7 +7,7 @@ export default function Home() {
     const feature = tw`inline-block p-12`;
     return (
         <div class={tw`bg-background`}>
-            <TopNav /><br /><br /><br />
+            <TopNav />
             <main>
                 <div class={tw`relative`}>
                     <div class={tw`float-left`}>

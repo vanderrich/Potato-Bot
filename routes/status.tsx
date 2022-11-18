@@ -26,8 +26,8 @@ export default function Status(props: PageProps) {
     console.log({ uptime, uptimeFormatted, days, hours, minutes });
     return (
         <div class={tw`bg-background h-screen`}>
-            <TopNav /><br /><br /><br />
-            <main>
+            <TopNav />
+            <main class={tw`pl-2`}>
                 <h1 class={tw`text-5xl pb-3`}>Status</h1>
                 <p>Status: {status}</p>
                 <p>Uptime: {status} for {uptimeFormatted}</p>

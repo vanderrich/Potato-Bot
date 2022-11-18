@@ -28,17 +28,12 @@ export default {
             "9xl": ["8rem", "1"]
         },
         inset: {
+            "50": "10rem",
+            "12": "4rem",
             "5.5": "1.375rem",
             "5": "1.25rem",
+            "4.5": "1.075rem",
             "0": "0"
-        },
-        rotate: {
-            "-45": "-45deg",
-            "45": "45deg"
-        },
-        translate: {
-            "-2.5": "-15px",
-            "2.5": "15px"
         },
         fontFamily: {
             'sans': ["Lato", "sans-serif"],
