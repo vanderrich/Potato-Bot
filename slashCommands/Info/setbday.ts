@@ -43,7 +43,6 @@ module.exports = {
         else {
             const birthday = new client.birthdays({
                 userId: user.id,
-                guildId: interaction.guild ? interaction.guild.id : undefined,
                 birthday: date,
             })
             birthday.save().then(() => {

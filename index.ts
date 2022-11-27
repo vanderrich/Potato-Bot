@@ -141,7 +141,6 @@ client.tickets = (mongoose.model('tickets', new mongoose.Schema({
 
 client.birthdays = (mongoose.model('birthdays', new mongoose.Schema({
 	userId: String,
-	guildId: String,
 	birthday: Date,
 	haveCelebratedYears: [Number],
 })) as unknown) as Types.Client["birthdays"];
@@ -155,7 +154,6 @@ client.birthdayConfigs = (mongoose.model('birthdayConfigs', new mongoose.Schema(
 
 client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
 	guildId: { type: String, required: true },
-	badWords: { type: [String], default: /*settings.badWordPresets.low*/[] },
 	autoPublishChannels: { type: [String], default: [] },
 	welcomeMessage: { type: String, default: "" },
 	welcomeChannel: { type: String, default: "" },

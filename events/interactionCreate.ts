@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Utils } from '../localization';
 import { AutoCompleteValue, Client, Event } from '../Util/types';
 import { admins, tags } from './../config.json';
+import throwError from "../Util/error";
 
 module.exports = {
     name: 'interactionCreate',
@@ -25,38 +26,13 @@ module.exports = {
                 loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) did the ${interaction.isCommand() ? "slash command" : "context menu command"} ${interaction.guild ? `in the guild ${interaction.guild.name}` : `in a dm`} ${command.data.name} ${interaction.isCommand() && interaction.options.data.length != 0 ? `with the options${interaction.options.data.map(option => ` \`${option.name}: ${option.value}\``)}` : ""}`, allowedMentions: { "users": [] } }); // log the command
                 await command.execute(interaction as any, client, client.getLocale(interaction, "utils.footers") as Utils["footers"]);
             } catch (error: DiscordAPIError | any | Error) {
-                console.error(error);
-                const id = uuidv4();
-                const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
-                if (!channel || !channel.isText()) return;
-                await fetch('https://potato-bot.deno.dev/api/error', {
-                    body: JSON.stringify({
-                        name: command.data.name,
-                        id,
-                        type: interaction.isCommand() ? "Slash Command" : "Context Menu Command",
-                        error: error.toString(),
-                        stack: error.stack,
-                        code: error.code,
-                        path: error.path,
-                        httpStatus: error.httpStatus,
-                        requestData: error.requestData?.json,
-                    }),
-                    headers: { Authorization: process.env.SUPER_SECRET_KEY! },
-                    method: "POST"
-                }).catch(err => console.error(err));
-                const embed = new MessageEmbed()
-                    .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-                    .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
-                await loggingChannel.send({
-                    content: `<@709950767670493275> you got some debugging to do`,
-                    embeds: [embed]
-                }); // log the error to the bot logs channel
+                throwError(error, client)
 
                 try {
-                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](https://discord.gg/cHj7nErGBa)? (yes, shameless advertising)", ephemeral: true });
+                    await interaction.reply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](<https://discord.gg/cHj7nErGBa>)? (yes, shameless advertising)", ephemeral: true });
                 }
                 catch (err) {
-                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](https://discord.gg/cHj7nErGBa)? (yes, shameless advertising)" });
+                    await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](<https://discord.gg/cHj7nErGBa>)? (yes, shameless advertising)" });
                 }
             };
         }

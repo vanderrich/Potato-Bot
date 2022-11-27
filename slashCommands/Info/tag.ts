@@ -25,8 +25,8 @@ module.exports = {
 
         let tagToSend;
         if (!config.tagDescriptions[tag]) {
-            const guildSetting: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId })
-            guildSetting?.tagDescriptions[tag];
+            const guildSetting = await client.guildSettings.findOne({ guildId: interaction.guildId })
+            tagToSend = guildSetting?.tagDescriptions[tag];
         }
         else {
             tagToSend = config.tagDescriptions[tag]
