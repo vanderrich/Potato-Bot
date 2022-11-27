@@ -262,7 +262,30 @@
                     "nextBday": "${VAR}'s birthday is next on ${VAR}",
                     "channelNotText": "The channel must be a text channel!",
                     "setupSuccess": "Settings saved!",
-                    "removeSuccess": "Birthday removed!"
+                    "removeSuccess": "Birthday removed!",
+                    "weekdays": [
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"
+                    ],
+                    "months": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                    ]
                 },
                 "tag": {
                     "noTag": "You must specify a tag!",
@@ -759,7 +782,30 @@
                     "nextBday": "Ulang tahun ${VAR} berikutnya pada ${VAR}",
                     "channelNotText": "Channel harus channel teks!",
                     "setupSuccess": "Peraturan telah disave!",
-                    "removeSuccess": "Data ulang tahun telah dihapus!"
+                    "removeSuccess": "Data ulang tahun telah dihapus!",
+                    "weekdays": [
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"
+                    ],
+                    "months": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                    ]
                 },
                 "tag": {
                     "noTag": "Anda harus menentukan sebuah tag!",
@@ -1267,7 +1313,30 @@
                     "nextBday": "${VAR}'s birthday is next on ${VAR}",
                     "channelNotText": "The channel must be a text channel!",
                     "setupSuccess": "Settings saved!",
-                    "removeSuccess": "Birthday removed!"
+                    "removeSuccess": "Birthday removed!",
+                    "weekdays": [
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"
+                    ],
+                    "months": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                    ]
                 },
                 "tag": {
                     "noTag": "You must specify a tag!",
@@ -1769,7 +1838,30 @@
                     "nextBday": "${VAR}'s birthday is next on ${VAR}",
                     "channelNotText": "The channel must be a text channel!",
                     "setupSuccess": "Settings saved!",
-                    "removeSuccess": "Birthday removed!"
+                    "removeSuccess": "Birthday removed!",
+                    "weekdays": [
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"
+                    ],
+                    "months": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                    ]
                 },
                 "tag": {
                     "noTag": "You must specify a tag!",

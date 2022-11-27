@@ -30,9 +30,9 @@ module.exports = {
             do {
                 const pageStart = 10 * (page - 1);
                 const pageEnd = pageStart + 10;
-                birthdays.filter((bday: Birthday) => client.guilds.cache.get(bday.guildId)?.members.cache.get(bday.userId))
+                birthdays.filter((bday: Birthday) => interaction.guild!.members.cache.get(bday.userId))
                 const items = birthdays.slice(pageStart, pageEnd).map((m: Birthday, i: number) => {
-                    return `**${i + pageStart + 1}**. ${userMention(m.userId)} - ${time(m.birthday, 'F')}`;
+                    return `**${i + pageStart + 1}**. ${userMention(m.userId)} - ${locale.weekdays[m.birthday.getDay()]}, ${locale.months[m.birthday.getMonth()]} ${m.birthday.getDate()}`;
                 });
                 if (items.length) {
                     embed.setDescription(`${items.join('\n')}${birthdays.length > pageEnd ? `\n... ${birthdays.length - pageEnd} more item(s)` : ''}`);

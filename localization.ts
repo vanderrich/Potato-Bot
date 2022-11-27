@@ -378,6 +378,8 @@ export interface BirthdayLocaleType {
     channelNotText: string;
     setupSuccess: string;
     removeSuccess: string;
+    weekdays: string[];
+    months: string[];
 }
 
 export interface Suggest {

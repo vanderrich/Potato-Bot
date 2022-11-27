@@ -20,7 +20,7 @@ module.exports = {
             const birthdayEmbed = new MessageEmbed()
                 .setColor('RANDOM')
                 .setTitle("Birthday")
-                .setDescription(client.getLocale(interaction, "commands.info.birthday.nextBday", userMention(nextBirthdays[0].userId), time(nextBirthdays[0].birthday, "F")))
+                .setDescription(client.getLocale(interaction, "commands.info.birthday.nextBday", userMention(nextBirthdays[0].userId), `${locale.weekdays[nextBirthdays[0].birthday.getDay()]}, ${locale.months[nextBirthdays[0].birthday.getMonth()]} ${nextBirthdays[0].birthday.getDate()}`))
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
                 .setTimestamp();
 

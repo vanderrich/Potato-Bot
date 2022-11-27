@@ -27,17 +27,15 @@ export type Event = {
 
 export interface GuildSettings extends Document {
     guildId: string,
-    badWords: string[],
-    autoPublishChannels: string[],
-    welcomeMessage: string,
-    welcomeChannel: string,
-    welcomeRole: string,
-    suggestionChannel: string,
-    ghostPing: boolean,
+    welcomeMessage?: string,
+    welcomeChannel?: string,
+    welcomeRole?: string,
     tags: { name: string, value: string }[],
     tagDescriptions: {
         [key: string]: string;
     },
+    suggestionChannel?: string,
+    ghostPing: boolean,
     statChannels: {
         type: string & "members" | "all members" | "bots" | "boosts" | "role members",
         channel: string,
@@ -67,9 +65,8 @@ export type Ticket = {
 
 export type Birthday = {
     userId: string,
-    guildId: string,
     birthday: Date,
-    haveCelebratedYears: [number]
+    haveCelebratedYears: number[]
 }
 
 export type BirthdayConfig = {

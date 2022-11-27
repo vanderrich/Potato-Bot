@@ -24,8 +24,8 @@ module.exports = {
             .setTitle(client.getLocale(interaction, "commands.moderation.settings.settings", interaction.guild!.name))
             .addFields({
                 name: locale.welcome, value: `**${locale.welcomeMessage}**: ${guildSettings.welcomeMessage}
-                **${locale.welcomeChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.welcomeChannel)}
-                **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole)} `
+                **${locale.welcomeChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.welcomeChannel!)}
+                **${locale.welcomeRole}**: ${interaction.guild!.roles.cache.get(guildSettings.welcomeRole!)} `
             }, {
                 name: locale.tags,
                 value:
@@ -34,7 +34,7 @@ module.exports = {
                     } `
             }, {
                 name: "Misc",
-                value: `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel)}
+                value: `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel!)}
                 **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
                 ** ${locale.statChannels}**: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}
                 `})

@@ -1,27 +1,25 @@
 //initialize variables
-import fs from 'fs';
-import Discord from 'discord.js';
 import Economy from 'currency-system';
-import { deploy } from './deploy-commands';
-import mongoose from 'mongoose';
-import localizations from './localization.json';
-import * as Types from './Util/types';
-import { v4 as uuidv4 } from 'uuid';
-import { updateStats } from './Util/serverstats';
-import fetch from "node-fetch";
+import Discord from 'discord.js';
 import { config } from "dotenv";
+import fs from 'fs';
+import mongoose from 'mongoose';
+import fetch from "node-fetch";
+import { v4 as uuidv4 } from 'uuid';
+import { deploy } from './deploy-commands';
+import localizations from './localization.json';
+import { updateStats } from './Util/serverstats';
+import * as Types from './Util/types';
 config();
 
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
-// const setupSubscriptions from './Util/setupSubscriptions.js');
 
 const client = new Discord.Client({
 	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_VOICE_STATES"],
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER"],
 }) as Types.Client;
 
-console.log(process.env.MONGO_URI)
 mongoose.connect(process.env.MONGO_URI!, {
 	autoIndex: false
 });
@@ -129,49 +127,49 @@ eco.setMaxBankAmount(0);
 // eco.setItems({ shop });
 client.eco = eco;
 
-client.tickets = (mongoose.model('tickets', new mongoose.Schema({
-	guildId: String,
+client.tickets = mongoose.model('tickets', new mongoose.Schema<Types.Ticket>({
+	guildId: { type: String, required: true },
 	categoryId: String,
 	closeCategoryId: String,
 	channelId: Array,
 	messageId: String,
 	title: String,
 	description: String,
-})) as unknown) as Types.Client["tickets"];
+}))
 
-client.birthdays = (mongoose.model('birthdays', new mongoose.Schema({
-	userId: String,
+client.birthdays = mongoose.model('birthdays', new mongoose.Schema<Types.Birthday>({
+	userId: { type: String, required: true },
 	birthday: Date,
 	haveCelebratedYears: [Number],
-})) as unknown) as Types.Client["birthdays"];
+}))
 
-client.birthdayConfigs = (mongoose.model('birthdayConfigs', new mongoose.Schema({
-	guildId: { type: String },
+client.birthdayConfigs = mongoose.model('birthdayConfigs', new mongoose.Schema<Types.BirthdayConfig>({
+	guildId: { type: String, required: true },
 	channelId: String,
 	roleId: String,
 	message: String,
-})) as unknown) as Types.Client["birthdayConfigs"];
+}))
 
-client.guildSettings = (mongoose.model('guildSettings', new mongoose.Schema({
+const statChannelTypes = ["members", "all members", "bots", "boosts", "role members"];
+client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema<Types.GuildSettings>({
 	guildId: { type: String, required: true },
-	autoPublishChannels: { type: [String], default: [] },
-	welcomeMessage: { type: String, default: "" },
-	welcomeChannel: { type: String, default: "" },
-	welcomeRole: { type: String, default: "" },
-	tags: { type: [{ name: String, value: String }], default: [] },
-	suggestionChannel: { type: String, default: "" },
-	tagDescriptions: { type: Object, default: {} },
+	welcomeMessage: String,
+	welcomeChannel: String,
+	welcomeRole: String,
+	tags: { type: [{ name: String, value: String }], required: true },
+	tagDescriptions: { type: Map, of: String },
+	suggestionChannel: String,
 	ghostPing: { type: Boolean, default: true },
-	statChannels: { type: [{ type: String, channel: String, role: String }], default: [] },
-})) as unknown) as Types.Client["guildSettings"];
+	statChannels: [{ type: { type: String, enum: statChannelTypes }, channel: String, role: String }]
+}))
 
-client.subscriptions = (mongoose.model('subscriptions', new mongoose.Schema({
-	type: { type: String, required: true },
+client.subscriptions = mongoose.model('subscriptions', new mongoose.Schema<Types.Subscription>({
+	type: { type: String, enum: ["Twitter", "Youtube"], required: true },
 	webhookId: { type: String, required: true },
-	text: { type: String, required: true },
-	username: { type: String, required: true },
+	text: { type: String, default: "Tweeted" },
+	username: String,
 	userId: { type: String, required: true },
-})) as unknown) as Types.Client["subscriptions"]
+}))
 
 client.guildSettings.deleteMany({ guildId: { $exists: false } }, (err: any) => {
 	if (err) console.warn(err);
