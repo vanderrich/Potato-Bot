@@ -18,7 +18,7 @@ module.exports = {
         .addStringOption(option => option
             .setName("birthdaymessage")
             .setDescription("The message to send to users whose birthday is today.")
-        ) as SlashCommandSubcommandBuilder,
+        ) ,
     category: "Info",
     isSubcommand: true,
     guildOnly: true,

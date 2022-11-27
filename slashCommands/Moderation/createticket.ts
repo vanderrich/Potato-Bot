@@ -36,11 +36,11 @@ module.exports = {
     guildOnly: true,
     async execute(interaction, client, footers) {
         await interaction.deferReply({ ephemeral: true });
-        let title = interaction.options.getString("name");
-        let description = interaction.options.getString("description");
+        const title = interaction.options.getString("name");
+        const description = interaction.options.getString("description");
         let channel = interaction.options.getChannel("channel");
-        let category = interaction.options.getChannel("category");
-        let closecategory = interaction.options.getChannel("closecategory");
+        const category = interaction.options.getChannel("category");
+        const closecategory = interaction.options.getChannel("closecategory");
         if (!title) return interaction.editReply(client.getLocale(interaction, "commands.moderation.createticket.noName"));
         if (!description) return interaction.editReply(client.getLocale(interaction, "commands.moderation.createticket.noDesc"));
         if (category?.type !== "GUILD_CATEGORY" || closecategory?.type !== "GUILD_CATEGORY" || !category || !closecategory) {
@@ -48,12 +48,12 @@ module.exports = {
         }
         if (!(channel instanceof GuildChannel)) channel = await interaction.guild!.channels.fetch(channel!.id)
         if (!channel?.isText()) return interaction.editReply("The channel must be a guild channel.");
-        let embed = new MessageEmbed()
+        const embed = new MessageEmbed()
             .setTitle(title)
             .setDescription(description)
             .setColor('RANDOM')
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
-        let buttons = new MessageActionRow()
+        const buttons = new MessageActionRow()
             .addComponents(
                 new MessageButton()
                     .setEmoji("📩")
@@ -70,8 +70,8 @@ module.exports = {
             'READ_MESSAGE_HISTORY': false,
             'ADD_REACTIONS': false
         });
-        let message = await channel.send({ embeds: [embed], components: [buttons] });
-        let ticket = new client.tickets({
+        const message = await channel.send({ embeds: [embed], components: [buttons] });
+        const ticket = new client.tickets({
             title: title,
             description: description,
             categoryId: category.id,

@@ -23,7 +23,7 @@ module.exports = {
         .setType(ApplicationCommandType.User),
     category: "Fun",
     async execute(interaction, client) {
-        const opponent: User = interaction.isContextMenu() ? await client.users.fetch(interaction.targetId) : interaction.options.getUser("opponent")!;
+        const opponent: User = interaction.isContextMenu() ? await client.users.fetch(interaction.targetId) : interaction.options.getUser("opponent") as User;
         const ai: boolean = interaction.isContextMenu() ? false : interaction.options.getBoolean("ai")!;
         const locale: Tictactoe = client.getLocale(interaction, "commands.fun.tictactoe")
         if (interaction.user.id == opponent.id) return interaction.reply({ content: locale.playSelf, ephemeral: true });

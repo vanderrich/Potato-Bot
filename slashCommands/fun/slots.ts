@@ -20,12 +20,15 @@ module.exports = {
         const userWallet = await client.eco.balance({ user: interaction.user.id });
         if (bet > userWallet.wallet) return interaction.reply(client.getLocale(interaction, "commands.fun.slots.noMoneyBet"));
         const footer = footers[Math.floor(Math.random() * footers.length)]
-        let messages: MessageEmbed[] = [];
+        const messages: MessageEmbed[] = [];
         let win = true;
         //initializes the emojis and the embed
-        const diamond = client.emojis.resolve("981348563852329050")!
-        const emerald = client.emojis.resolve("981348806450896936")!
-        const potat = client.emojis.resolve("981348806450896936")!
+        const diamond = client.emojis.resolve("981348563852329050") || "🔷"
+        const emerald = client.emojis.resolve("981348806450896936") || "🟢"
+        const potat = client.emojis.resolve("981348806450896936") || "🥔"
+        const types = {
+            diamond, emerald, potat
+        }
         const embed = await new MessageEmbed()
             .setTitle('Slots')
             .setDescription('⬛⬛⬛')
@@ -34,28 +37,28 @@ module.exports = {
         //sends the embed message and reacts to it
         interaction.reply({ embeds: [embed], fetchReply: true }).then(async (msg) => {
             if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id)
-            var frameCount = Math.floor(Math.random() * 5) + 5
+            const frameCount = Math.floor(Math.random() * 5) + 5
             for (let i = 0; i < frameCount; i++) {
-                let slotdisplay: GuildEmoji[] = []
+                const slotdisplay: (keyof typeof types)[] = []
                 for (let x = 0; x < 3; x++) {
                     switch (Math.floor(Math.random() * 3)) {
                         case 1:
-                            slotdisplay[x] = diamond
+                            slotdisplay[x] = "diamond"
                             break;
                         case 2:
-                            slotdisplay[x] = potat
+                            slotdisplay[x] = "potat"
                             break;
                         default:
-                            slotdisplay[x] = emerald
+                            slotdisplay[x] = "emerald"
                             break;
                     }
                 }
                 messages.unshift(new MessageEmbed()
                     .setTitle(client.getLocale(interaction, "commands.fun.slots.embedTitle"))
-                    .setDescription(slotdisplay.join('')))
+                    .setDescription(slotdisplay.map((slot) => types[slot]).join('')))
 
                 //check if the player won
-                if ((slotdisplay[0].id === slotdisplay[1].id && slotdisplay[1].id === slotdisplay[2].id) && i === 0) win = true
+                if ((slotdisplay[0] === slotdisplay[1] && slotdisplay[1] === slotdisplay[2]) && i === 0) win = true
                 else if (i === 0) win = false
             }
             //sends the frames

@@ -8,7 +8,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client) {
         await interaction.deferReply();
-        let result = await client.eco.work({
+        const result = await client.eco.work({
             user: interaction.guild?.id,
             maxAmount: 100,
             replies: client.getLocale(interaction, "commands.currency.work.users"),

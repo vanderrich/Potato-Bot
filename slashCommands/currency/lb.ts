@@ -9,7 +9,7 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client, footers) {
         await interaction.deferReply();
-        let leaderboard: { userID: string, wallet: number, bank: number, networth: number }[] = await client.eco.globalLeaderboard();
+        const leaderboard: { userID: string, wallet: number, bank: number, networth: number }[] = await client.eco.globalLeaderboard();
         if (!leaderboard || leaderboard.length < 1) return interaction.editReply(client.getLocale(interaction, "commands.currency.leaderboard.empty"));
 
         const embed = new MessageEmbed()

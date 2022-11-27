@@ -21,7 +21,7 @@ module.exports = {
         const userMention = interaction.isContextMenu() ? await client.users.fetch(interaction.targetId) : interaction.options.getUser("target") || interaction.user;
         if (!userMention) return
 
-        let userinfo = {
+        const userinfo = {
             bot: userMention.bot,
             createdate: userMention.createdAt,
             discrim: userMention.discriminator,
@@ -31,7 +31,7 @@ module.exports = {
             avatar: userMention.displayAvatarURL({ dynamic: true })
         };
 
-        var myInfo = new MessageEmbed()
+        const myInfo = new MessageEmbed()
             .setAuthor({ name: userinfo.uname, iconURL: userinfo.avatar })
             .setThumbnail(userinfo.avatar)
             .addFields(

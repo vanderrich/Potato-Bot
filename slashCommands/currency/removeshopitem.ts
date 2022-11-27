@@ -17,7 +17,7 @@ module.exports = {
         const itemNumber = interaction.options.getNumber("itemnumber");
         await interaction.deferReply();
 
-        let result = await client.eco.removeItem({
+        const result = await client.eco.removeItem({
             guild: interaction.guildId,
             item: itemNumber
         })

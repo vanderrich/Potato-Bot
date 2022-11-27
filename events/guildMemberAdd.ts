@@ -15,7 +15,7 @@ module.exports = {
             .setDescription(`${newMember.user}`)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)], iconURL: newMember.user.displayAvatarURL({ dynamic: true }) ? newMember.user.displayAvatarURL({ dynamic: true }) : undefined });
         newMember.user.avatarURL() ? embed.setThumbnail(newMember.user.displayAvatarURL({ dynamic: true })) : "";
-        if (welcomeChannel.isText() && newMember.guild.me && welcomeChannel.permissionsFor(newMember.guild!.me).has("SEND_MESSAGES") && welcomeChannel.permissionsFor(newMember.guild!.me).has("VIEW_CHANNEL")) welcomeChannel.send({ embeds: [embed] })
+        if (welcomeChannel.isText() && newMember.guild.me && welcomeChannel.permissionsFor(newMember.guild.me).has("SEND_MESSAGES") && welcomeChannel.permissionsFor(newMember.guild.me).has("VIEW_CHANNEL")) welcomeChannel.send({ embeds: [embed] })
         if (guildSettings?.welcomeRole) {
             const role = newMember.guild.roles.cache.get(guildSettings.welcomeRole)
             if (role == undefined) return;

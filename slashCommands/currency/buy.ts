@@ -22,28 +22,28 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client, footers) {
         await interaction.deferReply();
-        let item = interaction.options.getString("item");
-        let amount = interaction.options.getInteger("amount") || 1;
-        let local = item?.endsWith("_local");
+        const item = interaction.options.getString("item");
+        const amount = interaction.options.getInteger("amount") || 1;
+        const local = item?.endsWith("_local");
 
         if (!item) {
-            let items = await client.eco.getShopItems({ guild: interaction.guild?.id });
-            let globalItems = await client.eco.getShopItems({ user: interaction.user.id });
-            let inv = globalItems.inventory.concat(items.inventory);
+            const items = await client.eco.getShopItems({ guild: interaction.guild?.id });
+            const globalItems = await client.eco.getShopItems({ user: interaction.user.id });
+            const inv = globalItems.inventory.concat(items.inventory);
 
-            let embed = new MessageEmbed()
+            const embed = new MessageEmbed()
                 .setTitle(client.getLocale(interaction, "commands.currency.buy.storeTitle"))
                 .setColor("RANDOM")
                 .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] })
 
-            for (let key in inv) {
+            for (const key in inv) {
                 embed.addFields({ name: client.getLocale(interaction, "commands.currency.buy.storeItem", key, inv[key].price, inv[key].name), value: inv[key].description })
             }
             return interaction.editReply({ embeds: [embed] });
         }
         if (local) {
-            let items = await client.eco.getShopItems({ guild: interaction.guildId });
-            let shopItem = items.inventory.find((i: any) => i.id == item?.replace("_local", ""));
+            const items = await client.eco.getShopItems({ guild: interaction.guildId });
+            const shopItem = items.inventory.find((i: any) => i.id == item?.replace("_local", ""));
             if (!shopItem) {
                 return interaction.editReply(client.getLocale(interaction, "commands.currency.buy.noItem"));
             }
@@ -52,7 +52,7 @@ module.exports = {
             }
             await client.eco.addMoney({ user: interaction.user.id, amount: shopItem.price * amount, whereToPutMoney: "wallet" });
         }
-        let results = [];
+        const results = [];
         for (let i = 0; i < amount; i++) {
             results.push(await client.eco.addUserItem({
                 user: interaction.user.id,

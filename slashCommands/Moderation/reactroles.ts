@@ -41,18 +41,18 @@ module.exports = {
     guildOnly: true,
     async execute(interaction, client, footers) {
         await interaction.deferReply({ ephemeral: true });
-        let title: string = interaction.options.getString("title")!;
-        let description: string | null = interaction.options.getString("description");
-        let channel: any = interaction.options.getChannel("channel");
+        const title: string = interaction.options.getString("title")!;
+        const description: string | null = interaction.options.getString("description");
+        const channel: any = interaction.options.getChannel("channel");
         if (!channel || !channel.isText()) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.noTextChannel"));
-        let options: Array<string> = [];
-        let reactionRoles: Array<any> = [];
-        let reactions: Array<GuildEmoji | string> = [];
+        const options: Array<string> = [];
+        const reactionRoles: Array<any> = [];
+        const reactions: Array<GuildEmoji | string> = [];
         if (!interaction.guild!.me?.roles.highest.position) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.noPerms"));
         for (let i = 1; i <= 25; i++) {
-            let option = interaction.options.getString(`option${i}`);
-            let emoji = interaction.options.getString(`option${i}emoji`);
-            let role = interaction.options.getRole(`option${i}role`);
+            const option = interaction.options.getString(`option${i}`);
+            const emoji = interaction.options.getString(`option${i}emoji`);
+            const role = interaction.options.getRole(`option${i}role`);
             if (option && emoji && role) {
                 if (role.position < interaction.guild!.me.roles.highest.position) {
                     if (!client.emojis.cache.get(emoji.replace(/<:[a-z]+:/g, "").replace(/>/g, "")) && !emoji.match(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/)) return interaction.editReply(client.getLocale(interaction, "commands.moderation.reactroles.invalidEmoji", emoji));

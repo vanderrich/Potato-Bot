@@ -28,7 +28,7 @@ module.exports = {
         const commands = client.slashCommands;
         const categories: string[] = client.getLocale(interaction, "commands.info.help.categories");
         let category = interaction.options.getString("category")
-        let command = interaction.options.getString("command")
+        const command = interaction.options.getString("command")
         if (category) {
             category = category.charAt(0).toUpperCase() + category?.slice(1)
             if (!categories.includes(category)) {
@@ -52,7 +52,7 @@ module.exports = {
             return interaction.reply({ embeds: [messageEmbed] })
         }
         else if (command) {
-            let commandObject = commands.get(command)
+            const commandObject = commands.get(command)
             if (!commandObject) {
                 return interaction.reply(client.getLocale(interaction, "commands.info.help.noCommand"))
             }
@@ -69,8 +69,8 @@ module.exports = {
             }
             return interaction.reply({ embeds: [messageEmbed] })
         }
-        let a = []
-        for (let category in categories) {
+        const a = []
+        for (const category in categories) {
             let value = 0
             commands.forEach((command: SlashCommand) => {
                 if (command.category == categories[category]) {

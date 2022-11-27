@@ -1,15 +1,14 @@
 import { Message, MessageActionRow, MessageSelectMenu, Modal, ModalSubmitInteraction, SelectMenuInteraction, TextBasedChannel, TextInputComponent } from "discord.js";
 import config from "../../config.json";
 import { GuildSettings, MessageComponent } from "../../Util/types";
-type KeyofBadWordPresets = string & "low" | "medium" | "high" | "highest";
-const badWordPresets = config.settings.badWordPresets;
 
 module.exports = {
     name: "settings",
     permissions: "MANAGE_GUILD",
     async execute(interaction: SelectMenuInteraction, client) {
         if (interaction.replied) return;
-        const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
+        if (interaction.channel === null) return;
+        // const guildSettings: GuildSettings | null = await client.guildSettings.findOne({ guildId: interaction.guildId });
         const locale = client.getLocale(interaction, "commands.moderation.settings");
         const selected = interaction.values[0];
         const actionRow = new MessageActionRow()
@@ -86,6 +85,103 @@ module.exports = {
                 interaction.update({ components: [actionRow, tagActionRow], fetchReply: true }).then(async (msg: any) => {
                     if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
                     const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guild!.id })!;
+                    if (!guildSettings) return
+                    msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
+                        const selected = collected.values[0];
+                        if (selected === "add") {
+                            const modal = new Modal()
+                                .setTitle(locale.addTag)
+                                .setCustomId("addTag")
+                                .addComponents(new MessageActionRow<TextInputComponent>()
+                                    .addComponents(
+                                        new TextInputComponent()
+                                            .setCustomId("tag")
+                                            .setLabel(locale.tag)
+                                            .setPlaceholder(locale.tagTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                            .setRequired(true)
+                                    ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("customid")
+                                                .setLabel(locale.customid)
+                                                .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                                .setStyle("SHORT")
+                                                .setRequired(true)
+                                        ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("value")
+                                                .setLabel(locale.value)
+                                                .setPlaceholder(locale.valueTextInputPlaceHolder)
+                                                .setStyle("PARAGRAPH")
+                                                .setRequired(true)
+                                        )
+                                )
+                            await collected.showModal(modal);
+                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const tag = modal.fields.getTextInputValue("tag");
+                                const customid = modal.fields.getTextInputValue("customid")?.toLowerCase().replace(/ /g, "");
+                                const value = modal.fields.getTextInputValue("value")
+                                if (!guildSettings.tags) guildSettings.tags = [];
+                                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = new Map;
+                                guildSettings.tags.push({ name: tag, value: customid });
+                                guildSettings.tagDescriptions.set(customid, value);
+                                await guildSettings.save();
+                                modal.reply(locale.updated);
+                            }).catch(() => { });
+                        } else if (selected === "remove") {
+                            const modal = new Modal()
+                                .setTitle(locale.removeTag)
+                                .setCustomId("removeTag")
+                                .addComponents(new MessageActionRow<TextInputComponent>()
+                                    .addComponents(
+                                        new TextInputComponent()
+                                            .setCustomId("tag")
+                                            .setLabel(locale.tag)
+                                            .setPlaceholder(locale.tagTextInputPlaceHolder)
+                                            .setStyle("SHORT")
+                                            .setRequired(true)
+                                    ),
+                                    new MessageActionRow<TextInputComponent>()
+                                        .addComponents(
+                                            new TextInputComponent()
+                                                .setCustomId("customid")
+                                                .setLabel(locale.customid)
+                                                .setPlaceholder(locale.customIdTextInputPlaceHolder)
+                                                .setStyle("SHORT")
+                                                .setRequired(true)
+                                        )
+                                )
+                            await collected.showModal(modal);
+                            collected.awaitModalSubmit({ time: 30000, filter: (modalInteraction: ModalSubmitInteraction) => modalInteraction.user.id === interaction.user.id && modalInteraction.customId === modal.customId }).then(async (modal: ModalSubmitInteraction) => {
+                                const customid = modal.fields.getTextInputValue("customid");
+                                const tag = modal.fields.getTextInputValue("tag");
+                                guildSettings.tags = guildSettings.tags.filter(t => t.name !== tag && t.value !== customid);
+                                guildSettings.tagDescriptions.delete(customid);
+                                await guildSettings.save();
+                                modal.reply(locale.updated);
+                            }).catch(() => { });
+                        }
+                    });
+                });
+                break;
+
+            case "statChannels":
+                const statActionRow = new MessageActionRow()
+                    .addComponents(
+                        new MessageSelectMenu()
+                            .setCustomId("stataction")
+                            .addOptions([
+                                { label: locale.addTag, value: "add" },
+                                { label: locale.removeTag, value: "remove" }
+                            ])
+                    )
+                interaction.update({ components: [actionRow, statActionRow], fetchReply: true }).then(async (msg) => {
+                    if (!(msg instanceof Message)) msg = await interaction.channel!.messages.fetch(msg.id);
+                    const guildSettings = await client.guildSettings.findOne({ guildId: interaction.guildId });
                     if (!guildSettings) return
                     msg.createMessageComponentCollector({ time: 600000, componentType: "SELECT_MENU" }).on("collect", async (collected: SelectMenuInteraction) => {
                         const selected = collected.values[0];

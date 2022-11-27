@@ -32,7 +32,7 @@ module.exports = {
             return interaction.editReply({ embeds: [embed] })
         }
         else {
-            let inv = invPure.inventory;
+            const inv = invPure.inventory;
             const pages = [];
             let page = 1, emptypage = false;
             do {

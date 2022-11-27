@@ -6,7 +6,7 @@ module.exports = {
     name: "giverole",
     async execute(interaction: ButtonInteraction, client: Client) {
         const locale = client.getLocale(interaction, "commands.moderation.reactroles") as Reactroles
-        let memberRoles = interaction.member!.roles
+        const memberRoles = interaction.member!.roles
         if (!(memberRoles instanceof GuildMemberRoleManager)) return
         const role = interaction.customId.split("-")[1];
         const roleInfo = await interaction.guild!.roles.fetch(role);

@@ -16,9 +16,9 @@ module.exports = {
     guildOnly: true,
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true });
-        let amount = interaction.options.getInteger("amount");
+        const amount = interaction.options.getInteger("amount");
         if (!amount || isNaN(amount) || amount < 0) return interaction.editReply(client.getLocale(interaction, "commands.moderation.modActions.bulkDelete.invalidAmount"));
-        let channel = interaction.channel
+        const channel = interaction.channel
         if (!channel || channel.type === "DM") return
         channel.bulkDelete(amount)
             .then(() => {

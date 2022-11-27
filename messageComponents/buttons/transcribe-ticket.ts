@@ -14,7 +14,7 @@ module.exports = {
         if (!ticketInfo) return interaction.reply(locale.noTicket);
         if (interaction.channel?.type !== "GUILD_TEXT") return;
         interaction.deferReply();
-        let docx = officegen({
+        const docx = officegen({
             type: 'docx',
             author: client.user?.username,
             creator: client.user?.username,
@@ -50,12 +50,12 @@ module.exports = {
         while (channelMessages?.size === 100) { //make a loop if there are more then 100 messages in this channel to fetch
             if (tomanymsgs === messagelimit) break; //if the counter equals to the limit stop the loop
             tomanymsgs += 1; //add 1 to the counter
-            let lastMessageId: any = channelMessages.lastKey(); //get key of the already fetched messages above
+            const lastMessageId: any = channelMessages.lastKey(); //get key of the already fetched messages above
             channelMessages = await interaction.channel.messages.fetch({ limit: 100, before: lastMessageId }).catch(err => console.warn(err)); //Fetch again, 100 messages above the already fetched messages
             if (channelMessages) //if its true
                 messageCollection = messageCollection.concat(channelMessages); //add them to the collection
         }
-        let msgs = messageCollection.reverse(); //reverse the array to have it listed like the discord chat
+        const msgs = messageCollection.reverse(); //reverse the array to have it listed like the discord chat
         //now for every interaction in the array make a new paragraph!
         await msgs.forEach(async (msg: Message) => {
             // Create a new paragraph:
@@ -86,7 +86,7 @@ module.exports = {
         });
         pObj.startBookmark('myBookmark');  //add a bookmark at tha last interaction to make the jump
         pObj.endBookmark();
-        let out = fs.createWriteStream(path)  //write everything in the docx file
+        const out = fs.createWriteStream(path)  //write everything in the docx file
         out.on('error', function (err) {
             console.warn(err)
         })

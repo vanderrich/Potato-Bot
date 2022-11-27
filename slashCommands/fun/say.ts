@@ -13,7 +13,7 @@ module.exports = {
         ) as SlashCommandBuilder,
     category: "Fun",
     async execute(interaction, client) {
-        let text = interaction.options.getString("text");
+        const text = interaction.options.getString("text");
         if (!text) return interaction.reply(client.getLocale(interaction, "commands.fun.say.noText"));
         if (text.length > 2000) return interaction.reply(client.getLocale(interaction, "commands.fun.say.textTooLong"));
         if (text.includes("@everyone") || text.includes("@here") && !interaction.memberPermissions?.has('MENTION_EVERYONE')) return interaction.reply(client.getLocale(interaction, "commands.fun.say.noPerms"));

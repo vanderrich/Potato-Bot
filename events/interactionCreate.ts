@@ -1,10 +1,8 @@
-import { DiscordAPIError, Interaction, MessageEmbed, PermissionResolvable } from 'discord.js';
-import fetch from 'node-fetch';
-import { v4 as uuidv4 } from 'uuid';
+import { DiscordAPIError, Interaction, PermissionResolvable } from 'discord.js';
 import { Utils } from '../localization';
+import throwError from "../Util/error";
 import { AutoCompleteValue, Client, Event } from '../Util/types';
 import { admins, tags } from './../config.json';
-import throwError from "../Util/error";
 
 module.exports = {
     name: 'interactionCreate',
@@ -34,7 +32,7 @@ module.exports = {
                 catch (err) {
                     await interaction.editReply({ content: 'There was an error while executing this command!\n' + error + "\n\nI have informed my owner about this, while waiting, why dont you join our [Discord Server](<https://discord.gg/cHj7nErGBa>)? (yes, shameless advertising)" });
                 }
-            };
+            }
         }
         else if (interaction.isButton()) {
             loggingChannel.send({ content: `${interaction.user}(${interaction.user.username}) clicked on a button with the custom id of ${interaction.customId} on the message with the content ${interaction.message.content} and the following embeds:`, embeds: interaction.message.embeds, allowedMentions: { users: [] } }); // log the command
@@ -49,32 +47,7 @@ module.exports = {
                 try {
                     button?.execute(interaction, client, client.getLocale(interaction, "utils.footers") as Utils["footers"]);
                 } catch (error: DiscordAPIError | any | Error) {
-                    console.error(error);
-                    const id = uuidv4()
-                    await fetch('https://potato-bot.deno.dev/api/error', {
-                        body: JSON.stringify({
-                            name: interaction.customId,
-                            id,
-                            type: "Button",
-                            error: error.toString(),
-                            stack: error.stack,
-                            code: error.code,
-                            path: error.path,
-                            httpStatus: error.httpStatus,
-                            requestData: error.requestData?.json,
-                        }),
-                        method: "POST",
-                        headers: {
-                            Authorization: process.env.SUPER_SECRET_KEY!
-                        }
-                    }).catch(err => console.error(err));
-                    const embed = new MessageEmbed()
-                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-                        .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
-                    await loggingChannel.send({
-                        content: `<@709950767670493275> you got some debugging to do`,
-                        embeds: [embed]
-                    }); // log the error to the bot logs channel
+                    throwError(error, client)
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }
@@ -123,30 +96,7 @@ module.exports = {
                 try {
                     selectMenu?.execute(interaction, client, client.getLocale(interaction, "utils.footers") as Utils["footers"]);
                 } catch (error: DiscordAPIError | any | Error) {
-                    console.error(error);
-                    const id = uuidv4()
-                    await fetch('https://potato-bot.deno.dev/api/error', {
-                        body: JSON.stringify({
-                            name: selectMenu.name,
-                            id,
-                            type: "Select Menu",
-                            error: error.toString(),
-                            stack: error.stack,
-                            code: error.code,
-                            path: error.path,
-                            httpStatus: error.httpStatus,
-                            requestData: error.requestData?.json,
-                        }),
-                        method: 'POST',
-                        headers: { Authorization: process.env.SUPER_SECRET_KEY! }
-                    }).catch(err => console.error(err));
-                    const embed = new MessageEmbed()
-                        .setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-                        .addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
-                    await loggingChannel.send({
-                        content: `<@709950767670493275> you got some debugging to do`,
-                        embeds: [embed]
-                    }); // log the error to the bot logs channel
+                    throwError(error, client)
                     try {
                         await interaction.reply({ content: 'There was an error while executing this command!\n' + error, ephemeral: true });
                     }

@@ -35,13 +35,15 @@ module.exports = {
             }, {
                 name: locale.tags,
                 value:
-                    `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: String, value: String }) => `${tag.name}: ${tag.value}`).join("\n")}
+                    `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: string, value: string }) => `${tag.name}: ${tag.value}`).join("\n")}
                 **${locale.tagDescriptions}**: ${tagsProcessed.join("\n")}`
             }, {
+                name: locale.statChannels, value:
+                    `**${locale.statChannels} **: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}`
+            }, {
                 name: "Misc",
-                value: `** ${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel!)}
-                ** ${locale.ghostPing}**: ${guildSettings.ghostPing || true}
-                ** ${locale.statChannels}**: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}`
+                value: `** ${locale.suggestionChannel} **: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel!)}
+            ** ${locale.ghostPing} **: ${guildSettings.ghostPing || true}`
             })
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 

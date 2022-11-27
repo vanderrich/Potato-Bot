@@ -30,7 +30,7 @@ module.exports = {
         const price = interaction.options.getNumber("price");
 
         if (!price) return interaction.editReply(client.getLocale(interaction, "currency.addshopitem.noPrice"));
-        let result = await client.eco.addItem({
+        const result = await client.eco.addItem({
             guild: interaction.guild!.id,
             inventory: {
                 name: name,

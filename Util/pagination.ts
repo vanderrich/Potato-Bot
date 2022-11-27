@@ -25,15 +25,16 @@ export default async (source: CommandInteraction | ButtonInteraction | ContextMe
     const row = new MessageActionRow().addComponents(buttons);
 
     let currentPage = 0;
-    let content = {
+    const content = {
         embeds: [pages[currentPage].setFooter({ text: client.getLocale(source, "utils.page", currentPage + 1, pages.length) })],
         components: [row],
         fetchReply: true
     }
 
     const message = source instanceof ButtonInteraction ? await source.update(content) : options.hasSentReply ? await source.editReply(content) : await source.reply(content);
-    var pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
-    if (!(pagedMessageTemp instanceof Message) || !pagedMessageTemp) pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.channel!.messages.fetch((await source.fetchReply()).id) : await source.channel!.messages.fetch(message!.id);
+    if (!message) return;
+    let pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.fetchReply() : message;
+    if (!(pagedMessageTemp instanceof Message) || !pagedMessageTemp) pagedMessageTemp = source instanceof CommandInteraction && !options.fromButton ? await source.channel!.messages.fetch((await source.fetchReply()).id) : await source.channel!.messages.fetch(message.id);
     const pagedMessage = pagedMessageTemp;
     const filter = (button: any) => button.customId === 'first' || button.customId === 'previous' || button.customId === 'next' || button.customId === 'last';
     const collector = await pagedMessage.createMessageComponentCollector({ filter, time: options.timeout });

@@ -22,10 +22,10 @@ module.exports = {
     category: "Bot Admin Only",
     async execute(interaction, client, footers) {
         if (!admins.includes(interaction.user.id)) return; // return if author isn't bot owner
-        let user = interaction.options.getUser("target");
+        const user = interaction.options.getUser("target");
         if (!user) return interaction.reply("Please specify a user!");
-        let amount = interaction.options.getInteger("amount");
-        let data = await client.eco.setMoney({ userId: interaction.user.id, wheretoputmoney: "wallet", amount });
+        const amount = interaction.options.getInteger("amount");
+        const data = await client.eco.setMoney({ userId: interaction.user.id, wheretoputmoney: "wallet", amount });
 
         const embed = new MessageEmbed()
             .setTitle(`Money Added!`)

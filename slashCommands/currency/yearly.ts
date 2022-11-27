@@ -9,8 +9,8 @@ module.exports = {
     isSubcommand: true,
     async execute(interaction, client) {
         await interaction.deferReply();
-        let amount = Math.floor(Math.random() * 6000) + 12000;
-        let addMoney = await client.eco.yearly({ user: interaction.user.id, amount });
+        const amount = Math.floor(Math.random() * 6000) + 12000;
+        const addMoney = await client.eco.yearly({ user: interaction.user.id, amount });
         if (addMoney.error) return interaction.editReply(client.getLocale(interaction, "commands.currency.rewards.cooldown", client.getLocale(interaction, "commands.currency.rewards.yearly"), addMoney.time));
         else return interaction.editReply(client.getLocale(interaction, "commands.currency.rewards.success", amount, client.getLocale(interaction, "commands.currency.rewards.yearly"), addMoney.rawData.wallet));
     }

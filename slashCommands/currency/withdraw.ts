@@ -15,8 +15,8 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client) {
         await interaction.deferReply();
-        let money = interaction.options.getNumber("amount");
-        let result = await client.eco.withdraw({
+        const money = interaction.options.getNumber("amount");
+        const result = await client.eco.withdraw({
             user: interaction.user.id,
             amount: money
         });
@@ -28,6 +28,6 @@ module.exports = {
         } else {
             if (result.type === 'all-success') return interaction.editReply(client.getLocale(interaction, "commands.currency.withdraw.allSuccess", result.rawData.bank));
             if (result.type === 'success') return interaction.editReply(client.getLocale(interaction, "commands.currency.withdraw.success", money, result.rawData.bank));
-        };
+        }
     }
 } as SlashCommand;

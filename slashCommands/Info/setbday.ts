@@ -10,7 +10,7 @@ module.exports = {
             .setName("birthdate")
             .setDescription("Your birthdate in MM/DD, eg. 01/01")
             .setRequired(true)
-        ) as SlashCommandSubcommandBuilder,
+        ) ,
     category: "Info",
     isSubcommand: true,
     async execute(interaction, client) {
@@ -21,12 +21,12 @@ module.exports = {
 
         if (!birthdate) return interaction.editReply(locale.noBdate);
 
-        let birthdateArray = birthdate.split("/");
-        let month = parseInt(birthdateArray[0]);
-        let day = parseInt(birthdateArray[1]);
+        const birthdateArray = birthdate.split("/");
+        const month = parseInt(birthdateArray[0]);
+        const day = parseInt(birthdateArray[1]);
         if (birthdateArray.length != 2 || (birthdateArray[0].length != 2 || birthdateArray[1].length != 2) || (month < 1 || month > 12) || (day < 1 || day > 31)) return interaction.editReply(locale.invalidBdate);
 
-        let now = new Date(),
+        const now = new Date(),
             date = new Date(now.getFullYear(), month - 1, day);
         if (date > now) date.setFullYear(date.getFullYear() - 1);
 

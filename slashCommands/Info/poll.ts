@@ -39,13 +39,13 @@ module.exports = {
         .addStringOption(option => option.setName("option8").setDescription("The eighth option of the poll")) as SlashCommandBuilder,
     category: "Fun",
     async execute(interaction, client, footers) {
-        var title = interaction.options.getString("title");
-        var description = interaction.options.getString("description");
-        var options = [];
-        var time = new Date(Date.now() + ms(interaction.options.getString("duration")));
-        var ping = interaction.options.getBoolean("ping") || false;
+        const title = interaction.options.getString("title");
+        const description = interaction.options.getString("description");
+        const options = [];
+        const time = new Date(Date.now() + ms(interaction.options.getString("duration")));
+        const ping = interaction.options.getBoolean("ping") || false;
         if (!ms(interaction.options.getString("duration"))) return interaction.reply(client.getLocale(interaction, "commands.poll.invalidDuration"));
-        for (var i = 1; i <= 25; i++) {
+        for (let i = 1; i <= 25; i++) {
             if (interaction.options.getString("option" + i) != null) {
                 options.push(interaction.options.getString("option" + i));
             }

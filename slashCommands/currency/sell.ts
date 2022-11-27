@@ -21,8 +21,8 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client) {
         await interaction.deferReply();
-        let amount = interaction.options.getNumber("amount") || 1;
-        let results: { error: boolean, inventory: { name: string }, type: string }[] = []
+        const amount = interaction.options.getNumber("amount") || 1;
+        const results: { error: boolean, inventory: { name: string }, type: string }[] = []
         for (let i = 0; i < amount; i++) {
             results.push(await client.eco.removeUserItem({
                 user: interaction.user.id,
@@ -34,8 +34,8 @@ module.exports = {
             if (results[0].type == 'Unknown-Item') return interaction.editReply(client.getLocale(interaction, "commands.currency.sell.unknownItem"));
         }
         else {
-            let shopItem = await client.eco.getShopItems({ user: interaction.user.id });
-            let item = shopItem.inventory.find((item: any) => item.name === results[0].inventory.name);
+            const shopItem = await client.eco.getShopItems({ user: interaction.user.id });
+            const item = shopItem.inventory.find((item: any) => item.name === results[0].inventory.name);
             if (item) {
                 client.eco.addMoney({ user: interaction.user.id, amount: item.price, whereToPutMoney: 'wallet' });
                 client.updateCache();

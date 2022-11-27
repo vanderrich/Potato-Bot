@@ -9,7 +9,7 @@ const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
 
 export const deploy = async (client: Client) => {
-    if (!token) return console.error("No token found");
+    if (!token || !clientId) return console.error("No token found");
     const commands: Array<string> = [];
     const slashCommandFolders = fs.readdirSync('./slashCommands');
     for (const folder of slashCommandFolders) {
@@ -29,7 +29,7 @@ export const deploy = async (client: Client) => {
     try {
         console.info('Started refreshing application (/) commands.');
         await rest.put(
-            Routes.applicationCommands(clientId!),
+            Routes.applicationCommands(clientId),
             { body: commands },
         );
         console.info('Successfully reloaded application (/) commands.');

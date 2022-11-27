@@ -8,8 +8,8 @@ module.exports = {
     category: "Currency",
     async execute(interaction, client) {
         await interaction.deferReply();
-        let users = client.getLocale(interaction, "commands.currency.beg.users");
-        let result = await client.eco.beg({ user: interaction.user.id, minAmount: 1, maxAmount: 5 })
+        const users = client.getLocale(interaction, "commands.currency.beg.users");
+        const result = await client.eco.beg({ user: interaction.user.id, minAmount: 1, maxAmount: 5 })
         if (result.error) return interaction.editReply(client.getLocale(interaction, "commands.currency.beg.cooldown"));
         return interaction.editReply(client.getLocale(interaction, "commands.currency.beg.success", users[Math.floor(Math.random() * users.length)], result.amount));
     }

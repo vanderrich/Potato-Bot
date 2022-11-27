@@ -15,8 +15,8 @@ function checkWin(board: MessageActionRow<MessageButton>[]) {
     if (board[0].components[0].label === board[1].components[1].label && board[0].components[0].label === board[2].components[2].label && board[0].components[0].label !== '_') return true;
     if (board[0].components[2].label === board[1].components[1].label && board[0].components[2].label === board[2].components[0].label && board[0].components[2].label !== '_') return true;
     // Check for tie
-    for (let actionRow of board) {
-        for (let action of actionRow.components) {
+    for (const actionRow of board) {
+        for (const action of actionRow.components) {
             if (action.label === '_') return false;
         }
     }
@@ -24,8 +24,8 @@ function checkWin(board: MessageActionRow<MessageButton>[]) {
 }
 
 function ai(board: MessageActionRow<MessageButton>[]) {
-    for (let actionRow of board) {
-        for (let action of actionRow.components) {
+    for (const actionRow of board) {
+        for (const action of actionRow.components) {
             if (action.label === 'X') return
         }
     }
@@ -36,13 +36,13 @@ export default async (interaction: ButtonInteraction, client: Client) => {
     let message = interaction.message;
     if (!client.tictactoe[message.id]) return;
 
-    let locale = client.getLocale(interaction, "commands.fun.tictactoe") as Tictactoe;
+    const locale = client.getLocale(interaction, "commands.fun.tictactoe") as Tictactoe;
 
     let xs = 0, os = 0;
     if (!(message instanceof Message)) message = await interaction.channel!.messages.fetch(message.id)
 
-    for (let actionRow of message.components) {
-        for (let button of actionRow.components) {
+    for (const actionRow of message.components) {
+        for (const button of actionRow.components) {
             if (!(button instanceof MessageButton)) continue;
             if (button.label === 'X') xs++;
             else if (button.label === 'O') os++;
@@ -53,16 +53,16 @@ export default async (interaction: ButtonInteraction, client: Client) => {
     const i = parseInt(interaction.customId[4]),
         j = parseInt(interaction.customId[5]);
 
-    let currPlayer = xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o;
+    const currPlayer = xs_turn ? client.tictactoe[message.id].x : client.tictactoe[message.id].o;
     if (interaction.user.id !== currPlayer) {
         return interaction.reply({ content: locale.notYourTurn, ephemeral: true });
     }
 
     const board: MessageActionRow<MessageButton>[] = []
     //typing stuff
-    for (let row of message.components) {
+    for (const row of message.components) {
         const newActionRow = new MessageActionRow<MessageButton>();
-        for (let button of row.components) {
+        for (const button of row.components) {
             if (!(button instanceof MessageButton)) continue;
             newActionRow.addComponents(button);
         }
@@ -85,9 +85,9 @@ export default async (interaction: ButtonInteraction, client: Client) => {
 
     const components = [];
 
-    for (let actionRow of message.components) {
+    for (const actionRow of message.components) {
         const componentComponents = []
-        for (let button of actionRow.components) {
+        for (const button of actionRow.components) {
             if (!(button instanceof MessageButton) || !button.style) continue;
             componentComponents.push({ type: 2, label: button.label, style: styleToNumber(button.style), custom_id: button.customId });
         }
@@ -96,9 +96,9 @@ export default async (interaction: ButtonInteraction, client: Client) => {
 
     const boardNew: MessageActionRow<MessageButton>[] = [];
 
-    for (let row of message.components) {
+    for (const row of message.components) {
         const newActionRow = new MessageActionRow<MessageButton>();
-        for (let button of row.components) {
+        for (const button of row.components) {
             if (!(button instanceof MessageButton)) continue;
             newActionRow.addComponents(button);
         }

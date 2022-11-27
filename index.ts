@@ -4,13 +4,14 @@ import Discord from 'discord.js';
 import { config } from "dotenv";
 import fs from 'fs';
 import mongoose from 'mongoose';
-import fetch from "node-fetch";
-import { v4 as uuidv4 } from 'uuid';
 import { deploy } from './deploy-commands';
 import localizations from './localization.json';
 import { updateStats } from './Util/serverstats';
 import * as Types from './Util/types';
+import throwError from './Util/error';
 config();
+
+if (!(process.env.DISCORD_TOKEN && process.env.MONGO_URI && process.env.SUPER_SECRET_KEY)) process.exit(1)
 
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
@@ -20,7 +21,7 @@ const client = new Discord.Client({
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER"],
 }) as Types.Client;
 
-mongoose.connect(process.env.MONGO_URI!, {
+mongoose.connect(process.env.MONGO_URI, {
 	autoIndex: false
 });
 
@@ -96,8 +97,8 @@ const languagesCache = new Discord.Collection();
 client.getLocale = (interaction, string, ...vars) => {
 	let language = languagesCache.get(interaction.user.id) || 'en';
 	if (!localizations[language as languages]) language = 'en';
-	let stringArr = string.split('.');
-	let locale = localizations[language as languages] as any;
+	const stringArr = string.split('.');
+	let locale = localizations[language as languages];
 	for (let i = 0; i < stringArr.length; i++) {
 		locale = locale[stringArr[i] as keyof typeof locale];
 		if (locale === undefined) return "Cant find locale";
@@ -117,7 +118,7 @@ client.languages = mongoose.model('languages', new mongoose.Schema({
 	user: { type: String, required: true },
 	language: { type: String, required: true },
 }));
-Economy.cs.on('debug', (debug: any, error: any) => {
+Economy.cs.on('debug', (debug: string, error: Error) => {
 	console.log(debug);
 	if (error) console.error(error);
 });
@@ -273,30 +274,7 @@ for (const file of selectMenuFiles) {
 // });
 
 process.on("unhandledRejection", (error: Error) => {
-	console.error(error + "\n" + error.stack + '\n' + '='.repeat(20))
-	const channel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272");
-	const id = uuidv4();
-	fetch('https://potato-bot.deno.dev/api/error', {
-		method: 'POST',
-		body: JSON.stringify({
-			name: 'Error',
-			id,
-			type: "Crash",
-			error: error.toString(),
-			stack: error.stack,
-		}),
-		headers: {
-			Authorization: process.env.SUPER_SECRET_KEY!
-		}
-	});
-	if (!channel || !channel.isText()) return;
-	const embed = new Discord.MessageEmbed()
-		.setAuthor({ name: `Error: ${id}`, url: `https://potato-bot.deno.dev/error/${id}` })
-		.addFields({ name: "Error", value: error.toString() }, { name: "Stack", value: error.stack! })
-	channel.send({
-		content: `<@709950767670493275> you got some debugging to do`,
-		embeds: [embed]
-	});
+	throwError(error, client)
 });
 
 setInterval(async () => {
