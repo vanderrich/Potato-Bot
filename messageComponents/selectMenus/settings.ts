@@ -127,9 +127,9 @@ module.exports = {
                                 const customid = modal.fields.getTextInputValue("customid")?.toLowerCase().replace(/ /g, "");
                                 const value = modal.fields.getTextInputValue("value")
                                 if (!guildSettings.tags) guildSettings.tags = [];
-                                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
+                                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = new Map;
                                 guildSettings.tags.push({ name: tag, value: customid });
-                                guildSettings.tagDescriptions[customid] = value;
+                                guildSettings.tagDescriptions.set(customid, value);
                                 await guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });
@@ -161,7 +161,7 @@ module.exports = {
                                 const customid = modal.fields.getTextInputValue("customid");
                                 const tag = modal.fields.getTextInputValue("tag");
                                 guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
-                                delete guildSettings.tagDescriptions[customid];
+                                guildSettings.tagDescriptions.delete(customid);
                                 await guildSettings.save();
                                 modal.reply(locale.updated);
                             }).catch(() => { });

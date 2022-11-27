@@ -300,7 +300,11 @@ process.on("unhandledRejection", (error: Error) => {
 });
 
 setInterval(async () => {
-	updateStats(await client.guilds.fetch("962861680226865193"), client);
+	client.guildSettings.find({}).then((settings) => {
+		settings.forEach(async (setting) => {
+			updateStats(await client.guilds.fetch(setting.guildId), client);
+		})
+	})
 }, 15000);
 client.login(token);
 deploy(client);

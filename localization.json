@@ -366,7 +366,8 @@
                     "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
-                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag",
+                    "statChannels": "Statistic Channels"
                 },
                 "reactroles": {
                     "noReactRole": "No react role set!",
@@ -1411,7 +1412,8 @@
                     "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
-                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag",
+                    "statChannels": "Statistic Channels"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",
@@ -1936,7 +1938,8 @@
                     "value": "Value",
                     "tagTextInputPlaceHolder": "The tag name you want to mess with",
                     "customIdTextInputPlaceHolder": "The tag custom id you want to mess with",
-                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag"
+                    "valueTextInputPlaceHolder": "The thing i send when someone asks me to send this tag",
+                    "statChannels": "Statistic Channels"
                 },
                 "reactroles": {
                     "noTextChannel": "You must specify a text channel!",

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from "discord.js";
+import { Settings } from "../../localization";
 import { SlashCommand } from "../../Util/types";
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
     async execute(interaction, client, footers) {
         await interaction.deferReply()
         let guildSetting = await client.guildSettings.findOne({ guildId: interaction.guild!.id });
-        const locale = client.getLocale(interaction, "commands.moderation.settings");
+        const locale = client.getLocale(interaction, "commands.moderation.settings") as Settings;
         if (!guildSetting) {
             guildSetting = new client.guildSettings({
                 guildId: interaction.guildId
@@ -20,6 +21,11 @@ module.exports = {
         }
         if (!guildSetting) return
         const guildSettings = guildSetting;
+        const tags = guildSettings.tagDescriptions.keys();
+        const tagsProcessed = []
+        for (const tag of tags) {
+            tagsProcessed.push(`${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`);
+        }
         const embed = new MessageEmbed()
             .setTitle(client.getLocale(interaction, "commands.moderation.settings.settings", interaction.guild!.name))
             .addFields({
@@ -30,14 +36,13 @@ module.exports = {
                 name: locale.tags,
                 value:
                     `**${locale.tags}**: ${guildSettings.tags.map((tag: { name: String, value: String }) => `${tag.name}: ${tag.value}`).join("\n")}
-                **${locale.tagDescriptions}**: ${Object.keys(guildSettings.tagDescriptions).map(tag => `${tag}: ${guildSettings.tagDescriptions[tag as keyof typeof guildSettings.tagDescriptions]}`).join("\n")
-                    } `
+                **${locale.tagDescriptions}**: ${tagsProcessed.join("\n")}`
             }, {
                 name: "Misc",
-                value: `**${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel!)}
-                **${locale.ghostPing}**: ${guildSettings.ghostPing || true}
-                ** ${locale.statChannels}**: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}
-                `})
+                value: `** ${locale.suggestionChannel}**: ${interaction.guild!.channels.cache.get(guildSettings.suggestionChannel!)}
+                ** ${locale.ghostPing}**: ${guildSettings.ghostPing || true}
+                ** ${locale.statChannels}**: ${guildSettings.statChannels.map(statChannel => interaction.guild!.channels.cache.get(statChannel.channel)?.toString()).join(", ")}`
+            })
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });
 
         const actionRow = new MessageActionRow()

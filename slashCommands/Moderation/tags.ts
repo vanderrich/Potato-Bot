@@ -57,12 +57,12 @@ module.exports = {
         } else {
             if (action === "add") {
                 if (!guildSettings.tags) guildSettings.tags = [];
-                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = {};
+                if (!guildSettings.tagDescriptions) guildSettings.tagDescriptions = new Map;
                 guildSettings.tags.push({ name: tag, value: customid });
-                guildSettings.tagDescriptions = { [customid]: value! };
+                guildSettings.tagDescriptions.set(customid, value!);
             } else if (action === "remove") {
                 guildSettings.tags = guildSettings.tags.filter((t: any) => t.name !== tag && t.value !== customid);
-                delete guildSettings.tagDescriptions[customid];
+                guildSettings.tagDescriptions.delete(customid);
             }
             guildSettings.save();
             interaction.reply(`Successfully ${action == "add" ? "added" : "removed"} the tag **${tag}** with the custom id **${customid}** ${action == "add" ? `and value **${value}**` : ''} `);

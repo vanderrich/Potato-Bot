@@ -82,7 +82,7 @@ export interface Moderation2 {
     asciify: Asciify;
     modActions: ModActions;
     createGiveaway: CreateGiveaway;
-    settings: Settings;
+    settings: Settings2;
     reactroles: Reactroles2;
     createticket: Createticket;
 }
@@ -96,6 +96,43 @@ export interface Reactroles2 {
     noRole: string;
     removeSuccess: string;
     addSuccess: string;
+}
+
+export interface Settings2 {
+    badWords: string;
+    badWordsSpoilers: string;
+    welcome: string;
+    welcomeChannel: string;
+    welcomeMessage: string;
+    welcomeRole: string;
+    tags: string;
+    tagDescriptions: string;
+    misc: string;
+    suggestionChannel: string;
+    ghostPing: string;
+    badWordPresetNames: BadWordPresetNames;
+    customBadWords: string;
+    badWordsTextInputPlaceHolder: string;
+    updated: string;
+    welcomeSettings: string;
+    welcomeMessageTextInputPlaceHolder: string;
+    welcomeChannelTextInputPlaceHolder: string;
+    welcomeRoleTextInputPlaceHolder: string;
+    invalidChannel: string;
+    invalidRole: string;
+    miscSettings: string;
+    suggestionChannelTextInputPlaceHolder: string;
+    ghostPingTextInputPlaceHolder: string;
+    yes: string[];
+    settings: string;
+    addTag: string;
+    removeTag: string;
+    tag: string;
+    customid: string;
+    value: string;
+    tagTextInputPlaceHolder: string;
+    customIdTextInputPlaceHolder: string;
+    valueTextInputPlaceHolder: string;
 }
 
 export interface Currency2 {
@@ -302,6 +339,7 @@ export interface Settings {
     tagTextInputPlaceHolder: string;
     customIdTextInputPlaceHolder: string;
     valueTextInputPlaceHolder: string;
+    statChannels: string;
 }
 
 export interface BadWordPresetNames {

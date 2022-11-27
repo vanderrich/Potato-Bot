@@ -31,9 +31,7 @@ export interface GuildSettings extends Document {
     welcomeChannel?: string,
     welcomeRole?: string,
     tags: { name: string, value: string }[],
-    tagDescriptions: {
-        [key: string]: string;
-    },
+    tagDescriptions: Map<string, string>,
     suggestionChannel?: string,
     ghostPing: boolean,
     statChannels: {
