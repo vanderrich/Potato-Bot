@@ -1,20 +1,21 @@
+import axios from 'axios';
 import { MessageEmbed } from 'discord.js';
-import fetch from "node-fetch";
 import { v4 as uuidv4 } from 'uuid';
 import { Client } from "../Util/types";
 
 export default async (error: Error, client: Client) => {
     console.error(error);
     const id = uuidv4();
-    await fetch('https://potato-bot.deno.dev/api/error', {
-        body: JSON.stringify({
-            name: 'Error',
-            id,
-            type: "Unknown",
-            error: error.toString(),
-            stack: error.stack,
-        }),
-        headers: { Authorization: process.env.SUPER_SECRET_KEY! }
+    await axios.post('https://potato-bot.deno.dev/api/error', {
+        name: 'Error',
+        id,
+        type: "Unknown",
+        error: error.toString(),
+        stack: error.stack,
+    }, {
+        headers: {
+            Authorization: process.env.SUPER_SECRET_KEY!
+        }
     })
     const logChannel = client.guilds.cache.get("962861680226865193")?.channels.cache.get("979662019202527272")
     if (!logChannel || !logChannel.isText()) return;
