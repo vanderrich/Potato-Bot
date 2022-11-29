@@ -281,7 +281,7 @@ setInterval(async () => {
 	client.guildSettings.find({}).then((settings) => {
 		settings.forEach(async (setting) => {
 			try {
-				updateStats(await client.guilds.fetch(setting.guildId), client);
+				updateStats(client.guilds.cache.get(setting.guildId)!, client);
 			} catch { }
 		})
 	})
