@@ -280,9 +280,8 @@ process.on("unhandledRejection", (error: Error) => {
 setInterval(async () => {
 	client.guildSettings.find({}).then((settings) => {
 		settings.forEach(async (setting) => {
-			try {
-				updateStats(client.guilds.cache.get(setting.guildId)!, client);
-			} catch { }
+			const guild = client.guilds.cache.get(setting.guildId);
+			if (guild) updateStats(guild, client);
 		})
 	})
 }, 15000);
