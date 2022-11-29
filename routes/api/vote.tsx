@@ -5,6 +5,7 @@ import "dotenv";
 export const handler = {
     POST(req: Request, ctx: HandlerContext) {
         const body = new URL(req.url).searchParams;
+        console.log(body)
         if (req.headers.get("authorization") !== Deno.env.get("SUPER_SECRET_KEY")) return new Response("Unauthorized", { status: 401 });
 
         newVotes.push({

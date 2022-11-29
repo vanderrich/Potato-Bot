@@ -31,20 +31,6 @@ export default function Status(props: PageProps) {
                 <h1 class={tw`text-5xl pb-3`}>Status</h1>
                 <p>Status: {status}</p>
                 <p>Uptime: {status} for {uptimeFormatted}</p>
-                <p>Heroku Status: {props.data.herokuStatus instanceof String ? props.data.herokuStatus : props.data.herokuStatus.status.map((status: { system: string, status: string }) => {
-                    return (<li>
-                        {status.system}: {status.status}
-                    </li>)
-                })}Incidents: <ul>
-                        {
-                            props.data.herokuStatus.incidents.map((incident: { id: string, title: string }) => {
-                                return (<li>
-                                    <a href={`https://status.heroku.com/incidents/${incident.id}`} target="_blank">{incident.title}</a>
-                                </li>)
-                            })
-                        }
-                    </ul>
-                </p>
                 <h3 class={tw`text-3xl`}>Latest Errors</h3>
                 <ul>
                     <div>
