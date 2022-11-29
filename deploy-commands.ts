@@ -5,10 +5,9 @@ import { Client } from 'discord.js';
 import { config } from "dotenv";
 config();
 
-const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
 
-export const deploy = async (client: Client) => {
+export const deploy = async (token: string) => {
     if (!token || !clientId) return console.error("No token found");
     const commands: Array<string> = [];
     const slashCommandFolders = fs.readdirSync('./slashCommands');
