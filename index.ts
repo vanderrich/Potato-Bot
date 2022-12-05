@@ -17,7 +17,7 @@ const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
 
 const client = new Discord.Client({
-	intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_VOICE_STATES"],
+	intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES],
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER"],
 }) as Types.Client;
 
