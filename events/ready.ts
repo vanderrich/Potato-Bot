@@ -10,7 +10,6 @@ config()
 module.exports = {
     name: 'ready',
     async execute(client: Client) {
-        console.info('Ready!')
         if (process.env.CLIENT_ID == "894060283373449317")
             setupSubscriptionsTwitter(client)
         client.user?.setActivity(`${client.guilds.cache.size} servers`, { type: 'WATCHING' })
@@ -32,6 +31,7 @@ module.exports = {
                 })
         }, 15000)
         await postStats(client);
+        console.info('Ready!')
     }
 } as Event;
 
