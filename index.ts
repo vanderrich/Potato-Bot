@@ -11,8 +11,10 @@ import * as Types from './Util/types';
 import throwError from './Util/error';
 config();
 
-if (!(process.env.DISCORD_TOKEN && process.env.MONGO_URI && process.env.SUPER_SECRET_KEY)) process.exit(1)
-
+if (!(process.env.DISCORD_TOKEN && process.env.MONGO_URI && process.env.SUPER_SECRET_KEY)) {
+	console.error("Required environment variables not found")
+	process.exit(1)
+}
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
 
