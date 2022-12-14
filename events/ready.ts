@@ -7,7 +7,7 @@ import error from "../Util/error";
 import { config } from "dotenv";
 config()
 
-export default {
+module.exports = {
     name: 'ready',
     async execute(client: Client) {
         if (process.env.CLIENT_ID == "894060283373449317")
