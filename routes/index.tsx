@@ -1,13 +1,30 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
-import TopNav from "../islands/TopNav.tsx"
+import TopNav from "../islands/TopNav.tsx";
+import { HandlerContext, PageProps } from "$fresh/server.ts"
+import { getCookies } from "cookie";
+import { getUserData } from "../static/discordapistuff.ts"
+import { GetDiscordTokens } from "../static/apistuff.ts";
+import { APIUser } from "discord-api-types";
 
-export default function Home() {
+export const handler = async (req: Request, ctx: HandlerContext) => {
+    const userId = getCookies(req.headers)['userId']
+    if (userId) {
+        const tokens = GetDiscordTokens(userId)
+        const data = await getUserData(tokens!)
+        return ctx.render(data.user)
+    } else {
+        return ctx.render()
+    }
+}
+
+export default function Home({ data }: PageProps<APIUser | undefined>) {
     const feature = tw`inline-block p-12`;
+    console.log(data)
     return (
         <div class={tw`bg-background`}>
-            <TopNav />
+            <TopNav user={data} />
             <main>
                 <div class={tw`relative`}>
                     <div class={tw`float-left`}>

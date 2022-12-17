@@ -4,19 +4,26 @@ import { tw } from "@twind";
 import TopNav from "../islands/TopNav.tsx";
 import { apiStuff } from "../static/apistuff.ts"
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { getCookies } from "cookie";
+import { getUserData } from "../static/discordapistuff.ts"
+import { GetDiscordTokens } from "../static/apistuff.ts";
+import { APIUser } from "discord-api-types";
 const { errors, uptime, online } = apiStuff;
 
 export const handler: Handlers = {
-    async GET(_req, ctx) {
+    async GET(req, ctx) {
         const discordStatusResponse = await fetch("https://discordstatus.com/api/v2/summary.json");
         const herokuStatusResponse = await fetch("https://status.heroku.com/api/v4/current-status");
         const discordStatus = discordStatusResponse.status == 200 ? await discordStatusResponse.json() : "Error while fetching status from discord";
         const herokuStatus = herokuStatusResponse.status == 200 ? await herokuStatusResponse.json() : "Error while fetching status from heroku";
-        return ctx.render({ discordStatus, herokuStatus });
+        const userId = getCookies(req.headers)['userId']
+        const tokens = GetDiscordTokens(userId)
+        const data = await getUserData(tokens!)
+        return ctx.render({ discordStatus, herokuStatus, user: data.user });
     },
 };
 
-export default function Status(props: PageProps) {
+export default function Status(props: PageProps<{ user: APIUser }>) {
     const status = online ? "Online" : "Offline";
     const ms_num = uptime;
     const days = Math.floor(ms_num / (1000 * 60 * 60 * 24));
@@ -26,7 +33,7 @@ export default function Status(props: PageProps) {
     console.log({ uptime, uptimeFormatted, days, hours, minutes });
     return (
         <div class={tw`bg-background h-screen`}>
-            <TopNav />
+            <TopNav user={props.data.user} />
             <main class={tw`pl-2`}>
                 <h1 class={tw`text-5xl pb-3`}>Status</h1>
                 <p>Status: {status}</p>

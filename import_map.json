@@ -9,6 +9,8 @@
         "twind/": "https://esm.sh/twind@0.16.17/",
         "dotenv": "https://deno.land/x/dotenv@v3.2.0/load.ts",
         "mongo": "https://deno.land/x/mongo@v0.30.1/mod.ts",
-        "tailwind-config": "./twind.config.ts"
+        "tailwind-config": "./twind.config.ts",
+        "cookie": "https://deno.land/std@0.161.0/http/mod.ts",
+        "discord-api-types": "https://deno.land/x/discord_api_types@0.37.18/v10.ts"
     }
 }

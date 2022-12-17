@@ -2,7 +2,7 @@ export default {
     darkMode: "class",
     mode: "silent",
     preflight: {
-        '@import': "url('https://fonts.googleapis.com/css2?family=Lato&display=swap');"
+        '@import': "url('https://fonts.googleapis.com/css2?family=Lato&display=swap');",
     },
     theme: {
         colors: {
