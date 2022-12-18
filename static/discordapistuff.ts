@@ -49,7 +49,7 @@ export async function getOAuthTokens(code: string) {
  * token.  Check if the access token has expired, and if it has, use the
  * refresh token to acquire a new, fresh access token.
  */
-export async function getAccessToken(userId: string, tokens: APIStuff.Tokens) {
+export async function getAccessToken(tokens: APIStuff.Tokens) {
     if (Date.now() > tokens.expires_at) {
         const url = 'https://discord.com/api/v10/oauth2/token';
         const body = new URLSearchParams({
@@ -68,7 +68,6 @@ export async function getAccessToken(userId: string, tokens: APIStuff.Tokens) {
         if (response.ok) {
             const tokens = await response.json();
             tokens.expires_at = Date.now() + tokens.expires_in * 1000;
-            await APIStuff.StoreDiscordTokens(userId, tokens);
             return tokens.access_token;
         } else {
             throw new Error(`Error refreshing access token: [${response.status}] ${response.statusText}`);
@@ -99,10 +98,10 @@ export async function getUserData(tokens: APIStuff.Tokens): Promise<RESTGetAPIOA
  * Given metadata that matches the schema, push that data to Discord on behalf
  * of the current user.
  */
-export async function pushMetadata(userId: string, tokens: APIStuff.Tokens, metadata: any) {
+export async function pushMetadata(tokens: APIStuff.Tokens, metadata: any) {
     // GET/PUT /users/@me/applications/:id/role-connection
     const url = `https://discord.com/api/v10/users/@me/applications/${config.CLIENT_ID}/role-connection`;
-    const accessToken = await getAccessToken(userId, tokens);
+    const accessToken = await getAccessToken(tokens);
     const body = {
         platform_name: 'Example Linked Role Discord Bot',
         metadata,
@@ -124,10 +123,10 @@ export async function pushMetadata(userId: string, tokens: APIStuff.Tokens, meta
  * Fetch the metadata currently pushed to Discord for the currently logged
  * in user, for this specific bot.
  */
-export async function getMetadata(userId: string, tokens: APIStuff.Tokens) {
+export async function getMetadata(tokens: APIStuff.Tokens) {
     // GET/PUT /users/@me/applications/:id/role-connection
     const url = `https://discord.com/api/v10/users/@me/applications/${config.CLIENT_ID}/role-connection`;
-    const accessToken = await getAccessToken(userId, tokens);
+    const accessToken = await getAccessToken(tokens);
     const response = await fetch(url, {
         headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -141,10 +140,7 @@ export async function getMetadata(userId: string, tokens: APIStuff.Tokens) {
     }
 }
 
-export async function updateMetadata(userId: string) {
-    // Fetch the Discord tokens from storage
-    const tokens = await APIStuff.GetDiscordTokens(userId);
-
+export async function updateMetadata(tokens: APIStuff.Tokens) {
     let metadata = {};
     try {
         // Fetch the new metadata you want to use from an external source. 
@@ -164,15 +160,14 @@ export async function updateMetadata(userId: string) {
     }
 
     // Push the data to Discord.
-    await pushMetadata(userId, tokens!, metadata);
+    await pushMetadata(tokens!, metadata);
 }
 
-export async function revokeAccess(userId: string) {
+export async function revokeAccess(tokens: APIStuff.Tokens) {
     const url = 'https://discord.com/api/oauth2/token/revoke';
-    const tokens = await APIStuff.GetDiscordTokens(userId);
 
     // push empty Metadata to Discord to null out the verified role
-    await pushMetadata(userId, tokens!, {});
+    await pushMetadata(tokens, {});
 
     // revoke the refresh token
     await fetch(url,
@@ -188,7 +183,4 @@ export async function revokeAccess(userId: string) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
-
-    // remove the tokens from storage
-    await APIStuff.DeleteDiscordTokens(userId);
 }

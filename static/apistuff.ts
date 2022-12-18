@@ -25,9 +25,13 @@ export interface APIStuff {
     votes: Vote[];
     online: boolean;
     uptime: number;
-    tokens: { userId: string, tokens: Tokens }[];
     // keeping track thing idk
     e: 69;
+}
+
+export interface AuthData {
+    userId: string,
+    tokens: Tokens
 }
 
 export interface Tokens {
@@ -40,7 +44,7 @@ const api = client.database("api");
 const apiStuffs = api.collection<APIStuff>("apistuff");
 let apiStuffe = await apiStuffs.findOne({ e: 69 });
 if (!apiStuffe) {
-    apiStuffs.insertOne({ errors: [], votes: [], online: false, uptime: 0, e: 69, tokens: [] });
+    apiStuffs.insertOne({ errors: [], votes: [], online: false, uptime: 0, e: 69 });
     apiStuffe = await apiStuffs.findOne({ e: 69 }) as APIStuff;
 }
 
@@ -77,16 +81,10 @@ export const CreateError = (error: Error) => {
     apiStuffs.updateOne({ e: 69 }, { $set: apiStuff });
 }
 
-export const StoreDiscordTokens = (userId: string, tokens: Tokens) => {
-    if (apiStuff.tokens == {}) apiStuff.tokens = []
-    apiStuff.tokens.push({ userId, tokens });
-    apiStuffs.updateOne({ e: 69 }, { $set: apiStuff });
+export const ParseAuthData = (unparsedAuthData: string): AuthData => {
+    return JSON.parse(unparsedAuthData.replace(/%22/g, '"').replace(/%2C/g, ",").replace(/\+/g, " "))
 }
 
-export const GetDiscordTokens = (userId: string): Tokens | undefined => {
-    return apiStuff.tokens.find((tokens) => tokens.userId == userId)?.tokens;
-}
-
-export const DeleteDiscordTokens = (userId: string) => {
-    apiStuff.tokens.filter((tokens) => tokens.userId != userId)
+export const PercentageParseAuthData = (authData: AuthData): string => {
+    return JSON.stringify(authData).replace(/"/g, '%22').replace(/,/g, "%2C").replace(/ /g, "+")
 }

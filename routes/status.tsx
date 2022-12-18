@@ -2,11 +2,10 @@
 import { h } from "preact";
 import { tw } from "@twind";
 import TopNav from "../islands/TopNav.tsx";
-import { apiStuff } from "../static/apistuff.ts"
+import { apiStuff, AuthData } from "../static/apistuff.ts"
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "cookie";
 import { getUserData } from "../static/discordapistuff.ts"
-import { GetDiscordTokens } from "../static/apistuff.ts";
 import { APIUser } from "discord-api-types";
 const { errors, uptime, online } = apiStuff;
 
@@ -16,9 +15,8 @@ export const handler: Handlers = {
         const herokuStatusResponse = await fetch("https://status.heroku.com/api/v4/current-status");
         const discordStatus = discordStatusResponse.status == 200 ? await discordStatusResponse.json() : "Error while fetching status from discord";
         const herokuStatus = herokuStatusResponse.status == 200 ? await herokuStatusResponse.json() : "Error while fetching status from heroku";
-        const userId = getCookies(req.headers)['userId']
-        const tokens = GetDiscordTokens(userId)
-        const data = await getUserData(tokens!)
+        const authData: AuthData = JSON.parse(getCookies(req.headers)['authData'])
+        const data = await getUserData(authData.tokens)
         return ctx.render({ discordStatus, herokuStatus, user: data.user });
     },
 };

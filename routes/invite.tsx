@@ -1,10 +1,19 @@
 /** @jsx h */
-import { h } from "preact";
+import { HandlerContext } from "$fresh/server.ts";
 import { tw } from "@twind";
-import TopNav from "../islands/TopNav.tsx"
+import { getCookies } from "cookie";
+import { h } from "preact";
+import TopNav from "../islands/TopNav.tsx";
+import { AuthData } from "../static/apistuff.ts";
+import { getUserData } from "../static/discordapistuff.ts";
+
+export const handler = async (req: Request, ctx: HandlerContext) => {
+    const authData: AuthData = JSON.parse(getCookies(req.headers)['authData'])
+    const data = await getUserData(authData.tokens)
+    return ctx.render(data.user)
+}
 
 export default function Invite() {
-
     return (
         <div class={tw`bg-background`}>
             <TopNav />

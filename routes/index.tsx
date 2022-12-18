@@ -1,22 +1,20 @@
 /** @jsx h */
-import { h } from "preact";
+import { HandlerContext, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import TopNav from "../islands/TopNav.tsx";
-import { HandlerContext, PageProps } from "$fresh/server.ts"
 import { getCookies } from "cookie";
-import { getUserData } from "../static/discordapistuff.ts"
-import { GetDiscordTokens } from "../static/apistuff.ts";
 import { APIUser } from "discord-api-types";
+import { h } from "preact";
+import TopNav from "../islands/TopNav.tsx";
+import { ParseAuthData } from "../static/apistuff.ts";
+import { getUserData } from "../static/discordapistuff.ts";
 
 export const handler = async (req: Request, ctx: HandlerContext) => {
-    const userId = getCookies(req.headers)['userId']
-    if (userId) {
-        const tokens = GetDiscordTokens(userId)
-        const data = await getUserData(tokens!)
+    const unparsedAuthData = getCookies(req.headers)['authData']
+    if (unparsedAuthData) {
+        const authData = ParseAuthData(unparsedAuthData)
+        const data = await getUserData(authData.tokens)
         return ctx.render(data.user)
-    } else {
-        return ctx.render()
-    }
+    } else return ctx.render()
 }
 
 export default function Home({ data }: PageProps<APIUser | undefined>) {
