@@ -14,7 +14,11 @@ export default {
             "features-bg": '#ae5a4b',
 
             "code-bg": '#2F3136',
-            "code-text-color": "#A0A2A5"
+            "code-text-color": "#A0A2A5",
+
+            "green": "#00FF00",
+            "yellow": "FFFF00",
+            "red": "FF0000"
         },
         fontSize: {
             "1xl": ["1rem", "1.5"],
