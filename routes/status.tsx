@@ -1,12 +1,12 @@
 /** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
-import TopNav from "../islands/TopNav.tsx";
-import { apiStuff, AuthData } from "../static/apistuff.ts"
 import { Handlers, PageProps } from "$fresh/server.ts";
+import { tw } from "@twind";
 import { getCookies } from "cookie";
-import { getUserData } from "../static/discordapistuff.ts"
 import { APIUser } from "discord-api-types";
+import { h } from "preact";
+import TopNav from "../islands/TopNav.tsx";
+import { ParseAuthData, apiStuff } from "../static/apistuff.ts";
+import { getUserData } from "../static/discordapistuff.ts";
 const { errors, uptime, online } = apiStuff;
 
 export const handler: Handlers = {
@@ -15,9 +15,12 @@ export const handler: Handlers = {
         const herokuStatusResponse = await fetch("https://status.heroku.com/api/v4/current-status");
         const discordStatus = discordStatusResponse.status == 200 ? await discordStatusResponse.json() : "Error while fetching status from discord";
         const herokuStatus = herokuStatusResponse.status == 200 ? await herokuStatusResponse.json() : "Error while fetching status from heroku";
-        const authData: AuthData = JSON.parse(getCookies(req.headers)['authData'])
-        const data = await getUserData(authData.tokens)
-        return ctx.render({ discordStatus, herokuStatus, user: data.user });
+        const unparsedAuthData = getCookies(req.headers)['authData']
+        if (unparsedAuthData) {
+            const authData = ParseAuthData(unparsedAuthData)
+            const data = await getUserData(authData.tokens)
+            return ctx.render({ discordStatus, herokuStatus, user: data.user })
+        } else return ctx.render({ discordStatus, herokuStatus })
     },
 };
 

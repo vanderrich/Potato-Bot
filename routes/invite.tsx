@@ -4,13 +4,16 @@ import { tw } from "@twind";
 import { getCookies } from "cookie";
 import { h } from "preact";
 import TopNav from "../islands/TopNav.tsx";
-import { AuthData } from "../static/apistuff.ts";
+import { ParseAuthData } from "../static/apistuff.ts";
 import { getUserData } from "../static/discordapistuff.ts";
 
 export const handler = async (req: Request, ctx: HandlerContext) => {
-    const authData: AuthData = JSON.parse(getCookies(req.headers)['authData'])
-    const data = await getUserData(authData.tokens)
-    return ctx.render(data.user)
+    const unparsedAuthData = getCookies(req.headers)['authData']
+    if (unparsedAuthData) {
+        const authData = ParseAuthData(unparsedAuthData)
+        const data = await getUserData(authData.tokens)
+        return ctx.render(data.user)
+    } else return ctx.render()
 }
 
 export default function Invite() {

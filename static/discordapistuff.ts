@@ -1,5 +1,5 @@
+import { RESTGetAPIOAuth2CurrentAuthorizationResult } from "discord-api-types";
 import * as APIStuff from "./apistuff.ts";
-import { RESTGetAPIOAuth2CurrentAuthorizationResult } from "discord-api-types"
 const config = Deno.env.toObject();
 
 export function getOAuthUrl() {

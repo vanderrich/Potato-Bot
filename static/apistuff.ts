@@ -1,5 +1,5 @@
-import { MongoClient } from "mongo";
 import "dotenv";
+import { MongoClient } from "mongo";
 const client = new MongoClient();
 await client.connect(Deno.env.get("MONGO_URI")!);
 
