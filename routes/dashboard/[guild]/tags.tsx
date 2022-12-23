@@ -17,14 +17,13 @@ export const handler: Handlers = {
         const formData = url.searchParams
         if (formData.get("submitted")) {
             const guildSettings = (await APIStuff.guildSettings.findOne({ guildId: guildId }))!
-            guildSettings.tags.push({ name: formData.get("name")!, value: formData.get("id")! })
-            guildSettings.tagDescriptions[formData.get("id")!] = formData.get("description")!
-            await APIStuff.guildSettings.updateOne({ $match: { guildId: guildId } }, {
+            await APIStuff.guildSettings.updateOne({ guildId: guildId }, {
                 $set: {
-                    tags: guildSettings.tags,
-                    tagDescriptions: guildSettings.tagDescriptions
+                    tags: guildSettings.tags.concat([{ name: formData.get("name")!, value: formData.get("id")! }]),
+                    [`tagDescriptions.${formData.get("id")!}`]: formData.get("description")!
                 }
             })
+            console.log(guildSettings)
         }
         const unparsedAuthData = getCookies(req.headers)['authData']
         const authData = APIStuff.ParseAuthData(unparsedAuthData)
@@ -58,11 +57,13 @@ export default function Server(props: PageProps<{ guildSettings: APIStuff.GuildS
                 <th>Content</th>
             </tr>
             <tr class={tw`divide-x divide-sweet-brown`}>
-                <input type="hidden" id="submitted" name="submitted" value="true" />
-                <td><input type="text" name="name" id="name" size={10} class={tw`bg-features-bg text-macaroni-and-cheese rounded-md m-1`} /></td>
-                <td><input type="text" name="id" id="id" size={10} class={tw`bg-features-bg text-macaroni-and-cheese rounded-md m-1`} /></td>
-                <td><input type="text" name="description" id="description" class={tw`bg-features-bg text-macaroni-and-cheese rounded-md m-1 w-full`} /></td>
-                <td><input type="submit" value="+ Create new tag" class={tw`m-1 px-1 rounded bg-features-bg text-macaroni-and-cheese`} /></td>
+                <form>
+                    <input type="hidden" id="submitted" name="submitted" value="true" />
+                    <td><input type="text" name="name" id="name" size={10} class={tw`bg-features-bg text-macaroni-and-cheese rounded-md m-1`} /></td>
+                    <td><input type="text" name="id" id="id" size={10} class={tw`bg-features-bg text-macaroni-and-cheese rounded-md m-1`} /></td>
+                    <td><input type="text" name="description" id="description" class={tw`bg-features-bg text-macaroni-and-cheese rounded-md m-1 w-full`} /></td>
+                    <td><input type="submit" value="+ Create new tag" class={tw`m-1 px-1 rounded bg-features-bg text-macaroni-and-cheese`} /></td>
+                </form>
             </tr>
             {tags.map((tag) => <tr class={tw`text-macaroni-and-cheese divide-x divide-sweet-brown even:bg-features-bg`}>
                 <td>{tag.name}</td>

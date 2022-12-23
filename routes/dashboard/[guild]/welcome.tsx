@@ -15,7 +15,7 @@ export const handler: Handlers = {
         const formData = url.searchParams
         const guildId = ctx.params.guild
         if (formData.get("submitted")) {
-            await APIStuff.guildSettings.updateOne({ $match: { guildId: guildId } }, {
+            await APIStuff.guildSettings.updateOne({ guildId: guildId }, {
                 $set: {
                     welcomeMessage: formData.get("msg")!,
                     welcomeChannel: formData.get("channel")!,
@@ -54,12 +54,12 @@ export default function Server(props: PageProps<{ guildSettings: APIStuff.GuildS
                     <input class={tw`text-macaroni-and-cheese bg-features-bg`} id="msg" name="msg" value={guildSettings.welcomeMessage} /><br />
                     <label for="channel">Welcome Channel:</label><br />
                     <select class={tw`text-macaroni-and-cheese bg-features-bg`} id="channel" name="channel">
-                        <option class={tw`bg-features-bg`} selected={guildSettings.welcomeChannel ? false : 'selected'}>Select a channel</option>
+                        <option class={tw`bg-features-bg`} value="" selected={guildSettings.welcomeChannel ? false : 'selected'}>Select a channel</option>
                         {(guildData.channels.filter((channel) => channel.type === 0) as APIGuildChannel<TextChannelType>[]).sort((a, b) => a!.position! - b!.position!).map((channel) => <option class={tw`text-macaroni-and-cheese bg-features-bg`} value={channel.id} selected={guildSettings.welcomeChannel == channel.id ? 'selected' : false}>{channel.name}</option>)}
                     </select><br />
                     <label for="role">Welcome Role:</label><br />
                     <select class={tw`text-macaroni-and-cheese bg-features-bg`} id="role" name="role">
-                        <option class={tw`bg-features-bg`} selected={guildSettings.welcomeRole ? false : 'selected'}>Select a role</option>
+                        <option class={tw`bg-features-bg`} value="" selected={guildSettings.welcomeRole ? false : 'selected'}>Select a role</option>
                         {guildData.roles.sort((a, b) => b.position - a.position).map((role) => <option class={tw`text-macaroni-and-cheese bg-features-bg`} value={role.id} selected={guildSettings.welcomeRole == role.id ? 'selected' : false}>{role.name}</option>)}
                     </select><br />
                     <input type="submit" value="Save" class={tw`bg-features-bg text-macaroni-and-cheese cursor-pointer`} />

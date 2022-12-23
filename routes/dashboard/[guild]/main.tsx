@@ -15,11 +15,14 @@ export const handler: Handlers = {
         const url = new URL(req.url);
         const formData = url.searchParams
         if (formData.get("submitted")) {
-            await APIStuff.guildSettings.updateOne({ $match: { guildId: guildId } }, {
+            const ghostPing = formData.get("ghostping") == "true" ? true : false
+            console.log(ghostPing)
+            await APIStuff.guildSettings.updateOne({ guildId: guildId }, {
                 $set: {
-                    ghostPing: formData.get("ghostping") == "true" ? true : false
+                    ghostPing
                 }
             })
+            return Response.redirect(req.url.split("?")[0])
         }
         const unparsedAuthData = getCookies(req.headers)['authData']
         const authData = APIStuff.ParseAuthData(unparsedAuthData)
