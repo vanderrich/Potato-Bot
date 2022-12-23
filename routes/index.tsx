@@ -21,7 +21,7 @@ export default function Home({ data }: PageProps<APIUser | undefined>) {
     const feature = tw`inline-block p-12`;
     console.log(data)
     return (
-        <div class={tw`bg-background`}>
+        <body class={tw`bg-background`}>
             <TopNav user={data} />
             <main>
                 <div class={tw`relative`}>
@@ -71,6 +71,6 @@ export default function Home({ data }: PageProps<APIUser | undefined>) {
                     </div>
                 </div>
             </main>
-        </div>
+        </body>
     );
 }

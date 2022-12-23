@@ -17,8 +17,11 @@ export default {
             "code-text-color": "#A0A2A5",
 
             "green": "#00FF00",
-            "yellow": "FFFF00",
-            "red": "FF0000"
+            "yellow": "#FFFF00",
+            "red": "#FF0000",
+
+            "default-guild-text": "#FFFFFF",
+            "default-guild": "#141516"
         },
         fontSize: {
             "1xl": ["1rem", "1.5"],

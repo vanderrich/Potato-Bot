@@ -1,9 +1,9 @@
 /** @jsx h */
+import { Head } from "$fresh/runtime.ts";
 import { tw } from "@twind";
 import { APIUser } from "discord-api-types";
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import { Head } from "$fresh/runtime.ts";
 
 export default function TopNav({ user }: { user?: APIUser }) {
     const [menu, menuClicked] = useState(false)
@@ -15,6 +15,7 @@ export default function TopNav({ user }: { user?: APIUser }) {
     return (
         <div>
             <Head>
+                <link rel="stylesheet" href="../static/main.css" />
                 <script src="https://kit.fontawesome.com/4495e5dfc6.js" crossOrigin="anonymous"></script>
             </Head>
             <header>
@@ -31,7 +32,7 @@ export default function TopNav({ user }: { user?: APIUser }) {
                         <div>
                             {user ?
                                 <div>
-                                    <div onClick={() => uMenuClicked(!userMenu)} class={tw`m-1.5 flex border rounded-full border-macaroni-and-cheese ${userMenu ? '' : 'hover:'}bg-features-bg p-1`}>
+                                    <div onClick={() => uMenuClicked(!userMenu)} class={tw`m-1.5 flex border rounded-full border-macaroni-and-cheese` + ` ${userMenu ? '' : 'hover:'}bg-features-bg p-1`}>
                                         <img width="25" class={tw`rounded`} src={user?.avatar ? user?.avatar?.startsWith('a_') ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.gif` : `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user?.discriminator}.png`} />
                                         <div class={textWImg}>{user?.username}
                                             <i width="10" class={`fa-solid fa-caret-${userMenu ? 'up' : 'down'} ${tw`ml-2`}`} /></div>
@@ -45,6 +46,14 @@ export default function TopNav({ user }: { user?: APIUser }) {
                         <a href="/status"
                             class={topNav}>
                             Status
+                        </a>
+                        <a href="/vote"
+                            class={topNav}>
+                            Vote
+                        </a>
+                        <a href="/dashboard"
+                            class={topNav}>
+                            Dashboard
                         </a>
                         <a href="/invite"
                             class={topNav}>
@@ -86,6 +95,18 @@ export default function TopNav({ user }: { user?: APIUser }) {
                         </a>
                     </li>
                     <li>
+                        <a href="/vote"
+                            class={topNavNoPad}>
+                            Vote
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard"
+                            class={topNavNoPad}>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
                         <a href="/invite"
                             class={topNavNoPad}>
                             Invite
@@ -105,6 +126,6 @@ export default function TopNav({ user }: { user?: APIUser }) {
                     </li>
                 </ul>
             </header >
-        </div>
+        </div >
     )
 }

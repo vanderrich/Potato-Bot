@@ -1,9 +1,9 @@
 /** @jsx h */
+import { Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import { getCookies } from "cookie";
 import { APIUser } from "discord-api-types";
-import { Head } from "$fresh/runtime.ts";
 import { h } from "preact";
 import TopNav from "../islands/TopNav.tsx";
 import { ParseAuthData, apiStuff } from "../static/apistuff.ts";
@@ -33,7 +33,7 @@ export default function Status(props: PageProps<{ user?: APIUser, discordStatus:
     const uptimeFormatted = `${days} days, ${hours} hours, ${minutes} minutes`;
     console.log({ uptime, uptimeFormatted, days, hours, minutes });
     return (
-        <div class={tw`bg-background h-screen`}>
+        <body class={tw`bg-background`}>
             <Head>
                 <script src="https://kit.fontawesome.com/4495e5dfc6.js" crossOrigin="anonymous"></script>
             </Head>
@@ -58,6 +58,6 @@ export default function Status(props: PageProps<{ user?: APIUser, discordStatus:
                     </div>
                 </ul>
             </main>
-        </div >
+        </body >
     );
 }

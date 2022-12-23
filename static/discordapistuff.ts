@@ -1,4 +1,4 @@
-import { RESTGetAPIOAuth2CurrentAuthorizationResult } from "discord-api-types";
+import { APIGuild, APIGuildChannel, APIRole, RESTGetAPIOAuth2CurrentAuthorizationResult } from "discord-api-types";
 import * as APIStuff from "./apistuff.ts";
 const config = Deno.env.toObject();
 
@@ -10,7 +10,7 @@ export function getOAuthUrl() {
     url.searchParams.set('redirect_uri', config.REDIRECT_URI);
     url.searchParams.set('response_type', 'code');
     url.searchParams.set('state', state);
-    url.searchParams.set('scope', 'role_connections.write identify');
+    url.searchParams.set('scope', 'role_connections.write identify guilds');
     url.searchParams.set('prompt', 'consent');
     return { state, url: url.toString() };
 }
@@ -91,6 +91,55 @@ export async function getUserData(tokens: APIStuff.Tokens): Promise<RESTGetAPIOA
         return data;
     } else {
         throw new Error(`Error fetching user data: [${response.status}] ${response.statusText}`);
+    }
+}
+
+export async function getUserGuilds(tokens: APIStuff.Tokens): Promise<APIGuild[]> {
+    const url = 'https://discord.com/api/v10/users/@me/guilds';
+    const response = await fetch(url, {
+        headers: {
+            Authorization: `Bearer ${tokens.access_token}`,
+        },
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        return data;
+    } else {
+        throw new Error(`Error fetching user guilds: [${response.status}] ${response.statusText}`);
+    }
+
+}
+
+export async function getGuildChannels(guildId: string): Promise<APIGuildChannel<any>[]> {
+    const url = `https://discord.com/api/v10/guilds/${guildId}/channels`;
+    const response = await fetch(url, {
+        headers: {
+            Authorization: `Bot ${config.DISCORD_TOKEN}`,
+        },
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        return data;
+    } else {
+        throw new Error(`Error fetching guild channels: [${response.status}] ${response.statusText}`);
+    }
+}
+
+export async function getGuildRoles(guildId: string): Promise<APIRole[]> {
+    const url = `https://discord.com/api/v10/guilds/${guildId}/roles`;
+    const response = await fetch(url, {
+        headers: {
+            Authorization: `Bot ${config.DISCORD_TOKEN}`,
+        },
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        return data;
+    } else {
+        throw new Error(`Error fetching guild: [${response.status}] ${response.statusText}`);
     }
 }
 

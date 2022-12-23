@@ -1,15 +1,14 @@
 /** @jsx h */
-import { h } from "preact";
-import { PageProps, Handlers } from "$fresh/server.ts";
-import { apiStuff, Error as BotError } from "../../static/apistuff.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
+import { h } from "preact";
 import TopNav from "../../islands/TopNav.tsx";
-const { errors } = apiStuff;
+import { Error as BotError, apiStuff } from "../../static/apistuff.ts";
 
 export const handler: Handlers<BotError | null> = {
-    GET(_, ctx) {
+    async GET(_, ctx) {
         const errorId = ctx.params.error;
-        const error = errors.find((error) => error.id === errorId)
+        const error = await apiStuff.errors.find((error) => error.id === errorId)
         return ctx.render(error!);
     },
 };
@@ -21,7 +20,7 @@ export default function Error(props: PageProps<BotError | null>) {
     }
 
     return (
-        <div class={tw`bg-background h-screen`}>
+        <body class={tw`bg-background h-screen`}>
             <TopNav /><br /><br /><br />
             <main>
                 <h1>Error {error.id}</h1>
@@ -33,6 +32,6 @@ export default function Error(props: PageProps<BotError | null>) {
                     <pre class={tw`bg-code-bg rounded-md p-2.5`}><code class={tw`text-code-text-color bg-code-bg font-code`}>{error.stack}</code></pre>
                 </div>
             </main>
-        </div>
+        </body>
     );
 }

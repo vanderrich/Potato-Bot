@@ -9,12 +9,18 @@ import * as $3 from "./routes/api/link.tsx";
 import * as $4 from "./routes/api/status.tsx";
 import * as $5 from "./routes/api/unlink.tsx";
 import * as $6 from "./routes/api/vote.tsx";
-import * as $7 from "./routes/error/[error].tsx";
-import * as $8 from "./routes/index.tsx";
-import * as $9 from "./routes/invite.tsx";
-import * as $10 from "./routes/status.tsx";
+import * as $7 from "./routes/dashboard.tsx";
+import * as $8 from "./routes/dashboard/[guild]/main.tsx";
+import * as $9 from "./routes/dashboard/[guild]/tags.tsx";
+import * as $10 from "./routes/dashboard/[guild]/welcome.tsx";
+import * as $11 from "./routes/error/[error].tsx";
+import * as $12 from "./routes/index.tsx";
+import * as $13 from "./routes/invite.tsx";
+import * as $14 from "./routes/status.tsx";
+import * as $15 from "./routes/vote.tsx";
 import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/TopNav.tsx";
+import * as $$1 from "./islands/DashboardSideNav.tsx";
+import * as $$2 from "./islands/TopNav.tsx";
 
 const manifest = {
   routes: {
@@ -25,14 +31,20 @@ const manifest = {
     "./routes/api/status.tsx": $4,
     "./routes/api/unlink.tsx": $5,
     "./routes/api/vote.tsx": $6,
-    "./routes/error/[error].tsx": $7,
-    "./routes/index.tsx": $8,
-    "./routes/invite.tsx": $9,
-    "./routes/status.tsx": $10,
+    "./routes/dashboard.tsx": $7,
+    "./routes/dashboard/[guild]/main.tsx": $8,
+    "./routes/dashboard/[guild]/tags.tsx": $9,
+    "./routes/dashboard/[guild]/welcome.tsx": $10,
+    "./routes/error/[error].tsx": $11,
+    "./routes/index.tsx": $12,
+    "./routes/invite.tsx": $13,
+    "./routes/status.tsx": $14,
+    "./routes/vote.tsx": $15,
   },
   islands: {
     "./islands/Counter.tsx": $$0,
-    "./islands/TopNav.tsx": $$1,
+    "./islands/DashboardSideNav.tsx": $$1,
+    "./islands/TopNav.tsx": $$2,
   },
   baseUrl: import.meta.url,
 };

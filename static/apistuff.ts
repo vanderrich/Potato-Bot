@@ -40,8 +40,28 @@ export interface Tokens {
     access_token: string
 }
 
+
+export interface GuildSettings {
+    guildId: string,
+    welcomeMessage?: string,
+    welcomeChannel?: string,
+    welcomeRole?: string,
+    tags: { name: string, value: string }[],
+    tagDescriptions: { [value: string]: string },
+    suggestionChannel?: string,
+    ghostPing: boolean,
+    statChannels: {
+        type: string & "members" | "all members" | "bots" | "boosts" | "role members",
+        channel: string,
+        role?: string
+    }[],
+}
+
+
 const api = client.database("api");
 const apiStuffs = api.collection<APIStuff>("apistuff");
+const data = client.database("data");
+export const guildSettings = data.collection<GuildSettings>("guildsettings");
 let apiStuffe = await apiStuffs.findOne({ e: 69 });
 if (!apiStuffe) {
     apiStuffs.insertOne({ errors: [], votes: [], online: false, uptime: 0, e: 69 });
