@@ -3,7 +3,7 @@ import postStats from "../Util/postStats";
 import { Birthday, Client, Event } from "../Util/types";
 import fetch from "node-fetch";
 import { setupSubscriptionsTwitter } from "../Util/setupSubscriptions";
-import error from "../Util/error";
+import throwError from "../Util/error";
 import { config } from "dotenv";
 config()
 
@@ -17,7 +17,7 @@ module.exports = {
         setInterval(async () => {
             fetch('https://potato-bot.deno.dev/api/status', { method: 'POST' })
                 .catch(error => {
-                    error(error, client);
+                    throwError(error, client);
                 }).then(async (res) => {
                     if (!res) return;
                     const data = await res.json()

@@ -1,5 +1,5 @@
 import { Guild } from "discord.js";
-import error from "./error";
+import throwError from "./error";
 import { Client } from "./types";
 
 export const updateStats = async (guild: Guild, client: Client) => {
@@ -12,7 +12,7 @@ export const updateStats = async (guild: Guild, client: Client) => {
         const statChannel = await guild.channels.fetch(stat.channel);
         if (!statChannel) return console.warn("no stat channel found");
         const cantSetName = () => {
-            error(new Error(`Can't update stats for ${guild} cuz no perms`), client)
+            throwError(new Error(`Can't update stats for ${guild} cuz no perms`), client)
         }
         switch (stat.type) {
             case "all members":
