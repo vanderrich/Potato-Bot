@@ -73,7 +73,8 @@ const updateCache = () => {
 			});
 	});
 
-	client.users.cache.forEach(user => {
+	client.users.cache.forEach(async user => {
+		if (!(await client.users.fetch(user))) return
 		client.eco.getUserItems({ user: user.id })
 			.then((items: any) => {
 				const userItemsCache: Types.AutoCompleteValue[] = []
