@@ -164,7 +164,9 @@ client.guildSettings = mongoose.model('guildSettings', new mongoose.Schema<Types
 	tagDescriptions: { type: Map, of: String },
 	suggestionChannel: String,
 	ghostPing: { type: Boolean, default: true },
-	statChannels: [{ type: { type: String, enum: statChannelTypes }, channel: String, role: String }]
+	statChannels: [{ type: { type: String, enum: statChannelTypes }, channel: String, role: String }],
+	onlyimageChannels: [String],
+	autoemoteChannels: { type: [{ channel: String, emoji: String }] }
 }))
 
 client.subscriptions = mongoose.model('subscriptions', new mongoose.Schema<Types.Subscription>({

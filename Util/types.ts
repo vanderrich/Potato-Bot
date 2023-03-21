@@ -39,6 +39,8 @@ export interface GuildSettings extends Document {
         channel: string,
         role?: string
     }[],
+    onlyimageChannels: string[],
+    autoemoteChannels: { channel: string, emoji: string }[]
 }
 
 export type AutoCompleteValue = {
